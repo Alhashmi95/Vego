@@ -19,6 +19,11 @@
 
     </FrameLayout>
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarT"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize" />
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bNavigation"
         android:layout_width="match_parent"

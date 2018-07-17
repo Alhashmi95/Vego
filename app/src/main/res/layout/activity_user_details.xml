@@ -114,7 +114,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <com.jaredrummler.materialspinner.MaterialSpinner
+    <Spinner
         android:id="@+id/spinner2"
         android:layout_width="215dp"
         android:layout_height="45dp"
@@ -131,7 +131,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.768" />
 
-    <com.jaredrummler.materialspinner.MaterialSpinner
+    <Spinner
         android:id="@+id/spinner3"
         android:layout_width="215dp"
         android:layout_height="45dp"
