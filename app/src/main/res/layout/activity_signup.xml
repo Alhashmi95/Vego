@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/vegowall"
     tools:context=".SignupActivity">
 
     <LinearLayout
@@ -36,53 +37,63 @@
     <Button
         android:id="@+id/signupBtn"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:layout_marginBottom="22dp"
-        android:text="Sign-up"
-        android:layout_above="@+id/signinTxt"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="82dp"
+        android:layout_marginRight="80dp"
+        android:gravity="center"
+        android:text="Sign-up" />
 
     <EditText
         android:id="@+id/emailTxt"
         android:layout_width="match_parent"
+        android:layout_marginRight="80dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:paddingBottom="7.5dp"
+        android:paddingTop="7.5dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="138dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="141dp"
+        android:background="#cccbcb"
         android:ems="10"
+        android:gravity="center"
         android:hint="enter your email"
-        android:inputType="textPersonName"
-        android:layout_alignParentLeft="true" />
+        android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/usernameTxt"
+        android:id="@+id/confirmPasswordTxt"
         android:layout_width="match_parent"
+        android:layout_marginRight="80dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
+        android:paddingBottom="7.5dp"
+        android:paddingTop="7.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="153dp"
+        android:background="#cccbcb"
         android:ems="10"
+        android:gravity="center_horizontal"
         android:hint="enter your username"
-        android:inputType="textPersonName"
-        android:layout_alignParentLeft="true" />
+        android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="22dp"
+        android:layout_alignLeft="@+id/textView2"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/textView2"
         android:layout_marginTop="202dp"
         android:paddingRight="5dp"
-        android:text="Username"
+        android:text="password"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.259"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.241"
-        android:layout_alignLeft="@+id/textView2" />
+        app:layout_constraintVertical_bias="0.241" />
 
     <TextView
         android:id="@+id/textView2"
@@ -112,7 +123,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/textView9"
         android:layout_marginBottom="203dp"
-        android:text="password"
+        android:text="confirm password"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.261"
@@ -141,12 +152,14 @@
     <EditText
         android:id="@+id/passwordTxt"
         android:layout_width="match_parent"
+        android:layout_marginRight="80dp"
+        android:paddingBottom="7.5dp"
+        android:paddingTop="7.5dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="149dp"
+        android:layout_centerInParent="true"
+        android:background="#cccbcb"
         android:ems="10"
+        android:gravity="center_horizontal"
         android:hint="enter_password"
         android:inputType="textPassword" />
 

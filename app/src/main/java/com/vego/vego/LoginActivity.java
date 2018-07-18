@@ -1,7 +1,10 @@
 package com.vego.vego;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         setupUIViews();
 
         progressDialog = new ProgressDialog(this);
@@ -49,6 +53,9 @@ public class LoginActivity extends AppCompatActivity {
         signinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                if(emailTxt.getText().equals("") || passwordTxt.getText().equals("")){
+//                    Toast.makeText(getApplicationContext(), "kgdjgkdjfig", Toast.LENGTH_SHORT).show();
+//                }else
                 validate(emailTxt.getText().toString(), passwordTxt.getText().toString());
             }
         });
@@ -74,23 +81,29 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void validate(String username, String password){
 
+
+
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
+        if(!username.isEmpty() && !password.isEmpty()) {
+            firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        progressDialog.hide();
+                        Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginActivity.this, UserDetails.class));
 
-        firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-                    progressDialog.hide();
-                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, UserDetails.class));
+                    } else {
+                        progressDialog.hide();
+                        Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
 
-                }else{
-                    progressDialog.hide();
-                    Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
-
+                    }
                 }
-            }
-        });
+            });
+        }else {
+            passwordTxt.setError("please enter your password");
+            emailTxt.setError("please enter your email");
+        }
     }
 }

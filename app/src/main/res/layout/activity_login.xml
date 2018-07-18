@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
+    android:background="@drawable/vegowall"
     >
 
     <LinearLayout
@@ -36,25 +37,26 @@
 
     <Button
         android:id="@+id/signinBtn"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:text="sign_in"
-        android:layout_below="@+id/passwordTxt"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp" />
+        android:layout_width="170dp"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="154dp"
+        android:text="sign_in" />
 
     <EditText
         android:id="@+id/emailTxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="47dp"
+        android:layout_width="170dp"
+        android:ellipsize="start"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="184dp"
+        android:background="#cccbcb"
         android:ems="10"
-        android:hint="enter_your_email"
-        android:inputType="textPersonName" />
+        android:hint="enter your email"
+        android:inputType="textEmailAddress" />
 
     <TextView
         android:id="@+id/textView9"
@@ -94,15 +96,14 @@
 
     <TextView
         android:id="@+id/textView10"
-        android:layout_width="match_parent"
-        android:layout_height="33dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_width="117dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="35dp"
-        android:text="ayman_s_first_app"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="114dp"
+        android:text="أو"
         android:textAlignment="center"
-        android:textSize="16sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -111,16 +112,25 @@
 
     <EditText
         android:id="@+id/passwordTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/linearLayout"
-        android:layout_marginTop="14dp"
+        android:layout_width="170dp"
+        android:layout_height="36dp"
+        android:gravity="center_horizontal"
+        android:layout_alignTop="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:background="#cccbcb"
         android:ems="10"
         android:hint="enter_password"
         android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="170dp"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="47dp"
+        android:background="#fe4646"
+        android:textColor="#FFFF"
+        android:text="تسجيل الدخول بواسطة جوجل" />
 
 </RelativeLayout>
