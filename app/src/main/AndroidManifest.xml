@@ -18,9 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignupActivity" />
+        <activity android:name=".HomeActivity"
+            android:theme="@style/AppThemeNo" />
+        <activity android:name=".LoginActivity"
+            android:theme="@style/MyActionBar"/>
+        <activity android:name=".SignupActivity"
+            android:theme="@style/MyActionBar" />
         <activity
             android:name=".UserDetails"
             android:theme="@style/AppThemeNo" />

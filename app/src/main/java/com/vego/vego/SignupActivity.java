@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private EditText userName, userPassword, userEmail;
+    private EditText confirmPassword, userPassword, userEmail;
     private Button signupBtn;
     private TextView signinTxt;
     private FirebaseAuth firebaseAuth;
@@ -26,7 +26,7 @@ public class SignupActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
 
-    String email, name, password;
+    String email, confirm, password;
 
 
     @Override
@@ -81,7 +81,7 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
     private void setupUIViews(){
-        userName = (EditText)findViewById(R.id.usernameTxt);
+        confirmPassword = (EditText)findViewById(R.id.confirmPasswordTxt);
         userPassword = (EditText)findViewById(R.id.passwordTxt);
         userEmail = (EditText)findViewById(R.id.emailTxt);
         signupBtn = (Button)findViewById(R.id.signupBtn);
@@ -90,15 +90,25 @@ public class SignupActivity extends AppCompatActivity {
     private Boolean validate(){
         Boolean result = false;
 
-        name = userName.getText().toString();
+        confirm = confirmPassword.getText().toString();
         password = userPassword.getText().toString();
         email = userEmail.getText().toString();
 
 
-        if(name.isEmpty() || password.isEmpty() || email.isEmpty()){
+        if(confirm.isEmpty() || password.isEmpty() || email.isEmpty()){
             Toast.makeText(this, "Please enter all the details", Toast.LENGTH_SHORT).show();
+            userEmail.setError("enter your email");
+            userPassword.setError("enter your password");
         }else{
-            result = true;
+            if(userPassword.getText().toString().equals(confirmPassword.getText().toString())) {
+                result = true;
+            }
+            else{
+
+                Toast.makeText(this, "password doesnt match", Toast.LENGTH_SHORT).show();
+                confirmPassword.setError("password doesnt match");
+
+            }
         }
 
         return result;

@@ -2,17 +2,13 @@ package com.vego.vego;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,18 +17,14 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
-import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -244,7 +236,6 @@ public class UserDetails extends AppCompatActivity {
                                 break;
                             case 2:
                                 startActivity(new Intent(UserDetails.this, ProfileActivity.class));
-
                                 break;
                             case 3:
                                 Logout();
@@ -270,7 +261,7 @@ public class UserDetails extends AppCompatActivity {
     }
 
     private void setupUIViews() {
-        userNameTxt = (EditText) findViewById(R.id.usernameTxt);
+        userNameTxt = (EditText) findViewById(R.id.confirmPasswordTxt);
         userAge = (EditText) findViewById(R.id.ageTxt);
         userWeight = (EditText) findViewById(R.id.weightTxt);
         userHeight = (EditText) findViewById(R.id.heightTxt);
