@@ -1,15 +1,13 @@
 package com.vego.vego;
 
 import android.content.Context;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.vego.vego.model.DietDay;
 
 import java.util.List;
 
@@ -18,10 +16,10 @@ import java.util.List;
     public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder> {
 
 
-        private List<ModelDay> daysList;
+        private List<DietDay> daysList;
         private Context mContext;
 
-        public DaysAdapter(List<ModelDay> daysList, Context mContext) {
+        public DaysAdapter(List<DietDay> daysList, Context mContext) {
             this.daysList = daysList;
             this.mContext = mContext;
         }
@@ -35,9 +33,9 @@ import java.util.List;
         @Override
         public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-            final ModelDay dayList = daysList.get(position);
+            final DietDay dayList = daysList.get(position);
             holder.txtDay.setText(dayList.getDay());
-            holder.txtCals.setText(dayList.getCalories());
+            holder.txtCals.setText(dayList.getTotalCals());
             holder.txtCount.setText(dayList.getMealsCount());
 
         }

@@ -1,6 +1,5 @@
 package com.vego.vego;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.vego.vego.model.DietDay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.List;
 public class FragmentHome extends Fragment {
     private RecyclerView recyclerView;
     private DaysAdapter adapter;
-    private List<ModelDay> dayList;
+    private List<DietDay> dayList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -90,7 +91,7 @@ public class FragmentHome extends Fragment {
         //Generate sample data
 
         for (int i = 0; i<10; i++) {
-            dayList.add(new ModelDay("Item " + (i + 1), "Welcome to Torisan channel, this is description of item " + (i+1)
+            dayList.add(new DietDay("Item " + (i + 1), "Welcome to Torisan channel, this is description of item " + (i+1)
              ,"عدد الوجبات "+3
             ) );
         }

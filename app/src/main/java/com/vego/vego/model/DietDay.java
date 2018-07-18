@@ -1,11 +1,11 @@
-package com.vego.vego;
+package com.vego.vego.model;
 
-public class ModelDay {
-    private String day,calories,mealsCount;
+public class DietDay {
+    private String day, totalCals,mealsCount;
 
-    public ModelDay(String day, String calories, String mealsCount) {
+    public DietDay(String day, String totalCals, String mealsCount) {
         this.day = day;
-        this.calories = calories;
+        this.totalCals = totalCals;
         this.mealsCount = mealsCount;
     }
 
@@ -17,12 +17,12 @@ public class ModelDay {
         this.day = day;
     }
 
-    public String getCalories() {
-        return calories;
+    public String getTotalCals() {
+        return totalCals;
     }
 
-    public void setCalories(String calories) {
-        this.calories = calories;
+    public void setTotalCals(String totalCals) {
+        this.totalCals = totalCals;
     }
 
     public String getMealsCount() {
