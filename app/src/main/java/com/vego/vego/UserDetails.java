@@ -195,56 +195,7 @@ public class UserDetails extends AppCompatActivity {
 
 
         firebaseAuth = FirebaseAuth.getInstance();
-        toolbar = findViewById(R.id.toolbarT);
-        toolbar.setTitle("Drawer Demo");
 
-        // Create the AccountHeader
-        AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
-                .addProfiles(
-                        new ProfileDrawerItem().withName("Ayman Qaid").withEmail("aymanlord09@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile))
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        return false;
-                    }
-                })
-                .build();
-
-        //if you want to update the items at a later time it is recommended to keep it in a variable
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Home");
-        PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("Settings");
-        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("Logout");
-
-
-//create the drawer and remember the `Drawer` result object
-        Drawer result = new DrawerBuilder()
-                .withActivity(this)
-                .withAccountHeader(headerResult)
-                .withToolbar(toolbar)
-                .addDrawerItems(
-                        item1, item2, item3
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        // do something with the clicked item :D
-                        switch (position) {
-                            case 1:
-                                break;
-                            case 2:
-                                startActivity(new Intent(UserDetails.this, ProfileActivity.class));
-                                break;
-                            case 3:
-                                Logout();
-                                break;
-                        }
-                        return true;
-                    }
-                })
-                .build();
     }
 
     private void Logout() {
@@ -261,7 +212,7 @@ public class UserDetails extends AppCompatActivity {
     }
 
     private void setupUIViews() {
-        userNameTxt = (EditText) findViewById(R.id.confirmPasswordTxt);
+        userNameTxt = (EditText) findViewById(R.id.userNameTxt);
         userAge = (EditText) findViewById(R.id.ageTxt);
         userWeight = (EditText) findViewById(R.id.weightTxt);
         userHeight = (EditText) findViewById(R.id.heightTxt);
@@ -273,7 +224,7 @@ public class UserDetails extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databasaeReference = firebaseDatabase.getReference(firebaseAuth.getUid());
         UserInfo userInfo = new UserInfo(name, weight, height, age, userActivity, userGoal);
-        databasaeReference.setValue(userInfo);
+        databasaeReference.child("users").child(firebaseAuth.getUid()).setValue(userInfo);
     }
     private Boolean validate(){
         Boolean result = false;

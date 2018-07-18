@@ -89,7 +89,7 @@ public class FragmentHome extends Fragment {
         dayList = new ArrayList<>();
         //Generate sample data
 
-        for (int i = 0; i<10; i++) {
+        for (int i = 0; i<6; i++) {
             dayList.add(new ModelDay("Item " + (i + 1), "Welcome to Torisan channel, this is description of item " + (i+1)
              ,"عدد الوجبات "+3
             ) );

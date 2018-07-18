@@ -81,7 +81,7 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
     private void setupUIViews(){
-        confirmPassword = (EditText)findViewById(R.id.confirmPasswordTxt);
+        confirmPassword = (EditText)findViewById(R.id.userNameTxt);
         userPassword = (EditText)findViewById(R.id.passwordTxt);
         userEmail = (EditText)findViewById(R.id.emailTxt);
         signupBtn = (Button)findViewById(R.id.signupBtn);

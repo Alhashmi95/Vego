@@ -36,8 +36,10 @@
 
     <Button
         android:id="@+id/signupBtn"
+        android:backgroundTint="@color/Vigo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#ffff"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="82dp"
@@ -62,7 +64,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/confirmPasswordTxt"
+        android:id="@+id/userNameTxt"
         android:layout_width="match_parent"
         android:layout_marginRight="80dp"
         android:layout_height="wrap_content"

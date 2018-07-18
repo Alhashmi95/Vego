@@ -83,9 +83,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        progressDialog.setMessage("Please wait...");
-        progressDialog.show();
+
         if(!username.isEmpty() && !password.isEmpty()) {
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
             firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
