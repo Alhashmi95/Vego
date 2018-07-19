@@ -1,5 +1,9 @@
 package com.vego.vego;
 
+import com.vego.vego.model.DietDay;
+
+import java.util.ArrayList;
+
 public class UserInfo {
     String name;
     String weight;
@@ -7,6 +11,7 @@ public class UserInfo {
     String age;
     String userActivity;
     String userGoal;
+    ArrayList<DietDay> dietDay;
 
 
     public UserInfo(){
@@ -15,14 +20,30 @@ public class UserInfo {
 
 
 
-    public UserInfo(String name, String weight, String height, String age, String userActivity, String userGoal) {
+
+
+    public UserInfo(String name, String weight, String height, String age, String userActivity, String userGoal,
+                    ArrayList<DietDay> dietDay) {
         this.name = name;
         this.weight = weight;
         this.height = height;
         this.age = age;
         this.userActivity = userActivity;
         this.userGoal = userGoal;
+        this.dietDay = dietDay;
     }
+
+
+    public void setDietDay(ArrayList<DietDay> dietDay) {
+        this.dietDay = dietDay;
+    }
+
+
+    public ArrayList<DietDay> getDietDay() {
+        return dietDay;
+    }
+
+
 
     public String getName() {
         return name;

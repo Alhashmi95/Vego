@@ -25,9 +25,11 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.vego.vego.model.DietDay;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -40,6 +42,19 @@ public class UserDetails extends AppCompatActivity {
 
     private EditText userNameTxt, userWeight, userAge, userHeight;
     private String name, age,weight, height, userActivity, userGoal;
+//    private DietDay dietDay;
+
+    DietDay[] dietDay = new DietDay[] {new DietDay("1","389", "4"),
+            new DietDay("2","23","3"),
+            new DietDay("3","12334", "242"),
+            new DietDay("4","2443","34"),
+            new DietDay("4","253948","31"),
+            new DietDay("5","273984","32"),
+            new DietDay("6","27","33"),
+            new DietDay("7","287","34"),
+    };
+
+    List dietList = new ArrayList<DietDay>(Arrays.asList(dietDay));
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +92,7 @@ public class UserDetails extends AppCompatActivity {
 
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.spinner_item,plantsList){
+                this,R.layout.support_simple_spinner_dropdown_item,plantsList){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -222,9 +237,22 @@ public class UserDetails extends AppCompatActivity {
     }
     private void uploadUserData(){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databasaeReference = firebaseDatabase.getReference(firebaseAuth.getUid());
-        UserInfo userInfo = new UserInfo(name, weight, height, age, userActivity, userGoal);
-        databasaeReference.child("users").child(firebaseAuth.getUid()).setValue(userInfo);
+        DatabaseReference databasaeReference = firebaseDatabase.getReference();
+        UserInfo userInfo = new UserInfo(name, weight, height, age, userActivity, userGoal, (ArrayList<DietDay>) dietList);
+        HashMap<String,String> hashMap=new HashMap<>();
+        hashMap.put("age",userInfo.age);
+        hashMap.put("height",userInfo.height);
+        hashMap.put("name",userInfo.name);
+        hashMap.put("weight",userInfo.weight);
+        hashMap.put("userActivity", userActivity);
+        hashMap.put("userGoal", userGoal);
+
+        databasaeReference.child("users").child(firebaseAuth.getUid()).child("Profile").setValue(hashMap);
+        databasaeReference.child("users").child(firebaseAuth.getUid()).child("Diet").setValue(dietList);
+
+
+
+
     }
     private Boolean validate(){
         Boolean result = false;
@@ -233,6 +261,8 @@ public class UserDetails extends AppCompatActivity {
         height = userHeight.getText().toString();
         age = userAge.getText().toString();
         weight = userWeight.getText().toString();
+
+
 
         if(name.isEmpty() || height.isEmpty() || age.isEmpty() || weight.isEmpty()){
             Toast.makeText(this, "Please enter all the details", Toast.LENGTH_SHORT).show();

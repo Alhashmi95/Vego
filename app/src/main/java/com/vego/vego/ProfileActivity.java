@@ -1,8 +1,10 @@
 package com.vego.vego;
 
 import android.net.Uri;
+import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,7 +50,8 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
 
-        DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
+        final DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
+                .child(firebaseAuth.getUid()).child("Profile");
 
 //        StorageReference storageReference = firebaseStorage.getReference();
 //        storageReference.child(firebaseAuth.getUid()).child("Images/Profile Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -61,7 +64,10 @@ public class ProfileActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
+
+
                 profileName.setText("Name: " + userinfo.getName());
                 profileAge.setText("Age: " + userinfo.getAge());
                 profileWeight.setText("Weight: " + userinfo.getWeight());
