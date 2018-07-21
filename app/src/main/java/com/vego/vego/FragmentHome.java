@@ -4,12 +4,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+//import android.support.v4.app.FragmentManager;
+import android.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
 
 import java.util.ArrayList;
@@ -28,6 +38,8 @@ public class FragmentHome extends Fragment {
     private RecyclerView recyclerView;
     private DaysAdapter adapter;
     private List<DietDay> dayList;
+    private FragmentManager fragmentManager;
+    private ArrayList<DayMeals> mealsList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,6 +88,8 @@ public class FragmentHome extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home2, container, false);
+
+
     }
 
     @Override
@@ -83,23 +97,55 @@ public class FragmentHome extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // هذا الكود لربط الكارد فيو
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        dayList = new ArrayList<>();
+
+        //delcare firebase auth and database reference to retreive data
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        //go to the child where you want to retreive values of
+        DatabaseReference usersRef = rootRef.child("users").child(firebaseAuth.getUid()).child("Diet");
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+            dayList = new ArrayList<DietDay>();
+                int i=0;
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    dayList.add(ds.getValue(DietDay.class));
+                    mealsList = new ArrayList<DayMeals>();
+                    for(DataSnapshot ds2 : ds.child("dayMeals").getChildren()) {
+                        mealsList.add(ds2.getValue(DayMeals.class) );
+                    }
+                    dayList.get(i).setDayMeals(mealsList);
+
+                    i++;
+                }
+
+                //Set adapter
+                adapter = new DaysAdapter(dayList,getContext(), fragmentManager);
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        usersRef.addListenerForSingleValueEvent(eventListener);
+
         //Generate sample data
 
 
-        for (int i = 0; i<10; i++) {
-            dayList.add(new DietDay("Item " + (i + 1), "Welcome to Torisan channel, this is description of item " + (i+1)
-             ,"عدد الوجبات "+3
-            ) );
-        }
+//        for (int i = 0; i < 7; i++) {
+//            dayList.add(new DietDay("Item " + (i + 1), "Welcome to Torisan channel, this is description of item " + (i+1)
+//             ,"عدد الوجبات "+3
+//            ) );
+//        }
 
-        //Set adapter
-        adapter = new DaysAdapter(dayList,getContext());
-        recyclerView.setAdapter(adapter);
 
 
 

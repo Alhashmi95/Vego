@@ -18,11 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity"
+        <activity
+            android:name=".HomeActivity"
             android:theme="@style/AppThemeNo" />
-        <activity android:name=".LoginActivity"
-            android:theme="@style/MyActionBar"/>
-        <activity android:name=".SignupActivity"
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/MyActionBar" />
+        <activity
+            android:name=".SignupActivity"
             android:theme="@style/MyActionBar" />
         <activity
             android:name=".UserDetails"
@@ -31,7 +34,9 @@
             android:name=".BottomNav"
             android:label="@string/title_activity_bottom_nav"
             android:theme="@style/AppThemeNo" />
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".DayMealsActivity"
+            android:theme="@style/AppThemeNo"></activity>
     </application>
 
 </manifest>

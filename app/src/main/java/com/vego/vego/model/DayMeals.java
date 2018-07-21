@@ -1,12 +1,30 @@
 package com.vego.vego.model;
 
-public class DayMeals {
+import java.io.Serializable;
+
+public class DayMeals implements Serializable {
 
     String mealName,mealCal;
+    int img;
 
-    public DayMeals(String mealName, String mealCal) {
+
+
+    public DayMeals(){
+
+    }
+
+    public DayMeals(String mealName, String mealCal, int img) {
         this.mealName = mealName;
         this.mealCal = mealCal;
+        this.img = img;
+    }
+
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
     }
 
     public String getMealName() {

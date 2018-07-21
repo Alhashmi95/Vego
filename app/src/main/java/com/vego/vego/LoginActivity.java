@@ -1,10 +1,7 @@
 package com.vego.vego;
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -29,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;
-
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         //check if user already logged in
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
@@ -56,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
 //                if(emailTxt.getText().equals("") || passwordTxt.getText().equals("")){
 //                    Toast.makeText(getApplicationContext(), "kgdjgkdjfig", Toast.LENGTH_SHORT).show();
 //                }else
+                emailTxt.setText("wakka-2@hotmail.com");
+                passwordTxt.setText("1234567890");
                 validate(emailTxt.getText().toString(), passwordTxt.getText().toString());
             }
         });
@@ -92,9 +97,26 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         progressDialog.hide();
+//                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                               if(dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile").exists()){
+//                                    startActivity(new Intent(LoginActivity.this, BottomNav.class));
+//
+//                               }else {
+//                                    startActivity(new Intent(LoginActivity.this, UserDetails.class));
+//                              }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//                        });
+
+
                         Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this, UserDetails.class));
-
                     } else {
                         progressDialog.hide();
                         Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
