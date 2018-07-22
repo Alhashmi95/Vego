@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/vegowall"
-    tools:context=".SignupActivity">
+    tools:context=".Activity.SignupActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -76,8 +76,8 @@
         android:background="#cccbcb"
         android:ems="10"
         android:gravity="center_horizontal"
-        android:hint="enter your username"
-        android:inputType="textPersonName" />
+        android:hint="confirm password"
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/textView9"

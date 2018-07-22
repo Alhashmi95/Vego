@@ -1,12 +1,32 @@
 package com.vego.vego.model;
 
-public class DietDay {
-    private String day, totalCals,mealsCount;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-    public DietDay(String day, String totalCals, String mealsCount) {
+public class DietDay implements Serializable {
+    private String day, totalCals,mealsCount;
+    ArrayList<DayMeals> dayMeals;
+
+
+
+    //this empty constructor is for retreving data form firebase
+    public DietDay(){
+
+    }
+
+    public DietDay(String day, String totalCals, String mealsCount, ArrayList<DayMeals> dayMeals) {
         this.day = day;
         this.totalCals = totalCals;
         this.mealsCount = mealsCount;
+        this.dayMeals = dayMeals;
+    }
+
+    public ArrayList<DayMeals> getDayMeals() {
+        return dayMeals;
+    }
+
+    public void setDayMeals(ArrayList<DayMeals> dayMeals) {
+        this.dayMeals = dayMeals;
     }
 
     public String getDay() {

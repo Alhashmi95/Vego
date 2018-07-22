@@ -1,4 +1,4 @@
-package com.vego.vego;
+package com.vego.vego.Activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,17 +17,15 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.vego.vego.R;
+import com.vego.vego.model.MealIngr;
+import com.vego.vego.model.UserInfo;
+import com.vego.vego.model.DayMeals;
+import com.vego.vego.model.DietDay;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -37,15 +35,107 @@ public class UserDetails extends AppCompatActivity {
     // define spinner
     Spinner spActivity ;
     Spinner spGoal ;
+    private FirebaseDatabase firebaseDatabase;
+    DayMeals meal;
+
+
+    MealIngr[] mealIngr = new MealIngr[] {new MealIngr("1","cheickn","100","33","33"
+            ,"34"),};
+
+    List mealIngrList = new ArrayList<MealIngr>(Arrays.asList(mealIngr));
+
+
+            DayMeals[] dayMealsDay1 = new DayMeals[] {new DayMeals("meal1day1","1",
+                    R.drawable.setting, (ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("meal2day1","2",R.drawable.profile, (ArrayList<MealIngr>) mealIngrList),};
+
+    List dayMealsD1 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay1));
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    DayMeals[] dayMealsDay2 = new DayMeals[] {new DayMeals("meal1day2","22",R.drawable.setting
+    ,(ArrayList<MealIngr>) mealIngrList),
+
+    };
+
+    List dayMealsD2 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay2));
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    DayMeals[] dayMealsDay3 = new DayMeals[] {new DayMeals("fds","meal1day3",R.drawable.setting,
+            (ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("meal2day3","333",R.drawable.home,(ArrayList<MealIngr>) mealIngrList),
+    };
+
+    List dayMealsD3 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay3));
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    DayMeals[] dayMealsDay4 = new DayMeals[] {new DayMeals("meal1day4","9328",R.drawable.setting,
+            (ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList),
+
+    };
+
+    List dayMealsD4 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay4));
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    DayMeals[] dayMealsDay5 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
+            (ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList),
+
+    };
+
+    List dayMealsD5 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay5));
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    DayMeals[] dayMealsDay6 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
+            (ArrayList<MealIngr>) mealIngrList),
+
+    };
+
+    List dayMealsD6 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay6));
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    DayMeals[] dayMealsDay7 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
+            (ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList),
+    };
+
+    List dayMealsD7 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay7));
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//
+
+
+
 
     private EditText userNameTxt, userWeight, userAge, userHeight;
     private String name, age,weight, height, userActivity, userGoal;
+
+    DietDay[] dietDay = new DietDay[] {new DietDay("1","389", "4",(ArrayList<DayMeals>) dayMealsD1),
+            new DietDay("2","23","3",(ArrayList<DayMeals>) dayMealsD2),
+            new DietDay("3","12334", "242",(ArrayList<DayMeals>) dayMealsD3),
+            new DietDay("4","2443","34",(ArrayList<DayMeals>) dayMealsD4),
+            new DietDay("4","253948","31",(ArrayList<DayMeals>) dayMealsD5),
+            new DietDay("6","27","33",(ArrayList<DayMeals>) dayMealsD6),
+            new DietDay("7","287","34",(ArrayList<DayMeals>) dayMealsD7),
+    };
+
+    ArrayList dietList ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
-
+        dietList= new ArrayList<DietDay>(Arrays.asList(dietDay));
         setupUIViews();
+
+        ///////////////////////////////////////////////////////////////////////////////////
+
+
 
 
 
@@ -77,7 +167,7 @@ public class UserDetails extends AppCompatActivity {
 
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.spinner_item,plantsList){
+                this,R.layout.support_simple_spinner_dropdown_item,plantsList){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -221,10 +311,31 @@ public class UserDetails extends AppCompatActivity {
 
     }
     private void uploadUserData(){
+
+        //name of variables(age, weight ..etc) MUST MATCH the names in FIREBASE IDDDIIIOOOOTTT
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databasaeReference = firebaseDatabase.getReference(firebaseAuth.getUid());
-        UserInfo userInfo = new UserInfo(name, weight, height, age, userActivity, userGoal);
-        databasaeReference.child("users").child(firebaseAuth.getUid()).setValue(userInfo);
+        DatabaseReference databasaeReference = firebaseDatabase.getReference();
+        UserInfo userInfo = new UserInfo(name, weight, height, age, userActivity, userGoal, (ArrayList<DietDay>) dietList);
+
+        HashMap<String,String> hashMap=new HashMap<>();
+        hashMap.put("age",userInfo.age);
+        hashMap.put("height",userInfo.height);
+        hashMap.put("name",userInfo.name);
+        hashMap.put("weight",userInfo.weight);
+        hashMap.put("userActivity", userActivity);
+        hashMap.put("userGoal", userGoal);
+
+        HashMap<String,String> hashMap2=new HashMap<>();
+      //  hashMap.put("img",dayMeals.getImg());
+
+
+
+        databasaeReference.child("users").child(firebaseAuth.getUid()).child("Profile").setValue(hashMap);
+        databasaeReference.child("users").child(firebaseAuth.getUid()).child("Diet").setValue(dietList);
+      //  databasaeReference.child("users").child(firebaseAuth.getUid()).child("Diet").child("0").child("dayMeals").setValue(hashMap2);
+
+
+
     }
     private Boolean validate(){
         Boolean result = false;
@@ -234,7 +345,10 @@ public class UserDetails extends AppCompatActivity {
         age = userAge.getText().toString();
         weight = userWeight.getText().toString();
 
-        if(name.isEmpty() || height.isEmpty() || age.isEmpty() || weight.isEmpty()){
+
+
+        if(name.isEmpty() || height.isEmpty() || age.isEmpty() || weight.isEmpty()
+                || userActivity.equals("مستوى النشاط") || userGoal.equals("هدفك من التطبيق")){
             Toast.makeText(this, "Please enter all the details", Toast.LENGTH_SHORT).show();
         }else{
             result = true;
@@ -246,9 +360,9 @@ public class UserDetails extends AppCompatActivity {
     public void registerBtn(View view) {
         if(validate()){
             //upload data to firebase
+            uploadUserData();
             Toast.makeText(this, "Data Registered successfully", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, BottomNav.class));
-            uploadUserData();
         }
     }
 

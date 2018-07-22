@@ -1,13 +1,11 @@
-package com.vego.vego;
+package com.vego.vego.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.vego.vego.R;
 
 public class MainActivity extends AppCompatActivity {
     //seconds for splash screen

@@ -1,4 +1,4 @@
-package com.vego.vego;
+package com.vego.vego.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,10 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -20,9 +18,10 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.vego.vego.Fragment.FragmentHome;
+import com.vego.vego.Fragment.FragmentSetting;
+import com.vego.vego.Fragment.FragmentWallet;
+import com.vego.vego.R;
 
 public class BottomNav extends AppCompatActivity {
     android.support.v7.widget.Toolbar toolbar;
@@ -126,4 +125,5 @@ public class BottomNav extends AppCompatActivity {
         finish();
         startActivity(new Intent(this, HomeActivity.class));
     }
+
 }
