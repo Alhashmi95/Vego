@@ -38,8 +38,13 @@
         <activity
             android:name=".Activity.DayMealsActivity"
             android:theme="@style/AppThemeNo" />
-        <activity android:name=".Activity.MealIngrActivity"
-            android:theme="@style/AppThemeNo"></activity>
+        <activity
+            android:name=".Activity.MealIngrActivity"
+            android:theme="@style/AppThemeNo" />
+
+        <activity android:name=".Activity.AdminActivity"
+            android:theme="@style/AppThemeNo"
+            ></activity>
     </application>
 
 </manifest>

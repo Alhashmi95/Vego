@@ -24,4 +24,6 @@ public class HomeActivity extends AppCompatActivity {    @Override
         startActivity(new Intent(getApplicationContext(), SignupActivity.class));
 
     }
+
+
 }

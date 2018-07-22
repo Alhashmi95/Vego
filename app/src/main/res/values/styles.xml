@@ -16,7 +16,7 @@
     </style>
 
     <style name="MyActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#5be754</item>
+        <item name="colorPrimary">#002e65</item>
     </style>
 
 </resources>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddMealsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="397dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/actionBar"
+        android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="إضافة جدول غذائي للمتدرب"
+            android:textColor="#232931"
+
+            />
+    </RelativeLayout>
+
+    <Spinner
+        android:id="@+id/selectUser9"
+        android:layout_width="336dp"
+        android:layout_height="21dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="164dp"
+        android:background="#ededed"
+        android:backgroundTint="#f73859" />
+
+    <Spinner
+        android:id="@+id/selectUser10"
+        android:layout_width="271dp"
+        android:layout_height="21dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/selectUser9"
+        android:layout_marginTop="103dp"
+        android:background="#ededed"
+        android:backgroundTint="#f73859"
+        android:layout_alignLeft="@+id/selectUser9" />
+
+    <Spinner
+        android:id="@+id/selectUser11"
+        android:layout_width="336dp"
+        android:layout_height="21dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="135dp"
+        android:background="#ededed"
+        android:backgroundTint="#f73859" />
+
+    <Spinner
+        android:id="@+id/selectUser12"
+        android:layout_width="336dp"
+        android:layout_height="21dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="260dp"
+        android:background="#ededed"
+        android:backgroundTint="#f73859" />
+
+    <Spinner
+        android:id="@+id/selectUser13"
+        android:layout_width="336dp"
+        android:layout_height="21dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="256dp"
+        android:background="#ededed"
+        android:backgroundTint="#f73859" />
+
+    <Spinner
+        android:id="@+id/selectUser14"
+        android:layout_width="336dp"
+        android:layout_height="21dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="224dp"
+        android:background="#ededed"
+        android:backgroundTint="#f73859" />
+
+    <Spinner
+        android:id="@+id/selectUser15"
+        android:layout_width="336dp"
+        android:layout_height="21dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="194dp"
+        android:background="#ededed"
+        android:backgroundTint="#f73859" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="42dp"
+        android:layout_height="19dp"
+        android:layout_alignEnd="@+id/selectUser9"
+        android:layout_alignTop="@+id/selectUser10"
+        android:text="المتدرب"
+        android:textColor="#232931"
+        android:layout_alignRight="@+id/selectUser9" />
+
+    <Button
+        android:id="@+id/saveDay2"
+        android:layout_width="241dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="78dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:text="حفظ الوجبات لليوم" />
+
+    <Button
+        android:id="@+id/addMoreMeals2"
+        android:layout_width="102dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/selectUser9"
+        android:layout_alignTop="@+id/saveDay2"
+        android:text="إضافة وجبة"
+        android:layout_alignRight="@+id/selectUser9" />
+
+
+
+</FrameLayout>
