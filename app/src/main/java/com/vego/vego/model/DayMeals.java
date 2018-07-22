@@ -6,6 +6,23 @@ import java.util.ArrayList;
 public class DayMeals implements Serializable {
 
     String mealName,mealCal;
+<<<<<<< HEAD
+    DietDay[] dietDays;
+
+    public DietDay[] getDietDays() {
+        return dietDays;
+    }
+
+    public void setDietDays(DietDay[] dietDays) {
+        this.dietDays = dietDays;
+    }
+
+    public DayMeals(String mealName, String mealCal, DietDay[] dietDays) {
+        this.mealName = mealName;
+        this.mealCal = mealCal;
+
+        this.dietDays = dietDays;
+=======
     int img;
     ArrayList<MealIngr> mealIngrs;
 
@@ -36,6 +53,7 @@ public class DayMeals implements Serializable {
 
     public void setImg(int img) {
         this.img = img;
+>>>>>>> 6084a7c5be4042df308263f573f56c6cf58be138
     }
 
     public String getMealName() {
