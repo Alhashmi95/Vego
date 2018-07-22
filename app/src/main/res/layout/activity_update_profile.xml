@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.UpdateProfileActivity">
+
+    <ImageView
+        android:id="@+id/ivProfileUpdate"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_alignEnd="@+id/btnSave"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
+        android:layout_alignRight="@+id/btnSave" />
+
+    <EditText
+        android:id="@+id/userNameUpdateTxt"
+        android:layout_width="304dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140dp"
+        android:background="#cccbcb"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:paddingBottom="7.5dp"
+        android:paddingTop="7.5dp" />
+
+    <EditText
+        android:id="@+id/heightTxt2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="189dp"
+        android:background="#cccbcb"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Height"
+        android:inputType="number"
+        android:paddingBottom="7.5dp"
+        android:paddingTop="7.5dp" />
+
+    <EditText
+        android:id="@+id/weightTxt2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="#cccbcb"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Weight"
+        android:inputType="number"
+        android:paddingBottom="7.5dp"
+        android:paddingTop="7.5dp" />
+
+    <EditText
+        android:id="@+id/ageTxt2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="189dp"
+        android:background="#cccbcb"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Age"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:paddingBottom="7.5dp"
+        android:paddingTop="7.5dp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="126dp"
+        android:background="#cccbcb"
+        android:spinnerMode="dropdown"
+        android:layout_alignParentLeft="true" />
+
+    <Spinner
+        android:id="@+id/spinner4"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="84dp"
+        android:layout_alignParentLeft="true" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-62dp"
+        android:text="Save" />
+
+</RelativeLayout>

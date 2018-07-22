@@ -1,7 +1,9 @@
 package com.vego.vego.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +42,13 @@ public class ProfileActivity extends AppCompatActivity {
         profileGoal = findViewById(R.id.tvprofileGoal);
         profileUpdate = findViewById(R.id.btnProfileUpdate);
         changePassword = findViewById(R.id.btnChangePassword);
+
+        profileUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, UpdateProfileActivity.class));
+            }
+        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

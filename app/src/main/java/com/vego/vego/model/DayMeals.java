@@ -22,6 +22,14 @@ public class DayMeals implements Serializable {
         this.mealIngrs = mealIngrs;
     }
 
+    public ArrayList<MealIngr> getMealIngrs() {
+        return mealIngrs;
+    }
+
+    public void setMealIngrs(ArrayList<MealIngr> mealIngrs) {
+        this.mealIngrs = mealIngrs;
+    }
+
     public int getImg() {
         return img;
     }

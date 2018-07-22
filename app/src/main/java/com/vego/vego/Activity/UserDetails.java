@@ -46,7 +46,7 @@ public class UserDetails extends AppCompatActivity {
 
 
             DayMeals[] dayMealsDay1 = new DayMeals[] {new DayMeals("meal1day1","1",
-                    R.drawable.setting, (ArrayList<MealIngr>) mealIngrList),
+                    R.drawable.setting, (ArrayList<MealIngr>) mealIngrList), //add get(0)
             new DayMeals("meal2day1","2",R.drawable.profile, (ArrayList<MealIngr>) mealIngrList),};
 
     List dayMealsD1 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay1));
@@ -120,7 +120,7 @@ public class UserDetails extends AppCompatActivity {
             new DietDay("2","23","3",(ArrayList<DayMeals>) dayMealsD2),
             new DietDay("3","12334", "242",(ArrayList<DayMeals>) dayMealsD3),
             new DietDay("4","2443","34",(ArrayList<DayMeals>) dayMealsD4),
-            new DietDay("4","253948","31",(ArrayList<DayMeals>) dayMealsD5),
+            new DietDay("5","253948","31",(ArrayList<DayMeals>) dayMealsD5),
             new DietDay("6","27","33",(ArrayList<DayMeals>) dayMealsD6),
             new DietDay("7","287","34",(ArrayList<DayMeals>) dayMealsD7),
     };
@@ -315,7 +315,7 @@ public class UserDetails extends AppCompatActivity {
         //name of variables(age, weight ..etc) MUST MATCH the names in FIREBASE IDDDIIIOOOOTTT
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databasaeReference = firebaseDatabase.getReference();
-        UserInfo userInfo = new UserInfo(name, weight, height, age, userActivity, userGoal, (ArrayList<DietDay>) dietList);
+        UserInfo userInfo = new UserInfo(name, weight, height, age, userActivity, userGoal, (ArrayList<DietDay>) dietList,false);
 
         HashMap<String,String> hashMap=new HashMap<>();
         hashMap.put("age",userInfo.age);
@@ -324,6 +324,7 @@ public class UserDetails extends AppCompatActivity {
         hashMap.put("weight",userInfo.weight);
         hashMap.put("userActivity", userActivity);
         hashMap.put("userGoal", userGoal);
+        hashMap.put("isAdmin", String.valueOf(false));
 
         HashMap<String,String> hashMap2=new HashMap<>();
       //  hashMap.put("img",dayMeals.getImg());

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.vego.vego.Adapters.DaysAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
+import com.vego.vego.model.MealIngr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,7 @@ public class FragmentHome extends Fragment {
     private List<DietDay> dayList;
     private FragmentManager fragmentManager;
     private ArrayList<DayMeals> mealsList;
+    private ArrayList<MealIngr> mealsIngrList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -112,12 +115,23 @@ public class FragmentHome extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
             dayList = new ArrayList<DietDay>();
+            // to identify which child should we pick in dayMeals
                 int i=0;
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     dayList.add(ds.getValue(DietDay.class));
                     mealsList = new ArrayList<DayMeals>();
+                    int j=0;
+
                     for(DataSnapshot ds2 : ds.child("dayMeals").getChildren()) {
-                        mealsList.add(ds2.getValue(DayMeals.class) );
+                        mealsList.add(ds2.getValue(DayMeals.class));
+                        mealsIngrList = new ArrayList<MealIngr>();
+                        for(DataSnapshot ds3 : ds2.child("mealIngrs").getChildren()){
+                            Log.d("test","this is child: "+ds3.toString());
+                            mealsIngrList.add(ds3.getValue(MealIngr.class));
+                        }
+                        mealsList.get(j).setMealIngrs(mealsIngrList);
+                        Log.d("test","size : "+mealsIngrList.size());
+                        j++;
                     }
                     dayList.get(i).setDayMeals(mealsList);
 

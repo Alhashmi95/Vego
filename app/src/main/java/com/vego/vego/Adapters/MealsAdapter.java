@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vego.vego.Activity.DayMealsActivity;
 import com.vego.vego.Activity.LoginActivity;
 import com.vego.vego.Activity.MealIngrActivity;
 import com.vego.vego.Activity.SignupActivity;
@@ -41,13 +42,22 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
     }
 
     @Override
-    public void onBindViewHolder(MealsViewHolder holder, int position) {
+    public void onBindViewHolder(MealsViewHolder holder, final int position) {
         //getting the product of the specified position
         final DayMeals dayMeals = mealsList.get(position);
 
         //binding the data with the viewholder views
         holder.textViewTitle.setText(dayMeals.getMealName());
         holder.textViewShortDesc.setText(dayMeals.getMealCal());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(mContext, MealIngrActivity.class);
+                intent.putExtra("DayMeals",mealsList.get(position).getMealIngrs());
+                v.getContext().startActivity(intent);
+            }
+        });
 
 //        holder.imageView.setImageDrawable(mContext.getResources().getDrawable(dayMeals.getImg()));
 
