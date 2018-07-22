@@ -1,11 +1,13 @@
 package com.vego.vego.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class DayMeals implements Serializable {
 
     String mealName,mealCal;
     int img;
+    ArrayList<MealIngr> mealIngrs;
 
 
 
@@ -13,10 +15,11 @@ public class DayMeals implements Serializable {
 
     }
 
-    public DayMeals(String mealName, String mealCal, int img) {
+    public DayMeals(String mealName, String mealCal, int img, ArrayList<MealIngr> mealIngrs) {
         this.mealName = mealName;
         this.mealCal = mealCal;
         this.img = img;
+        this.mealIngrs = mealIngrs;
     }
 
     public int getImg() {

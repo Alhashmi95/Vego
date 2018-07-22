@@ -1,4 +1,4 @@
-package com.vego.vego;
+package com.vego.vego.Activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,14 +17,9 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.vego.vego.R;
+import com.vego.vego.model.MealIngr;
+import com.vego.vego.model.UserInfo;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
 
@@ -43,59 +38,68 @@ public class UserDetails extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     DayMeals meal;
 
-    DayMeals[] dayMealsDay1 = new DayMeals[] {new DayMeals("meal1day1","1",R.drawable.setting),
-            new DayMeals("meal2day1","2",R.drawable.profile),
-    };
+
+    MealIngr[] mealIngr = new MealIngr[] {new MealIngr("1","cheickn","100","33","33"
+            ,"34"),};
+
+    List mealIngrList = new ArrayList<MealIngr>(Arrays.asList(mealIngr));
+
+
+            DayMeals[] dayMealsDay1 = new DayMeals[] {new DayMeals("meal1day1","1",
+                    R.drawable.setting, (ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("meal2day1","2",R.drawable.profile, (ArrayList<MealIngr>) mealIngrList),};
 
     List dayMealsD1 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay1));
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    DayMeals[] dayMealsDay2 = new DayMeals[] {new DayMeals("meal1day2","22",R.drawable.setting),
+    DayMeals[] dayMealsDay2 = new DayMeals[] {new DayMeals("meal1day2","22",R.drawable.setting
+    ,(ArrayList<MealIngr>) mealIngrList),
 
     };
 
     List dayMealsD2 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay2));
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    DayMeals[] dayMealsDay3 = new DayMeals[] {new DayMeals("fds","meal1day3",R.drawable.setting),
-            new DayMeals("meal2day3","333",R.drawable.home),
+    DayMeals[] dayMealsDay3 = new DayMeals[] {new DayMeals("fds","meal1day3",R.drawable.setting,
+            (ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("meal2day3","333",R.drawable.home,(ArrayList<MealIngr>) mealIngrList),
     };
 
     List dayMealsD3 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay3));
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    DayMeals[] dayMealsDay4 = new DayMeals[] {new DayMeals("meal1day4","9328",R.drawable.setting),
-            new DayMeals("fdskjdfs","928",R.drawable.home),
-            new DayMeals("fdfds","28",R.drawable.header),
-            new DayMeals("fdsdsfkjl","938",R.drawable.profile),
+    DayMeals[] dayMealsDay4 = new DayMeals[] {new DayMeals("meal1day4","9328",R.drawable.setting,
+            (ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList),
+
     };
 
     List dayMealsD4 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay4));
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    DayMeals[] dayMealsDay5 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting),
-            new DayMeals("fdskjdfs","928",R.drawable.home),
-            new DayMeals("fdfds","28",R.drawable.header),
-            new DayMeals("fdsdsfkjl","938",R.drawable.profile),
+    DayMeals[] dayMealsDay5 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
+            (ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList),
+
     };
 
     List dayMealsD5 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay5));
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    DayMeals[] dayMealsDay6 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting),
-            new DayMeals("fdskjdfs","928",R.drawable.home),
-            new DayMeals("fdfds","28",R.drawable.header),
-            new DayMeals("fdsdsfkjl","938",R.drawable.profile),
+    DayMeals[] dayMealsDay6 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
+            (ArrayList<MealIngr>) mealIngrList),
+
     };
 
     List dayMealsD6 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay6));
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    DayMeals[] dayMealsDay7 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting),
-            new DayMeals("fdskjdfs","928",R.drawable.home),
+    DayMeals[] dayMealsDay7 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
+            (ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList),
     };
 
     List dayMealsD7 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay7));
@@ -312,7 +316,6 @@ public class UserDetails extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databasaeReference = firebaseDatabase.getReference();
         UserInfo userInfo = new UserInfo(name, weight, height, age, userActivity, userGoal, (ArrayList<DietDay>) dietList);
-        DayMeals dayMeals = new DayMeals("dkf","kfjdf",R.drawable.language);
 
         HashMap<String,String> hashMap=new HashMap<>();
         hashMap.put("age",userInfo.age);
@@ -324,8 +327,6 @@ public class UserDetails extends AppCompatActivity {
 
         HashMap<String,String> hashMap2=new HashMap<>();
       //  hashMap.put("img",dayMeals.getImg());
-        hashMap2.put("mealName",dayMeals.getMealName());
-        hashMap2.put("mealCal",dayMeals.getMealCal());
 
 
 

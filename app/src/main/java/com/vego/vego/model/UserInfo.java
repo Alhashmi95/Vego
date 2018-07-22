@@ -1,14 +1,14 @@
-package com.vego.vego;
+package com.vego.vego.model;
 
 import com.vego.vego.model.DietDay;
 
 import java.util.ArrayList;
 
 public class UserInfo {
-    String name;
-    String weight;
-    String height;
-    String age;
+    public String name;
+    public String weight;
+    public String height;
+    public String age;
     String userActivity;
     String userGoal;
     ArrayList<DietDay> dietDay;

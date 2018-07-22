@@ -1,20 +1,16 @@
-package com.vego.vego;
+package com.vego.vego.Adapters;
 
-import android.app.FragmentTransaction;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.vego.vego.model.DayMeals;
+import com.vego.vego.Activity.DayMealsActivity;
+import com.vego.vego.R;
 import com.vego.vego.model.DietDay;
 
 import java.util.List;

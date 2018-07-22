@@ -1,6 +1,7 @@
-package com.vego.vego;
+package com.vego.vego.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -11,8 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vego.vego.Activity.LoginActivity;
+import com.vego.vego.Activity.MealIngrActivity;
+import com.vego.vego.Activity.SignupActivity;
+import com.vego.vego.Fragment.FragmentMealsDetails;
+import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
-import com.vego.vego.model.DietDay;
 
 import java.util.List;
 
@@ -60,7 +65,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
         TextView textViewTitle, textViewShortDesc;
         ImageView imageView;
 
-       public MealsViewHolder(View itemView) {
+       public MealsViewHolder(final View itemView) {
            super(itemView);
 
            textViewTitle = itemView.findViewById(R.id.textViewTitle);
@@ -71,11 +76,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
            itemView.setOnClickListener(new View.OnClickListener(){
                @Override
                public void onClick(View view){
-
-                   AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                   Fragment myFragment = new FragmentMealsDetails();
-                //   activity.getSupportFragmentManager().beginTransaction().replace(R.id.viewpager_id, myFragment).addToBackStack(null).commit();
-
+                   itemView.getContext().startActivity(new Intent(itemView.getContext(),MealIngrActivity.class));
 
                }
            });

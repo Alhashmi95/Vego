@@ -1,4 +1,4 @@
-package com.vego.vego;
+package com.vego.vego.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DayMealsActivity">
+    tools:context=".Activity.DayMealsActivity">
 
 
 
@@ -23,22 +23,9 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tablayout_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/appbarid"
-        android:background="@color/colorPrimary"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@color/tabindicatorcolor"
-        app:tabMode="fixed"
-        app:tabTextColor="@color/tabtextcolor"
-        android:layout_alignParentLeft="true" />
-
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_below="@+id/tablayout_id"
+        android:layout_below="@+id/appbarid"
         android:layout_height="match_parent"
         android:id="@+id/mealrecycler"/>
 

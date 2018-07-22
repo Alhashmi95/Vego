@@ -1,4 +1,4 @@
-package com.vego.vego;
+package com.vego.vego.Fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.vego.vego.Adapters.DaysAdapter;
+import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
 
