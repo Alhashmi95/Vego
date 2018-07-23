@@ -18,7 +18,7 @@
         android:background="#ffffff">
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -29,18 +29,6 @@
 
             />
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:paddingTop="5dp"
-        android:text="إضافة جدول غذائي للمتدرب"
-        android:textColor="#232931"
-
-        />
 
     <Spinner
         android:id="@+id/selectUser9"
@@ -130,7 +118,8 @@
 
         android:layout_alignTop="@+id/addMoreMeals2"
         android:layout_toStartOf="@+id/addMoreMeals2"
-        android:text="حفظ الوجبات لليوم" />
+        android:text="حفظ الوجبات لليوم"
+        android:layout_toLeftOf="@+id/addMoreMeals2" />
 
     <Button
         android:id="@+id/addMoreMeals2"
@@ -139,5 +128,6 @@
         android:layout_alignEnd="@+id/selectUser9"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="139dp"
-        android:text="إضافة وجبة" />
+        android:text="إضافة وجبة"
+        android:layout_alignRight="@+id/selectUser9" />
 </RelativeLayout>

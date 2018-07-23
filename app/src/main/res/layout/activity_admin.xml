@@ -59,5 +59,17 @@
         android:scrollbars="horizontal"
         ></android.support.design.widget.BottomNavigationView>
 
+    <FrameLayout
+        android:id="@+id/fCenterAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bNavAdmin"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/actionBar"
+        android:background="#bebcbc">
+
+    </FrameLayout>
+
 
 </RelativeLayout>

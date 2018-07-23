@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.vego.vego.Fragment.AddMealsFragment;
+import com.vego.vego.Fragment.FragmentAddWorkout;
 import com.vego.vego.Fragment.FragmentHome;
 import com.vego.vego.Fragment.FragmentSetting;
+import com.vego.vego.Fragment.FragmentSupport;
 import com.vego.vego.Fragment.FragmentWallet;
 import com.vego.vego.R;
 
@@ -23,13 +26,13 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.custom_bar);
+//        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+//        getSupportActionBar().setCustomView(R.layout.custom_bar);
 
-        navAdmin = findViewById(R.id.bNavigation);
+        navAdmin = findViewById(R.id.bNavAdmin);
         navAdmin.setOnNavigationItemSelectedListener(navListener);
         //+++++++++++++++defult Fragment ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        getSupportFragmentManager().beginTransaction().replace(R.id.fContr , new FragmentHome()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fCenterAdmin , new AddMealsFragment()).commit();
 
     }
 
@@ -38,17 +41,17 @@ public class AdminActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Fragment f = null;
             switch (menuItem.getItemId()){
-                case R.id.wallet:
-                    f = new FragmentWallet();
+                case R.id.workouts:
+                    f = new FragmentAddWorkout();
                     break;
-                case R.id.setting:
-                    f = new FragmentSetting();
+                case R.id.diet:
+                    f = new AddMealsFragment();
                     break;
-                case R.id.home:
-                    f = new FragmentHome();
+                case R.id.support:
+                    f = new FragmentSupport();
                     break;
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fContr , f).commit()  ;
+            getSupportFragmentManager().beginTransaction().replace(R.id.fCenterAdmin , f).commit()  ;
             return true;}
     };
 
