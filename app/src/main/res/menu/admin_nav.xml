@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/support"
+        android:icon="@drawable/toolbar_support"
+        android:title="الدعم"/>
+
+
+    <item
+        android:id="@+id/diet"
+        android:icon="@drawable/toolbar_diet"
+        android:title="البرنامج الغذائي"/>
+
+
+    <item
+        android:id="@+id/workouts"
+        android:icon="@drawable/toolbar_workout"
+        android:title="التمارين" />
+
+
+    //limit is 5
+</menu>

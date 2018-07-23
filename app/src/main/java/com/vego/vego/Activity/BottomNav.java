@@ -72,7 +72,7 @@ public class BottomNav extends AppCompatActivity {
         PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("Logout");
 
 
-//create the drawer and remember the `Drawer` result object
+        //create the drawer and remember the `Drawer` result object
         Drawer result = new DrawerBuilder()
                 .withActivity(this)
                 .withAccountHeader(headerResult)
