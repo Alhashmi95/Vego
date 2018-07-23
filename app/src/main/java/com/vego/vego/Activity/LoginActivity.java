@@ -57,8 +57,8 @@ public class LoginActivity extends AppCompatActivity {
 //                if(emailTxt.getText().equals("") || passwordTxt.getText().equals("")){
 //                    Toast.makeText(getApplicationContext(), "kgdjgkdjfig", Toast.LENGTH_SHORT).show();
 //                }else
-                emailTxt.setText("wakka-2@hotmail.com");
-                passwordTxt.setText("1234567890");
+//                emailTxt.setText("wakka-2@hotmail.com");
+//                passwordTxt.setText("1234567890");
                 validate(emailTxt.getText().toString(), passwordTxt.getText().toString());
             }
         });

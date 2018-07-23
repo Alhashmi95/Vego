@@ -63,6 +63,7 @@ public class SignupActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 Toast.makeText(SignupActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
                                 progressDialog.hide();
+                                startActivity(new Intent(SignupActivity.this, UserDetails.class));
 
                             }else {
                                 Toast.makeText(SignupActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();

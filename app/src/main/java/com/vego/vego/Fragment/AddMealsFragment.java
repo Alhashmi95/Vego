@@ -3,12 +3,31 @@ package com.vego.vego.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.vego.vego.Activity.ProfileActivity;
+import com.vego.vego.Adapters.DaysAdapter;
 import com.vego.vego.R;
+import com.vego.vego.model.DayMeals;
+import com.vego.vego.model.DietDay;
+import com.vego.vego.model.MealIngr;
+import com.vego.vego.model.UserInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -24,7 +43,9 @@ public class AddMealsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
+    ArrayList<String> arrayList;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -74,6 +95,46 @@ public class AddMealsFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        getUsers();
+
+
+
+
+    }
+
+    public void getUsers(){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        final DatabaseReference databaseReference = firebaseDatabase.getReference().child("users");
+
+        arrayList=new ArrayList<>();
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
+                    arrayList.add(dataSnapshot1.getKey());
+                    Log.d("test","this is uid"+dataSnapshot1.getKey());
+                }
+                //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(AddMealsFragment.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
