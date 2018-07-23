@@ -11,41 +11,47 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/actionBar"
-        android:layout_width="393dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
 
         android:layout_alignParentTop="true"
         android:background="#002e65"
-        android:paddingLeft="120dp"
+
         android:paddingRight="0dp"
         android:layout_alignParentLeft="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:orientation="horizontal"
-            android:weightSum="2">
+            >
 
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="120dp"
+                android:layout_width="100dp"
                 android:layout_height="40dp"
-                android:layout_weight="0.1"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="9dp"
                 android:src="@drawable/logo_white" />
 
 
             <ImageView
                 android:id="@+id/profile"
-                android:layout_width="10dp"
+                android:layout_width="39dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.9"
+
+                android:layout_alignParentStart="true"
+
+
+                android:layout_alignParentTop="true"
                 android:onClick="openDrawer"
-                android:paddingLeft="50dp"
+                android:paddingTop="2dp"
                 android:src="@drawable/profile_on_top"
                 tools:ignore="OnClick" />
 
-        </LinearLayout>
+        </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
     // هذي للنافيقشون اللي تحت
