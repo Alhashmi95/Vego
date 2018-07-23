@@ -346,7 +346,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 dietList= new ArrayList<DietDay>(Arrays.asList(dietDay));
 
                 com.vego.vego.model.UserInfo userinfo = new com.vego.vego.model.UserInfo(
-                        name, weight, height,age,userActivity,userGoal,(ArrayList<DietDay>) dietList,false);
+                        name, weight, height,age,userActivity,userGoal,(ArrayList<DietDay>) dietList,
+                        "false");
 
                 HashMap<String,String> hashMap=new HashMap<>();
                 hashMap.put("age",userinfo.age);

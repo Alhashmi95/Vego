@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
 import com.vego.vego.R;
 import com.vego.vego.model.MealIngr;
 import com.vego.vego.model.UserInfo;
@@ -36,25 +37,32 @@ public class UserDetails extends AppCompatActivity {
     Spinner spActivity ;
     Spinner spGoal ;
     private FirebaseDatabase firebaseDatabase;
+    private StorageReference storageReference;
     DayMeals meal;
 
 
     MealIngr[] mealIngr = new MealIngr[] {new MealIngr("1","cheickn","100","33","33"
-            ,"34"),};
+            ,"34")};
+    MealIngr[] mealIngr2 = new MealIngr[] {new MealIngr("2","c11111111heickn","10111110","33","33"
+            ,"34")};
+    MealIngr[] mealIngr3 = new MealIngr[] {new MealIngr("13","che33333333ickn","10333333330","33","33"
+            ,"34")};
 
     List mealIngrList = new ArrayList<MealIngr>(Arrays.asList(mealIngr));
+    List mealIngrList2 = new ArrayList<MealIngr>(Arrays.asList(mealIngr2));
+    List mealIngrList3 = new ArrayList<MealIngr>(Arrays.asList(mealIngr3));
 
 
             DayMeals[] dayMealsDay1 = new DayMeals[] {new DayMeals("meal1day1","1",
-                    R.drawable.setting, (ArrayList<MealIngr>) mealIngrList), //add get(0)
-            new DayMeals("meal2day1","2",R.drawable.profile, (ArrayList<MealIngr>) mealIngrList),};
+                    R.drawable.setting, (ArrayList<MealIngr>) mealIngrList2), //add get(0)
+            new DayMeals("meal2day1","2",R.drawable.profile, (ArrayList<MealIngr>) mealIngrList)};
 
     List dayMealsD1 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay1));
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     DayMeals[] dayMealsDay2 = new DayMeals[] {new DayMeals("meal1day2","22",R.drawable.setting
-    ,(ArrayList<MealIngr>) mealIngrList),
+    ,(ArrayList<MealIngr>) mealIngrList3)
 
     };
 
@@ -63,7 +71,7 @@ public class UserDetails extends AppCompatActivity {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     DayMeals[] dayMealsDay3 = new DayMeals[] {new DayMeals("fds","meal1day3",R.drawable.setting,
             (ArrayList<MealIngr>) mealIngrList),
-            new DayMeals("meal2day3","333",R.drawable.home,(ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("meal2day3","333",R.drawable.home,(ArrayList<MealIngr>) mealIngrList)
     };
 
     List dayMealsD3 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay3));
@@ -71,7 +79,7 @@ public class UserDetails extends AppCompatActivity {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     DayMeals[] dayMealsDay4 = new DayMeals[] {new DayMeals("meal1day4","9328",R.drawable.setting,
             (ArrayList<MealIngr>) mealIngrList),
-            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList2)
 
     };
 
@@ -79,17 +87,15 @@ public class UserDetails extends AppCompatActivity {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    DayMeals[] dayMealsDay5 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
-            (ArrayList<MealIngr>) mealIngrList),
-            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList),
+    DayMeals[] dayMealsDay5 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,(ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList3)
 
     };
 
     List dayMealsD5 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay5));
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    DayMeals[] dayMealsDay6 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
-            (ArrayList<MealIngr>) mealIngrList),
+    DayMeals[] dayMealsDay6 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting, (ArrayList<MealIngr>) mealIngrList)
 
     };
 
@@ -99,7 +105,7 @@ public class UserDetails extends AppCompatActivity {
 
     DayMeals[] dayMealsDay7 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
             (ArrayList<MealIngr>) mealIngrList),
-            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList),
+            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList)
     };
 
     List dayMealsD7 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay7));
@@ -311,11 +317,14 @@ public class UserDetails extends AppCompatActivity {
 
     }
     private void uploadUserData(){
+        dietDay[0].getDayMeals().get(1).getMealIngrs().add(new MealIngr("3","food","3333","33","444"
+                ,"34"));
 
         //name of variables(age, weight ..etc) MUST MATCH the names in FIREBASE IDDDIIIOOOOTTT
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databasaeReference = firebaseDatabase.getReference();
-        UserInfo userInfo = new UserInfo(name, weight, height, age, userActivity, userGoal, (ArrayList<DietDay>) dietList,false);
+        UserInfo userInfo = new UserInfo(name, weight, height, age, userActivity, userGoal,
+                (ArrayList<DietDay>) dietList,"false");
 
         HashMap<String,String> hashMap=new HashMap<>();
         hashMap.put("age",userInfo.age);
@@ -329,6 +338,10 @@ public class UserDetails extends AppCompatActivity {
         HashMap<String,String> hashMap2=new HashMap<>();
       //  hashMap.put("img",dayMeals.getImg());
 
+
+
+        DatabaseReference mealRef = firebaseDatabase.getReference();
+        mealRef.child("meals").setValue(dietList);
 
 
         databasaeReference.child("users").child(firebaseAuth.getUid()).child("Profile").setValue(hashMap);
