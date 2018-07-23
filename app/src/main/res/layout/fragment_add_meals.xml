@@ -41,7 +41,7 @@
         android:backgroundTint="#f73859" />
 
     <Spinner
-        android:id="@+id/selectUser10"
+        android:id="@+id/selectUser"
         android:layout_width="271dp"
         android:layout_height="21dp"
         android:layout_alignLeft="@+id/selectUser9"
@@ -130,4 +130,5 @@
         android:layout_marginBottom="139dp"
         android:text="إضافة وجبة"
         android:layout_alignRight="@+id/selectUser9" />
+
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.vego.vego.Fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +32,7 @@ import com.vego.vego.model.MealIngr;
 import com.vego.vego.model.UserInfo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -46,6 +52,7 @@ public class AddMealsFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     ArrayList<String> arrayList;
+    String[] array;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -81,6 +88,7 @@ public class AddMealsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -88,6 +96,8 @@ public class AddMealsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_meals, container, false);
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,6 +114,72 @@ public class AddMealsFragment extends Fragment {
         getUsers();
 
 
+        final Spinner spActivity = getView().findViewById(R.id.selectUser);
+        final Spinner spGoal = getView().findViewById(R.id.spinner3);
+
+
+        //String[] usersArr = arrayList.toArray(new String[0]);
+
+
+
+
+
+
+
+        // Initializing an ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spActivity.setAdapter(spinnerArrayAdapter);
+
+        spActivity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+             //   userActivity = selectedItemText;
+                // If user change the default selection
+                // First item is disable and it is used for hint
+                if(position > 0){
+                    // Notify the selected item text
+                    Toast.makeText
+                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
     }
@@ -118,10 +194,13 @@ public class AddMealsFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-
+                arrayList.add(0,"اختر متدرب");
                 for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
                     arrayList.add(dataSnapshot1.getKey());
-                    Log.d("test","this is uid"+dataSnapshot1.getKey());
+//                    Log.d("test","this is size of arr: "+ array.length);
+
+
+                    Log.d("test","this is uid :"+dataSnapshot1.getKey());
                 }
                 //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
 
