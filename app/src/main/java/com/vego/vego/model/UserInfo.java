@@ -12,7 +12,7 @@ public class UserInfo {
     String userActivity;
     String userGoal;
     ArrayList<DietDay> dietDay;
-    Boolean isAdmin;
+    String isAdmin;
 
     public UserInfo() {
     }
@@ -22,7 +22,7 @@ public class UserInfo {
 
 
     public UserInfo(String name, String weight, String height, String age, String userActivity, String userGoal,
-                    ArrayList<DietDay> dietDay, Boolean isAdmin) {
+                    ArrayList<DietDay> dietDay, String isAdmin) {
         this.name = name;
         this.weight = weight;
         this.height = height;
@@ -43,11 +43,11 @@ public class UserInfo {
         return dietDay;
     }
 
-    public Boolean getAdmin() {
+    public String getAdmin() {
         return isAdmin;
     }
 
-    public void setAdmin(Boolean admin) {
+    public void setAdmin(String admin) {
         isAdmin = admin;
     }
 
