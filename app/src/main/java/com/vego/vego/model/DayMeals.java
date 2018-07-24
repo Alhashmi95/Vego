@@ -27,13 +27,11 @@ public class DayMeals implements Serializable {
         this.mealIngrs = mealIngrs;
     }
     public DietDay[] getDietDays() {
-<<<<<<< HEAD
+
             return dietDays;
         }
-=======
-        return dietDays;
-    }
->>>>>>> f77b1396495df65cbd2a036525a893ead85b4196
+
+
 
     public void setDietDays(DietDay[] dietDays) {
         this.dietDays = dietDays;
