@@ -4,61 +4,26 @@ import java.io.Serializable;
 
 public class MealIngr implements Serializable {
 
-    String quantity,type,cals,protien,carbs,fat;
+    String type;
+    double quantity;
 
 
     public MealIngr() {
 
     }
 
-    public MealIngr(String quantity, String type, String cals, String protien, String carbs,
-                    String fat) {
+    public MealIngr(int quantity, String type) {
         this.quantity = quantity;
         this.type = type;
-        this.cals = cals;
-        this.protien = protien;
-        this.carbs = carbs;
-        this.fat = fat;
+
 
     }
 
-    public String getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public String getCals() {
-        return cals;
-    }
-
-    public void setCals(String cals) {
-        this.cals = cals;
-    }
-
-    public String getProtien() {
-        return protien;
-    }
-
-    public void setProtien(String protien) {
-        this.protien = protien;
-    }
-
-    public String getCarbs() {
-        return carbs;
-    }
-
-    public void setCarbs(String carbs) {
-        this.carbs = carbs;
-    }
-
-    public String getFat() {
-        return fat;
-    }
-
-    public void setFat(String fat) {
-        this.fat = fat;
-    }
-
-    public void setQuantity(String quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 

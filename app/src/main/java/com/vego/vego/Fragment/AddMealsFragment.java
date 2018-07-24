@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,9 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
+
 import com.vego.vego.Activity.ProfileActivity;
-import com.vego.vego.Adapters.DaysAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
@@ -32,8 +32,9 @@ import com.vego.vego.model.MealIngr;
 import com.vego.vego.model.UserInfo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -52,12 +53,24 @@ public class AddMealsFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     ArrayList<String> arrayList;
-    String[] array;
+    List<String> list;
+    String choosenUser, choosenDay;
+    Spinner spSelectUser, spSelectDay;
+    ArrayAdapter<String> spinnerArrayAdapter;
+    UserInfo userinfo;
+    DatabaseReference usersprofile;
+    TextView profileName;
+    TextView profileAge;
+    TextView profileWeight;
+    TextView profileHeight;
+    TextView profileActivity;
+    TextView profileGoal;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private FragmentHome.OnFragmentInteractionListener mListener;
 
     public AddMealsFragment() {
         // Required empty public constructor
@@ -98,6 +111,7 @@ public class AddMealsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_add_meals, container, false);
 
 
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -111,7 +125,37 @@ public class AddMealsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+         profileName = view.findViewById(R.id.tvProfileName);
+        profileAge = view.findViewById(R.id.tvProfileAge);
+        profileWeight = view.findViewById(R.id.tvWeight);
+        profileHeight = view.findViewById(R.id.tvProfileHeight);
+        profileActivity = view.findViewById(R.id.tvprofileActivity);
+        profileGoal = view.findViewById(R.id.tvprofileGoal);
+
         getUsers();
+
+        selectedUser();
+
+        selectedDay();
+
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference uidRef = usersRef.child("ZU7wS37XJUU6oeueYlciKWxx5X23");
+        DatabaseReference zone1Ref = uidRef.child("Diet");
+        DatabaseReference zone1NameRef = zone1Ref.child("0");
+        DatabaseReference zone2dayRef = zone1NameRef.child("day");
+
+        zone1NameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.d("test","this is day : "+ dataSnapshot.child("day").toString());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
 
 
         final Spinner spActivity = getView().findViewById(R.id.selectUser);
@@ -126,8 +170,117 @@ public class AddMealsFragment extends Fragment {
 
 
 
+
+
+
+
+
+
+    }
+    public void userProfile(final String choosenUser){
+        Log.d("test","this is path : "+usersprofile);
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
+                .child(choosenUser).child("Profile");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               ;
+             //   Log.d("test", userinfo.getName());
+
+                UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
+
+
+
+                profileName.setText("Name: " + userinfo.getName());
+                profileAge.setText("Age: " + userinfo.getAge());
+                profileWeight.setText("Weight: " + userinfo.getWeight());
+                profileHeight.setText("Height : "+ userinfo.getHeight());
+                profileActivity.setText("مستوى النشاط: "+ userinfo.getUserActivity());
+                profileGoal.setText("الهدف: "+userinfo.getUserGoal());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getContext().getApplicationContext(), databaseError.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void selectedDay(){
+        String[] day = new String[]{
+                "choose day...",
+                "Day1",
+                "Day2",
+                "Day3",
+                "Day4",
+                "Day5",
+                "Day6",
+                "Day7",
+        };
+        final Spinner spSelectDay = getView().findViewById(R.id.selectDay);
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,day){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spSelectDay.setAdapter(spinnerArrayAdapter);
+
+        spSelectDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+                choosenDay = selectedItemText;
+                // If user change the default selection
+                // First item is disable and it is used for hint
+                if(position > 0){
+                    // Notify the selected item text
+                    Toast.makeText
+                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+    public void selectedUser(){
+        final Spinner spSelectUser = getView().findViewById(R.id.selectUser);
+
+        // Initializing an ArrayAdapter
+        Log.d("test","frist  "+arrayList.size());
+        spinnerArrayAdapter = new ArrayAdapter<String>(
                 getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
             @Override
             public boolean isEnabled(int position){
@@ -158,13 +311,25 @@ public class AddMealsFragment extends Fragment {
             }
         };
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
-        spActivity.setAdapter(spinnerArrayAdapter);
+        spSelectUser.setAdapter(spinnerArrayAdapter);
+        spinnerArrayAdapter.notifyDataSetChanged();
 
-        spActivity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//        Log.d("test",""+arrayList.size());
+
+
+
+
+        spSelectUser.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
-             //   userActivity = selectedItemText;
+                String s = arrayList.get(position);
+                Log.d("test","thid dfjkdl : "+s);
+                choosenUser = selectedItemText;
+                usersprofile = FirebaseDatabase.getInstance().getReference();
+                if (position!=0)
+                userProfile(choosenUser);
+                //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
                 // If user change the default selection
                 // First item is disable and it is used for hint
                 if(position > 0){
@@ -175,19 +340,18 @@ public class AddMealsFragment extends Fragment {
                 }
             }
 
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
-
     }
 
     public void getUsers(){
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        final DatabaseReference databaseReference = firebaseDatabase.getReference().child("users");
+         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users");
 
         arrayList=new ArrayList<>();
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -197,6 +361,8 @@ public class AddMealsFragment extends Fragment {
                 arrayList.add(0,"اختر متدرب");
                 for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
                     arrayList.add(dataSnapshot1.getKey());
+                    spinnerArrayAdapter.notifyDataSetChanged();
+
 //                    Log.d("test","this is size of arr: "+ array.length);
 
 

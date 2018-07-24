@@ -10,6 +10,7 @@ public class DayMeals implements Serializable {
     DietDay[] dietDays;
     int img;
     ArrayList<MealIngr> mealIngrs;
+    ArrayList<MealElement> mealElements;
 
 
 
@@ -20,20 +21,26 @@ public class DayMeals implements Serializable {
 
     }
 
-    public DayMeals(String mealName, String mealCal, int img, ArrayList<MealIngr> mealIngrs) {
+    public DayMeals(String mealName, String mealCal, int img, ArrayList<MealIngr> mealIngrs,
+                    ArrayList<MealElement> mealElements) {
         this.mealName = mealName;
         this.mealCal = mealCal;
         this.img = img;
         this.mealIngrs = mealIngrs;
+        this.mealElements = mealElements;
     }
+
+    public ArrayList<MealElement> getMealElements() {
+        return mealElements;
+    }
+
+    public void setMealElements(ArrayList<MealElement> mealElements) {
+        this.mealElements = mealElements;
+    }
+
     public DietDay[] getDietDays() {
-<<<<<<< HEAD
-            return dietDays;
-        }
-=======
         return dietDays;
     }
->>>>>>> f77b1396495df65cbd2a036525a893ead85b4196
 
     public void setDietDays(DietDay[] dietDays) {
         this.dietDays = dietDays;
