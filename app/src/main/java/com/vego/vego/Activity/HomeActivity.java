@@ -30,4 +30,8 @@ public class HomeActivity extends AppCompatActivity {    @Override
         startActivity(new Intent(this, AdminActivity.class));
 
     }
+    public void openNonAdmin(View view) {
+        startActivity(new Intent(this, BottomNav.class));
+
+    }
 }

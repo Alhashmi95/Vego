@@ -14,12 +14,12 @@ import com.vego.vego.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FregmentAddDiet.OnFragmentInteractionListener} interface
+ * {@link FragmentAddMealDetailes.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FregmentAddDiet#newInstance} factory method to
+ * Use the {@link FragmentAddMealDetailes#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FregmentAddDiet extends Fragment {
+public class FragmentAddMealDetailes extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +31,7 @@ public class FregmentAddDiet extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public FregmentAddDiet() {
+    public FragmentAddMealDetailes() {
         // Required empty public constructor
     }
 
@@ -41,11 +41,11 @@ public class FregmentAddDiet extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FregmentAddDiet.
+     * @return A new instance of fragment FragmentAddMealDetailes.
      */
     // TODO: Rename and change types and number of parameters
-    public static FregmentAddDiet newInstance(String param1, String param2) {
-        FregmentAddDiet fragment = new FregmentAddDiet();
+    public static FragmentAddMealDetailes newInstance(String param1, String param2) {
+        FragmentAddMealDetailes fragment = new FragmentAddMealDetailes();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,7 +66,7 @@ public class FregmentAddDiet extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fregment_add_diet, container, false);
+        return inflater.inflate(R.layout.fragment_add_meal_detailes, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -76,22 +76,6 @@ public class FregmentAddDiet extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     /**
      * This interface must be implemented by activities that contain this

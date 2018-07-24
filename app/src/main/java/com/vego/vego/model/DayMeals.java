@@ -39,16 +39,15 @@ public class DayMeals implements Serializable {
     }
 
     public DietDay[] getDietDays() {
-<<<<<<< HEAD
+
 
             return dietDays;
         }
 
 
-=======
-        return dietDays;
-    }
->>>>>>> 7acae702c42513879ead98e378a73fe38872c3c9
+
+
+
 
     public void setDietDays(DietDay[] dietDays) {
         this.dietDays = dietDays;
