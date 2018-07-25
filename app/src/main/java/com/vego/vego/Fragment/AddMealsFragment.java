@@ -158,8 +158,7 @@ public class AddMealsFragment extends Fragment {
         });
 
 
-        final Spinner spActivity = getView().findViewById(R.id.selectUser);
-        final Spinner spGoal = getView().findViewById(R.id.spinner3);
+
 
 
         //String[] usersArr = arrayList.toArray(new String[0]);

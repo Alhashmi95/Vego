@@ -33,6 +33,7 @@ public class AdminActivity extends AppCompatActivity {
 
         navAdmin = findViewById(R.id.bNavAdmin);
         navAdmin.setOnNavigationItemSelectedListener(navListener);
+
         //+++++++++++++++defult Fragment ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         getSupportFragmentManager().beginTransaction().replace(R.id.fCenterAdmin , new AddMealsFragment()).commit();
 
