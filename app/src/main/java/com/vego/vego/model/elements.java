@@ -2,16 +2,16 @@ package com.vego.vego.model;
 
 import java.io.Serializable;
 
-public class MealElement implements Serializable {
+public class elements implements Serializable {
     String name;
     double amount;
 
 
-    public MealElement() {
+    public elements() {
 
     }
 
-    public MealElement(String name, double amount) {
+    public elements(String name, double amount) {
         this.name = name;
         this.amount = amount;
     }

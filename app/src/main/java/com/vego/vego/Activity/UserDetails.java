@@ -19,8 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 import com.vego.vego.R;
-import com.vego.vego.model.MealElement;
-import com.vego.vego.model.MealIngr;
+import com.vego.vego.model.elements;
+import com.vego.vego.model.ingredients;
 import com.vego.vego.model.UserInfo;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
@@ -42,32 +42,32 @@ public class UserDetails extends AppCompatActivity {
     DayMeals meal;
 
 
-    MealIngr[] mealIngr = new MealIngr[] {new MealIngr(50,"Ma39oob")};
-    MealIngr[] mealIngr2 = new MealIngr[] {new MealIngr(150,"cheickn")};
-    MealIngr[] mealIngr3 = new MealIngr[] {new MealIngr(350,"sinapon")};
+    ingredients[] ingredients = new ingredients[] {new ingredients(50,"Ma39oob")};
+    ingredients[] ingredients2 = new ingredients[] {new ingredients(150,"cheickn")};
+    ingredients[] ingredients3 = new ingredients[] {new ingredients(350,"sinapon")};
 
-    List mealIngrList = new ArrayList<MealIngr>(Arrays.asList(mealIngr));
-    List mealIngrList2 = new ArrayList<MealIngr>(Arrays.asList(mealIngr2));
-    List mealIngrList3 = new ArrayList<MealIngr>(Arrays.asList(mealIngr3));
+    List mealIngrList = new ArrayList<ingredients>(Arrays.asList(ingredients));
+    List mealIngrList2 = new ArrayList<ingredients>(Arrays.asList(ingredients2));
+    List mealIngrList3 = new ArrayList<ingredients>(Arrays.asList(ingredients3));
 
 
-    MealElement[] mealElements = new MealElement[] {new MealElement("cals",50),
-            new MealElement("carbo",50)};
+    elements[] elements = new elements[] {new elements("cals",50),
+            new elements("carbo",50)};
 
-    List mealElementList = new ArrayList<MealElement>(Arrays.asList(mealElements));
+    List mealElementList = new ArrayList<elements>(Arrays.asList(elements));
 
 
             DayMeals[] dayMealsDay1 = new DayMeals[] {new DayMeals("meal1day1","1",
-                    R.drawable.setting, (ArrayList<MealIngr>) mealIngrList2, (ArrayList<MealElement>) mealElementList), //add get(0)
-            new DayMeals("meal2day1","2",R.drawable.profile, (ArrayList<MealIngr>) mealIngrList,
-                    (ArrayList<MealElement>) mealElementList)};
+                    R.drawable.setting, (ArrayList<ingredients>) mealIngrList2, (ArrayList<elements>) mealElementList), //add get(0)
+            new DayMeals("meal2day1","2",R.drawable.profile, (ArrayList<ingredients>) mealIngrList,
+                    (ArrayList<elements>) mealElementList)};
 
     List dayMealsD1 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay1));
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     DayMeals[] dayMealsDay2 = new DayMeals[] {new DayMeals("meal1day2","22",R.drawable.setting
-    ,(ArrayList<MealIngr>) mealIngrList3, (ArrayList<MealElement>) mealElementList)
+    ,(ArrayList<ingredients>) mealIngrList3, (ArrayList<elements>) mealElementList)
 
     };
 
@@ -75,16 +75,16 @@ public class UserDetails extends AppCompatActivity {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     DayMeals[] dayMealsDay3 = new DayMeals[] {new DayMeals("fds","meal1day3",R.drawable.setting,
-            (ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList),
-            new DayMeals("meal2day3","333",R.drawable.home,(ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList)
+            (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
+            new DayMeals("meal2day3","333",R.drawable.home,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
     };
 
     List dayMealsD3 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay3));
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     DayMeals[] dayMealsDay4 = new DayMeals[] {new DayMeals("meal1day4","9328",R.drawable.setting,
-            (ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList),
-            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList2, (ArrayList<MealElement>) mealElementList)
+            (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
+            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<ingredients>) mealIngrList2, (ArrayList<elements>) mealElementList)
 
     };
 
@@ -93,9 +93,9 @@ public class UserDetails extends AppCompatActivity {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     DayMeals[] dayMealsDay5 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting
-            ,(ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList),
+            ,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
             new DayMeals("fdskjdfs","928",R.drawable.home,
-                    (ArrayList<MealIngr>) mealIngrList3, (ArrayList<MealElement>) mealElementList)
+                    (ArrayList<ingredients>) mealIngrList3, (ArrayList<elements>) mealElementList)
 
     };
 
@@ -103,7 +103,7 @@ public class UserDetails extends AppCompatActivity {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     DayMeals[] dayMealsDay6 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
-            (ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList)
+            (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
 
     };
 
@@ -112,9 +112,9 @@ public class UserDetails extends AppCompatActivity {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     DayMeals[] dayMealsDay7 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
-            (ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList),
-            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList,
-                    (ArrayList<MealElement>) mealElementList)
+            (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
+            new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<ingredients>) mealIngrList,
+                    (ArrayList<elements>) mealElementList)
     };
 
     List dayMealsD7 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay7));
@@ -326,7 +326,7 @@ public class UserDetails extends AppCompatActivity {
 
     }
     private void uploadUserData(){
-//        dietDay[0].getDayMeals().get(1).getMealIngrs().add(new MealIngr("3","food","3333","33","444"
+//        dietDay[0].getDayMeals().get(1).getIngredients().add(new ingredients("3","food","3333","33","444"
 //                ,"34"));
 
         //name of variables(age, weight ..etc) MUST MATCH the names in FIREBASE IDDDIIIOOOOTTT
