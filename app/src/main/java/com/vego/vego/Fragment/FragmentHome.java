@@ -23,7 +23,7 @@ import com.vego.vego.Adapters.DaysAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
-import com.vego.vego.model.MealIngr;
+import com.vego.vego.model.ingredients;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class FragmentHome extends Fragment {
     private List<DietDay> dayList;
     private FragmentManager fragmentManager;
     private ArrayList<DayMeals> mealsList;
-    private ArrayList<MealIngr> mealsIngrList;
+    private ArrayList<ingredients> mealsIngrList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -124,12 +124,12 @@ public class FragmentHome extends Fragment {
 
                     for(DataSnapshot ds2 : ds.child("dayMeals").getChildren()) {
                         mealsList.add(ds2.getValue(DayMeals.class));
-                        mealsIngrList = new ArrayList<MealIngr>();
+                        mealsIngrList = new ArrayList<ingredients>();
                         for(DataSnapshot ds3 : ds2.child("mealIngrs").getChildren()){
                             Log.d("test","this is child: "+ds3.toString());
-                            mealsIngrList.add(ds3.getValue(MealIngr.class));
+                            mealsIngrList.add(ds3.getValue(ingredients.class));
                         }
-                        mealsList.get(j).setMealIngrs(mealsIngrList);
+                        mealsList.get(j).setIngredients(mealsIngrList);
                         Log.d("test","size : "+mealsIngrList.size());
                         j++;
                     }

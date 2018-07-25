@@ -1,11 +1,7 @@
 package com.vego.vego.Activity;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,32 +11,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.UserInfo;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
-import com.vego.vego.model.MealElement;
-import com.vego.vego.model.MealIngr;
+import com.vego.vego.model.elements;
+import com.vego.vego.model.ingredients;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -105,28 +90,28 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 "المحافظة على الوزن الحالي"
         };
 
-        MealIngr[] mealIngr = new MealIngr[] {new MealIngr(75,"cheickn")};
+        ingredients[] ingredients = new ingredients[] {new ingredients(75,"cheickn")};
 
-        List mealIngrList = new ArrayList<MealIngr>(Arrays.asList(mealIngr));
+        List mealIngrList = new ArrayList<ingredients>(Arrays.asList(ingredients));
 
-        MealElement[] mealElements = new MealElement[] {new MealElement("cals",50),
-                new MealElement("carbo",50)};
-        List mealElementList = new ArrayList<MealElement>(Arrays.asList(mealElements));
+        elements[] elements = new elements[] {new elements("cals",50),
+                new elements("carbo",50)};
+        List mealElementList = new ArrayList<elements>(Arrays.asList(elements));
 
 
 
 
         DayMeals[] dayMealsDay1 = new DayMeals[] {new DayMeals("meal1day1","1",
-                R.drawable.setting, (ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList), //add get(0)
-                new DayMeals("meal2day1","2",R.drawable.profile, (ArrayList<MealIngr>) mealIngrList,
-                        (ArrayList<MealElement>) mealElementList)};
+                R.drawable.setting, (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList), //add get(0)
+                new DayMeals("meal2day1","2",R.drawable.profile, (ArrayList<ingredients>) mealIngrList,
+                        (ArrayList<elements>) mealElementList)};
 
         List dayMealsD1 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay1));
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         DayMeals[] dayMealsDay2 = new DayMeals[] {new DayMeals("meal1day2","22",R.drawable.setting
-                ,(ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList)
+                ,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
 
         };
 
@@ -134,16 +119,16 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         DayMeals[] dayMealsDay3 = new DayMeals[] {new DayMeals("fds","meal1day3",R.drawable.setting,
-                (ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList),
-                new DayMeals("meal2day3","333",R.drawable.home,(ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList)
+                (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
+                new DayMeals("meal2day3","333",R.drawable.home,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
         };
 
         List dayMealsD3 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay3));
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         DayMeals[] dayMealsDay4 = new DayMeals[] {new DayMeals("meal1day4","9328",R.drawable.setting,
-                (ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList),
-                new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList)
+                (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
+                new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
 
         };
 
@@ -152,9 +137,9 @@ public class UpdateProfileActivity extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         DayMeals[] dayMealsDay5 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting
-                ,(ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList),
+                ,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
                 new DayMeals("fdskjdfs","928",R.drawable.home,
-                        (ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList)
+                        (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
 
         };
 
@@ -162,7 +147,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         DayMeals[] dayMealsDay6 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
-                (ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList)
+                (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
 
         };
 
@@ -171,9 +156,9 @@ public class UpdateProfileActivity extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         DayMeals[] dayMealsDay7 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
-                (ArrayList<MealIngr>) mealIngrList, (ArrayList<MealElement>) mealElementList),
-                new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<MealIngr>) mealIngrList,
-                        (ArrayList<MealElement>) mealElementList)
+                (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
+                new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<ingredients>) mealIngrList,
+                        (ArrayList<elements>) mealElementList)
         };
 
         List dayMealsD7 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay7));

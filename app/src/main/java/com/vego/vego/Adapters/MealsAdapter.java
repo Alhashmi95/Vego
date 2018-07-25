@@ -2,8 +2,6 @@ package com.vego.vego.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,11 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.vego.vego.Activity.DayMealsActivity;
-import com.vego.vego.Activity.LoginActivity;
 import com.vego.vego.Activity.MealIngrActivity;
-import com.vego.vego.Activity.SignupActivity;
-import com.vego.vego.Fragment.FragmentMealsDetails;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 
@@ -54,7 +48,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
             @Override
             public void onClick(View v) {
                 Intent intent= new Intent(mContext, MealIngrActivity.class);
-                intent.putExtra("DayMeals",mealsList.get(position).getMealIngrs());
+                intent.putExtra("DayMeals",mealsList.get(position).getIngredients());
                 v.getContext().startActivity(intent);
             }
         });

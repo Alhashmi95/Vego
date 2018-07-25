@@ -1,25 +1,35 @@
 package com.vego.vego.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.vego.vego.Activity.MainActivity;
+import com.vego.vego.Adapters.DaysAdapter;
+import com.vego.vego.Adapters.NewMealAdapter;
 import com.vego.vego.R;
+import com.vego.vego.model.ingredients;
+
+import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FregmentAddDiet.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FregmentAddDiet#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FregmentAddDiet extends Fragment {
+public class FragmentAddMealDetailes extends Fragment {
+
+
+    private RecyclerView recyclerview;
+    private NewMealAdapter adapter;
+    private ArrayList<ingredients> ingrList;
+
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,21 +41,13 @@ public class FregmentAddDiet extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public FregmentAddDiet() {
+    public FragmentAddMealDetailes() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FregmentAddDiet.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FregmentAddDiet newInstance(String param1, String param2) {
-        FregmentAddDiet fragment = new FregmentAddDiet();
+
+    public static FragmentAddMealDetailes newInstance(String param1, String param2) {
+        FragmentAddMealDetailes fragment = new FragmentAddMealDetailes();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +61,8 @@ public class FregmentAddDiet extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+           
         }
     }
 
@@ -66,7 +70,36 @@ public class FregmentAddDiet extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fregment_add_diet, container, false);
+        return inflater.inflate(R.layout.fragment_add_meal_detailes, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        recyclerview = view.findViewById(R.id.recyclerview);
+
+
+
+        ingrList = populateList();
+        NewMealAdapter newMealAdapter = new NewMealAdapter(ingrList,getContext());
+        recyclerview.setAdapter(newMealAdapter);
+        recyclerview.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+
+    }
+
+    private ArrayList<ingredients> populateList(){
+
+        ArrayList<ingredients> list = new ArrayList<>();
+
+        for(int i = 0; i < 8; i++){
+            ingredients ing = new ingredients();
+            ing.setType(String.valueOf(i));
+            list.add(ing);
+        }
+
+        return list;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -76,22 +109,6 @@ public class FregmentAddDiet extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     /**
      * This interface must be implemented by activities that contain this

@@ -1,18 +1,19 @@
 package com.vego.vego.Fragment;
 
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,11 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import com.vego.vego.Activity.ProfileActivity;
+import com.vego.vego.Activity.AddNewMealActivity;
 import com.vego.vego.R;
-import com.vego.vego.model.DayMeals;
-import com.vego.vego.model.DietDay;
-import com.vego.vego.model.MealIngr;
 import com.vego.vego.model.UserInfo;
 
 import java.util.ArrayList;
@@ -65,6 +63,8 @@ public class AddMealsFragment extends Fragment {
     TextView profileHeight;
     TextView profileActivity;
     TextView profileGoal;
+
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -132,6 +132,11 @@ public class AddMealsFragment extends Fragment {
         profileActivity = view.findViewById(R.id.tvprofileActivity);
         profileGoal = view.findViewById(R.id.tvprofileGoal);
 
+
+
+        Button addNewMeal=view.findViewById(R.id.addNewMeal);
+
+
         getUsers();
 
         selectedUser();
@@ -163,8 +168,14 @@ public class AddMealsFragment extends Fragment {
 
         //String[] usersArr = arrayList.toArray(new String[0]);
 
+     addNewMeal.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             startActivity(new Intent(getContext(), AddNewMealActivity.class));
 
 
+         }
+     });
 
 
 

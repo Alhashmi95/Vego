@@ -10,17 +10,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.vego.vego.Activity.DayMealsActivity;
 import com.vego.vego.R;
+import com.vego.vego.model.DaysWorkout;
 import com.vego.vego.model.DietDay;
 
 import java.util.List;
 
 public class DaysAdapterExercise extends RecyclerView.Adapter<DaysAdapterExercise.ViewHolder> {
-    private List<DietDay> daysList;
+    private List<DaysWorkout> daysList;
     private Context mContext;
     public FragmentManager f_manager;
 
 
-    public DaysAdapterExercise(List<DietDay> daysList, Context mContext, FragmentManager f_manager)
+    public DaysAdapterExercise(List<DaysWorkout> daysList, Context mContext, FragmentManager f_manager)
     {
         this.f_manager = f_manager;
         this.daysList = daysList;
@@ -38,10 +39,10 @@ public class DaysAdapterExercise extends RecyclerView.Adapter<DaysAdapterExercis
     public void onBindViewHolder(final DaysAdapterExercise.ViewHolder holder, final int position) {
 
 
-        final DietDay dayList = daysList.get(position);
+        final DaysWorkout dayList = daysList.get(position);
         holder.txtDay.setText(dayList.getDay());
-        holder.txtCals.setText(dayList.getTotalCals());
-        holder.txtCount.setText(dayList.getMealsCount());
+        holder.txtMuscl.setText(dayList.getMuscles());
+        holder.txtCount.setText(dayList.getCount());
 
 
 
@@ -64,7 +65,7 @@ public class DaysAdapterExercise extends RecyclerView.Adapter<DaysAdapterExercis
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView txtDay;
-        public TextView txtCals;
+        public TextView txtMuscl;
         public TextView txtCount;
         final Context context;
 
@@ -73,7 +74,7 @@ public class DaysAdapterExercise extends RecyclerView.Adapter<DaysAdapterExercis
             super(itemView);
 
             txtDay =  itemView.findViewById(R.id.txtDay);
-            txtCals = itemView.findViewById(R.id.txtCals);
+            txtMuscl = itemView.findViewById(R.id.txtCals);
             txtCount = itemView.findViewById(R.id.txtCount);
 
             context = itemView.getContext();

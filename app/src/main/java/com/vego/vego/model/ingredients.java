@@ -2,17 +2,17 @@ package com.vego.vego.model;
 
 import java.io.Serializable;
 
-public class MealIngr implements Serializable {
+public class ingredients implements Serializable {
 
     String type;
     double quantity;
 
 
-    public MealIngr() {
+    public ingredients() {
 
     }
 
-    public MealIngr(int quantity, String type) {
+    public ingredients(int quantity, String type) {
         this.quantity = quantity;
         this.type = type;
 

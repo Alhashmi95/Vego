@@ -21,7 +21,6 @@
             android:orientation="vertical">
 
 
-
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="42dp"
@@ -135,15 +134,25 @@
                 android:layout_marginLeft="150dp"
                 android:text="إضافة وجبة"></Button>
 
+            <Button
+                android:id="@+id/addNewMeal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="250dp"
+                android:layout_marginLeft="150dp"
+                android:text="إضافة وجبة جديدة"
+
+                ></Button>
+
             <TextView
                 android:id="@+id/tvprofileGoal"
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="150dp"
                 android:layout_height="30dp"
                 android:layout_above="@+id/tvProfileHeight"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginEnd="32dp"
+                android:layout_marginLeft="150dp"
                 android:layout_marginRight="32dp"
                 android:text="TextView"
                 android:textSize="18sp" />
