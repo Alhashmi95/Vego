@@ -45,8 +45,9 @@
             android:name=".Activity.AdminActivity"
             android:theme="@style/AppThemeNo" />
         <activity android:name=".Activity.UpdateProfileActivity" />
-        >>>>>>> 937130ec016db27e549c14b35688d9f6f60988df
-        <activity android:name=".Activity.AddNewMealActivity"></activity>
+        <activity android:name=".Activity.AddNewMealActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan">
+            ></activity>
     </application>
 
 </manifest>

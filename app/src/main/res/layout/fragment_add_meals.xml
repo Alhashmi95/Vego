@@ -70,7 +70,7 @@
                 android:backgroundTint="#ccc8c8" />
 
             <Spinner
-                android:id="@+id/selectUser12"
+                android:id="@+id/selectMeal"
                 android:layout_width="336dp"
                 android:layout_height="35dp"
                 android:layout_alignParentBottom="true"
@@ -80,7 +80,7 @@
                 android:backgroundTint="#ccc8c8" />
 
             <Spinner
-                android:id="@+id/selectMeal1"
+                android:id="@+id/selectMeal2"
                 android:layout_width="336dp"
                 android:layout_height="35dp"
                 android:layout_above="@+id/selectUser15"
@@ -90,7 +90,7 @@
                 android:backgroundTint="#ccc8c8" />
 
             <Spinner
-                android:id="@+id/selectUser14"
+                android:id="@+id/selectMeal3"
                 android:layout_width="336dp"
                 android:layout_height="35dp"
                 android:layout_centerInParent="true"
@@ -99,7 +99,7 @@
                 android:backgroundTint="#ccc8c8" />
 
             <Spinner
-                android:id="@+id/selectUser15"
+                android:id="@+id/selectMeal4"
                 android:layout_width="336dp"
                 android:layout_height="35dp"
                 android:layout_centerHorizontal="true"
@@ -108,7 +108,7 @@
                 android:backgroundTint="#ccc8c8" />
 
             <Spinner
-                android:id="@+id/selectUser13"
+                android:id="@+id/selectMeal5"
                 android:layout_width="336dp"
                 android:layout_height="35dp"
                 android:layout_marginBottom="154dp"
@@ -117,7 +117,7 @@
                 android:backgroundTint="#ccc8c8" />
 
             <Button
-                android:id="@+id/saveDay2"
+                android:id="@+id/saveDayMeal"
                 android:layout_width="241dp"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/addMoreMeals2"

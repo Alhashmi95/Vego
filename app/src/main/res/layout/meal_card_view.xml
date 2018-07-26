@@ -9,14 +9,17 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <EditText
                 android:id="@+id/txtQuantity"
@@ -26,7 +29,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="32dp"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="number"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="32dp" />
 
             <EditText
                 android:id="@+id/txtIngr"
@@ -36,7 +41,20 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="32dp"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="32dp" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/mealCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="1"
+        android:textSize="36sp"
+        android:layout_alignParentRight="true" />
+
 </RelativeLayout>

@@ -42,17 +42,17 @@ public class UserDetails extends AppCompatActivity {
     DayMeals meal;
 
 
-    ingredients[] ingredients = new ingredients[] {new ingredients(50,"Ma39oob")};
-    ingredients[] ingredients2 = new ingredients[] {new ingredients(150,"cheickn")};
-    ingredients[] ingredients3 = new ingredients[] {new ingredients(350,"sinapon")};
+    ingredients[] ingredients = new ingredients[] {new ingredients("549","Ma39oob")};
+    ingredients[] ingredients2 = new ingredients[] {new ingredients("439","cheickn")};
+    ingredients[] ingredients3 = new ingredients[] {new ingredients("493","sinapon")};
 
     List mealIngrList = new ArrayList<ingredients>(Arrays.asList(ingredients));
     List mealIngrList2 = new ArrayList<ingredients>(Arrays.asList(ingredients2));
     List mealIngrList3 = new ArrayList<ingredients>(Arrays.asList(ingredients3));
 
 
-    elements[] elements = new elements[] {new elements("cals",50),
-            new elements("carbo",50)};
+    elements[] elements = new elements[] {new elements("cals","439"),
+            new elements("carbo","50")};
 
     List mealElementList = new ArrayList<elements>(Arrays.asList(elements));
 

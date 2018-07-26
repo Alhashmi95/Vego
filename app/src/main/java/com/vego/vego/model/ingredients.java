@@ -5,25 +5,25 @@ import java.io.Serializable;
 public class ingredients implements Serializable {
 
     String type;
-    double quantity;
+    String quantity;
 
 
     public ingredients() {
 
     }
 
-    public ingredients(int quantity, String type) {
+    public ingredients(String quantity, String type) {
         this.quantity = quantity;
         this.type = type;
 
 
     }
 
-    public double getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 

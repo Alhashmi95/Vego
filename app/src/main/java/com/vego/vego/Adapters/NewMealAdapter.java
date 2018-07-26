@@ -25,13 +25,15 @@ import java.util.List;
 
 public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsViewHolder> {
 
-    private List<ingredients> ingrList;
+    private ArrayList<ingredients> ingrList;
     private Context mContext;
     private CardView cardViewMeals;
     private LayoutInflater inflater;
+    String ingr, quan;
+    ArrayList qtyArray,nameArray;
 
 
-    public NewMealAdapter(List<ingredients> ingrList, Context mContext) {
+    public NewMealAdapter(ArrayList<ingredients> ingrList, Context mContext) {
         this.ingrList = ingrList;
         inflater = LayoutInflater.from(mContext);
     }
@@ -45,13 +47,19 @@ public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsVie
         return holder;
 
     }
+    public ArrayList<ingredients> getIngredientsArray() {
+        return ingrList;
+    }
 
     @Override
     public void onBindViewHolder(NewMealAdapter.MealsViewHolder holder, final int position) {
 
-        holder.txtQuan.setText(ingrList.get(position).getType());
+        holder.txtQuan.setText(ingrList.get(position).getQuantity());
+        holder.txtIngr.setText(ingrList.get(position).getType());
         Log.d("print","yes");
 
+
+            holder.mealCount.setText("."+String.valueOf(position+1));
 
 
 
@@ -66,6 +74,8 @@ public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsVie
     class MealsViewHolder extends RecyclerView.ViewHolder{
 
         EditText txtIngr, txtQuan;
+        TextView mealCount;
+
 
 
         public MealsViewHolder(final View itemView) {
@@ -73,6 +83,7 @@ public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsVie
 
             txtIngr = itemView.findViewById(R.id.txtIngr);
             txtQuan = itemView.findViewById(R.id.txtQuantity);
+            mealCount = itemView.findViewById(R.id.mealCount);
 
             txtIngr.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -84,6 +95,21 @@ public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsVie
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                     ingrList.get(getAdapterPosition()).setType(txtIngr.getText().toString());
+//                    ingr =  txtIngr.getText().toString();
+//                    nameArray = new ArrayList();
+//                    for(int ii =0; ii<ingrList.size(); ii++) {
+//                        nameArray.add(getAdapterPosition());
+////                        nameArray.addAll(ingrList);
+////                        Log.d("test","this is ingrList :"+ingrList.get(i).getType());
+//
+//                    }
+//
+//
+//
+//                    Log.d("test","this is nameArray :"+nameArray.size());
+//                    Log.d("test","this is ingr :"+ingr);
+//
+
                 }
 
                 @Override
@@ -91,6 +117,42 @@ public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsVie
 
                 }
             });
+            txtQuan.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    ingrList.get(getAdapterPosition()).setQuantity(txtQuan.getText().toString());
+                   // Log.d("test","this is ingrList QQQQ :"+ingrList.size());
+
+
+//                    //declare arraylist to store array of quantites
+//                    qtyArray = new ArrayList();
+//                    //for loop to add quantites cumulatively
+//                    for(int ii =0; ii<ingrList.size(); ii++) {
+//                        qtyArray.add(getAdapterPosition());
+//                        //ingrList.add(new ingredients(qtyArray,nameArray));
+//                    }
+//
+//
+//                            Log.d("test","this is qtyArray :"+qtyArray.size());
+//                            Log.d("test","this is quan :"+quan);
+
+
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
+
 
         }
 

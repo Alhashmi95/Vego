@@ -13,7 +13,6 @@
         android:title="التمارين" />
 
 
-<<<<<<< HEAD
     <item
         android:id="@+id/support"
         android:icon="@drawable/toolbar_support"
@@ -21,11 +20,6 @@
 
 
 
-
-
-
-=======
->>>>>>> f79efe7f99064875ffa7b0cc9544c38dd397400b
 
 
     //limit is 5
