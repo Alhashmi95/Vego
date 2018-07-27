@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class elements implements Serializable {
     String name;
-    double amount;
+    String amount;
 
 
     public elements() {
 
     }
 
-    public elements(String name, double amount) {
+    public elements(String name, String amount) {
         this.name = name;
         this.amount = amount;
     }
@@ -24,11 +24,11 @@ public class elements implements Serializable {
         this.name = name;
     }
 
-    public double getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 }

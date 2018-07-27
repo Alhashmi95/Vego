@@ -1,20 +1,21 @@
 package com.vego.vego.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class meal {
+public class meal implements Serializable {
 
-    int cal;
+    String cal;
     String name;
     ArrayList<elements> element;
-    ArrayList<ingredients> ingrs;
+    ArrayList<ingredients> ingredients;
 
-    public meal(int cal, String name, ArrayList<elements> element, ArrayList<ingredients> ingrs) {
+    public meal(String cal, String name, ArrayList<elements> element, ArrayList<ingredients> ingredients) {
 
         this.cal = cal;
         this.name = name;
         this.element = element;
-        this.ingrs = ingrs;
+        this.ingredients = ingredients;
     }
 
     public meal(){
@@ -22,11 +23,11 @@ public class meal {
 
     }
 
-    public int getCal() {
+    public String getCal() {
         return cal;
     }
 
-    public void setCal(int cal) {
+    public void setCal(String cal) {
         this.cal = cal;
     }
 
@@ -46,11 +47,11 @@ public class meal {
         this.element = element;
     }
 
-    public ArrayList<ingredients> getIngrs() {
-        return ingrs;
+    public ArrayList<ingredients> getingredients() {
+        return ingredients;
     }
 
-    public void setIngrs(ArrayList<ingredients> ingrs) {
-        this.ingrs = ingrs;
+    public void setingredients(ArrayList<ingredients> ingredients) {
+        this.ingredients = ingredients;
     }
 }

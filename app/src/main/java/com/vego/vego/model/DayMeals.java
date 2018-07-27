@@ -12,10 +12,15 @@ public class DayMeals implements Serializable {
     ArrayList<ingredients> ingredients;
     ArrayList<elements> elements;
 
+    int isfffmg;
 
+    public int getIsfffmg() {
+        return isfffmg;
+    }
 
-
-
+    public void setIsfffmg(int isfffmg) {
+        this.isfffmg = isfffmg;
+    }
 
     public DayMeals(){
 

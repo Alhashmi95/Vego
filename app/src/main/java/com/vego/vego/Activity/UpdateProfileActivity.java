@@ -90,12 +90,12 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 "المحافظة على الوزن الحالي"
         };
 
-        ingredients[] ingredients = new ingredients[] {new ingredients(75,"cheickn")};
+        ingredients[] ingredients = new ingredients[] {new ingredients("478","cheickn")};
 
         List mealIngrList = new ArrayList<ingredients>(Arrays.asList(ingredients));
 
-        elements[] elements = new elements[] {new elements("cals",50),
-                new elements("carbo",50)};
+        elements[] elements = new elements[] {new elements("cals","409"),
+                new elements("carbo","490")};
         List mealElementList = new ArrayList<elements>(Arrays.asList(elements));
 
 
