@@ -120,7 +120,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         DayMeals[] dayMealsDay3 = new DayMeals[] {new DayMeals("fds","meal1day3",R.drawable.setting,
                 (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-                new DayMeals("meal2day3","333",R.drawable.home,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
+                new DayMeals("meal2day3","333",R.drawable.home_w,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
         };
 
         List dayMealsD3 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay3));
@@ -128,7 +128,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         DayMeals[] dayMealsDay4 = new DayMeals[] {new DayMeals("meal1day4","9328",R.drawable.setting,
                 (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-                new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
+                new DayMeals("fdskjdfs","928",R.drawable.home_w,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
 
         };
 
@@ -138,7 +138,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         DayMeals[] dayMealsDay5 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting
                 ,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-                new DayMeals("fdskjdfs","928",R.drawable.home,
+                new DayMeals("fdskjdfs","928",R.drawable.home_w,
                         (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
 
         };
@@ -157,7 +157,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         DayMeals[] dayMealsDay7 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
                 (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-                new DayMeals("fdskjdfs","928",R.drawable.home,(ArrayList<ingredients>) mealIngrList,
+                new DayMeals("fdskjdfs","928",R.drawable.home_w,(ArrayList<ingredients>) mealIngrList,
                         (ArrayList<elements>) mealElementList)
         };
 

@@ -7,4 +7,5 @@ public class WorkoutInside {
     String rm1;
     String vol;
     String weight;
+    String name;
 }

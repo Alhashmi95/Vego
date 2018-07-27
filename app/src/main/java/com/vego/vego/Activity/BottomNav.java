@@ -48,7 +48,7 @@ public class BottomNav extends AppCompatActivity {
 
 
         //to add Drawer ++++++++++++++++++++++++++++++++++++++++++++++++++++
-        toolbar = findViewById(R.id.toolbarT);
+        toolbar = findViewById(R.id.actionBar);
         toolbar.setTitle("Drawer Demo");
 
         // Create the AccountHeader
