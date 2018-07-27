@@ -69,14 +69,14 @@ public class FragmentAddMealDetailes extends Fragment {
     }
 
 
-    public static FragmentAddMealDetailes newInstance(String param1, String param2) {
-        FragmentAddMealDetailes fragment = new FragmentAddMealDetailes();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    public static FragmentAddMealDetailes newInstance(String param1, String param2) {
+//        FragmentAddMealDetailes fragment = new FragmentAddMealDetailes();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -154,15 +154,6 @@ public class FragmentAddMealDetailes extends Fragment {
                 newMealAdapter.notifyDataSetChanged();
             }
         });
-
-
-//        for(int i = 1; i < 8; i++){
-//            ingredients ing = new ingredients();
-//            ing.setType(String.valueOf(i));
-//            list.add(ing);
-//        }
-
-
         return list;
     }
 

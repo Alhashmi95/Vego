@@ -72,14 +72,14 @@ public class FragmentAddMealIng extends Fragment {
 
 
     // TODO: Rename and change types and number of parameters
-    public static FragmentAddMealIng newInstance(String param1, String param2) {
-        FragmentAddMealIng fragment = new FragmentAddMealIng();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    public static FragmentAddMealIng newInstance(String param1, String param2) {
+//        FragmentAddMealIng fragment = new FragmentAddMealIng();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,37 +110,9 @@ public class FragmentAddMealIng extends Fragment {
 
         totalCals = view.findViewById(R.id.totalcals);
 
-
-        updateCalsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (newElementAdapter.getElementssArray() != null) {
-                    sum = 0;
-                    for (int i = 0; i < newElementAdapter.getElementssArray().size(); i++) {
-                        double totalCals = Double.valueOf(newElementAdapter.getElementssArray().get(i).getAmount());
-                        sum = sum + totalCals;
-
-                    }
-                    totalCals.setText(String.valueOf(sum));
-                    listner.passArrayListEle(newElementAdapter.getElementssArray(),String.valueOf(sum));
-
-                    Intent intent = new Intent(v.getContext(), AddNewMealActivity.class);
-                    intent.putExtra("totalCal",sum);
-                    //v.getContext().startActivity(intent);
-
-                }
-//                String m = FragmentAddMealDetailes.mealNametransfer("mealName").toString();
-
-                /// meal mealTest = new meal(String.valueOf(sum),m,newElementAdapter.getElementssArray(),
-                //      ingrList);
-//                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//                    DatabaseReference d = firebaseDatabase.getReference();
-//
-//                    d.child("meals").setValue(mealTest);
+        updateCals();
 
 
-            }
-        });
 
 //        mealindex = view.findViewById(R.id.mealIndex);
 //        for(int i = 1; i < 8; i++) {
@@ -159,8 +131,6 @@ public class FragmentAddMealIng extends Fragment {
 
 
     }
-
-
     private ArrayList<elements> populateList() {
 
 
@@ -172,16 +142,26 @@ public class FragmentAddMealIng extends Fragment {
                 newElementAdapter.notifyDataSetChanged();
             }
         });
-
-
-//        for(int i = 1; i < 8; i++){
-//            ingredients ing = new ingredients();
-//            ing.setType(String.valueOf(i));
-//            list.add(ing);
-//        }
-
-
         return list;
+    }
+
+    public void updateCals(){
+        updateCalsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (newElementAdapter.getElementssArray() != null) {
+                    sum = 0;
+                    for (int i = 0; i < newElementAdapter.getElementssArray().size(); i++) {
+                        double totalCals = Double.valueOf(newElementAdapter.getElementssArray().get(i).getAmount());
+                        sum = sum + totalCals;
+
+                    }
+                    totalCals.setText(String.valueOf(sum));
+                    listner.passArrayListEle(newElementAdapter.getElementssArray(),String.valueOf(sum));
+                }
+            }
+        });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

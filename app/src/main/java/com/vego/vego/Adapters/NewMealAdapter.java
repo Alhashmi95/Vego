@@ -95,21 +95,6 @@ public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsVie
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                     ingrList.get(getAdapterPosition()).setType(txtIngr.getText().toString());
-//                    ingr =  txtIngr.getText().toString();
-//                    nameArray = new ArrayList();
-//                    for(int ii =0; ii<ingrList.size(); ii++) {
-//                        nameArray.add(getAdapterPosition());
-////                        nameArray.addAll(ingrList);
-////                        Log.d("test","this is ingrList :"+ingrList.get(i).getType());
-//
-//                    }
-//
-//
-//
-//                    Log.d("test","this is nameArray :"+nameArray.size());
-//                    Log.d("test","this is ingr :"+ingr);
-//
-
                 }
 
                 @Override

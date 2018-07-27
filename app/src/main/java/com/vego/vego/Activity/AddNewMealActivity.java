@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -27,6 +29,7 @@ import com.vego.vego.model.ingredients;
 import com.vego.vego.model.meal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AddNewMealActivity extends AppCompatActivity implements FragmentAddMealDetailes.passArrayListIng
@@ -36,9 +39,10 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
     TabLayout tableLayout;
     ViewPager viewPager;
     ArrayList<ingredients> importedIngredientsArrayList;
-    ArrayList<meal> mealArrayList = new ArrayList<>();
+    ArrayList<meal> mealArrayList = new ArrayList<>(), mealArrayListTest;
     ArrayList<elements> importedElementsArrayList;
     String n, c;
+    Button saveMeal;
 
 
 
@@ -51,6 +55,13 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         appBarLayout = findViewById(R.id.appbarid);
         tableLayout = findViewById(R.id.tablayout_id);
         viewPager = findViewById(R.id.viewpager_id);
+        saveMeal = findViewById(R.id.saveMealBtn);
+
+
+
+
+
+
 
         //add Fragments
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -64,9 +75,26 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         tableLayout.setupWithViewPager(viewPager);
 
 
+        saveMeal.setEnabled(false);
+
+
+        mealArrayListTest = populateList();
 
 
 
+
+    }
+    private ArrayList<meal> populateList() {
+
+
+        saveMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                meal mele = new meal();
+                mealArrayList.add(mele);
+            }
+        });
+        return mealArrayList;
     }
 
     @Override
@@ -76,8 +104,6 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         importedIngredientsArrayList = ing;
 
         n = mealName;
-
-
 
 
 
@@ -97,16 +123,41 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         importedElementsArrayList = ele;
 
         c = totalCal;
+
+
+
+
+
+        if(!importedIngredientsArrayList.isEmpty() && !importedElementsArrayList.isEmpty()){
+            saveMeal.setEnabled(true);
+
+            saveMeal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    HashMap<String,ArrayList> hashMap=new HashMap<>();
+//                    hashMap.put("age",importedElementsArrayList);
+//                    hashMap.put("weight",importedIngredientsArrayList);
+                    meal m = new meal();
+                    m.setCal(c);
+                    m.setName(n);
+                    m.setingredients(importedIngredientsArrayList);
+                    m.setElement(importedElementsArrayList);
+//                    mealArrayListTest.add(new meal(c, n, importedElementsArrayList,
+//                            importedIngredientsArrayList));
+                    mealArrayListTest.add(m);
+
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference d = firebaseDatabase.getReference();
+
+//                    d.child("meals").setValue(mealArrayListTest);
+//                    d.child("meals").child("element").setValue(hashMap);
+                }
+            });
+        }
+
         Log.d("test","this is imported eleList"+ ele.get(0).getName());
         Log.d("test","this is imported eleList"+ ele.get(0).getAmount());
 
-        mealArrayList.add(new meal(c, n, importedElementsArrayList,
-                importedIngredientsArrayList));
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference d = firebaseDatabase.getReference();
-
-        d.child("meals").setValue(mealArrayList);
 
         //uploadMeal();
     }
@@ -114,6 +165,8 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
 //        meal mealTest1 = new meal("3490", "kofta", importedElementsArrayList,
 //                importedIngredientsArrayList);
 //        mealArrayList.add(mealTest1);
+
+
 
 
 

@@ -9,7 +9,7 @@ import com.vego.vego.R;
 
 public class MainActivity extends AppCompatActivity {
     //seconds for splash screen
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 1000;
 
 
     @Override

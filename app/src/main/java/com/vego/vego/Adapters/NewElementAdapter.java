@@ -49,7 +49,8 @@ public class NewElementAdapter extends RecyclerView.Adapter<NewElementAdapter.El
 
     @Override
     public void onBindViewHolder(ElementViewHolder holder, int position) {
-        holder.txtQuan.setText(eleList.get(position).getName());
+        holder.txtQuan.setText(eleList.get(position).getAmount());
+        holder.txtIngr.setText(eleList.get(position).getName());
         Log.d("print","yes");
 
         holder.mealCount.setText("."+String.valueOf(position+1));

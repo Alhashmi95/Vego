@@ -11,7 +11,7 @@ public class elements implements Serializable {
 
     }
 
-    public elements(String name, String amount) {
+    public elements(String amount, String name) {
         this.name = name;
         this.amount = amount;
     }
