@@ -2,27 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 <item
     android:id="@+id/home"
-    android:icon="@drawable/home"
-    android:title="home"/>
+    android:icon="@drawable/home_w"
+    android:title="المتابعة"/>
 
 
 
     <item
         android:id="@+id/wallet"
-        android:icon="@drawable/wallet"
-        android:title="wallet"/>
+        android:icon="@drawable/toolbar_diet"
+        android:title="البرنامج الغذائي"/>
 
 
 
     <item
         android:id="@+id/setting"
-        android:icon="@drawable/setting"
-        android:title="setting"/>
+        android:icon="@drawable/toolbar_workout"
+        android:title="التمارين"/>
 
     <item
         android:id="@+id/language"
-        android:icon="@drawable/language"
-        android:title="langage"/>
+        android:icon="@drawable/toolbar_support"
+        android:title="الدعم"/>
 
 
 

@@ -4,67 +4,125 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.UpdateProfileActivity">
+    tools:context=".Activity.UpdateProfileActivity"
+    android:background="@color/wall">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/actionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+
+        android:layout_alignParentTop="true"
+        android:background="#002e65"
+
+        android:paddingRight="0dp"
+        android:layout_alignParentLeft="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="9dp"
+                android:src="@drawable/logo_white" />
+
+
+            <ImageView
+                android:id="@+id/profile"
+                android:layout_width="39dp"
+                android:layout_height="match_parent"
+
+                android:layout_alignParentStart="true"
+
+
+                android:layout_alignParentTop="true"
+                android:onClick="openDrawer"
+                android:paddingTop="2dp"
+                android:src="@drawable/profile_on_top"
+                tools:ignore="OnClick"
+                android:layout_alignParentLeft="true" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
 
     <ImageView
         android:id="@+id/ivProfileUpdate"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_alignEnd="@+id/btnSave"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="14dp"
-        android:layout_alignRight="@+id/btnSave" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
+        android:src="@color/scifitRed" />
 
     <EditText
         android:id="@+id/userNameUpdateTxt"
-        android:layout_width="304dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="191dp"
         android:background="#cccbcb"
         android:ems="10"
         android:gravity="center"
         android:hint="Name"
         android:inputType="textPersonName"
         android:paddingBottom="7.5dp"
-        android:paddingTop="7.5dp" />
+        android:paddingTop="7.5dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_alignParentLeft="true" />
 
     <EditText
         android:id="@+id/heightTxt2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="189dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="180dp"
         android:background="#cccbcb"
         android:ems="10"
         android:gravity="center"
         android:hint="Height"
         android:inputType="number"
         android:paddingBottom="7.5dp"
-        android:paddingTop="7.5dp" />
+        android:paddingTop="7.5dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_alignParentLeft="true" />
 
     <EditText
         android:id="@+id/weightTxt2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="233dp"
         android:background="#cccbcb"
         android:ems="10"
         android:gravity="center"
         android:hint="Weight"
         android:inputType="number"
         android:paddingBottom="7.5dp"
-        android:paddingTop="7.5dp" />
+        android:paddingTop="7.5dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_alignParentLeft="true" />
 
     <EditText
         android:id="@+id/ageTxt2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="189dp"
+        android:layout_marginTop="243dp"
         android:background="#cccbcb"
         android:ems="10"
         android:gravity="center"
@@ -72,7 +130,10 @@
         android:imeOptions="actionDone"
         android:inputType="number"
         android:paddingBottom="7.5dp"
-        android:paddingTop="7.5dp" />
+        android:paddingTop="7.5dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_alignParentLeft="true" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -83,24 +144,32 @@
         android:layout_marginBottom="126dp"
         android:background="#cccbcb"
         android:spinnerMode="dropdown"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
         android:layout_alignParentLeft="true" />
 
     <Spinner
         android:id="@+id/spinner4"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="39dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="75dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
         android:layout_alignParentLeft="true" />
 
     <Button
         android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/spinner4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-62dp"
-        android:text="Save" />
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:text="Save"
+        android:backgroundTint="@color/scifitRed"
+        android:textColor="#ffffff"/>
 
 </RelativeLayout>
