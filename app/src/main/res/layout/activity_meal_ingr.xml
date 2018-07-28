@@ -92,13 +92,8 @@
         app:tabIndicatorColor="#1d1d1d"
         app:tabMode="fixed"
         app:tabTextColor="@color/tabtextcolor"
-<<<<<<< HEAD
         android:layout_alignParentLeft="true" />
 
-=======
-        android:layout_alignParentLeft="true"
-        />
->>>>>>> fedc4b23349104370bccff2a0479902668172a41
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_id"
         android:layout_width="match_parent"

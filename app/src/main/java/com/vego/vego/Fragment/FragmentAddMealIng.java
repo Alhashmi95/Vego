@@ -36,7 +36,6 @@ import java.util.ArrayList;
  * Activities that contain this fragment must implement the
  * {@link FragmentAddMealIng.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentAddMealIng#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class FragmentAddMealIng extends Fragment {

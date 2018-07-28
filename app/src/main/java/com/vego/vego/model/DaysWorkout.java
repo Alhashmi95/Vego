@@ -6,7 +6,7 @@ public class DaysWorkout {
     String muscles;
     String count;
 
-    public DaysWorkout(String day, String muscles, String count) {
+    public DaysWorkout(String day, String count,String muscles) {
         this.day = day;
         this.muscles = muscles;
         this.count = count;

@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 import com.vego.vego.R;
+import com.vego.vego.model.DaysWorkout;
 import com.vego.vego.model.elements;
 import com.vego.vego.model.ingredients;
 import com.vego.vego.model.UserInfo;
@@ -140,12 +141,25 @@ public class UserDetails extends AppCompatActivity {
             new DietDay("7","287","34",(ArrayList<DayMeals>) dayMealsD7),
     };
 
+    DaysWorkout[] workoutDay = new DaysWorkout[] {new DaysWorkout("1","389", "4"),
+            new DaysWorkout("1","389", "4"),
+            new DaysWorkout("1","389", "4"),
+            new DaysWorkout("1","389", "4"),
+            new DaysWorkout("1","389", "4"),
+            new DaysWorkout("1","389", "4"),
+            new DaysWorkout("1","389", "4"),
+    };
+
     ArrayList dietList ;
+
+    ArrayList workoutList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
         dietList= new ArrayList<DietDay>(Arrays.asList(dietDay));
+        workoutList= new ArrayList<DaysWorkout>(Arrays.asList(workoutDay));
+
         setupUIViews();
 
         ///////////////////////////////////////////////////////////////////////////////////

@@ -12,8 +12,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        tools:ignore="UselessParent"
-        android:background="@color/wall">
+        android:background="@color/wall"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,13 +67,8 @@
                 android:backgroundTint="@color/scifitBlue" />
 
             <Spinner
-<<<<<<< HEAD
-                android:id="@+id/selectUser12"
-                android:layout_width="match_parent"
-=======
                 android:id="@+id/selectMeal"
-                android:layout_width="336dp"
->>>>>>> 215df1e4a45c0ebafcb52b32a189239c490e3d8e
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
@@ -83,46 +78,29 @@
                 android:backgroundTint="#ccc8c8" />
 
             <Spinner
-<<<<<<< HEAD
-                android:id="@+id/selectMeal1"
+                android:id="@+id/selectMeal2"
                 android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_above="@+id/selectMeal3"
+                android:layout_centerHorizontal="true"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-=======
-                android:id="@+id/selectMeal2"
-                android:layout_width="336dp"
->>>>>>> 215df1e4a45c0ebafcb52b32a189239c490e3d8e
-                android:layout_height="35dp"
-                android:layout_above="@+id/selectUser15"
-                android:layout_centerHorizontal="true"
-
                 android:layout_marginTop="15dp"
                 android:backgroundTint="#ccc8c8" />
 
             <Spinner
-<<<<<<< HEAD
-                android:id="@+id/selectUser14"
-                android:layout_width="match_parent"
-=======
                 android:id="@+id/selectMeal3"
-                android:layout_width="336dp"
->>>>>>> 215df1e4a45c0ebafcb52b32a189239c490e3d8e
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
                 android:layout_marginTop="15dp"
-                android:backgroundTint="#ccc8c8"
-                />
+                android:backgroundTint="#ccc8c8" />
 
             <Spinner
-<<<<<<< HEAD
-                android:id="@+id/selectUser15"
-                android:layout_width="match_parent"
-=======
                 android:id="@+id/selectMeal4"
-                android:layout_width="336dp"
->>>>>>> 215df1e4a45c0ebafcb52b32a189239c490e3d8e
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="25dp"
@@ -131,13 +109,8 @@
                 android:backgroundTint="#ccc8c8" />
 
             <Spinner
-<<<<<<< HEAD
-                android:id="@+id/selectUser13"
-                android:layout_width="match_parent"
-=======
                 android:id="@+id/selectMeal5"
-                android:layout_width="336dp"
->>>>>>> 215df1e4a45c0ebafcb52b32a189239c490e3d8e
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginBottom="154dp"
                 android:layout_marginLeft="25dp"
@@ -146,13 +119,8 @@
                 android:backgroundTint="#ccc8c8" />
 
             <Button
-<<<<<<< HEAD
-                android:id="@+id/saveDay2"
-                android:layout_width="match_parent"
-=======
                 android:id="@+id/saveDayMeal"
-                android:layout_width="241dp"
->>>>>>> 215df1e4a45c0ebafcb52b32a189239c490e3d8e
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/addMoreMeals2"
                 android:layout_marginLeft="25dp"
