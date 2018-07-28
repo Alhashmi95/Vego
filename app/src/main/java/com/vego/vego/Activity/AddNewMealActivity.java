@@ -48,7 +48,7 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meal_ingr);
+        setContentView(R.layout.activity_add_new_meal);
 
         //connect views to layout
         appBarLayout = findViewById(R.id.appbarid);
