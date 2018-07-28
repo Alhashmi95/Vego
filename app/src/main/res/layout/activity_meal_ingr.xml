@@ -90,10 +90,17 @@
         app:tabIndicatorColor="#1d1d1d"
         app:tabMode="fixed"
         app:tabTextColor="@color/tabtextcolor"
+<<<<<<< HEAD
 
         android:layout_alignParentLeft="true" />
 
     <android.support.v7.widget.RecyclerView
+=======
+        android:layout_alignParentLeft="true" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_id"
+>>>>>>> ed88b0d8711b13106ad7b28033731b618c9f2010
         android:layout_width="match_parent"
         android:layout_below="@+id/tablayout_id"
         android:layout_height="match_parent"
