@@ -48,7 +48,6 @@ public class FragmentAddMealDetailes extends Fragment {
     passArrayListIng listner;
 
 
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -63,10 +62,12 @@ public class FragmentAddMealDetailes extends Fragment {
     public FragmentAddMealDetailes() {
         // Required empty public constructor
     }
+
     //step 1 to copy array to activity
-    public interface passArrayListIng{
+    public interface passArrayListIng {
         public void passArrayListIng(ArrayList<ingredients> ing, String mealName);
-    }
+
+        }
 
 
 //    public static FragmentAddMealDetailes newInstance(String param1, String param2) {
@@ -109,15 +110,6 @@ public class FragmentAddMealDetailes extends Fragment {
         etmealName = view.findViewById(R.id.mealName);
 
 
-
-
-
-
-
-
-
-
-
 //        mealindex = view.findViewById(R.id.mealIndex);
 //        for(int i = 1; i < 8; i++) {
 //            mealindex.setText(String.valueOf(i));
@@ -128,7 +120,7 @@ public class FragmentAddMealDetailes extends Fragment {
 
 
         ingrList = populateList();
-        newMealAdapter = new NewMealAdapter(ingrList,getContext());
+        newMealAdapter = new NewMealAdapter(ingrList, getContext());
         recyclerview.setAdapter(newMealAdapter);
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false));
@@ -139,11 +131,10 @@ public class FragmentAddMealDetailes extends Fragment {
         saveMeal();
 
 
-
     }
 
 
-    private ArrayList<ingredients> populateList(){
+    private ArrayList<ingredients> populateList() {
 
 
         addNewTypeBtn.setOnClickListener(new View.OnClickListener() {
@@ -169,40 +160,30 @@ public class FragmentAddMealDetailes extends Fragment {
                     etmealName.setError("please enter the name of the meal");
                 }
                 //first we check if arraylist of elements is not null
-                //check if there's any null edit text in all cardviews of meal elements
-                 for (int i = 0; i < newMealAdapter.getIngredientsArray().size(); i++) {
-                            //check if there's any null edit text in all cardviews of meal elements
-                            if(newMealAdapter.getIngredientsArray().get(i).getType().isEmpty() ||
-                                    newMealAdapter.getIngredientsArray().get(i).getQuantity().isEmpty()){
-                                Toast.makeText(getContext(), "please enter all ingr details",
-                                        Toast.LENGTH_SHORT).show();
-                                checker = false;
-                                break;
+                //check if there's any null edit text in all cardviews of meal elements3
+                checker = true;
+                for (int i = 0; i < newMealAdapter.getIngredientsArray().size(); i++) {
+                    //check if there's any null edit text in all cardviews of meal elements
+                    if (newMealAdapter.getIngredientsArray().get(i).getType().isEmpty() ||
+                            newMealAdapter.getIngredientsArray().get(i).getQuantity().isEmpty()) {
+                        Toast.makeText(getContext(), "please enter all ingr details",
+                                Toast.LENGTH_SHORT).show();
+                        checker = false;
+                        break;
 
-                            }else{
-                                checker = true;
-                                Toast.makeText(getContext(), "successfully registred your meal",
-                                        Toast.LENGTH_SHORT).show();
-                                Bundle bundle = new Bundle();
-                                if(newMealAdapter.getIngredientsArray() != null) {
-                                    listner.passArrayListIng(newMealAdapter.getIngredientsArray(),mealName);
+                    }
 
-                                }
-                            }
+                }
 
-                        }
-//                for (int i = 0; i < newElementAdapter.getElementssArray().size(); i++) {
-//
-//                }
+                if (newMealAdapter.getIngredientsArray() != null && checker) {
+                    listner.passArrayListIng(newMealAdapter.getIngredientsArray(), mealName);
 
-
-
-                    //meal meal = new meal(String.valueOf(totalcal()), mealName, newElementAdapter.getElementssArray(),
-                       //     newMealAdapter.getIngredientsArray());
+                }
             }
         });
     }
-    public double totalcal(){
+
+    public double totalcal() {
         double sum = 0;
         for (int i = 0; i < newElementAdapter.getElementssArray().size(); i++) {
             double totalCals = Double.valueOf(newElementAdapter.getElementssArray().get(i).getAmount());
@@ -239,14 +220,13 @@ public class FragmentAddMealDetailes extends Fragment {
     //step 2 ....
     public void onAttach(Context context) {
         super.onAttach(context);
-        Activity activity =(Activity) context;
+        Activity activity = (Activity) context;
 
         listner = (passArrayListIng) activity;
         try {
 
-        }catch (ClassCastException e)
-        {
-            throw new ClassCastException(activity.toString()+ "must override passArrayListIng...");
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + "must override passArrayListIng...");
         }
     }
 }

@@ -33,17 +33,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AddNewMealActivity extends AppCompatActivity implements FragmentAddMealDetailes.passArrayListIng
-        ,FragmentAddMealIng.passArrayListEle {
+        , FragmentAddMealIng.passArrayListEle {
 
     AppBarLayout appBarLayout;
     TabLayout tableLayout;
     ViewPager viewPager;
-    ArrayList<ingredients> importedIngredientsArrayList;
-    ArrayList<meal> mealArrayList = new ArrayList<>(), mealArrayListTest;
-    ArrayList<elements> importedElementsArrayList;
+    ArrayList<ingredients> importedIngredientsArrayList = new ArrayList<>();
+    ArrayList<meal> mealArrayList = new ArrayList<>();
+    ArrayList<elements> importedElementsArrayList = new ArrayList<>();
     String n, c;
     Button saveMeal;
-
 
 
     @Override
@@ -58,16 +57,10 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         saveMeal = findViewById(R.id.saveMealBtn);
 
 
-
-
-
-
-
         //add Fragments
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentAddMealDetailes(),"Meal Details");
+        adapter.addFragment(new FragmentAddMealDetailes(), "Meal Details");
         adapter.addFragment(new FragmentAddMealIng(), "Meal Ingredients");
-
 
 
         //set adapter
@@ -78,12 +71,62 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         saveMeal.setEnabled(false);
 
 
-        mealArrayListTest = populateList();
+        //   mealArrayListTest = populateList();
+
+        saveMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                meal m = new meal();
+
+                if (!importedIngredientsArrayList.isEmpty() && !importedElementsArrayList.isEmpty()) {
+
+//                    HashMap<String,ArrayList> hashMap=new HashMap<>();
+//                    hashMap.put("age",importedElementsArrayList);
+//                    hashMap.put("weight",importedIngredientsArrayList);
+                    //   meal m = new meal();
+
+                    ArrayList test1=importedIngredientsArrayList;
+                    ArrayList test2=importedElementsArrayList;
+                    m.setCal(c);
+                    m.setName(n);
+                    m.setingredients(test1);
+                    m.setElement(test2);
+                    //                  mealArrayListTest.add(new meal(c, n, importedElementsArrayList,
+                    //                        importedIngredientsArrayList));.
+                    mealArrayList.add(m);
 
 
 
 
+
+
+                    for (int i =0;i<mealArrayList.size();i++){
+                        for (int j=0;j<mealArrayList.get(i).getElement().size();j++){
+                            Log.d("test","d7om   "+mealArrayList.get(i).getElement().get(j).getAmount());
+                            Log.d("test","d7om   "+mealArrayList.get(i).getElement().get(j).getName());
+                        }
+
+                        for (int j=0;j<mealArrayList.get(i).getingredients().size();j++){
+                            Log.d("test","d7om   "+mealArrayList.get(i).getingredients().get(j).getQuantity());
+                            Log.d("test","d7om   "+mealArrayList.get(i).getingredients().get(j).getType());
+
+                        }
+
+                    }
+
+                    Log.d("test", "this is imported eleList" + importedElementsArrayList);
+                    Log.d("test", "this is imported eleList" + importedIngredientsArrayList);
+
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference d = firebaseDatabase.getReference();
+
+                    d.child("meals").setValue(mealArrayList);
+                }
+//                    d.child("meals").child("element").setValue(hashMap);
+            }
+        });
     }
+
     private ArrayList<meal> populateList() {
 
 
@@ -101,11 +144,15 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
     public void passArrayListIng(ArrayList<ingredients> ing, String mealName) {
 
         // Assign values to new arraylist
-        importedIngredientsArrayList = ing;
+        importedIngredientsArrayList=new ArrayList<>();
+        importedIngredientsArrayList.addAll(ing);
+
+        for (int j = 0; j < importedIngredientsArrayList.size(); j++) {
+            Log.d("test", "d7om   " +importedIngredientsArrayList.get(j).getType());
+            Log.d("test", "d7om   " +importedIngredientsArrayList.get(j).getQuantity());
+        }
 
         n = mealName;
-
-
 
 
 //        Log.d("test","this is imported ingList"+ ing.get(0).getType());
@@ -120,57 +167,28 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
 
     @Override
     public void passArrayListEle(ArrayList<elements> ele, String totalCal) {
-        importedElementsArrayList = ele;
+        importedElementsArrayList.clear();
+        importedElementsArrayList.addAll(ele);
 
         c = totalCal;
 
 
-
-
-
-        if(!importedIngredientsArrayList.isEmpty() && !importedElementsArrayList.isEmpty()){
             saveMeal.setEnabled(true);
 
-            saveMeal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    HashMap<String,ArrayList> hashMap=new HashMap<>();
-//                    hashMap.put("age",importedElementsArrayList);
-//                    hashMap.put("weight",importedIngredientsArrayList);
-                    meal m = new meal();
-                    m.setCal(c);
-                    m.setName(n);
-                    m.setingredients(importedIngredientsArrayList);
-                    m.setElement(importedElementsArrayList);
-//                    mealArrayListTest.add(new meal(c, n, importedElementsArrayList,
-//                            importedIngredientsArrayList));
-                    mealArrayListTest.add(m);
 
-                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference d = firebaseDatabase.getReference();
 
-//                    d.child("meals").setValue(mealArrayListTest);
-//                    d.child("meals").child("element").setValue(hashMap);
-                }
-            });
-        }
-
-        Log.d("test","this is imported eleList"+ ele.get(0).getName());
-        Log.d("test","this is imported eleList"+ ele.get(0).getAmount());
 
 
         //uploadMeal();
     }
+
     public void uploadMeal() {
 //        meal mealTest1 = new meal("3490", "kofta", importedElementsArrayList,
 //                importedIngredientsArrayList);
 //        mealArrayList.add(mealTest1);
 
 
-
-
-
-        Log.d("test","this is mealArrayList"+mealArrayList.size());
+        Log.d("test", "this is mealArrayList" + mealArrayList.size());
 //        for (int i = 0; i < mealArrayList.size(); i++) {
 //            mealTest = new meal(c, n, importedElementsArrayList,
 //                    importedIngredientsArrayList);
