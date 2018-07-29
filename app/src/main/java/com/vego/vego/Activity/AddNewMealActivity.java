@@ -2,6 +2,7 @@ package com.vego.vego.Activity;
 
 import android.content.Intent;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,8 +15,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.vego.vego.Adapters.MealsAdapter;
 import com.vego.vego.Adapters.ViewPagerAdapter;
 import com.vego.vego.Fragment.FragmentAddMealDetailes;
@@ -43,6 +47,9 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
     ArrayList<elements> importedElementsArrayList = new ArrayList<>();
     String n, c;
     Button saveMeal;
+    meal m;
+    int i =0, test =0;
+
 
 
     @Override
@@ -70,20 +77,55 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
 
         saveMeal.setEnabled(false);
 
+        FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+        DatabaseReference databaseReference = f.getReference().child("meals");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Note ** : ondatachange discards the value of arraylist after it finishs
+                test = (int) dataSnapshot.getChildrenCount();
+
+                for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
+
+//                    spinnerArrayAdapter2.notifyDataSetChanged();
+
+
+
+
+                }
+                Log.d("test","this is teeest: "+test);
+
+
+
+
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+
+
+        });
+
 
         //   mealArrayListTest = populateList();
 
         saveMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                meal m = new meal();
 
                 if (!importedIngredientsArrayList.isEmpty() && !importedElementsArrayList.isEmpty()) {
 
 //                    HashMap<String,ArrayList> hashMap=new HashMap<>();
 //                    hashMap.put("age",importedElementsArrayList);
 //                    hashMap.put("weight",importedIngredientsArrayList);
-                    //   meal m = new meal();
+                       meal m = new meal();
 
                     ArrayList test1=importedIngredientsArrayList;
                     ArrayList test2=importedElementsArrayList;
@@ -93,7 +135,7 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
                     m.setElement(test2);
                     //                  mealArrayListTest.add(new meal(c, n, importedElementsArrayList,
                     //                        importedIngredientsArrayList));.
-                    mealArrayList.add(m);
+                    //mealArrayList.add(m);
 
 
 
@@ -120,7 +162,9 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     DatabaseReference d = firebaseDatabase.getReference();
 
-                    d.child("meals").setValue(mealArrayList);
+                   // String mealid = d.child("meals").push().getKey();
+                    d.child("meals").child(String.valueOf(test)).setValue(m);
+                    i++;
                 }
 //                    d.child("meals").child("element").setValue(hashMap);
             }
@@ -144,6 +188,8 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
     public void passArrayListIng(ArrayList<ingredients> ing, String mealName) {
 
         // Assign values to new arraylist
+        m = new meal();
+
         importedIngredientsArrayList=new ArrayList<>();
         importedIngredientsArrayList.addAll(ing);
 
@@ -167,6 +213,9 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
 
     @Override
     public void passArrayListEle(ArrayList<elements> ele, String totalCal) {
+
+        m = new meal();
+
         importedElementsArrayList.clear();
         importedElementsArrayList.addAll(ele);
 

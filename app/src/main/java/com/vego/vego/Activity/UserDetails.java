@@ -365,11 +365,11 @@ public class UserDetails extends AppCompatActivity {
 
 
         DatabaseReference mealRef = firebaseDatabase.getReference();
-        mealRef.child("meals").setValue(dietList);
+        //mealRef.child("meals").setValue(dietList);
 
         //databasaeReference.child("users").child(firebaseAuth.getUid()).setValue(userInfo);
         databasaeReference.child("users").child(firebaseAuth.getUid()).child("Profile").setValue(hashMap);
-        databasaeReference.child("users").child(firebaseAuth.getUid()).child("Diet").setValue(dietList);
+       // databasaeReference.child("users").child(firebaseAuth.getUid()).child("Diet").setValue(dietList);
       //  databasaeReference.child("users").child(firebaseAuth.getUid()).child("Diet").child("0").child("dayMeals").setValue(hashMap2);
 
 
