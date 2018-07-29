@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+>>>>>>> 45cb6bac934683e3a3a69302ca4d676f6b50d0b9
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -34,7 +39,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+<<<<<<< HEAD
         app:layout_constraintStart_toStartOf="parent" />
+=======
+        android:layout_alignParentLeft="true" />
+>>>>>>> 45cb6bac934683e3a3a69302ca4d676f6b50d0b9
 
     <Button
         android:id="@+id/signinBtn"
@@ -115,6 +124,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="42dp"
         android:background="@color/scifitBlue"
+<<<<<<< HEAD
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -125,6 +135,13 @@
         android:background="@color/scifitBlue"
         app:layout_constraintTop_toTopOf="@+id/divider4"
         app:layout_constraintStart_toStartOf="parent" />
+=======
+        android:layout_alignParentLeft="true" />
+
+
+
+
+>>>>>>> 45cb6bac934683e3a3a69302ca4d676f6b50d0b9
 
     <TextView
         android:id="@+id/txtForget"
@@ -136,9 +153,13 @@
         android:layout_marginStart="52dp"
         android:text="Forget your password?"
         android:textColor="@color/scifitBlue"
+<<<<<<< HEAD
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
+=======
+        android:layout_alignLeft="@+id/emailTxt" />
+>>>>>>> 45cb6bac934683e3a3a69302ca4d676f6b50d0b9
 
 </android.support.constraint.ConstraintLayout>

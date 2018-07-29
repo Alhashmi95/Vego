@@ -59,7 +59,7 @@
         android:layout_height="36dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="125dp"
         android:background="@color/scifitBlue"
         android:text="تسجيل الدخول بواسطة جوجل"
         android:textColor="#FFFF" />
@@ -83,11 +83,11 @@
 
     <Button
         android:id="@+id/signupBtn"
-        android:layout_width="322dp"
+        android:layout_width="331dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="115dp"
         android:backgroundTint="#cf0545"
         android:gravity="center"
         android:text="Sign-up"
@@ -95,11 +95,11 @@
 
     <EditText
         android:id="@+id/emailTxt"
-        android:layout_width="337dp"
+        android:layout_width="331dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="268dp"
         android:background="#cccbcb"
         android:ems="10"
         android:gravity="center"
@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="153dp"
+        android:layout_marginBottom="192dp"
         android:background="#cccbcb"
         android:ems="10"
         android:gravity="center_horizontal"
@@ -129,7 +129,7 @@
         android:layout_height="33dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="167dp"
+        android:layout_marginTop="205dp"
         android:text="أو"
         android:textAlignment="center"
         android:textSize="18sp"
@@ -141,11 +141,11 @@
 
     <EditText
         android:id="@+id/passwordTxt"
-        android:layout_width="336dp"
+        android:layout_width="331dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="201dp"
+        android:layout_marginBottom="243dp"
         android:background="#cccbcb"
         android:ems="10"
         android:gravity="center_horizontal"

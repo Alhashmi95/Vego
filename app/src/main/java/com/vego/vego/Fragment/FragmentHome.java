@@ -125,8 +125,8 @@ public class FragmentHome extends Fragment {
                     for(DataSnapshot ds2 : ds.child("dayMeals").getChildren()) {
                         mealsList.add(ds2.getValue(DayMeals.class));
                         mealsIngrList = new ArrayList<ingredients>();
-                        for(DataSnapshot ds3 : ds2.child("mealIngrs").getChildren()){
-                            Log.d("test","this is child: "+ds3.toString());
+                        for(DataSnapshot ds3 : ds2.child("ingredients").getChildren()){
+                            Log.d("test","this is child name: "+ds3.toString());
                             mealsIngrList.add(ds3.getValue(ingredients.class));
                         }
                         mealsList.get(j).setIngredients(mealsIngrList);

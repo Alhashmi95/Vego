@@ -149,6 +149,7 @@ public class AddMealsFragment extends Fragment {
         profileHeight = view.findViewById(R.id.tvProfileHeight);
         profileActivity = view.findViewById(R.id.tvprofileActivity);
         profileGoal = view.findViewById(R.id.tvprofileGoal);
+        spSelectUser = view.findViewById(R.id.selectUser);
 
 
 
@@ -163,9 +164,9 @@ public class AddMealsFragment extends Fragment {
 
         selectedDay();
 
-        //getMeal();
+        getMeal();
 //
-        //selectedMeal();
+        selectedMeal();
 
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
         DatabaseReference uidRef = usersRef.child("ZU7wS37XJUU6oeueYlciKWxx5X23");
@@ -263,7 +264,7 @@ public class AddMealsFragment extends Fragment {
     }
     public void selectedMeal(){
         //This is first spinner (to add meal one to a specific user and day +++++++++++++++++++++++++++++++
-        final Spinner spSelectUser = getView().findViewById(R.id.selectMeal);
+        spSelectUser = getView().findViewById(R.id.selectMeal);
         m = new ArrayList<>();
         m.add(0,"اختر وجبة");
 
