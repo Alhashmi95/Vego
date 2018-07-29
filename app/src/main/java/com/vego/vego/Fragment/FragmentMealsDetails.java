@@ -1,17 +1,33 @@
 package com.vego.vego.Fragment;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.vego.vego.Adapters.MealDetailesAdapter;
+import com.vego.vego.Adapters.MealIngAdapter;
 import com.vego.vego.R;
+import com.vego.vego.model.elements;
+import com.vego.vego.model.ingredients;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentMealsDetails extends Fragment {
     View view;
 
+    private RecyclerView recyclerView_mealDetailes;
+    private MealDetailesAdapter adapter;
+
+    private FragmentManager fragmentManager;
+    private List<elements> mealElementList;
 
     public FragmentMealsDetails() {
     }
@@ -22,5 +38,32 @@ public class FragmentMealsDetails extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_meals_details, container, false);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mealElementList = new ArrayList<>();
+        // للتجربة اضافة في مكونات الوجبة اذا زبطت نضيفها من الفاير بيس
+        elements n = new elements ("1000","مجموع السعرات");
+        elements n2 = new elements ("500","بروتين");
+        mealElementList.add(n);
+        mealElementList.add(n2);
+
+
+
+
+        // هذا الكود لربط الكارد فيو
+        recyclerView_mealDetailes = view.findViewById(R.id.recyclerMealDetailes);
+        recyclerView_mealDetailes.setHasFixedSize(true);
+        recyclerView_mealDetailes.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //Set adapter
+        adapter = new MealDetailesAdapter(mealElementList,getContext());
+        recyclerView_mealDetailes.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+
     }
 }

@@ -82,7 +82,6 @@ import java.util.List;
                 txtDay =  itemView.findViewById(R.id.txtDay);
                 txtCals = itemView.findViewById(R.id.txtCals);
                 txtCount = itemView.findViewById(R.id.txtCount);
-
                 context = itemView.getContext();
 
 

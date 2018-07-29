@@ -74,7 +74,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
 
            textViewTitle = itemView.findViewById(R.id.textViewTitle);
            textViewShortDesc = itemView.findViewById(R.id.textViewShortDesc);
-            cardViewMeals = itemView.findViewById(R.id.cardViewMeals);
+           cardViewMeals = itemView.findViewById(R.id.cardViewMeals);
            imageView = itemView.findViewById(R.id.imageView);
 
            itemView.setOnClickListener(new View.OnClickListener(){

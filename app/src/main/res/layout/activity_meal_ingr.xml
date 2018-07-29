@@ -4,9 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.DayMealsActivity">
+    tools:context=".Activity.MealIngrActivity">
 
     // هذي اللي تسوي البار اللي فوق
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="#333333"
+        android:scrollbars="horizontal"
+        app:menu="@menu/menu_nav"></android.support.design.widget.BottomNavigationView>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/actionBar"
@@ -90,22 +100,19 @@
         app:tabIndicatorColor="#1d1d1d"
         app:tabMode="fixed"
         app:tabTextColor="@color/tabtextcolor"
-<<<<<<< HEAD
+
 
         android:layout_alignParentLeft="true" />
 
-    <android.support.v7.widget.RecyclerView
-=======
-        android:layout_alignParentLeft="true" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_id"
->>>>>>> ed88b0d8711b13106ad7b28033731b618c9f2010
         android:layout_width="match_parent"
-        android:layout_below="@+id/tablayout_id"
-        android:layout_height="match_parent"
-        android:id="@+id/mealrecycler"
-        android:background="#bebcbc"/>
+        android:layout_height="277dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="56dp"
+        android:background="#bebcbc" />
 
 
 </RelativeLayout>

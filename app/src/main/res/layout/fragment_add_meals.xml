@@ -11,13 +11,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@color/wall"
-<<<<<<< HEAD
+
         tools:ignore="UselessParent"
         android:layout_alignParentLeft="true">
-=======
-        tools:ignore="UselessParent">
 
->>>>>>> ed88b0d8711b13106ad7b28033731b618c9f2010
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,10 +85,7 @@
                 android:layout_marginRight="25dp"
                 android:layout_marginTop="15dp"
                 android:backgroundTint="#ccc8c8" />
-<<<<<<< HEAD
-=======
 
->>>>>>> ed88b0d8711b13106ad7b28033731b618c9f2010
             <Spinner
                 android:id="@+id/selectMeal4"
                 android:layout_width="match_parent"
