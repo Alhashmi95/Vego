@@ -7,14 +7,14 @@ public class meal implements Serializable {
 
     String cal;
     String name;
-    ArrayList<elements> element;
+    ArrayList<elements> elements;
     ArrayList<ingredients> ingredients;
 
-    public meal(String cal, String name, ArrayList<elements> element, ArrayList<ingredients> ingredients) {
-
+    public meal(String cal, String name, ArrayList<elements> elements, ArrayList<ingredients> ingredients) {
+        //List<ingredients> ingrList
         this.cal = cal;
         this.name = name;
-        this.element = element;
+        this.elements = elements;
         this.ingredients = ingredients;
     }
 
@@ -39,12 +39,12 @@ public class meal implements Serializable {
         this.name = name;
     }
 
-    public ArrayList<elements> getElement() {
-        return element;
+    public ArrayList<elements> getElements() {
+        return elements;
     }
 
-    public void setElement(ArrayList<elements> element) {
-        this.element = element;
+    public void setElements(ArrayList<elements> elements) {
+        this.elements = elements;
     }
 
     public ArrayList<ingredients> getingredients() {

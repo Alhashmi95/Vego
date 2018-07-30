@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import com.vego.vego.Adapters.MealsAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
+import com.vego.vego.model.meal;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class DayMealsActivity extends AppCompatActivity {
         Intent intent=this.getIntent();
         //here we receive array of objects from daysAdapter
         //because daysAdapter has an object of DietDay which contains DayMeals array of objects
-        List<DayMeals>mealsList= (List<DayMeals>) intent.getSerializableExtra("DayMeals");
+        List<meal>mealsList= (List<meal>) intent.getSerializableExtra("DayMeals");
         adapter = new MealsAdapter(mealsList,this);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

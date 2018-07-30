@@ -1,5 +1,7 @@
 package com.vego.vego.Fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,10 +22,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vego.vego.Adapters.DaysAdapter;
+import com.vego.vego.Adapters.IngredientsAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.ingredients;
+import com.vego.vego.model.meal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +46,9 @@ public class FragmentHome extends Fragment {
     private DaysAdapter adapter;
     private List<DietDay> dayList;
     private FragmentManager fragmentManager;
-    private ArrayList<DayMeals> mealsList;
-    private ArrayList<ingredients> mealsIngrList;
+    private ArrayList<meal> mealsList;
+    public static ArrayList<ingredients> mealsIngrList;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +64,7 @@ public class FragmentHome extends Fragment {
     public FragmentHome() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -119,19 +125,12 @@ public class FragmentHome extends Fragment {
                 int i=0;
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     dayList.add(ds.getValue(DietDay.class));
-                    mealsList = new ArrayList<DayMeals>();
+                    mealsList = new ArrayList<meal>();
                     int j=0;
 
                     for(DataSnapshot ds2 : ds.child("dayMeals").getChildren()) {
-                        mealsList.add(ds2.getValue(DayMeals.class));
-                        mealsIngrList = new ArrayList<ingredients>();
-                        for(DataSnapshot ds3 : ds2.child("ingredients").getChildren()){
-                            Log.d("test","this is child name: "+ds3.toString());
-                            mealsIngrList.add(ds3.getValue(ingredients.class));
-                        }
-                        mealsList.get(j).setIngredients(mealsIngrList);
-                        Log.d("test","size : "+mealsIngrList.size());
-                        j++;
+                        mealsList.add(ds2.getValue(meal.class));
+
                     }
                     dayList.get(i).setDayMeals(mealsList);
 

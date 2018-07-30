@@ -132,14 +132,14 @@ public class UserDetails extends AppCompatActivity {
     private EditText userNameTxt, userWeight, userAge, userHeight;
     private String name, age,weight, height, userActivity, userGoal;
 
-    DietDay[] dietDay = new DietDay[] {new DietDay("1","389", "4",(ArrayList<DayMeals>) dayMealsD1),
-            new DietDay("2","23","3",(ArrayList<DayMeals>) dayMealsD2),
-            new DietDay("3","12334", "242",(ArrayList<DayMeals>) dayMealsD3),
-            new DietDay("4","2443","34",(ArrayList<DayMeals>) dayMealsD4),
-            new DietDay("5","253948","31",(ArrayList<DayMeals>) dayMealsD5),
-            new DietDay("6","27","33",(ArrayList<DayMeals>) dayMealsD6),
-            new DietDay("7","287","34",(ArrayList<DayMeals>) dayMealsD7),
-    };
+//    DietDay[] dietDay = new DietDay[] {new DietDay("1","389", "4",(ArrayList<DayMeals>) dayMealsD1),
+//            new DietDay("2","23","3",(ArrayList<DayMeals>) dayMealsD2),
+//            new DietDay("3","12334", "242",(ArrayList<DayMeals>) dayMealsD3),
+//            new DietDay("4","2443","34",(ArrayList<DayMeals>) dayMealsD4),
+//            new DietDay("5","253948","31",(ArrayList<DayMeals>) dayMealsD5),
+//            new DietDay("6","27","33",(ArrayList<DayMeals>) dayMealsD6),
+//            new DietDay("7","287","34",(ArrayList<DayMeals>) dayMealsD7),
+//    };
 
     DaysWorkout[] workoutDay = new DaysWorkout[] {new DaysWorkout("1","389", "4"),
             new DaysWorkout("1","389", "4"),
@@ -157,7 +157,7 @@ public class UserDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
-        dietList= new ArrayList<DietDay>(Arrays.asList(dietDay));
+        //dietList= new ArrayList<DietDay>(Arrays.asList(dietDay));
         workoutList= new ArrayList<DaysWorkout>(Arrays.asList(workoutDay));
 
         setupUIViews();
@@ -377,6 +377,14 @@ public class UserDetails extends AppCompatActivity {
     }
     private Boolean validate(){
         Boolean result = false;
+
+        userNameTxt.setText("fjl");
+        userHeight.setText("38");
+        userAge.setText("489");
+        userWeight.setText("49");
+
+        spActivity.setSelection(2);
+        spGoal.setSelection(3);
 
         name = userNameTxt.getText().toString();
         height = userHeight.getText().toString();
