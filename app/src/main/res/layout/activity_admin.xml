@@ -48,7 +48,7 @@
                 android:layout_alignParentTop="true"
                 android:onClick="openDrawer"
                 android:paddingTop="2dp"
-                android:src="@drawable/profile_on_top"
+                android:src="@drawable/menu"
                 tools:ignore="OnClick"
                 android:layout_alignParentLeft="true" />
 

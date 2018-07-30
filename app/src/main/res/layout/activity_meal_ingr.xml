@@ -16,7 +16,9 @@
         android:layout_alignParentStart="true"
         android:background="#333333"
         android:scrollbars="horizontal"
-        app:menu="@menu/menu_nav"></android.support.design.widget.BottomNavigationView>
+        app:menu="@menu/menu_nav">
+
+    </android.support.design.widget.BottomNavigationView>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/actionBar"
@@ -98,35 +100,28 @@
         app:tabIndicatorColor="#1d1d1d"
         app:tabMode="fixed"
         app:tabTextColor="@color/tabtextcolor"
-<<<<<<< HEAD
-
-
-        android:layout_alignParentLeft="true" />
-=======
         android:layout_alignParentLeft="true" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_alignParentLeft="true"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_below="@+id/tablayout_id"/>
->>>>>>> 45cb6bac934683e3a3a69302ca4d676f6b50d0b9
+        android:layout_below="@+id/tablayout_id"
+        android:layout_above="@+id/bNavigation"
+
+        android:background="#bebcbc"/>/>
 
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_id"
         android:layout_width="match_parent"
-<<<<<<< HEAD
         android:layout_height="277dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="56dp"
         android:background="#bebcbc" />
-=======
-        android:layout_below="@+id/tablayout_id"
-        android:layout_height="match_parent"
-        android:background="#bebcbc"/>
->>>>>>> 45cb6bac934683e3a3a69302ca4d676f6b50d0b9
+
+
 
 
 </RelativeLayout>
