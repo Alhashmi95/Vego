@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class DietDay implements Serializable {
     private String day, totalCals,mealsCount;
-    ArrayList<DayMeals> dayMeals;
+    ArrayList<meal> dayMeals;
 
 
 
@@ -14,18 +14,18 @@ public class DietDay implements Serializable {
 
     }
 
-    public DietDay(String day, String totalCals, String mealsCount, ArrayList<DayMeals> dayMeals) {
+    public DietDay(String day, String totalCals, String mealsCount, ArrayList<meal> dayMeals) {
         this.day = day;
         this.totalCals = totalCals;
         this.mealsCount = mealsCount;
         this.dayMeals = dayMeals;
     }
 
-    public ArrayList<DayMeals> getDayMeals() {
+    public ArrayList<meal> getDayMeals() {
         return dayMeals;
     }
 
-    public void setDayMeals(ArrayList<DayMeals> dayMeals) {
+    public void setDayMeals(ArrayList<meal> dayMeals) {
         this.dayMeals = dayMeals;
     }
 

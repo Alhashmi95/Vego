@@ -13,16 +13,17 @@ import android.widget.TextView;
 import com.vego.vego.Activity.MealIngrActivity;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
+import com.vego.vego.model.meal;
 
 import java.util.List;
 
 public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHolder> {
 
-    private List<DayMeals> mealsList;
+    private List<meal> mealsList;
     private Context mContext;
     private CardView cardViewMeals;
 
-    public MealsAdapter(List<DayMeals> mealsList, Context mContext) {
+    public MealsAdapter(List<meal> mealsList, Context mContext) {
         this.mealsList = mealsList;
         this.mContext = mContext;
     }
@@ -38,17 +39,20 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
     @Override
     public void onBindViewHolder(MealsViewHolder holder, final int position) {
         //getting the product of the specified position
-        final DayMeals dayMeals = mealsList.get(position);
+        meal dayMeals = mealsList.get(position);
 
         //binding the data with the viewholder views
-        holder.textViewTitle.setText(dayMeals.getMealName());
-        holder.textViewShortDesc.setText(dayMeals.getMealCal());
+        holder.textViewTitle.setText(dayMeals.getName());
+        holder.textViewShortDesc.setText(dayMeals.getCal());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent= new Intent(mContext, MealIngrActivity.class);
-                intent.putExtra("DayMeals",mealsList.get(position).getIngredients());
+                intent.putExtra("DayMeals",mealsList.get(position).getingredients());
+                intent.putExtra("DayMealsElements",mealsList.get(position).getElements());
+                intent.putExtra("name",mealsList.get(position).getName());
+                intent.putExtra("position",position);
                 v.getContext().startActivity(intent);
             }
         });

@@ -5,31 +5,23 @@ import java.util.ArrayList;
 
 public class DayMeals implements Serializable {
 
-    String mealName,mealCal;
+    String name,cal;
 
     DietDay[] dietDays;
     int img;
     ArrayList<ingredients> ingredients;
     ArrayList<elements> elements;
 
-    int isfffmg;
 
-    public int getIsfffmg() {
-        return isfffmg;
-    }
-
-    public void setIsfffmg(int isfffmg) {
-        this.isfffmg = isfffmg;
-    }
 
     public DayMeals(){
 
     }
 
-    public DayMeals(String mealName, String mealCal, int img, ArrayList<ingredients> ingredients,
+    public DayMeals(String name, String cal, int img, ArrayList<ingredients> ingredients,
                     ArrayList<elements> elements) {
-        this.mealName = mealName;
-        this.mealCal = mealCal;
+        this.name = name;
+        this.cal = cal;
         this.img = img;
         this.ingredients = ingredients;
         this.elements = elements;
@@ -75,18 +67,18 @@ public class DayMeals implements Serializable {
     }
 
     public String getMealName() {
-        return mealName;
+        return name;
     }
 
-    public void setMealName(String mealName) {
-        this.mealName = mealName;
+    public void setname(String name) {
+        this.name = name;
     }
 
     public String getMealCal() {
-        return mealCal;
+        return cal;
     }
 
-    public void setMealCal(String mealCal) {
-        this.mealCal = mealCal;
+    public void setCal(String cal) {
+        this.cal = cal;
     }
 }

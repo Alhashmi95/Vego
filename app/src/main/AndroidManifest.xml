@@ -50,7 +50,8 @@
             android:windowSoftInputMode="stateVisible|adjustPan">
             >
         </activity>
-        <activity android:name=".Activity.AddNewExerciseActivity"></activity>
+        <activity android:name=".Activity.AddNewExerciseActivity" />
+        <activity android:name=".Adapters.ElementsAdapter"></activity>
     </application>
 
 </manifest>

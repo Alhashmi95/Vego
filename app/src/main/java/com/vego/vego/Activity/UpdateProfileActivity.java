@@ -25,6 +25,7 @@ import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.elements;
 import com.vego.vego.model.ingredients;
+import com.vego.vego.model.meal;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -165,13 +166,13 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         ///////////////////////////////////////////////////////////////////////////////
 
-        final DietDay[] dietDay = new DietDay[] {new DietDay("1","389", "4",(ArrayList<DayMeals>) dayMealsD1),
-                new DietDay("2","23","3",(ArrayList<DayMeals>) dayMealsD2),
-                new DietDay("3","12334", "242",(ArrayList<DayMeals>) dayMealsD3),
-                new DietDay("4","2443","34",(ArrayList<DayMeals>) dayMealsD4),
-                new DietDay("4","253948","31",(ArrayList<DayMeals>) dayMealsD5),
-                new DietDay("6","27","33",(ArrayList<DayMeals>) dayMealsD6),
-                new DietDay("7","287","34",(ArrayList<DayMeals>) dayMealsD7),
+        final DietDay[] dietDay = new DietDay[] {new DietDay("1","389", "4",(ArrayList<meal>) dayMealsD1),
+                new DietDay("2","23","3",(ArrayList<meal>) dayMealsD2),
+                new DietDay("3","12334", "242",(ArrayList<meal>) dayMealsD3),
+                new DietDay("4","2443","34",(ArrayList<meal>) dayMealsD4),
+                new DietDay("4","253948","31",(ArrayList<meal>) dayMealsD5),
+                new DietDay("6","27","33",(ArrayList<meal>) dayMealsD6),
+                new DietDay("7","287","34",(ArrayList<meal>) dayMealsD7),
         };
 
         //For first spinner +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

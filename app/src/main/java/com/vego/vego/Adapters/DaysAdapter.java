@@ -56,6 +56,7 @@ import java.util.List;
                 @Override
                 public void onClick(View v) {
                     Intent intent= new Intent(mContext, DayMealsActivity.class);
+
                     intent.putExtra("DayMeals",daysList.get(position).getDayMeals());
                     v.getContext().startActivity(intent);
                 }

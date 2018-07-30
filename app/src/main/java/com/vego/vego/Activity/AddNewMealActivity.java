@@ -35,7 +35,7 @@ import com.vego.vego.model.meal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+                                        //Step 5 implement the method
 public class AddNewMealActivity extends AppCompatActivity implements FragmentAddMealDetailes.passArrayListIng
         , FragmentAddMealIng.passArrayListEle {
 
@@ -132,7 +132,7 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
                     m.setCal(c);
                     m.setName(n);
                     m.setingredients(test1);
-                    m.setElement(test2);
+                    m.setElements(test2);
                     //                  mealArrayListTest.add(new meal(c, n, importedElementsArrayList,
                     //                        importedIngredientsArrayList));.
                     //mealArrayList.add(m);
@@ -143,9 +143,9 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
 
 
                     for (int i =0;i<mealArrayList.size();i++){
-                        for (int j=0;j<mealArrayList.get(i).getElement().size();j++){
-                            Log.d("test","d7om   "+mealArrayList.get(i).getElement().get(j).getAmount());
-                            Log.d("test","d7om   "+mealArrayList.get(i).getElement().get(j).getName());
+                        for (int j=0;j<mealArrayList.get(i).getElements().size();j++){
+                            Log.d("test","d7om   "+mealArrayList.get(i).getElements().get(j).getAmount());
+                            Log.d("test","d7om   "+mealArrayList.get(i).getElements().get(j).getName());
                         }
 
                         for (int j=0;j<mealArrayList.get(i).getingredients().size();j++){
