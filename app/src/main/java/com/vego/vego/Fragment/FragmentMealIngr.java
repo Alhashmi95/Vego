@@ -1,18 +1,14 @@
 package com.vego.vego.Fragment;
 
 import android.app.FragmentManager;
-<<<<<<< HEAD
 import android.content.Context;
-=======
 import android.content.Intent;
->>>>>>> 660004a7933c931083ff5bfd97e4ed044b272405
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-<<<<<<< HEAD
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +27,6 @@ import com.vego.vego.model.ingredients;
 
 import java.util.ArrayList;
 import java.util.List;
-=======
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,14 +40,13 @@ import com.vego.vego.Adapters.NewElementAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.ingredients;
 import com.vego.vego.model.meal;
->>>>>>> 660004a7933c931083ff5bfd97e4ed044b272405
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentMealIngr extends Fragment{
     View view;
-    private IngredientsAdapter adapter;
+   private IngredientsAdapter adapter;
     private RecyclerView recyclerView;
     ArrayList<ingredients> importedIngredientsArrayList;
     private TextView mealName;
@@ -60,7 +54,7 @@ public class FragmentMealIngr extends Fragment{
 
 
     private RecyclerView recyclerView_mealIng;
-    private MealIngAdapter adapter;
+    //private MealIngAdapter adapter;
 
     private FragmentManager fragmentManager;
     private List<ingredients> mealsIngrList;
@@ -81,31 +75,29 @@ public class FragmentMealIngr extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-<<<<<<< HEAD
 
         mealsIngrList = new ArrayList<>();
         // للتجربة اضافة في مكونات الوجبة اذا زبطت نضيفها من الفاير بيس
-        ingredients n = new ingredients ("5","دجاج");
-        ingredients n2 = new ingredients ("7","لحم");
-        mealsIngrList.add(n);
-        mealsIngrList.add(n2);
+//        ingredients n = new ingredients ("5","دجاج");
+//        ingredients n2 = new ingredients ("7","لحم");
+//        mealsIngrList.add(n);
+//        mealsIngrList.add(n2);
 
 
 
 
         // هذا الكود لربط الكارد فيو
-        recyclerView_mealIng = view.findViewById(R.id.recyclerMealIngs);
-        recyclerView_mealIng.setHasFixedSize(true);
-        recyclerView_mealIng.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recyclerView_mealIng = view.findViewById(R.id.recyclerMealIngs);
+//        recyclerView_mealIng.setHasFixedSize(true);
+//        recyclerView_mealIng.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //Set adapter
-        adapter = new MealIngAdapter(mealsIngrList,getContext());
-        recyclerView_mealIng.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+//        adapter = new MealIngAdapter(mealsIngrList,getContext());
+//        recyclerView_mealIng.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
 
 
-    }
-=======
+
         mealName = view.findViewById(R.id.showMealName);
 
         // هذا الكود لربط الكارد فيو
@@ -129,10 +121,9 @@ public class FragmentMealIngr extends Fragment{
 
         //set meal name from meals adapter (mealsAdapter passes the name of meal)
         mealName.setText(intent.getStringExtra("name"));
-
+    }
 
     }
 
 
->>>>>>> 660004a7933c931083ff5bfd97e4ed044b272405
-}
+

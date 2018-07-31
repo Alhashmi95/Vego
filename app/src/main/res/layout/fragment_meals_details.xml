@@ -90,11 +90,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerMealDetailesElements"
                 android:layout_width="match_parent"
-<<<<<<< HEAD
-                android:layout_height="213dp"
-=======
                 android:layout_height="match_parent"
->>>>>>> 660004a7933c931083ff5bfd97e4ed044b272405
                 android:layout_marginBottom="45dp">
 
             </android.support.v7.widget.RecyclerView>

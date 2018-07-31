@@ -102,17 +102,13 @@
         app:tabTextColor="@color/tabtextcolor"
         android:layout_alignParentLeft="true" />
 
-<<<<<<< HEAD
     <android.support.v7.widget.RecyclerView
         android:layout_alignParentLeft="true"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_below="@+id/tablayout_id"
         android:layout_above="@+id/bNavigation"
-
-        android:background="#bebcbc"/>/>
-=======
->>>>>>> 660004a7933c931083ff5bfd97e4ed044b272405
+        android:background="#bebcbc"/>
 
 
     <android.support.v4.view.ViewPager
