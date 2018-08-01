@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.vego.vego.Adapters.MealsAdapter;
 import com.vego.vego.R;
@@ -21,6 +22,7 @@ public class DayMealsActivity extends AppCompatActivity {
     private AppBarLayout appBarLayout;
     private MealsAdapter adapter;
     RecyclerView recyclerView;
+    TextView dayTextView;
 
 
     @Override
@@ -28,6 +30,8 @@ public class DayMealsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_meals);
         recyclerView = findViewById(R.id.mealrecycler);
+        dayTextView = findViewById(R.id.daytv);
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -35,6 +39,9 @@ public class DayMealsActivity extends AppCompatActivity {
         //here we receive array of objects from daysAdapter
         //because daysAdapter has an object of DietDay which contains DayMeals array of objects
         List<meal>mealsList= (List<meal>) intent.getSerializableExtra("DayMeals");
+        //get day number from الكلاس المعضل (daysAdapter)
+        String day = intent.getStringExtra("day");
+        dayTextView.setText(" يوم "+day);
         adapter = new MealsAdapter(mealsList,this);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

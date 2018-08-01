@@ -40,7 +40,6 @@
                 android:id="@+id/profile"
                 android:layout_width="39dp"
                 android:layout_height="match_parent"
-
                 android:layout_alignParentStart="true"
 
 
@@ -56,11 +55,21 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/mealrecycler"
         android:layout_width="match_parent"
-        android:layout_below="@+id/appbarid"
+        android:layout_height="506dp"
         android:layout_above="@+id/bNavigation"
-        android:layout_height="match_parent"
-        android:id="@+id/mealrecycler"/>
+        android:layout_below="@+id/appbarid"
+        android:layout_marginTop="47dp" />
+
+    <TextView
+        android:id="@+id/daytv"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_above="@+id/recyclerView"
+        android:gravity="center"
+        android:layout_below="@+id/appbarid"
+        android:text="kljflkgfjgf" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bNavigation"

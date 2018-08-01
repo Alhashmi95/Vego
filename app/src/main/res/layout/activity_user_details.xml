@@ -20,6 +20,7 @@
 
         <Button
             android:id="@+id/btnRegister"
+            android:onClick="registerBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
@@ -49,20 +50,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <org.angmarch.views.NiceSpinner
+        <Spinner
             android:id="@+id/spinner2"
             android:layout_width="match_parent"
             android:layout_height="39dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-
             android:layout_marginEnd="30dp"
             android:layout_marginLeft="30dp"
-
             android:layout_marginRight="30dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="18dp"
-            android:backgroundTint="#dedcdc"
+            android:backgroundTint="#747474"
             android:spinnerMode="dropdown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +90,7 @@
             app:layout_constraintStart_toEndOf="@+id/ageTxt"
             app:layout_constraintTop_toBottomOf="@+id/userNameTxt" />
 
-        <org.angmarch.views.NiceSpinner
+        <Spinner
             android:id="@+id/spinner3"
             android:layout_width="match_parent"
             android:layout_height="39dp"
@@ -99,11 +98,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="30dp"
             android:layout_marginLeft="30dp"
-
             android:layout_marginRight="30dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="18dp"
-            android:backgroundTint="#dedcdc"
+            android:backgroundTint="#747474"
             android:spinnerMode="dropdown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

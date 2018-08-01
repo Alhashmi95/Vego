@@ -923,6 +923,11 @@ public class AddMealsFragment extends Fragment {
 
                     }
 
+                    DatabaseReference databaseReferenceDay = firebaseDatabaseMeal.getReference().child("users")
+                            .child(choosenUser).child("Diet").child(choosenDay).child("day");
+
+
+
 
 
                     //add meals to corresponding user and day
@@ -943,6 +948,10 @@ public class AddMealsFragment extends Fragment {
                     databaseReference3.setValue(mTest3);
                     databaseReference4.setValue(mTest4);
                     databaseReference5.setValue(mTest5);
+
+
+                    int chossenDayInt =Integer.valueOf(choosenDay)+1;
+                    databaseReferenceDay.setValue(String.valueOf(chossenDayInt));
                 }
             }
         });

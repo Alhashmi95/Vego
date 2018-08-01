@@ -1,7 +1,11 @@
 package com.vego.vego.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Handler;
 import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -14,12 +18,24 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.vego.vego.Adapters.MealsAdapter;
 import com.vego.vego.Adapters.ViewPagerAdapter;
 import com.vego.vego.Fragment.FragmentAddMealDetailes;
@@ -32,10 +48,12 @@ import com.vego.vego.model.elements;
 import com.vego.vego.model.ingredients;
 import com.vego.vego.model.meal;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-                                        //Step 5 implement the method
+
+//Step 5 implement the method
 public class AddNewMealActivity extends AppCompatActivity implements FragmentAddMealDetailes.passArrayListIng
         , FragmentAddMealIng.passArrayListEle {
 
@@ -45,23 +63,55 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
     ArrayList<ingredients> importedIngredientsArrayList = new ArrayList<>();
     ArrayList<meal> mealArrayList = new ArrayList<>();
     ArrayList<elements> importedElementsArrayList = new ArrayList<>();
-    String n, c;
+    String n, c,mealUrl;
     Button saveMeal;
     meal m;
-    int i =0, test =0;
+    StorageReference mealRef;
+    int test = 0;
+    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+    StorageReference storageReference = firebaseStorage.getReference();
+    ImageView imageMeal;
+    private static int PICK_IMAGE = 123;
+    Uri imagePath;
+    ProgressBar progressBar;
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getData() != null){
+            imagePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imagePath);
+                imageMeal.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_meal);
 
+
         //connect views to layout
         appBarLayout = findViewById(R.id.appbarid);
         tableLayout = findViewById(R.id.tablayout_id);
         viewPager = findViewById(R.id.viewpager_id);
         saveMeal = findViewById(R.id.saveMealBtn);
+        imageMeal = findViewById(R.id.mealImg);
+        progressBar = new ProgressBar(this);
+
+        imageMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE);
+            }
+        });
 
 
         //add Fragments
@@ -87,20 +137,6 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
                 //Note ** : ondatachange discards the value of arraylist after it finishs
                 test = (int) dataSnapshot.getChildrenCount();
 
-                for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
-
-//                    spinnerArrayAdapter2.notifyDataSetChanged();
-
-
-
-
-                }
-                Log.d("test","this is teeest: "+test);
-
-
-
-
-
             }
 
 
@@ -110,8 +146,8 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
             }
 
 
-
         });
+
 
 
         //   mealArrayListTest = populateList();
@@ -119,52 +155,207 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         saveMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!importedIngredientsArrayList.isEmpty() && !importedElementsArrayList.isEmpty() && imagePath != null) {
 
-                if (!importedIngredientsArrayList.isEmpty() && !importedElementsArrayList.isEmpty()) {
+                    // here we upload meal pics
+                      mealRef = storageReference.child("meals/").child(String.valueOf(test));
+                    UploadTask uploadTask = (UploadTask) mealRef.putFile(imagePath);
 
-//                    HashMap<String,ArrayList> hashMap=new HashMap<>();
-//                    hashMap.put("age",importedElementsArrayList);
-//                    hashMap.put("weight",importedIngredientsArrayList);
-                       meal m = new meal();
+                    if(uploadTask != null && uploadTask.isInProgress()){
+                        Toast.makeText(AddNewMealActivity.this, "upload is in progress .. please wait", Toast.LENGTH_LONG).show();
 
-                    ArrayList test1=importedIngredientsArrayList;
-                    ArrayList test2=importedElementsArrayList;
-                    m.setCal(c);
-                    m.setName(n);
-                    m.setingredients(test1);
-                    m.setElements(test2);
+                    }
+
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
+                            }
+
+                            // Continue with the task to get the download URL
+                            return mealRef.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                mealUrl = downloadUri.toString();
+                                Toast.makeText(AddNewMealActivity.this, "upload successeded", Toast.LENGTH_SHORT).show();
+                            meal m = new meal();
+
+                            ArrayList test1 = importedIngredientsArrayList;
+                            ArrayList test2 = importedElementsArrayList;
+                            m.setCal(c);
+                            m.setName(n);
+                            m.setingredients(test1);
+                            m.setElements(test2);
+                            m.setImage(mealUrl);
+
+                            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                            DatabaseReference d = firebaseDatabase.getReference();
+
+
+
+                            //upload meal to firebase
+                            d.child("meals").child(String.valueOf(test)).setValue(m);
+                            } else {
+                                // Handle failures
+                                Toast.makeText(AddNewMealActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
+//
+// .addOnSuccessListener(
+//                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                                @Override
+//                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                                    mealRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                        @Override
+//                                        public void onSuccess(Uri uri) {
+//                                            Uri downloadUrl = uri;
+//                                            //Do what you want with the url
+//                                            mealUrl=mealRef.getDownloadUrl().toString();
+//                            meal m = new meal();
+//
+//                            ArrayList test1 = importedIngredientsArrayList;
+//                            ArrayList test2 = importedElementsArrayList;
+//                            m.setCal(c);
+//                            m.setName(n);
+//                            m.setingredients(test1);
+//                            m.setElements(test2);
+//                            m.setImage(mealUrl);
+//
+//                            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+//                            DatabaseReference d = firebaseDatabase.getReference();
+//
+//
+//
+//                            //upload meal to firebase
+//                            d.child("meals").child(String.valueOf(test)).setValue(m);
+//                                        }
+//                                    });
+//                                }
+//                            });
+                            //.addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                        @Override
+//                        public void onSuccess(Uri uri) {
+//                            Handler handler = new Handler();
+//                            handler.postDelayed(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    progressBar.setProgress(0);
+//                                }
+//                            },5000);
+//                            Toast.makeText(AddNewMealActivity.this, "upload successeded", Toast.LENGTH_SHORT).show();
+//                            mealUrl=mealRef.getDownloadUrl().toString();
+//                            meal m = new meal();
+//
+//                            ArrayList test1 = importedIngredientsArrayList;
+//                            ArrayList test2 = importedElementsArrayList;
+//                            m.setCal(c);
+//                            m.setName(n);
+//                            m.setingredients(test1);
+//                            m.setElements(test2);
+//                            m.setImage(mealUrl);
+//
+//                            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+//                            DatabaseReference d = firebaseDatabase.getReference();
+//
+//
+//
+//                            //upload meal to firebase
+//                            d.child("meals").child(String.valueOf(test)).setValue(m);
+//                        }
+//                    })
+//                            .addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Toast.makeText(AddNewMealActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//
+//                                }
+//                            })
+//                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                                @Override
+//                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                                double progress = (100.0*taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+////                                progressBar.setProgress((int) progress);
+//                                }
+//                            });
+                    //StorageReference mealUrlRef = firebaseStorage.getReference() ;
+
+
+//                    storageReference.child("meals").child(String.valueOf(test)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                        @Override
+//                        public void onSuccess(Uri uri) {
+//                        mealUrl = uri.toString();
+//                        }
+//                    });
+
+//                    uploadTask.addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(AddNewMealActivity.this, "meal Registered failed", Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                            Toast.makeText(AddNewMealActivity.this, "meal Registered successfully", Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) /
+//                                    taskSnapshot.getTotalByteCount();
+//
+//                            progressBar.setProgress((int) progress);
+//                        }
+//                    });
+
+
+
+//                    meal m = new meal();
+//
+//                    ArrayList test1 = importedIngredientsArrayList;
+//                    ArrayList test2 = importedElementsArrayList;
+//                    m.setCal(c);
+//                    m.setName(n);
+//                    m.setingredients(test1);
+//                    m.setElements(test2);
+//                    m.setImage(mealUrl);
                     //                  mealArrayListTest.add(new meal(c, n, importedElementsArrayList,
                     //                        importedIngredientsArrayList));.
                     //mealArrayList.add(m);
 
 
+//                    for (int i = 0; i < mealArrayList.size(); i++) {
+//                        for (int j = 0; j < mealArrayList.get(i).getElements().size(); j++) {
+//                            Log.d("test", "d7om   " + mealArrayList.get(i).getElements().get(j).getAmount());
+//                            Log.d("test", "d7om   " + mealArrayList.get(i).getElements().get(j).getName());
+//                        }
+//
+//                        for (int j = 0; j < mealArrayList.get(i).getingredients().size(); j++) {
+//                            Log.d("test", "d7om   " + mealArrayList.get(i).getingredients().get(j).getQuantity());
+//                            Log.d("test", "d7om   " + mealArrayList.get(i).getingredients().get(j).getType());
+//
+//                        }
+//
+//                    }
 
+//                    Log.d("test", "this is imported eleList" + importedElementsArrayList);
+//                    Log.d("test", "this is imported eleList" + importedIngredientsArrayList);
 
-
-
-                    for (int i =0;i<mealArrayList.size();i++){
-                        for (int j=0;j<mealArrayList.get(i).getElements().size();j++){
-                            Log.d("test","d7om   "+mealArrayList.get(i).getElements().get(j).getAmount());
-                            Log.d("test","d7om   "+mealArrayList.get(i).getElements().get(j).getName());
-                        }
-
-                        for (int j=0;j<mealArrayList.get(i).getingredients().size();j++){
-                            Log.d("test","d7om   "+mealArrayList.get(i).getingredients().get(j).getQuantity());
-                            Log.d("test","d7om   "+mealArrayList.get(i).getingredients().get(j).getType());
-
-                        }
-
-                    }
-
-                    Log.d("test", "this is imported eleList" + importedElementsArrayList);
-                    Log.d("test", "this is imported eleList" + importedIngredientsArrayList);
-
-                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference d = firebaseDatabase.getReference();
-
-                   // String mealid = d.child("meals").push().getKey();
-                    d.child("meals").child(String.valueOf(test)).setValue(m);
-                    i++;
+//                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+//                    DatabaseReference d = firebaseDatabase.getReference();
+//
+//
+//
+//                    //upload meal to firebase
+//                    d.child("meals").child(String.valueOf(test)).setValue(m);
                 }
 //                    d.child("meals").child("element").setValue(hashMap);
             }
@@ -190,12 +381,12 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         // Assign values to new arraylist
         m = new meal();
 
-        importedIngredientsArrayList=new ArrayList<>();
+        importedIngredientsArrayList = new ArrayList<>();
         importedIngredientsArrayList.addAll(ing);
 
         for (int j = 0; j < importedIngredientsArrayList.size(); j++) {
-            Log.d("test", "d7om   " +importedIngredientsArrayList.get(j).getType());
-            Log.d("test", "d7om   " +importedIngredientsArrayList.get(j).getQuantity());
+            Log.d("test", "d7om   " + importedIngredientsArrayList.get(j).getType());
+            Log.d("test", "d7om   " + importedIngredientsArrayList.get(j).getQuantity());
         }
 
         n = mealName;
@@ -222,10 +413,7 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         c = totalCal;
 
 
-            saveMeal.setEnabled(true);
-
-
-
+        saveMeal.setEnabled(true);
 
 
         //uploadMeal();

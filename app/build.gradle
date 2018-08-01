@@ -66,7 +66,11 @@ dependencies {
 
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'com.android.support:design:26.1.0'
+    //spinner
     implementation 'com.github.arcadefire:nice-spinner:1.3.4'
+
+    //add picasso to download images from url's
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 }
 

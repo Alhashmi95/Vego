@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.vego.vego.Activity.MealIngrActivity;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
@@ -22,6 +23,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
     private List<meal> mealsList;
     private Context mContext;
     private CardView cardViewMeals;
+
 
     public MealsAdapter(List<meal> mealsList, Context mContext) {
         this.mealsList = mealsList;
@@ -39,11 +41,18 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
     @Override
     public void onBindViewHolder(MealsViewHolder holder, final int position) {
         //getting the product of the specified position
-        meal dayMeals = mealsList.get(position);
+        final meal dayMeals = mealsList.get(position);
 
         //binding the data with the viewholder views
         holder.textViewTitle.setText(dayMeals.getName());
         holder.textViewShortDesc.setText(dayMeals.getCal());
+        Picasso.get()
+                .load(dayMeals.getImage())
+                .placeholder(R.drawable.ic_loading)
+                .fit()
+                .centerCrop()
+                .into(holder.imageView);
+        //holder.imageView
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +61,8 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
                 intent.putExtra("DayMeals",mealsList.get(position).getingredients());
                 intent.putExtra("DayMealsElements",mealsList.get(position).getElements());
                 intent.putExtra("name",mealsList.get(position).getName());
-                intent.putExtra("position",position);
+                intent.putExtra("position",String.valueOf(position));
+                intent.putExtra("image",mealsList.get(position).getImage());
                 v.getContext().startActivity(intent);
             }
         });

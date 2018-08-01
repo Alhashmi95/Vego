@@ -1,5 +1,6 @@
 package com.vego.vego.Fragment;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.squareup.picasso.Picasso;
+import com.vego.vego.Activity.MealIngrActivity;
 import com.vego.vego.Adapters.DaysAdapter;
 import com.vego.vego.Adapters.MealIngAdapter;
 import com.vego.vego.Adapters.MealsAdapter;
@@ -31,6 +34,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vego.vego.Adapters.DaysAdapter;
@@ -50,6 +54,8 @@ public class FragmentMealIngr extends Fragment{
     private RecyclerView recyclerView;
     ArrayList<ingredients> importedIngredientsArrayList;
     private TextView mealName;
+    //step 3
+    FragmentMealIngr.passMealImage listner;
 
 
 
@@ -60,6 +66,11 @@ public class FragmentMealIngr extends Fragment{
     private List<ingredients> mealsIngrList;
 
     public FragmentMealIngr() {
+    }
+    //step 1 to copy array to activity
+    public interface passMealImage {
+        public void passMealImage(String mealImage);
+
     }
 
     @Nullable
@@ -77,31 +88,16 @@ public class FragmentMealIngr extends Fragment{
 
 
         mealsIngrList = new ArrayList<>();
-        // للتجربة اضافة في مكونات الوجبة اذا زبطت نضيفها من الفاير بيس
-//        ingredients n = new ingredients ("5","دجاج");
-//        ingredients n2 = new ingredients ("7","لحم");
-//        mealsIngrList.add(n);
-//        mealsIngrList.add(n2);
 
-
-
-
-        // هذا الكود لربط الكارد فيو
-//        recyclerView_mealIng = view.findViewById(R.id.recyclerMealIngs);
-//        recyclerView_mealIng.setHasFixedSize(true);
-//        recyclerView_mealIng.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        //Set adapter
-//        adapter = new MealIngAdapter(mealsIngrList,getContext());
-//        recyclerView_mealIng.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();
 
 
 
         mealName = view.findViewById(R.id.showMealName);
 
+//        imageViewMeal = view.findViewById(R.id.imgMeal);
+
         // هذا الكود لربط الكارد فيو
-        recyclerView = view.findViewById(R.id.recyclerMealDetailes);
+        recyclerView = view.findViewById(R.id.recyclerMealIngs);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -110,6 +106,18 @@ public class FragmentMealIngr extends Fragment{
         Intent intent=this.getActivity().getIntent();
        // int position = intent.getIntExtra("position",0);
         ArrayList<ingredients> mealsList = (ArrayList<ingredients>) intent.getSerializableExtra("DayMeals");
+
+
+        String imageURL = intent.getStringExtra("image");
+
+        listner.passMealImage(imageURL);
+
+//
+//        Picasso.get()
+//                .load(imageURL)
+//                .fit()
+//                .centerCrop()
+//                .into(imageViewMeal);
 
 
         importedIngredientsArrayList = FragmentHome.mealsIngrList;
@@ -121,6 +129,24 @@ public class FragmentMealIngr extends Fragment{
 
         //set meal name from meals adapter (mealsAdapter passes the name of meal)
         mealName.setText(intent.getStringExtra("name"));
+
+
+
+
+    }
+
+    @Override
+    //step 2 ....
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity activity = (Activity) context;
+
+        listner = (FragmentMealIngr.passMealImage) activity;
+        try {
+
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + "must override passArrayListIng...");
+        }
     }
 
     }

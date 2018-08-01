@@ -7,20 +7,30 @@ public class meal implements Serializable {
 
     String cal;
     String name;
+    String image;
     ArrayList<elements> elements;
     ArrayList<ingredients> ingredients;
 
-    public meal(String cal, String name, ArrayList<elements> elements, ArrayList<ingredients> ingredients) {
+    public meal(String cal, String name, ArrayList<elements> elements, ArrayList<ingredients> ingredients, String image) {
         //List<ingredients> ingrList
         this.cal = cal;
         this.name = name;
         this.elements = elements;
         this.ingredients = ingredients;
+        this.image = image;
     }
 
     public meal(){
 
 
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getCal() {

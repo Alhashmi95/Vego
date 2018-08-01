@@ -2,26 +2,24 @@ package com.vego.vego.Adapters;
 
 import android.app.FragmentManager;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.vego.vego.Activity.DayMealsActivity;
+
 import com.vego.vego.R;
-import com.vego.vego.model.DaysWorkout;
-import com.vego.vego.model.DietDay;
+import com.vego.vego.model.Exercises;
 
 import java.util.List;
 
 public class DaysAdapterExercise extends RecyclerView.Adapter<DaysAdapterExercise.ViewHolder> {
-    private List<DaysWorkout> daysList;
+    private List<Exercises> daysList;
     private Context mContext;
     public FragmentManager f_manager;
 
 
-    public DaysAdapterExercise(List<DaysWorkout> daysList, Context mContext, FragmentManager f_manager)
+    public DaysAdapterExercise(List<Exercises> daysList, Context mContext, FragmentManager f_manager)
     {
         this.f_manager = f_manager;
         this.daysList = daysList;
@@ -39,10 +37,10 @@ public class DaysAdapterExercise extends RecyclerView.Adapter<DaysAdapterExercis
     public void onBindViewHolder(final DaysAdapterExercise.ViewHolder holder, final int position) {
 
 
-        final DaysWorkout dayList = daysList.get(position);
+        final Exercises dayList = daysList.get(position);
         holder.txtDay.setText(dayList.getDay());
-        holder.txtMuscl.setText(dayList.getMuscles());
-        holder.txtCount.setText(dayList.getCount());
+        holder.txtMuscl.setText(dayList.getTargetedmuscles());
+        holder.txtCount.setText(dayList.getExercisecount());
 
 
 

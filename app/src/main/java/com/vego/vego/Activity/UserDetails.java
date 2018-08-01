@@ -19,12 +19,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 import com.vego.vego.R;
-import com.vego.vego.model.DaysWorkout;
+import com.vego.vego.model.Exercises;
 import com.vego.vego.model.elements;
+import com.vego.vego.model.exercise;
 import com.vego.vego.model.ingredients;
 import com.vego.vego.model.UserInfo;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
+import com.vego.vego.model.sets;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,6 +43,8 @@ public class UserDetails extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private StorageReference storageReference;
     DayMeals meal;
+
+
 
 
     ingredients[] ingredients = new ingredients[] {new ingredients("549","Ma39oob")};
@@ -141,14 +145,33 @@ public class UserDetails extends AppCompatActivity {
 //            new DietDay("7","287","34",(ArrayList<DayMeals>) dayMealsD7),
 //    };
 
-    DaysWorkout[] workoutDay = new DaysWorkout[] {new DaysWorkout("1","389", "4"),
-            new DaysWorkout("1","389", "4"),
-            new DaysWorkout("1","389", "4"),
-            new DaysWorkout("1","389", "4"),
-            new DaysWorkout("1","389", "4"),
-            new DaysWorkout("1","389", "4"),
-            new DaysWorkout("1","389", "4"),
+    sets sTest = new sets(" "," "," "," ");
+    sets[] setsArray = new sets[] {new sets("1","389", "4"," "),
+            new sets("1","389", "4",""),
+            new sets("1","389", "4",""),
+            new sets("1","389", "4",""),
+            new sets("1","389", "4",""),
+            new sets("1","389", "4",""),
+            new sets("1","389", "4",""),
     };
+
+    List setsList = new ArrayList<sets>(Arrays.asList(setsArray));
+
+
+
+    exercise e = new exercise(" "," ", (ArrayList<sets>) setsList);
+
+    Exercises[] workoutDay = new Exercises[] {new Exercises("1","389", "4",e),
+            new Exercises("2","389", "4",e),
+            new Exercises("3","389", "4",e),
+            new Exercises("4","389", "4",e),
+            new Exercises("5","389", "4",e),
+            new Exercises("6","389", "4",e),
+            new Exercises("7","389", "4",e),
+    };
+
+    List exList = new ArrayList<Exercises>(Arrays.asList(workoutDay));
+
 
     ArrayList dietList ;
 
@@ -158,7 +181,7 @@ public class UserDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
         //dietList= new ArrayList<DietDay>(Arrays.asList(dietDay));
-        workoutList= new ArrayList<DaysWorkout>(Arrays.asList(workoutDay));
+        workoutList= new ArrayList<Exercises>(Arrays.asList(workoutDay));
 
         setupUIViews();
 
@@ -369,7 +392,7 @@ public class UserDetails extends AppCompatActivity {
 
         //databasaeReference.child("users").child(firebaseAuth.getUid()).setValue(userInfo);
         databasaeReference.child("users").child(firebaseAuth.getUid()).child("Profile").setValue(hashMap);
-       // databasaeReference.child("users").child(firebaseAuth.getUid()).child("Diet").setValue(dietList);
+        databasaeReference.child("users").child(firebaseAuth.getUid()).child("Exercises").setValue(exList);
       //  databasaeReference.child("users").child(firebaseAuth.getUid()).child("Diet").child("0").child("dayMeals").setValue(hashMap2);
 
 

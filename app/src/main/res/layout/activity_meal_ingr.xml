@@ -16,7 +16,8 @@
         android:layout_alignParentStart="true"
         android:background="#333333"
         android:scrollbars="horizontal"
-        app:menu="@menu/menu_nav">
+        app:menu="@menu/menu_nav"
+        android:layout_alignParentLeft="true">
 
     </android.support.design.widget.BottomNavigationView>
 
@@ -76,17 +77,22 @@
         android:gravity="center"
         android:layout_alignParentLeft="true">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="188dp"
-            android:layout_height="106dp">
+        <TextView
+            android:id="@+id/mealNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffff"
+            android:layout_gravity="center"
+            android:text="fkjdhfidfdfij"/>
 
-            <ImageView
-                android:layout_width="188dp"
-                android:layout_height="match_parent"
 
-                android:src="@drawable/header" />
+        <ImageView
+            android:id="@+id/mealimg"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/header" />
 
-        </android.support.v7.widget.CardView>
 
     </android.support.design.widget.AppBarLayout>
     <android.support.design.widget.TabLayout
@@ -118,7 +124,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="56dp"
-        android:background="#bebcbc" />
+        android:background="#bebcbc"
+        android:layout_alignParentLeft="true" />
 
 
 

@@ -58,6 +58,7 @@ import java.util.List;
                     Intent intent= new Intent(mContext, DayMealsActivity.class);
 
                     intent.putExtra("DayMeals",daysList.get(position).getDayMeals());
+                    intent.putExtra("day",daysList.get(position).getDay());
                     v.getContext().startActivity(intent);
                 }
             });
