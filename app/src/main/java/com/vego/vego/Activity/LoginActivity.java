@@ -16,8 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.vego.vego.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -94,26 +97,32 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                                //databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                               if(dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile").exists()){
-//                                    startActivity(new Intent(LoginActivity.this, BottomNav.class));
-//
-//                               }else {
-//                                    startActivity(new Intent(LoginActivity.this, UserDetails.class));
-//                              }
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                            }
-//                        });
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                               if(dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile").exists()){
+                                    LoginActivity.this.startActivity(new Intent(LoginActivity.this, BottomNav.class));
+                                   progressDialog.dismiss();
+
+                                   LoginActivity.this.finish();
+
+                               }else {
+                                   LoginActivity.this.startActivity(new Intent(LoginActivity.this, UserDetails.class));
+                                   progressDialog.dismiss();
+                                   LoginActivity.this.finish();
+
+                              }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
 
 
                         Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, UserDetails.class));
+                     //   startActivity(new Intent(LoginActivity.this, UserDetails.class));
                     } else {
                         progressDialog.hide();
                         Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();

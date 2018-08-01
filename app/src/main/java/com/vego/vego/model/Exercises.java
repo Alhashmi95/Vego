@@ -1,17 +1,20 @@
 package com.vego.vego.model;
 
-public class Exercises {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Exercises implements Serializable {
 
     String day;
     String targetedmuscles;
     String exercisecount;
-    exercise exercise;
+    ArrayList<exercise> exercise;
 
     public Exercises(){
 
     }
 
-    public Exercises(String day, String exercisecount, String targetedmuscles, exercise exercise) {
+    public Exercises(String day, String exercisecount, String targetedmuscles, ArrayList<exercise> exercise) {
         this.day = day;
         this.targetedmuscles = targetedmuscles;
         this.exercisecount = exercisecount;
@@ -42,11 +45,11 @@ public class Exercises {
         this.exercisecount = exercisecount;
     }
 
-    public com.vego.vego.model.exercise getExercise() {
+    public ArrayList<com.vego.vego.model.exercise> getExercise() {
         return exercise;
     }
 
-    public void setExercise(com.vego.vego.model.exercise exercise) {
+    public void setExercise(ArrayList<com.vego.vego.model.exercise> exercise) {
         this.exercise = exercise;
     }
 }

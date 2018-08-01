@@ -2,12 +2,15 @@ package com.vego.vego.Adapters;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.vego.vego.Activity.ActivityWorkoutUser;
+import com.vego.vego.Activity.DayMealsActivity;
 import com.vego.vego.R;
 import com.vego.vego.model.Exercises;
 
@@ -47,9 +50,10 @@ public class DaysAdapterExercise extends RecyclerView.Adapter<DaysAdapterExercis
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent= new Intent(mContext, DayMealsActivity.class);
-//                intent.putExtra("DayMeals",daysList.get(position).getDayMeals());
-//                v.getContext().startActivity(intent);
+                Intent intent= new Intent(mContext, ActivityWorkoutUser.class);
+                intent.putExtra("DayExercise",daysList.get(position).getExercise());
+                intent.putExtra("day",daysList.get(position).getDay());
+                v.getContext().startActivity(intent);
             }
         });
     }

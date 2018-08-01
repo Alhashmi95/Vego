@@ -1,6 +1,9 @@
 package com.vego.vego.model;
 
-public class sets {
+import java.io.Serializable;
+import java.util.List;
+
+public class sets implements Serializable {
 
     String reps;
     String rm1;
@@ -8,6 +11,10 @@ public class sets {
     String weight;
 
     public sets(){
+
+    }
+
+    public sets(String reps, String rm1, String volume, List setsList){
 
     }
 

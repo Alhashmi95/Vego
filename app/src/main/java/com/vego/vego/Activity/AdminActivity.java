@@ -3,7 +3,6 @@ package com.vego.vego.Activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,10 +10,7 @@ import android.view.View;
 
 import com.vego.vego.Fragment.AddMealsFragment;
 import com.vego.vego.Fragment.FragmentAddWorkout;
-import com.vego.vego.Fragment.FragmentHome;
-import com.vego.vego.Fragment.FragmentSetting;
 import com.vego.vego.Fragment.FragmentSupport;
-import com.vego.vego.Fragment.FragmentWallet;
 import com.vego.vego.R;
 
 public class AdminActivity extends AppCompatActivity {

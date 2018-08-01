@@ -157,20 +157,32 @@ public class UserDetails extends AppCompatActivity {
 
     List setsList = new ArrayList<sets>(Arrays.asList(setsArray));
 
+    exercise[] exArray = new exercise[] {new exercise("1","ظهر", (ArrayList<sets>) setsList),
+            new exercise("1","389", (ArrayList<sets>) setsList),
+            new exercise("fkdlj","صدر", (ArrayList<sets>) setsList),
+            new exercise("klfjf","بطن", (ArrayList<sets>) setsList),
+            new exercise("fdjkh","راس", (ArrayList<sets>) setsList),
+
+    };
+
+    List exList = new ArrayList<exercise>(Arrays.asList(exArray));
+
 
 
     exercise e = new exercise(" "," ", (ArrayList<sets>) setsList);
 
-    Exercises[] workoutDay = new Exercises[] {new Exercises("1","389", "4",e),
-            new Exercises("2","389", "4",e),
-            new Exercises("3","389", "4",e),
-            new Exercises("4","389", "4",e),
-            new Exercises("5","389", "4",e),
-            new Exercises("6","389", "4",e),
-            new Exercises("7","389", "4",e),
+    Exercises[] workoutDay = new Exercises[] {new Exercises("1","389", "4",
+            (ArrayList<exercise>) exList),
+            new Exercises("2","389", "4", (ArrayList<exercise>) exList),
+            new Exercises("3","389", "4", (ArrayList<exercise>) exList),
+            new Exercises("4","389", "4", (ArrayList<exercise>) exList),
+            new Exercises("5","389", "4", (ArrayList<exercise>) exList),
+            new Exercises("6","389", "4", (ArrayList<exercise>) exList),
+            new Exercises("7","389", "4", (ArrayList<exercise>) exList),
+
     };
 
-    List exList = new ArrayList<Exercises>(Arrays.asList(workoutDay));
+    List exBigList = new ArrayList<Exercises>(Arrays.asList(workoutDay));
 
 
     ArrayList dietList ;
@@ -392,7 +404,7 @@ public class UserDetails extends AppCompatActivity {
 
         //databasaeReference.child("users").child(firebaseAuth.getUid()).setValue(userInfo);
         databasaeReference.child("users").child(firebaseAuth.getUid()).child("Profile").setValue(hashMap);
-        databasaeReference.child("users").child(firebaseAuth.getUid()).child("Exercises").setValue(exList);
+        databasaeReference.child("users").child(firebaseAuth.getUid()).child("Exercises").setValue(exBigList);
       //  databasaeReference.child("users").child(firebaseAuth.getUid()).child("Diet").child("0").child("dayMeals").setValue(hashMap2);
 
 

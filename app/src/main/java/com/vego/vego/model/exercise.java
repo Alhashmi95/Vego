@@ -1,8 +1,9 @@
 package com.vego.vego.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class exercise {
+public class exercise implements Serializable {
     private String exername;
     private String targetedmuscle;
     private ArrayList<sets> sets;

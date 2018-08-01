@@ -18,8 +18,9 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.vego.vego.Fragment.ChatFragment;
+import com.vego.vego.Fragment.FragmentExercises;
 import com.vego.vego.Fragment.FragmentHome;
-import com.vego.vego.Fragment.FragmentSetting;
 import com.vego.vego.Fragment.FragmentWallet;
 import com.vego.vego.R;
 
@@ -110,10 +111,13 @@ public class BottomNav extends AppCompatActivity {
                     f = new FragmentWallet();
                     break;
                 case R.id.setting:
-                    f = new FragmentSetting();
+                    f = new FragmentExercises();
                     break;
                 case R.id.home:
                     f = new FragmentHome();
+                    break;
+                case R.id.language:
+                    f = new ChatFragment();
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fContr , f).commit()  ;
