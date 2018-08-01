@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vego.vego">
 
-    <!--<uses-sdk-->
-        <!--android:minSdkVersion="11"-->
-        <!--android:targetSdkVersion="17" />-->
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -13,6 +10,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
 
     <application
         android:allowBackup="true"
@@ -59,10 +57,10 @@
         <activity android:name=".Activity.UpdateProfileActivity" />
         <activity
             android:name=".Activity.AddNewMealActivity"
-            android:windowSoftInputMode="stateVisible|adjustPan">
-            >
-        </activity>
+            android:windowSoftInputMode="stateVisible|adjustPan"></activity>
         <activity android:name=".Activity.AddNewExerciseActivity" />
+        <activity android:name=".Activity.ActivityWorkoutUser" />
+        <activity android:name=".Activity.ActivityInsideExercise"></activity>
     </application>
 
 </manifest>

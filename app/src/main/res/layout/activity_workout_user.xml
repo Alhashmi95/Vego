@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e5e5e5"
-    tools:context=".Activity.AdminActivity">
+    tools:context=".Activity.ActivityWorkoutUser"
+    android:background="@color/grey">
 
-    // هذي اللي تسوي البار اللي فوق
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/actionBar"
@@ -55,28 +54,26 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    // هذي للنافيقشون اللي تحت
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="537dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:background="@color/grey"
+        android:layout_alignParentLeft="true"
+        />
+
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bNavAdmin"
+        android:id="@+id/bNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/admin_nav"
+        android:layout_alignParentStart="true"
         android:background="#333333"
         android:scrollbars="horizontal"
-        ></android.support.design.widget.BottomNavigationView>
+        app:menu="@menu/menu_nav"
+        android:layout_alignParentLeft="true"></android.support.design.widget.BottomNavigationView>
 
-    <FrameLayout
-        android:id="@+id/fCenterAdmin"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bNavAdmin"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/actionBar"
-        android:background="#bebcbc">
-
-    </FrameLayout>
 
 
 </RelativeLayout>
