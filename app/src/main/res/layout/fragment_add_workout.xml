@@ -3,97 +3,78 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.FragmentAddWorkout">
+    tools:context=".Fragment.FragmentAddWorkout"
+    android:background="@color/grey">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/actionBar"
+        android:background="@color/md_white_1000"
+        >
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="إضافة تمرين جديد"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/cairo_semibold"
+            android:textSize="16sp"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
 
     <Spinner
         android:id="@+id/spinner5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_height="30dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="34dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp" />
 
     <Spinner
         android:id="@+id/spinner8"
-        android:layout_width="111dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="157dp" />
+        android:layout_marginTop="122dp"
+        android:layout_alignParentLeft="true" />
 
     <Spinner
         android:id="@+id/spinner10"
-        android:layout_width="111dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="217dp" />
-
-    <Spinner
-        android:id="@+id/spinner11"
-        android:layout_width="111dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="214dp" />
+        android:layout_marginTop="160dp"
+        android:layout_alignParentLeft="true" />
 
     <Spinner
         android:id="@+id/spinner7"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_height="30dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="83dp" />
+        android:layout_marginTop="84dp"
+        android:spinnerMode="dialog"
+        />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="111dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinner8"
-        android:layout_alignParentStart="true"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="111dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinner10"
-        android:layout_alignParentStart="true"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="111dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinner11"
-        android:layout_alignParentStart="true"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="111dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinner8"
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="TextView" />
+        android:layout_marginTop="203dp">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="111dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinner10"
-        android:layout_centerHorizontal="true"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="111dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinner11"
-        android:layout_centerHorizontal="true"
-        android:text="TextView" />
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/welcome_screen" />
+    </android.support.v7.widget.CardView>
 
     <Button
         android:id="@+id/userLogin"
@@ -102,16 +83,17 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/spinner8"
         android:layout_marginBottom="97dp"
-        android:text="اضافة تمرين" />
+        android:text="اضافة تمرين"
+        android:layout_alignLeft="@+id/spinner8" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="201dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/userLogin"
-        android:layout_marginStart="31dp"
-        android:text="حفظ التمارين" />
+        android:text="حفظ التمارين"
+        android:layout_alignParentRight="true" />
 
     <Button
         android:id="@+id/addNewExerciseBtn"
@@ -121,5 +103,48 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
         android:text="اضافة تمرين جديد" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="238dp"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="Exercise Name Here"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="-238dp"
+        android:background="@color/scifitBlue"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_alignParentLeft="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="53dp"
+            android:text="TextView"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="53dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="103dp"
+            android:text="TextView"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="103dp" />
+    </RelativeLayout>
 
 </RelativeLayout>
