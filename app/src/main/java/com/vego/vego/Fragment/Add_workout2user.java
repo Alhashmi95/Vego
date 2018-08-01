@@ -14,12 +14,12 @@ import com.vego.vego.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Add_meal2user.OnFragmentInteractionListener} interface
+ * {@link Add_workout2user.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Add_meal2user#newInstance} factory method to
+ * Use the {@link Add_workout2user#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Add_meal2user extends Fragment {
+public class Add_workout2user extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +31,7 @@ public class Add_meal2user extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Add_meal2user() {
+    public Add_workout2user() {
         // Required empty public constructor
     }
 
@@ -41,11 +41,11 @@ public class Add_meal2user extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Add_meal2user.
+     * @return A new instance of fragment Add_workout2user.
      */
     // TODO: Rename and change types and number of parameters
-    public static Add_meal2user newInstance(String param1, String param2) {
-        Add_meal2user fragment = new Add_meal2user();
+    public static Add_workout2user newInstance(String param1, String param2) {
+        Add_workout2user fragment = new Add_workout2user();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,24 +75,6 @@ public class Add_meal2user extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
