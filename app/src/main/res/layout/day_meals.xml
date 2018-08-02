@@ -9,10 +9,11 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="80dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:paddingBottom="5dp"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="15dp"
         android:layout_alignParentLeft="true">
 
         <RelativeLayout
@@ -51,7 +52,7 @@
                 android:layout_toLeftOf="@+id/calsCount"
                 android:layout_toStartOf="@+id/calsCount"
                 android:text="عدد الوجبات"
-                android:textColor="@android:color/black" />
+                android:textColor="#161616" />
 
             <TextView
                 android:id="@+id/txtCals"
@@ -59,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="السعرات"
-                tools:textColor="@android:color/black" />
+                android:textColor="#161616" />
 
             <ImageView
                 android:id="@+id/dayIcon"
@@ -80,7 +81,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="68dp"
                 android:text="يوم 1"
-                android:textColor="@android:color/black"
+                android:textColor="#161616"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="68dp" />
         </RelativeLayout>

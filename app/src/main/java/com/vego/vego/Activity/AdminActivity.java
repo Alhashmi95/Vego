@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.vego.vego.Fragment.AddMealsFragment;
+import com.vego.vego.Fragment.Add_workout2user;
 import com.vego.vego.Fragment.FragmentAddWorkout;
 import com.vego.vego.Fragment.FragmentSupport;
 import com.vego.vego.R;
@@ -41,7 +42,8 @@ public class AdminActivity extends AppCompatActivity {
             Fragment f = null;
             switch (menuItem.getItemId()){
                 case R.id.workouts:
-                    f = new FragmentAddWorkout();
+                    //delete fragmentAddWorkout
+                    f = new Add_workout2user();
                     break;
                 case R.id.diet:
                     f = new AddMealsFragment();

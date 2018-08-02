@@ -60,6 +60,7 @@
             android:windowSoftInputMode="stateVisible|adjustPan"></activity>
         <activity android:name=".Activity.AddNewExerciseActivity" />
         <activity android:name=".Activity.ActivityWorkoutUser" />
+
         <activity android:name=".Activity.ActivityInsideExercise"></activity>
     </application>
 
