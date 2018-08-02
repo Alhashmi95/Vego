@@ -3,17 +3,17 @@
     <!-- Base application theme. -->
     <style name="MyActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/md_white_1000</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">#4a4a4a</item>
         <item name="android:fontFamily" tools:ignore="NewApi">@font/cairo</item>
     </style>
 
     <style name="AppThemeNo" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimary">@color/md_white_1000</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">#4a4a4a</item>
         <item name="android:fontFamily" tools:ignore="NewApi">@font/cairo</item>
     </style>
 
