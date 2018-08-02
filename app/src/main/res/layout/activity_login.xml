@@ -16,7 +16,7 @@
         android:id="@+id/imageView3"
         android:layout_width="271dp"
         android:layout_height="122dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="132dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -66,42 +66,25 @@
     <EditText
         android:id="@+id/emailTxt"
         android:layout_width="match_parent"
-        android:layout_marginRight="35dp"
-        android:layout_marginLeft="35dp"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/custom_edit_text"
-        android:ems="10"
-        android:drawableRight="@drawable/arroba3"
         android:drawablePadding="10dp"
+        android:drawableRight="@drawable/mail2"
+        android:ems="10"
         android:gravity="right"
         android:hint="البريد الإلكتروني"
-        android:textSize="16dp"
         android:inputType="textEmailAddress"
         android:paddingBottom="7dp"
-        android:paddingTop="8.5dp"
         android:paddingRight="10dp"
+        android:paddingTop="8.5dp"
+        android:textSize="16dp"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-       />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="117dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="أو"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginGoo"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <EditText
         android:id="@+id/passwordTxt"
@@ -115,37 +98,15 @@
         android:textSize="16dp"
         android:gravity="right"
         android:hint="كلمة المرور"
-        android:drawableRight="@drawable/lock"
+        android:drawableRight="@drawable/lock2"
         android:drawablePadding="10dp"
         android:inputType="textPassword"
         android:paddingBottom="7dp"
-        android:paddingRight="7dp"
+        android:paddingRight="10dp"
         android:paddingTop="8.5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailTxt" />
-
-    <Button
-        android:id="@+id/loginGoo"
-        android:layout_width="match_parent"
-        android:layout_height="41dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginTop="32dp"
-        android:background="@color/scifitBlue"
-        android:drawablePadding="35dp"
-        android:drawableRight="@drawable/google_plus2"
-        android:gravity="right"
-        android:paddingRight="20dp"
-        android:paddingTop="3dp"
-        android:text="تسجيل الدخول بواسطة جوجل"
-        android:textColor="#FFFF"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <View
         android:id="@+id/divider2"
@@ -154,7 +115,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@color/scifitBlue"
+        android:background="@color/grey"
         app:layout_constraintBottom_toTopOf="@+id/signupTxt"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -175,36 +136,5 @@
         app:layout_constraintHorizontal_bias="0.821"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="40dp"
-        android:background="@color/scifitBlue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/emailTxt" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="0dp"
-        android:background="@color/scifitBlue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTxt"
-        android:layout_alignEnd="@+id/emailTxt"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="151dp"
-        android:text="نسيت كلمة المرور؟"
-        android:textColor="@color/scifitBlue"
-        android:layout_alignRight="@+id/emailTxt" />
 
 </android.support.constraint.ConstraintLayout>
