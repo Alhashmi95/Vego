@@ -242,7 +242,7 @@ public class AddMealsFragment extends Fragment {
 
 
                 }
-                selectedMeal();
+              selectedMeal();
 
 
 

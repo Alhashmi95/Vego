@@ -14,182 +14,296 @@
         android:orientation="vertical"
         android:background="@color/grey">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/relativeLayout3"
+        <RelativeLayout
+            android:id="@+id/relative"
             android:layout_width="match_parent"
-            android:layout_height="663dp"
-            android:background="@color/grey">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="13dp"
+            android:background="@color/md_white_1000"
+            app:layout_constraintBottom_toTopOf="@+id/spinnerUser"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <RelativeLayout
-                android:id="@+id/relative"
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cairo_semibold"
+                android:gravity="center"
+                android:text="إضافة تمرين جديد"
+                android:textSize="16sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relaSpinner1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/custom_spinner_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
+
+            <ImageView
+                android:id="@+id/imagenah7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="13dp"
-                android:background="@color/md_white_1000"
-                app:layout_constraintBottom_toTopOf="@+id/spinnerUser"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/cairo_semibold"
-                    android:gravity="center"
-                    android:text="إضافة تمرين جديد"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-
-            <Spinner
-                android:id="@+id/spinnerExerciseName"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="11dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnertargetedMu" />
-
-            <Spinner
-                android:id="@+id/spinnertargetedMu"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerExerciseNo" />
-
-            <Spinner
-                android:id="@+id/spinnerExerciseNo"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerDay" />
-
-            <Spinner
-                android:id="@+id/spinnerDay"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerUser" />
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp" />
 
             <Spinner
                 android:id="@+id/spinnerUser"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="576dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="13dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relative" />
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="32dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:spinnerMode="dropdown"
+                android:layout_alignParentLeft="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relaSpinner3"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/custom_spinner_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardView2"
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_marginEnd="55dp"
-                android:layout_marginLeft="55dp"
-                android:layout_marginRight="55dp"
-                android:layout_marginStart="55dp"
-                android:layout_marginTop="60dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerExerciseName">
+            app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
 
-                <ImageView
-                    android:id="@+id/imageViewEx"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/welcome_screen" />
-            </android.support.v7.widget.CardView>
-
-            <TextView
-                android:id="@+id/textViewExName"
+            <ImageView
+                android:id="@+id/imageVied"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="129dp"
-                android:layout_marginLeft="129dp"
-                android:layout_marginRight="129dp"
-                android:layout_marginStart="129dp"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/cairo_semibold"
-                android:text="Exercise Name Here"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp" />
 
-            <RelativeLayout
-                android:id="@+id/relativeLayout4"
+            <Spinner
+                android:id="@+id/spinnerDay"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="32dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:spinnerMode="dropdown"
+                android:layout_alignParentLeft="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relaSpinner4"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/custom_spinner_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
+
+            <ImageView
+                android:id="@+id/imageVie2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="64dp"
-                android:background="@color/scifitBlue"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp" />
 
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewExName">
+            <Spinner
+                android:id="@+id/spinnerExerciseNo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="32dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:spinnerMode="dropdown"
+                android:layout_alignParentLeft="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relaSpinner5"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/custom_spinner_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
 
-                <TextView
-                    android:id="@+id/txtSetsShow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="71dp"
-                    android:layout_marginRight="71dp"
-                    android:text="الجلسات"
-                    android:textColor="@color/md_white_1000" />
+            app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
 
-                <TextView
-                    android:id="@+id/txtRepsShow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+            <ImageView
+                android:id="@+id/imageVie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp" />
 
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="71dp"
-                    android:layout_marginStart="71dp"
-                    android:text="التكرار"
-                    android:textColor="@color/md_white_1000" />
-            </RelativeLayout>
+            <Spinner
+                android:id="@+id/spinnertargetedMu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="32dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:spinnerMode="dropdown"
+                android:layout_alignParentLeft="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relaSpinner6"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/custom_spinner_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
 
-        </android.support.constraint.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
+
+            <ImageView
+                android:id="@+id/imageView66"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp" />
+
+            <Spinner
+                android:id="@+id/spinnertargetedMu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="32dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:spinnerMode="dropdown"
+                android:layout_alignParentLeft="true" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginEnd="55dp"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerExerciseName">
+
+            <ImageView
+                android:id="@+id/imageViewEx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/welcome_screen" />
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/textViewExName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:fontFamily="@font/cairo_semibold"
+            android:text="Exercise Name Here"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+
+            android:background="@drawable/table_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+
+
+            app:layout_constraintTop_toBottomOf="@+id/textViewExName">
+
+            <TextView
+                android:id="@+id/txtSetsShow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="71dp"
+                android:layout_marginRight="71dp"
+                android:text="الجلسات"
+                android:textColor="@color/md_white_1000" />
+
+            <TextView
+                android:id="@+id/txtRepsShow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="71dp"
+                android:layout_marginStart="71dp"
+                android:text="التكرار"
+                android:textColor="@color/md_white_1000" />
+        </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerSetsAdmin"
             android:layout_width="match_parent"
             android:layout_height="201dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:background="@color/grey" />

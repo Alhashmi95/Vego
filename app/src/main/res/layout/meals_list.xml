@@ -36,22 +36,22 @@
                 android:layout_height="27dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="17dp"
+                android:layout_marginEnd="53dp"
                 android:paddingBottom="3dp"
                 android:src="@drawable/icons_meal_px"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="17dp" />
+                android:layout_marginRight="53dp" />
 
             <ImageView
                 android:layout_width="26dp"
                 android:layout_height="27dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="102dp"
+                android:layout_marginStart="113dp"
                 android:paddingBottom="3dp"
                 android:src="@drawable/calories"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="102dp" />
+                android:layout_marginLeft="113dp" />
 
             <TextView
                 android:id="@+id/textViewShortDesc"
@@ -59,11 +59,11 @@
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="33dp"
+                android:layout_marginStart="50dp"
                 android:gravity="center_vertical"
                 android:text="Card Title"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="33dp" />
+                android:layout_marginLeft="50dp" />
 
             <TextView
                 android:id="@+id/textViewTitle"
@@ -71,11 +71,11 @@
                 android:layout_height="29dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="51dp"
+                android:layout_marginEnd="87dp"
                 android:gravity="center_vertical"
                 android:text="Card Title"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="51dp" />
+                android:layout_marginRight="87dp" />
 
 
         </RelativeLayout>

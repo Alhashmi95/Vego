@@ -36,28 +36,13 @@
                 android:src="@drawable/logo_white" />
 
 
-            <ImageView
-                android:id="@+id/profile"
-                android:layout_width="39dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-
-
-                android:layout_alignParentTop="true"
-                android:onClick="openDrawer"
-                android:paddingTop="2dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/profile_on_top"
-                tools:ignore="OnClick"
-                android:layout_alignParentLeft="true" />
-
         </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mealrecycler"
         android:layout_width="match_parent"
-        android:layout_height="506dp"
+        android:layout_height="562dp"
         android:layout_above="@+id/bNavigation"
         android:layout_below="@+id/appbarid"
         android:layout_marginTop="47dp" />
@@ -65,23 +50,13 @@
     <TextView
         android:id="@+id/daytv"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="35dp"
         android:layout_above="@+id/recyclerView"
         android:gravity="center"
+        android:background="@color/md_white_1000"
         android:layout_below="@+id/appbarid"
-        android:text="kljflkgfjgf" />
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="#333333"
-        android:scrollbars="horizontal"
-        app:menu="@menu/menu_nav"
-        android:layout_alignParentLeft="true"></android.support.design.widget.BottomNavigationView>
-
+        android:textColor="@color/blackGrey"
+        android:text="يوم 1" />
 
 
 </RelativeLayout>
