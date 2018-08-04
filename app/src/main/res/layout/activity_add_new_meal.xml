@@ -37,21 +37,6 @@
                 android:src="@drawable/logo_white" />
 
 
-            <ImageView
-                android:id="@+id/profile"
-                android:layout_width="29dp"
-                android:layout_height="match_parent"
-
-                android:layout_alignParentLeft="true"
-
-
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:onClick="openDrawer"
-                android:paddingTop="2dp"
-                android:src="@drawable/menu"
-                tools:ignore="OnClick" />
-
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -86,26 +71,33 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="227dp"
-        android:background="#333333"
+        android:background="@color/blackGrey"
         app:tabGravity="fill"
-        app:tabIndicatorColor="#1d1d1d"
+        app:tabIndicatorColor="@color/md_white_1000"
         app:tabMode="fixed"
-        app:tabTextColor="@color/tabtextcolor"
+        app:tabTextColor="#dedcdc"
         android:layout_alignParentLeft="true" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_id"
         android:layout_width="match_parent"
-        android:layout_height="339dp"
+        android:layout_height="320dp"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/tablayout_id"
-        android:background="@color/grey"></android.support.v4.view.ViewPager>
+        android:background="@color/grey"
+        android:layout_alignParentLeft="true"></android.support.v4.view.ViewPager>
 
     <Button
         android:id="@+id/saveMealBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="15dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/blackGrey"
+        android:textColor="@color/md_white_1000"
         android:text="احفظ الوجبة" />
 
 </RelativeLayout>

@@ -59,7 +59,7 @@ public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsVie
         Log.d("print","yes");
 
 
-            holder.mealCount.setText("."+String.valueOf(position+1));
+//            holder.mealCount.setText("."+String.valueOf(position+1));
 
 
 
@@ -83,7 +83,7 @@ public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsVie
 
             txtIngr = itemView.findViewById(R.id.txtIngr);
             txtQuan = itemView.findViewById(R.id.txtQuantity);
-            mealCount = itemView.findViewById(R.id.mealCount);
+//            mealCount = itemView.findViewById(R.id.mealCount);
 
             txtIngr.addTextChangedListener(new TextWatcher() {
                 @Override

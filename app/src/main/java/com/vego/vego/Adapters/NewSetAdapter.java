@@ -81,7 +81,7 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
 
         EditText txtReps;
         TextView txtSets;
-        TextView mealCount;
+        TextView setCount;
 
 
         public SetViewHolder(final View itemView) {
@@ -89,7 +89,7 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
 
             txtReps = itemView.findViewById(R.id.txtReps);
             txtSets = itemView.findViewById(R.id.txtSet);
-            mealCount = itemView.findViewById(R.id.mealCount);
+          //  setCount = itemView.findViewById(R.id.mealCount);
 
 
         }

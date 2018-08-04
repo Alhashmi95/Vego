@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.AddMealsFragment"
     android:background="#ffffff">
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,219 +20,572 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-
             <RelativeLayout
+                android:id="@+id/relative"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:layout_height="35dp"
                 android:layout_below="@+id/actionBar"
-                android:background="#ffffff">
-
+                android:background="@color/md_white_1000"
+                >
 
                 <TextView
-                    android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/cairo_semibold"
+                    android:text="إضافة برنامج غذائي جديد"
+                    android:textColor="@color/blackGrey"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relaSpinner0"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/custom_spinner_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="12dp"
+                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp" />
+
+                <Spinner
+                    android:id="@+id/selectUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginRight="32dp"
+                    android:layout_gravity="center"
+                    android:background="@color/transparent"
                     android:gravity="center"
-                    android:paddingTop="5dp"
-                    android:text="إضافة جدول غذائي للمتدرب"
-                    android:textColor="#232931" />
+                    android:spinnerMode="dropdown"
+                    android:layout_alignParentLeft="true" />
+            </RelativeLayout>
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/custom_edit_text_white"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp">
+
+                <TextView
+                    android:id="@+id/tvprofileGoal"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_above="@+id/tvProfileHeight"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginLeft="76dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="76dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="right"
+                    android:text="الهدف الرياضي"
+                    android:textColor="@color/blackGrey"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                    app:layout_constraintHorizontal_bias="0.795"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvProfileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginTop="16dp"
+                    android:text="عالي"
+                    android:textColor="@color/blackGrey"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView13"
+                    app:layout_constraintTop_toBottomOf="@+id/tvprofileGoal" />
+
+                <TextView
+                    android:id="@+id/tvProfileHeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/tvWeight"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="23 سنة"
+                    android:textColor="@color/blackGrey"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView12"
+                    app:layout_constraintTop_toBottomOf="@+id/tvprofileGoal" />
+
+                <TextView
+                    android:id="@+id/tvWeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_above="@+id/tvProfileAge"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginTop="16dp"
+                    android:text="181 سم"
+                    android:textColor="@color/blackGrey"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView11"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProfileAge" />
+
+                <TextView
+                    android:id="@+id/tvprofileActivity"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@+id/tvprofileGoal"
+                    android:layout_alignStart="@+id/tvprofileGoal"
+                    android:layout_below="@+id/tvprofileGoal"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="right"
+                    android:text="72 كغ"
+                    android:textColor="@color/blackGrey"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView10"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProfileAge" />
+
+                <TextView
+                    android:id="@+id/tvProfileAge"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="right"
+                    android:text="إسم المتدرب"
+                    android:textColor="@color/blackGrey"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView8"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="22dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginRight="22dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/man2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="22dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginRight="22dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/balance"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="22dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/text_height"
+                    app:layout_constraintEnd_toStartOf="@+id/tvprofileActivity"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProfileAge" />
+
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="22dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/calendar_2"
+                    app:layout_constraintEnd_toStartOf="@+id/tvWeight"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProfileAge" />
+
+                <ImageView
+                    android:id="@+id/imageView13"
+                    android:layout_width="22dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/running"
+                    app:layout_constraintEnd_toStartOf="@+id/tvProfileHeight"
+                    app:layout_constraintTop_toBottomOf="@+id/tvprofileGoal" />
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="22dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/trophy"
+                    app:layout_constraintEnd_toStartOf="@+id/tvProfileAge"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="27dp"
+                    android:layout_marginRight="27dp"
+                    android:text="الإسم"
+                    android:textSize="6sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginRight="25dp"
+                    android:text="الوزن"
+                    android:textSize="6sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="67dp"
+                    android:layout_marginRight="67dp"
+                    android:text="الطول"
+                    android:textSize="6sp"
+                    app:layout_constraintEnd_toStartOf="@+id/textView12"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="69dp"
+                    android:layout_marginRight="69dp"
+                    android:text="العمر"
+                    android:textSize="6sp"
+                    app:layout_constraintEnd_toStartOf="@+id/textView13"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="69dp"
+                    android:layout_marginRight="69dp"
+                    android:text="النشاط"
+                    android:textSize="6sp"
+                    app:layout_constraintEnd_toStartOf="@+id/textView14"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="الهدف"
+                    android:textSize="6sp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvProfileAge"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+            </android.support.constraint.ConstraintLayout>
+            <RelativeLayout
+                android:id="@+id/relaSpinner1"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/custom_spinner_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
+
+                <ImageView
+                    android:id="@+id/imagenah7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="12dp"
+                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp" />
+
+                <Spinner
+                    android:id="@+id/selectDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginRight="32dp"
+                    android:layout_gravity="center"
+                    android:background="@color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown"
+                    android:layout_alignParentLeft="true" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relaSpinner3"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/custom_spinner_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
+
+                <ImageView
+                    android:id="@+id/imageVied"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="12dp"
+                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp" />
+
+                <Spinner
+                    android:id="@+id/selectMeal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginRight="32dp"
+                    android:layout_gravity="center"
+                    android:background="@color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown"
+                    android:layout_alignParentLeft="true" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relaSpinner4"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/custom_spinner_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
+
+                <ImageView
+                    android:id="@+id/imageVie2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="12dp"
+                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp" />
+
+                <Spinner
+                    android:id="@+id/selectMeal2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginRight="32dp"
+                    android:layout_gravity="center"
+                    android:background="@color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown"
+                    android:layout_alignParentLeft="true" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relaSpinner5"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/custom_spinner_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
+
+                <ImageView
+                    android:id="@+id/imageVie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="12dp"
+                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp" />
+
+                <Spinner
+                    android:id="@+id/selectMeal3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginRight="32dp"
+                    android:layout_gravity="center"
+                    android:background="@color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown"
+                    android:layout_alignParentLeft="true" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relaSpinner6"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/custom_spinner_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
+
+                <ImageView
+                    android:id="@+id/imageView66"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="12dp"
+                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp" />
+
+                <Spinner
+                    android:id="@+id/selectMeal4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginRight="32dp"
+                    android:layout_gravity="center"
+                    android:background="@color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown"
+                    android:layout_alignParentLeft="true" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relaSpinner7"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/custom_spinner_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
+
+                <ImageView
+                    android:id="@+id/imageView77"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="12dp"
+                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp" />
+
+                <Spinner
+                    android:id="@+id/selectMeal5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginRight="32dp"
+                    android:layout_gravity="center"
+                    android:background="@color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown"
+                    android:layout_alignParentLeft="true" />
             </RelativeLayout>
 
-            <Spinner
-                android:id="@+id/selectUser"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="15dp"
-                android:backgroundTint="@color/scifitBlue" />
-
-            <Spinner
-                android:id="@+id/selectDay"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="15dp"
-                android:backgroundTint="@color/scifitBlue" />
-
-            <Spinner
-                android:id="@+id/selectMeal"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="50dp"
-                android:backgroundTint="#ccc8c8" />
-
-            <Spinner
-                android:id="@+id/selectMeal2"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_above="@+id/selectMeal3"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="15dp"
-                android:backgroundTint="#ccc8c8" />
-
-            <Spinner
-                android:id="@+id/selectMeal3"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="15dp"
-                android:backgroundTint="#ccc8c8" />
-
-            <Spinner
-                android:id="@+id/selectMeal4"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="19dp"
-                android:backgroundTint="#ccc8c8" />
-
-            <Spinner
-                android:id="@+id/selectMeal5"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginBottom="154dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="15dp"
-                android:backgroundTint="#ccc8c8" />
-
-            <Button
-                android:id="@+id/saveDayMeal"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/addMoreMeals2"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_toLeftOf="@+id/addMoreMeals2"
-                android:layout_toStartOf="@+id/addMoreMeals2"
-                android:text="حفظ الوجبات لليوم" />
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp">
 
-            <Button
-                android:id="@+id/addMoreMeals2"
-                android:layout_width="102dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="250dp"
-                android:layout_marginLeft="150dp"
-                android:text="إضافة وجبة"></Button>
-
-            <Button
-                android:id="@+id/addNewMeal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="250dp"
-                android:layout_marginLeft="150dp"
-                android:text="إضافة وجبة جديدة"></Button>
-
-            <TextView
-                android:id="@+id/tvprofileGoal"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_above="@+id/tvProfileHeight"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="32dp"
-                android:layout_marginLeft="150dp"
-                android:layout_marginRight="32dp"
-                android:text="TextView"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvProfileName"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_alignLeft="@+id/selectMeal1"
-                android:layout_alignParentBottom="true"
-                android:text="TextView"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvProfileHeight"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_below="@+id/tvWeight"
-                android:layout_centerHorizontal="true"
-                android:text="TextView"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvWeight"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_above="@+id/tvProfileAge"
-                android:layout_centerHorizontal="true"
-                android:text="TextView"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvprofileActivity"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_alignLeft="@+id/tvprofileGoal"
-                android:layout_alignStart="@+id/tvprofileGoal"
-                android:layout_below="@+id/tvprofileGoal"
-                android:text="TextView"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvProfileAge"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="19dp"
-                android:text="TextView"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Make him admin"
-                android:textSize="24dp"/>
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="141dp"
-                android:orientation="horizontal">
-
-
-
-                <RadioButton
-                    android:id="@+id/radio_true"
-                    android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/saveDayMeal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="True"
-                    android:layout_marginLeft="50dp"
-                    android:textSize="18dp" />
+                    android:layout_alignTop="@+id/addMoreMeals2"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_toLeftOf="@+id/addMoreMeals2"
+                    android:layout_toStartOf="@+id/addMoreMeals2"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/scifitRed"
+                    android:textColor="@color/md_white_1000"
 
-                <RadioButton
-                    android:id="@+id/radio_false"
-                    android:layout_marginLeft="135dp"
-                    android:layout_width="wrap_content"
+                    android:text="حفظ الوجبات لليوم" />
+
+                <Button
+                    android:id="@+id/addNewMeal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="False"
-                    android:textSize="18dp"/>
-            </RadioGroup>
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/scifitBlue"
+                    android:textColor="@color/md_white_1000"
+                    android:text="إضافة وجبة جديدة"></Button>
+
+            </LinearLayout>
+
+            <!--<Button-->
+            <!--android:id="@+id/addMoreMeals2"-->
+            <!--android:layout_width="102dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="12dp"-->
+            <!--android:layout_marginLeft="150dp"-->
+            <!--android:text="إضافة وجبة"></Button>-->
 
         </LinearLayout>
     </ScrollView>

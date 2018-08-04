@@ -22,18 +22,17 @@
                 android:id="@+id/txtSet"
                 android:layout_width="74dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="56dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="71dp"
                 android:ems="10"
-                android:text="1"
-                android:gravity="center"
-                android:textSize="18dp"
                 android:fontFamily="@font/cairo_semibold"
+                android:gravity="center"
                 android:inputType="number"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="56dp"
-                android:layout_alignParentRight="true" />
+                android:text="1"
+                android:textSize="18dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="71dp" />
 
             <EditText
                 android:id="@+id/txtReps"
@@ -45,7 +44,7 @@
                 android:ems="10"
                 android:inputType="number"
                 android:layout_marginLeft="56dp"
-                android:background="@drawable/custom_edit_text"
+                android:background="@drawable/custom_table_text"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>

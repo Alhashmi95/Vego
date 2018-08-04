@@ -159,8 +159,8 @@ public class AddMealsFragment extends Fragment {
         profileGoal = view.findViewById(R.id.tvprofileGoal);
         spSelectUser = view.findViewById(R.id.selectUser);
 
-        radioButtonTrue = view.findViewById(R.id.radio_true);
-        radioButtonFalse = view.findViewById(R.id.radio_false);
+//        radioButtonTrue = view.findViewById(R.id.radio_true);
+//        radioButtonFalse = view.findViewById(R.id.radio_false);
 
 
 
@@ -304,7 +304,7 @@ public class AddMealsFragment extends Fragment {
 
 
                 }
-                selectedMeal();
+              selectedMeal();
 
 
 

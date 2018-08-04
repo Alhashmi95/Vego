@@ -8,19 +8,6 @@
 
     // هذي اللي تسوي البار اللي فوق
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="#333333"
-        android:scrollbars="horizontal"
-        app:menu="@menu/menu_nav"
-        android:layout_alignParentLeft="true">
-
-    </android.support.design.widget.BottomNavigationView>
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/actionBar"
         android:layout_width="match_parent"
@@ -47,21 +34,6 @@
                 android:src="@drawable/logo_white" />
 
 
-            <ImageView
-                android:id="@+id/profile"
-                android:layout_width="39dp"
-                android:layout_height="match_parent"
-
-                android:layout_alignParentStart="true"
-
-
-                android:layout_alignParentTop="true"
-                android:onClick="openDrawer"
-                android:paddingTop="2dp"
-                android:src="@drawable/profile_on_top"
-                tools:ignore="OnClick"
-                android:layout_alignParentLeft="true" />
-
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -69,36 +41,47 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbarid"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/actionBar"
         android:background="@color/grey"
         android:elevation="0dp"
-        android:gravity="center"
-        android:layout_alignParentLeft="true">
+        android:gravity="center">
+
 
         <TextView
             android:id="@+id/mealNo"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
             android:background="#ffff"
-            android:layout_gravity="center"
-            android:text="fkjdhfidfdfij"/>
-
+            android:gravity="center"
+            android:text="إسم الوجبة"
+            app:layout_constraintBottom_toTopOf="@+id/mealimg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/mealimg"
-            android:layout_marginTop="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="384dp"
+            android:layout_height="171dp"
+            android:layout_marginBottom="150dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginStart="13dp"
             android:src="@drawable/header" />
 
 
     </android.support.design.widget.AppBarLayout>
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayout_id"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/appbarid"
         android:background="#333333"
@@ -116,18 +99,28 @@
         android:layout_above="@+id/bNavigation"
         android:background="@color/grey"/>
 
+    <TextView
+        android:id="@+id/showMealName"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/actionBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="25dp"
+        android:background="@drawable/custom_edit_text_white"
+        android:gravity="center"
+        android:text="إسم الوجبة" />
+
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_id"
         android:layout_width="match_parent"
-        android:layout_height="277dp"
+        android:layout_height="385dp"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="56dp"
-        android:background="@color/grey"
-        android:layout_alignParentLeft="true" />
-
-
+        android:layout_marginBottom="0dp"
+        android:background="@color/grey" />
 
 
 </RelativeLayout>

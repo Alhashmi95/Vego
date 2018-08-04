@@ -13,138 +13,131 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="#ededed"
+        android:background="@color/grey"
         android:orientation="vertical"
+
         android:layout_alignParentLeft="true">
 
-        <android.support.v7.widget.CardView
+
+        <EditText
+            android:id="@+id/mealName"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
-            android:layout_marginTop="17dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/mealName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint="Meal name" />
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="25dp"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
             android:layout_marginRight="25dp"
-            android:layout_marginTop="15dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#cf0545">
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-
-                    android:text="مكونات الوجبة"
-                    android:textSize="20sp"
-                    android:textColor="#ffffff" />
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
+            android:layout_marginLeft="25dp"
+            android:gravity="center"
+            android:background="@drawable/custom_edit_text_white"
+            android:inputType="textPersonName"
+            android:hint="Meal name" />
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="25dp"
+            android:layout_height="45dp"
             android:layout_marginRight="25dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/table_diet"
+            android:layout_marginTop="12dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#cf0545">
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
 
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginEnd="42dp"
-                    android:layout_marginRight="42dp"
-                    android:paddingTop="5dp"
-                    android:text="الكمية"
-                    android:textSize="14sp"
-                    android:textColor="#ffffff" />
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="52dp"
-                    android:layout_marginTop="0dp"
-                    android:paddingTop="5dp"
-                    android:text="نوع الغذاء"
-
-                    android:textColor="#ffffff"
-                    android:textSize="14sp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="52dp" />
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
+                android:fontFamily="@font/cairo_semibold"
+                android:textSize="18sp"
+                android:text="القيم الغذائية"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="35dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+
+            android:background="@drawable/table_diet_under">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="42dp"
+                android:layout_marginRight="42dp"
+                android:text="مجموع السعرات"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/totalcals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="54dp"
+                android:layout_marginStart="54dp"
+                android:text="مجموع السعرات"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
 
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="213dp"
-            android:layout_marginBottom="45dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginRight="25dp"
-            android:layout_marginLeft="25dp">
+            android:layout_marginLeft="25dp"
+            android:background="@color/grey">
 
         </android.support.v7.widget.RecyclerView>
-
-            <Button
-                android:id="@+id/addNewTypeBtn"
-                android:layout_width="116dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="34dp"
-                android:text="اضف صنف"
-                android:layout_alignParentRight="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grey"
+            android:weightSum="2"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/saveBtn"
-                android:layout_width="116dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/scifitRed"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text="حفظ" />
+                android:text="حفظ"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:textColor="@color/md_white_1000"/>
+            <Button
+                android:id="@+id/addNewTypeBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/scifitRed"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:text="اضف صنف"
+                android:layout_marginRight="25dp"
+                android:layout_marginLeft="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_weight="1"
+                android:textColor="@color/md_white_1000"/>
 
-        </RelativeLayout>
+
+
+        </LinearLayout>
 
 
     </LinearLayout>
