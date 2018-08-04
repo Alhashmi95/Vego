@@ -53,6 +53,8 @@ public class DaysAdapterExercise extends RecyclerView.Adapter<DaysAdapterExercis
                 Intent intent= new Intent(mContext, ActivityWorkoutUser.class);
                 intent.putExtra("DayExercise",daysList.get(position).getExercise());
                 intent.putExtra("day",daysList.get(position).getDay());
+              //  intent.putExtra("day",daysList.get(position).getExercise().);
+
                 v.getContext().startActivity(intent);
             }
         });

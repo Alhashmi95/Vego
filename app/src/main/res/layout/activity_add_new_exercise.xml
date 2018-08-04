@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_gravity="center"
-            android:background="@android:color/transparent"
+            android:background="#00000000"
             android:gravity="center"
             android:spinnerMode="dropdown"
             android:layout_alignParentLeft="true" />
@@ -123,4 +123,17 @@
         android:textColor="@color/md_white_1000"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"/>
+
+    <Button
+        android:id="@+id/saveNewExForAllBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="21dp"
+        android:backgroundTint="@color/scifitRed"
+        android:text="إضافة تمرين عام"
+        android:textColor="@color/md_white_1000" />
 </RelativeLayout>

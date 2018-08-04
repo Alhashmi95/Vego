@@ -22,11 +22,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 import com.vego.vego.Activity.AddNewExerciseActivity;
 import com.vego.vego.Activity.AdminActivity;
@@ -80,11 +82,16 @@ public class Add_workout2user extends Fragment {
     NewSetAdapter newSetAdapter;
     ArrayList<sets> list = new ArrayList<>();
     int indexofExercise = 0;
+    DatabaseReference databaseReference;
+    DatabaseReference databaseReferenceExCount;
+    ArrayList ex = new ArrayList();
 
     String exName;
     String imgUrl;
     String exMu;
     String s;
+    int exCounterD1=0,exCounterD2=0,exCounterD3=0,exCounterD4=0,exCounterD5=0,exCounterD6=0,exCounterD7=0;
+    int tt=1;
 
     FirebaseDatabase firebaseDatabaseMeal = FirebaseDatabase.getInstance();
 
@@ -160,8 +167,10 @@ public class Add_workout2user extends Fragment {
 //        sets s = new sets();
 //        list.add(s);
 
-
+        saveExercise.setVisibility(view.INVISIBLE);
         setsArrayList = populateList();
+
+
 
         newSetAdapter = new NewSetAdapter(setsArrayList, getContext());
         recyclerView.setAdapter(newSetAdapter);
@@ -184,6 +193,14 @@ public class Add_workout2user extends Fragment {
         saveExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                for (int i = 0; i < newSetAdapter.getSetsArray().size(); i++) {
+//                    //check if there's any null edit text in all cardviews of meal elements
+//                    if (newSetAdapter.getSetsArray().get(i).getReps().equals("")) {
+//                        Toast.makeText(getContext(), "please enter reps...",
+//                                Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+
                 // check if there's a chosen user and a chosen day
                 if(choosenUser.equals("اختر متدرب") || choosenDay.equals("اختر يوم") ||
                         choosenMu.equals("اختر عضلة") || (choosenExNumber.equals("اختر تمرين"))
@@ -195,23 +212,97 @@ public class Add_workout2user extends Fragment {
                     DatabaseReference databaseReferenceDay = firebaseDatabaseMeal.getReference().child("users")
                             .child(choosenUser).child("Exercises").child(choosenDay).child("day");
 
+                    DatabaseReference databaseReferenceMu = firebaseDatabaseMeal.getReference().child("users")
+                            .child(choosenUser).child("Exercises").child(choosenDay).child("targetedmuscles");
+
+                    databaseReferenceExCount = firebaseDatabaseMeal.getReference().child("users")
+                            .child(choosenUser).child("Exercises").child(choosenDay).child("exercisecount");
+
 
 
                     //add meals to corresponding user and day
                     DatabaseReference databaseReference1 = firebaseDatabaseMeal.getReference().child("users")
                             .child(choosenUser).child("Exercises").child(choosenDay).child("exercise")
                             .child(getChoosenExNumberIndex);
+                    if(choosenDay.equals("0")){
+                        exCounterD1 = exCounterD1 +1;
+                    }
+                    if(choosenDay.equals("1")){
+                        exCounterD2= exCounterD2 +1;
+                    }
+                    if(choosenDay.equals("2")){
+                        exCounterD3= exCounterD3 +1;
+                    }
+                    if(choosenDay.equals("3")){
+                        exCounterD4= exCounterD4 +1;
+                    }
+                    if(choosenDay.equals("4")){
+                        exCounterD5= exCounterD5 +1;
+                    }
+                    if(choosenDay.equals("5")){
+                        exCounterD6= exCounterD6 +1;
+                    }
+                    if(choosenDay.equals("6")){
+                        exCounterD7 = exCounterD7 +1;
+                    }
+
 
                     int chossenDayInt =Integer.valueOf(choosenDay)+1;
                     databaseReferenceDay.setValue(String.valueOf(chossenDayInt));
 
+
+                 //   databaseReferenceExCount.setValue(String.valueOf(exCounterD1));
+
+
+
+                    if(choosenDay.equals("0")) {
+                        databaseReferenceExCount.setValue(String.valueOf(exCounterD1));
+                    }
+                    if(choosenDay.equals("1")) {
+                        databaseReferenceExCount.setValue(String.valueOf(exCounterD2));
+                    }
+                    if(choosenDay.equals("2")) {
+                        databaseReferenceExCount.setValue(String.valueOf(exCounterD3));
+                    }
+                    if(choosenDay.equals("3")) {
+                        databaseReferenceExCount.setValue(String.valueOf(exCounterD4));
+                    }
+                    if(choosenDay.equals("4")) {
+                        databaseReferenceExCount.setValue(String.valueOf(exCounterD5));
+                    }
+                    if(choosenDay.equals("5")) {
+                        databaseReferenceExCount.setValue(String.valueOf(exCounterD6));
+                    }
+                    if(choosenDay.equals("6")) {
+                        databaseReferenceExCount.setValue(String.valueOf(exCounterD7));
+                    }
+
                     eTest.setSets(setsArrayList);
 
-                    databaseReference1.setValue(eTest);
-                    Toast.makeText(getContext(),"successfully added exercise to user",Toast.LENGTH_SHORT).show();
-                    Intent intent= new Intent(getContext(), AdminActivity.class);
 
-                    getContext().startActivity(intent);
+                    databaseReferenceMu.setValue(eTest.getTargetedmuscle());
+
+                    databaseReference1.setValue(eTest).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getContext(),"successfully added exercise to user",Toast.LENGTH_SHORT).show();
+
+                            spSelectDay.setSelection(0);
+                            spSelectEx.setSelection(0);
+                            spSelectMu.setSelection(0);
+
+                                tt = tt + 1;
+                                ex.add("تمرين "+String.valueOf(tt));
+
+
+                                spinnerArrayAdapter.notifyDataSetChanged();
+
+//                            Intent intent= new Intent(getContext(), AdminActivity.class);
+//
+//                            getContext().startActivity(intent);
+                        }
+                    });
+
 
 
                 }
@@ -302,21 +393,21 @@ public class Add_workout2user extends Fragment {
     }
 
     public void exerciseNumber(){
-        String[] day = new String[]{
-                "اختر تمرين",
-                "تمرين 1",
-                "تمرين 2",
-                "تمرين 3",
-                "تمرين 4",
-                "تمرين 5",
-                "تمرين 6",
-                "تمرين 7",
-                "تمرين 8",
-                "تمرين 9",
-        };
+        ex.add(0,"اختر تمرين");
+        ex.add("تمرين 1");
+//                "اختر تمرين",
+//                "تمرين 1",
+//                "تمرين 2",
+//                "تمرين 3",
+//                "تمرين 4",
+//                "تمرين 5",
+//                "تمرين 6",
+//                "تمرين 7",
+//                "تمرين 8",
+//                "تمرين 9";
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,day){
+                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,ex){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -373,6 +464,7 @@ public class Add_workout2user extends Fragment {
                 if(choosenExNumber.equals("تمرين 9"))
                     getChoosenExNumberIndex = "8";
 
+
                 // First item is disable and it is used for hint
                 if(position > 0){
                     // Notify the selected item text
@@ -420,6 +512,7 @@ public class Add_workout2user extends Fragment {
         addNewSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveExercise.setVisibility(v.VISIBLE);
                 sets s2 = new sets();
                 list.add(s2);
                 newSetAdapter.notifyDataSetChanged();
@@ -428,6 +521,7 @@ public class Add_workout2user extends Fragment {
         return list;
     }
     public void getExNames(){
+
         exNames.add(0,"اختر وجبة");
         FirebaseDatabase f = FirebaseDatabase.getInstance();
 
@@ -490,6 +584,10 @@ public class Add_workout2user extends Fragment {
 
             arrayListNamesEx.add(0, "اختر اسم التمرين");
 
+
+
+
+
             for (int i = 0; i < arrayListObjectEx.size(); i++) {
                 Log.d("test", "this is size of MUNAme  :   " + choosenMu);
                 if (choosenMu.equals(arrayListObjectEx.get(i).getTargetedmuscle())) {
@@ -541,10 +639,14 @@ public class Add_workout2user extends Fragment {
                     String selectedItemText = (String) parent.getItemAtPosition(position);
                     choosenEx = selectedItemText;
                     //because first element is reserved as hint
-                    for (int i = 0; i < arrayListNamesEx.size() - 1; i++) {
+                    for (int i = 0; i < arrayListObjectEx.size() - 1; i++) {
+                        Log.d("test","this is chosen EXXXXX Object"+arrayListObjectEx.get(i).getExername());
+                        Log.d("test","this is chosen SSSSSIIZEE Object   "+arrayListObjectEx.size());
+                        Log.d("test","this is chosen SSSSSIIZEE22 Object   "+arrayListNamesEx.size());
+
+
                         if (choosenEx.equals(arrayListObjectEx.get(i).getExername())) {
                             eTest = (arrayListObjectEx.get(i));
-                            // Log.d("test","this is chosen meal Object"+arrayListMealsObject.get(i).getName());
 
 
                             exName = eTest.getExername();
@@ -557,12 +659,17 @@ public class Add_workout2user extends Fragment {
 
                             //get exercise name and its image
                             textViewExName.setText(exName);
-                            Picasso.get()
+//                            Picasso.get()
+//                                    .load(imgUrl)
+//                                    .placeholder(R.drawable.ic_loading)
+//                                    .fit()
+//                                    .centerCrop()
+//                                    .into(imageViewEx);
+                            Ion.with(getContext())
                                     .load(imgUrl)
+                                    .withBitmap()
                                     .placeholder(R.drawable.ic_loading)
-                                    .fit()
-                                    .centerCrop()
-                                    .into(imageViewEx);
+                                    .intoImageView(imageViewEx);
 
 
                         }

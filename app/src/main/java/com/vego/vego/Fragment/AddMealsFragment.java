@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,11 +30,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import com.vego.vego.Activity.AddNewMealActivity;
 import com.vego.vego.R;
+import com.vego.vego.model.DietDay;
 import com.vego.vego.model.UserInfo;
 import com.vego.vego.model.meal;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -79,6 +83,10 @@ public class AddMealsFragment extends Fragment {
     meal mTest, mTest2, mTest3,mTest4,mTest5;
     FirebaseDatabase firebaseDatabaseMeal = FirebaseDatabase.getInstance();
     String mealNo1,mealNo2,mealNo3,mealNo4,mealNo5;
+
+    RadioButton radioButtonTrue, radioButtonFalse;
+
+    boolean role;
 
 
 
@@ -151,6 +159,9 @@ public class AddMealsFragment extends Fragment {
         profileGoal = view.findViewById(R.id.tvprofileGoal);
         spSelectUser = view.findViewById(R.id.selectUser);
 
+        radioButtonTrue = view.findViewById(R.id.radio_true);
+        radioButtonFalse = view.findViewById(R.id.radio_false);
+
 
 
         addNewMeal=view.findViewById(R.id.addNewMeal);
@@ -167,6 +178,8 @@ public class AddMealsFragment extends Fragment {
         getMeal();
 //
         selectedMeal();
+
+        changeRole();
 
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
         DatabaseReference uidRef = usersRef.child("ZU7wS37XJUU6oeueYlciKWxx5X23");
@@ -215,6 +228,55 @@ public class AddMealsFragment extends Fragment {
 
 
 
+
+
+
+
+    }
+    public void changeRole(){
+        radioButtonTrue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!choosenUser.equals("اختر متدرب")) {
+                    String s = "this is true";
+                    Toast.makeText(getContext(), "helooooo    " + s, Toast.LENGTH_LONG).show();
+
+                    role = true;
+
+                    //set admin = true to specific user
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
+
+
+
+                    databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
+                            .setValue(String.valueOf(role));
+                }else {
+                    Toast.makeText(getContext(), "please choose user to set as admin", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        radioButtonFalse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!choosenUser.equals("اختر متدرب")) {
+                    String s = "this is faaalse";
+                    Toast.makeText(getContext(), "helooooo    " + s, Toast.LENGTH_LONG).show();
+
+                    role = false;
+                    //set admin = true to specific user
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
+
+
+
+                    databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
+                            .setValue(String.valueOf(role));
+                }else {
+                    Toast.makeText(getContext(), "please choose user to set as admin", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
 
     }

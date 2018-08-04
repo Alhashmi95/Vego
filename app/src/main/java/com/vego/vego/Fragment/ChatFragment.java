@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -20,7 +21,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.vego.vego.Activity.UpdateProfileActivity;
 import com.vego.vego.R;
+import com.vego.vego.model.UserInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +47,8 @@ public class ChatFragment extends Fragment {
     ArrayList<String> list_chat = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
     private String name;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -64,73 +71,97 @@ public class ChatFragment extends Fragment {
         btn_send_msg = view.findViewById(R.id.btn_send_msg);
 
         name = "Ayman";
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
 
-        arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, list_chat);
-        listView_chat.setAdapter(arrayAdapter);
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
+                .child(firebaseAuth.getUid()).child("Profile");
 
-        btn_send_msg.setOnClickListener(new View.OnClickListener() {
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Map<String, Object> map = new HashMap<String, Object>();
-                temp_key = root.push().getKey();
-                root.updateChildren(map);
+                UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
 
-                DatabaseReference message_root = root.child(temp_key);
-                Map<String, Object> map2 = new HashMap<String, Object>();
-                map2.put("name", name);
-                map2.put("msg", input_msg.getText().toString());
 
-                message_root.updateChildren(map2);
+                name = userinfo.getName();
+
+                //start chat ++++++++++++++++++++++++++++++++++++++++
+                arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, list_chat);
+                listView_chat.setAdapter(arrayAdapter);
+
+                btn_send_msg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Map<String, Object> map = new HashMap<String, Object>();
+                        temp_key = root.push().getKey();
+                        root.updateChildren(map);
+
+                        DatabaseReference message_root = root.child(temp_key);
+                        Map<String, Object> map2 = new HashMap<String, Object>();
+                        map2.put("name", name);
+                        map2.put("msg", input_msg.getText().toString());
+
+                        message_root.updateChildren(map2);
+                    }
+                });
+
+
+                root.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Add_Chat(dataSnapshot);
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        Add_Chat(dataSnapshot);
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
-        });
 
 
-        root.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Add_Chat(dataSnapshot);
-            }
+            private String chat_msg, chat_user_name;
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Add_Chat(dataSnapshot);
+            private void Add_Chat(DataSnapshot dataSnapshot) {
 
-            }
+                Iterator i = dataSnapshot.getChildren().iterator();
+                input_msg.setText("");
+                while (i.hasNext()) {
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    chat_msg = (String) ((DataSnapshot) i.next()).getValue();
+                    chat_user_name = (String) ((DataSnapshot) i.next()).getValue();
 
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                    list_chat.add(chat_user_name + " : " + chat_msg);
+                    arrayAdapter.notifyDataSetChanged();
+                    listView_chat.setSelection(list_chat.size());
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
-    }
-
-
-    private String chat_msg, chat_user_name;
-
-    private void Add_Chat(DataSnapshot dataSnapshot) {
-
-        Iterator i = dataSnapshot.getChildren().iterator();
-        input_msg.setText("");
-        while (i.hasNext()) {
-
-            chat_msg = (String) ((DataSnapshot) i.next()).getValue();
-            chat_user_name = (String) ((DataSnapshot) i.next()).getValue();
-
-            list_chat.add(chat_user_name + " : " + chat_msg);
-            arrayAdapter.notifyDataSetChanged();
-            listView_chat.setSelection(list_chat.size());
-        }
     }
 }

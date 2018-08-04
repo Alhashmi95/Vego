@@ -28,6 +28,10 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
         this.setList = setList;
         this.mContext = mContext;
     }
+    public ArrayList<sets> getSetsArray() {
+        return setList;
+    }
+
 
     @Override
     public NewSetAdapter.SetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

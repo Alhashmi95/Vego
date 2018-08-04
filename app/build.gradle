@@ -72,6 +72,10 @@ dependencies {
     //add picasso to download images from url's
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    //to make gif moves
+    implementation 'com.koushikdutta.ion:ion:2.+'
+
+
 }
 
 // add this line for firebase connection

@@ -109,7 +109,7 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/cardView2"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:layout_marginEnd="55dp"
                 android:layout_marginLeft="55dp"
                 android:layout_marginRight="55dp"
@@ -122,8 +122,8 @@
 
                 <ImageView
                     android:id="@+id/imageViewEx"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:src="@drawable/welcome_screen" />
             </android.support.v7.widget.CardView>
 
@@ -154,11 +154,13 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="64dp"
                 android:background="@color/scifitBlue"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
 
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewExName">
+                app:layout_constraintTop_toBottomOf="@+id/textViewExName"
+                app:layout_constraintVertical_bias="1.0">
 
                 <TextView
                     android:id="@+id/txtSetsShow"

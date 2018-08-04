@@ -74,6 +74,7 @@
 
 
 
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bNavigation"
         android:layout_width="match_parent"

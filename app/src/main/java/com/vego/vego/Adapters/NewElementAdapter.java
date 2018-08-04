@@ -89,6 +89,8 @@ public class NewElementAdapter extends RecyclerView.Adapter<NewElementAdapter.El
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+
+
                     eleList.get(getAdapterPosition()).setName(txtIngr.getText().toString());
                 }
 

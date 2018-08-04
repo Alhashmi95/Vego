@@ -43,7 +43,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AddNewExerciseActivity extends AppCompatActivity {
-    Button saveNewEx;
+    Button saveNewEx, saveNewExForAll;
     EditText exName;
     Spinner selectMu;
     ImageView imageViewEx;
@@ -54,6 +54,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     StorageReference storageReference = firebaseStorage.getReference();
     int indexofImages =0;
+    int indexofImagesForAll =0;
 
 
 
@@ -80,6 +81,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_exercise);
 
         saveNewEx = findViewById(R.id.saveNewExBtn);
+        saveNewExForAll = findViewById(R.id.saveNewExForAllBtn);
         exName = findViewById(R.id.txtExName);
         selectMu = findViewById(R.id.spinnerMu);
         imageViewEx = findViewById(R.id.imageViewNewEx);
@@ -117,12 +119,113 @@ public class AddNewExerciseActivity extends AppCompatActivity {
 
 
         });
+        FirebaseDatabase f2 = FirebaseDatabase.getInstance();
+
+        DatabaseReference databaseReference2 = f2.getReference().child("exerciesForALL");
+
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Note ** : ondatachange discards the value of arraylist after it finishs
+                indexofImagesForAll = (int) dataSnapshot.getChildrenCount();
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+
+        });
         saveEx();
+
+        saveExForAll();
+
+
 
 
 
 
     }
+    public void saveExForAll(){
+        saveNewExForAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                if (exName.getText().toString().isEmpty() || selectMu.equals("اختر عضلة") || imagePath == null) {
+                    Toast.makeText(AddNewExerciseActivity.this, "please enter all details including image",
+                            Toast.LENGTH_LONG).show();
+                }else {
+                    exerciseName = exName.getText().toString();
+
+                    // here we upload meal pics
+                    exRef = storageReference.child("exercises/").child(String.valueOf(indexofImages));
+                    UploadTask uploadTask = (UploadTask) exRef.putFile(imagePath);
+
+                    if (uploadTask != null && uploadTask.isInProgress()) {
+                        Toast.makeText(AddNewExerciseActivity.this, "upload is in progress .. please wait", Toast.LENGTH_LONG).show();
+
+                    }
+
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
+                            }
+
+                            // Continue with the task to get the download URL
+                            return exRef.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                exUrl = downloadUri.toString();
+                                Toast.makeText(AddNewExerciseActivity.this, "upload successeded", Toast.LENGTH_SHORT).show();
+                                exercise e = new exercise();
+
+                                sets[] setsArray = new sets[] {new sets("1","", "","") };
+
+                                  List setsList = new ArrayList<sets>(Arrays.asList(setsArray));
+
+
+                                e.setExername(exerciseName);
+                                e.setTargetedmuscle(choosenMu);
+                                e.setImage(exUrl);
+                                e.setSets((ArrayList<sets>) setsList);
+
+                                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                                DatabaseReference d = firebaseDatabase.getReference();
+
+
+                                //upload meal to firebase
+                                d.child("exerciesForALL").child(String.valueOf(indexofImagesForAll)).setValue(e);
+
+
+                                Intent intent= new Intent(AddNewExerciseActivity.this,
+                                        AdminActivity.class);
+//                                intent.putExtra("image",exUrl);
+//                                intent.putExtra("name",exerciseName);
+//                                intent.putExtra("choosenMu",choosenMu);
+//                                intent.putExtra("index",String.valueOf(indexofImages));
+                                v.getContext().startActivity(intent);
+                            } else {
+                                // Handle failures
+                                Toast.makeText(AddNewExerciseActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+
+    }
+
     public void saveEx(){
         saveNewEx.setOnClickListener(new View.OnClickListener() {
             @Override

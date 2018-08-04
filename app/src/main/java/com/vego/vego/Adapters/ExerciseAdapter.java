@@ -48,12 +48,12 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         final exercise exListTest = exList.get(position);
         holder.txtName.setText(exListTest.getExername());
         holder.txtMu.setText(exListTest.getTargetedmuscle());
-//        Picasso.get()
-//                .load(dayMeals.getImage())
-//                .placeholder(R.drawable.ic_loading)
-//                .fit()
-//                .centerCrop()
-//                .into(holder.imageView);
+        Picasso.get()
+                .load(exListTest.getImage())
+                .placeholder(R.drawable.ic_loading)
+                .fit()
+                .centerCrop()
+                .into(holder.exImage);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +62,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                 Intent intent = new Intent(mContext, ActivityInsideExercise.class);
 
                 intent.putExtra("exSets", exList.get(position).getSets());
+                intent.putExtra("exName", exList.get(position).getExername());
+                intent.putExtra("exImage", exList.get(position).getImage());
                 intent.putExtra("exNumber",String.valueOf(position));
                 v.getContext().startActivity(intent);
             }

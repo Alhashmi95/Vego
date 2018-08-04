@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button signinBtn;
     private EditText emailTxt, passwordTxt;
-    private TextView signupTxt;
+    private TextView signupTxt,reset;
 
     private ProgressDialog progressDialog;
 
@@ -73,16 +73,26 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginActivity.this.startActivity(new Intent(LoginActivity.this, PasswordActivity.class));
+            }
+        });
+
+
+
 
 
 
     }
 
     private void setupUIViews() {
-        emailTxt = (EditText) findViewById(R.id.emailTxt);
-        passwordTxt = (EditText) findViewById(R.id.passwordTxt);
-        signinBtn = (Button) findViewById(R.id.signinBtn);
-        signupTxt = (TextView) findViewById(R.id.signupTxt);
+        emailTxt = findViewById(R.id.emailTxt);
+        passwordTxt = findViewById(R.id.passwordTxt);
+        signinBtn = findViewById(R.id.signinBtn);
+        signupTxt = findViewById(R.id.signupTxt);
+        reset = findViewById(R.id.txtForget);
 
     }
     private void validate(String username, String password){
@@ -100,18 +110,26 @@ public class LoginActivity extends AppCompatActivity {
                                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                               if(dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile").exists()){
+                               if(dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile").exists()
+                                       && dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile")
+                                       .child("isAdmin").getValue().equals("false") ){
                                     LoginActivity.this.startActivity(new Intent(LoginActivity.this, BottomNav.class));
                                    progressDialog.dismiss();
 
                                    LoginActivity.this.finish();
 
-                               }else {
-                                   LoginActivity.this.startActivity(new Intent(LoginActivity.this, UserDetails.class));
+                               }else if(dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile").exists()
+                                       && dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile")
+                                       .child("isAdmin").getValue().equals("true") ){
+                                   LoginActivity.this.startActivity(new Intent(LoginActivity.this, AdminActivity.class));
                                    progressDialog.dismiss();
                                    LoginActivity.this.finish();
 
-                              }
+                              }else if(!dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile").exists()) {
+                                   LoginActivity.this.startActivity(new Intent(LoginActivity.this, UserDetails.class));
+                                   progressDialog.dismiss();
+                                   LoginActivity.this.finish();
+                               }
                             }
 
                             @Override

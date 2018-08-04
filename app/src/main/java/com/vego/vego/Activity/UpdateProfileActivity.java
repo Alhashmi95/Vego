@@ -1,5 +1,6 @@
 package com.vego.vego.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -16,13 +17,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
+import com.vego.vego.model.UserInfo;
 import com.vego.vego.model.elements;
 import com.vego.vego.model.ingredients;
 import com.vego.vego.model.meal;
@@ -37,28 +42,14 @@ public class UpdateProfileActivity extends AppCompatActivity {
     private EditText newUserName, newUserAge, newUserWeight, newUserHeight;
     Spinner spActivity;
     Spinner spGoal;
-    private Button save;
+    private Button save,reset;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
-    Uri imagePath;
     private StorageReference storageReference;
     private FirebaseStorage firebaseStorage;
     private String userGoal;
     private String userActivity;
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getData() != null){
-//            imagePath = data.getData();
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imagePath);
-//                updateProfilePic.setImageBitmap(bitmap);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,19 +63,55 @@ public class UpdateProfileActivity extends AppCompatActivity {
         save = findViewById(R.id.btnSave);
         spActivity = findViewById(R.id.spinner);
         spGoal = findViewById(R.id.spinner4);
+        reset = findViewById(R.id.resetPass);
 //        updateProfilePic = findViewById(R.id.ivProfileUpdate);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+
+        DatabaseReference databaseReference2 = firebaseDatabase.getReference().child("users")
+                .child(firebaseAuth.getUid()).child("Profile");
+
+//        StorageReference storageReference = firebaseStorage.getReference();
+//        storageReference.child(firebaseAuth.getUid()).child("Images/Profile Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                Picasso.get().load(uri).fit().centerCrop().into(profilePic);
+//            }
+//        });
+
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
+
+
+                newUserName.setText(userinfo.getName());
+                newUserAge.setText(userinfo.getAge());
+                newUserWeight.setText(userinfo.getWeight());
+                newUserHeight.setText(userinfo.getHeight());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(UpdateProfileActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         // Initializing a String Array
         String[] activity = new String[]{
-                "مستوى النشاط",
+                "         مستوى النشاط",
                 "مرتفع",
                 "متوسط",
                 "منخفض",
                 "خامل"
         };
         String[] goal = new String[]{
-                "هدفك من التطبيق",
+                "         هدفك من التطبيق",
                 "زيادة الوزن",
                 "انقاص الوزن",
                 "زيادة عضلات",
@@ -296,7 +323,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         //End spinner
 
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -370,8 +397,18 @@ public class UpdateProfileActivity extends AppCompatActivity {
 //                        Toast.makeText(UpdateProfileActivity.this, "Upload successful!", Toast.LENGTH_SHORT).show();
 //                    }
 //                });
+                Toast.makeText(getApplicationContext(), "Data Updated successfully", Toast.LENGTH_SHORT).show();
+
+                UpdateProfileActivity.this.startActivity(new Intent(UpdateProfileActivity.this, BottomNav.class));
 
                 finish();
+            }
+        });
+
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateProfileActivity.this.startActivity(new Intent(UpdateProfileActivity.this, PasswordActivity.class));
             }
         });
 

@@ -65,7 +65,7 @@ public class MealIngrActivity extends AppCompatActivity implements FragmentMealI
 
         Picasso.get()
                 .load(imageURL)
-                .placeholder(R.drawable.arroba3)
+                .placeholder(R.drawable.ic_loading)
                 .fit()
                 .centerCrop()
                 .into(imageViewMeal);
