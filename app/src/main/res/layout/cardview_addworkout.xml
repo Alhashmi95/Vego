@@ -16,6 +16,8 @@
         android:layout_height="200dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"
         app:contentPaddingRight="10dp"
         app:contentPaddingLeft="10dp"
         app:cardMaxElevation="15dp">

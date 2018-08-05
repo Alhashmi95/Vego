@@ -29,6 +29,7 @@
                 android:text="إضافة تمرين جديد"
                 android:textSize="16sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/relaSpinner1"
             android:layout_width="match_parent"
@@ -64,6 +65,244 @@
                 android:spinnerMode="dropdown"
                 android:layout_alignParentLeft="true" />
         </RelativeLayout>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/custom_edit_text_white"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp">
+
+            <TextView
+                android:id="@+id/tvprofileGoal"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_above="@+id/tvProfileHeight"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginLeft="76dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="8dp"
+                android:gravity="right"
+                android:text="الهدف الرياضي"
+                android:textColor="@color/blackGrey"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                app:layout_constraintHorizontal_bias="0.795"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvProfileName"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="16dp"
+                android:text="عالي"
+                android:textColor="@color/blackGrey"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView13"
+                app:layout_constraintTop_toBottomOf="@+id/tvprofileGoal" />
+
+            <TextView
+                android:id="@+id/tvProfileHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_below="@+id/tvWeight"
+                android:layout_centerHorizontal="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:text="23 سنة"
+                android:textColor="@color/blackGrey"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView12"
+                app:layout_constraintTop_toBottomOf="@+id/tvprofileGoal" />
+
+            <TextView
+                android:id="@+id/tvWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_above="@+id/tvProfileAge"
+                android:layout_centerHorizontal="true"
+                android:layout_marginEnd="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="16dp"
+                android:text="181 سم"
+                android:textColor="@color/blackGrey"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView11"
+                app:layout_constraintTop_toBottomOf="@+id/tvProfileAge" />
+
+            <TextView
+                android:id="@+id/tvprofileActivity"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_alignLeft="@+id/tvprofileGoal"
+                android:layout_alignStart="@+id/tvprofileGoal"
+                android:layout_below="@+id/tvprofileGoal"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:gravity="right"
+                android:text="72 كغ"
+                android:textColor="@color/blackGrey"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView10"
+                app:layout_constraintTop_toBottomOf="@+id/tvProfileAge" />
+
+            <TextView
+                android:id="@+id/tvProfileAge"
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="right"
+                android:text="إسم المتدرب"
+                android:textColor="@color/blackGrey"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView8"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="22dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginRight="22dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/man2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="22dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginRight="22dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/balance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="22dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/text_height"
+                app:layout_constraintEnd_toStartOf="@+id/tvprofileActivity"
+                app:layout_constraintTop_toBottomOf="@+id/tvProfileAge" />
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="22dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/calendar_2"
+                app:layout_constraintEnd_toStartOf="@+id/tvWeight"
+                app:layout_constraintTop_toBottomOf="@+id/tvProfileAge" />
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="22dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/running"
+                app:layout_constraintEnd_toStartOf="@+id/tvProfileHeight"
+                app:layout_constraintTop_toBottomOf="@+id/tvprofileGoal" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="22dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/trophy"
+                app:layout_constraintEnd_toStartOf="@+id/tvProfileAge"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="27dp"
+                android:layout_marginRight="27dp"
+                android:text="الإسم"
+                android:textSize="6sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                android:layout_marginRight="25dp"
+                android:text="الوزن"
+                android:textSize="6sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="67dp"
+                android:layout_marginRight="67dp"
+                android:text="الطول"
+                android:textSize="6sp"
+                app:layout_constraintEnd_toStartOf="@+id/textView12"
+                app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="69dp"
+                android:layout_marginRight="69dp"
+                android:text="العمر"
+                android:textSize="6sp"
+                app:layout_constraintEnd_toStartOf="@+id/textView13"
+                app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="69dp"
+                android:layout_marginRight="69dp"
+                android:text="النشاط"
+                android:textSize="6sp"
+                app:layout_constraintEnd_toStartOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="الهدف"
+                android:textSize="6sp"
+                app:layout_constraintEnd_toStartOf="@+id/tvProfileAge"
+                app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+        </android.support.constraint.ConstraintLayout>
         <RelativeLayout
             android:id="@+id/relaSpinner3"
             android:layout_width="match_parent"
