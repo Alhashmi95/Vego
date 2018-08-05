@@ -1,6 +1,8 @@
 package com.vego.vego.Activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -29,6 +31,7 @@ import com.vego.vego.Fragment.ChatFragment;
 import com.vego.vego.Fragment.FragmentExercises;
 import com.vego.vego.Fragment.FragmentHome;
 import com.vego.vego.Fragment.FragmentWallet;
+import com.vego.vego.Fragment.TrackProgressFragmentUser;
 import com.vego.vego.R;
 import com.vego.vego.model.UserInfo;
 
@@ -61,13 +64,15 @@ public class BottomNav extends AppCompatActivity {
         //to add Drawer ++++++++++++++++++++++++++++++++++++++++++++++++++++
         toolbar = findViewById(R.id.actionBar);
         toolbar.setTitle("Drawer Demo");
+        toolbar.setNavigationIcon(R.drawable.icons_calendar_px_);
+
 
         //get User data +++++++++++++++++++++++++++++++++++++++++++++++
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         final DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
-                .child(firebaseAuth.getUid()).child("Profile");
+                .child(firebaseAuth.getUid()).child("uidAndemail");
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -93,16 +98,18 @@ public class BottomNav extends AppCompatActivity {
                 //create the drawer and remember the `Drawer` result object
                 //if you want to update the items at a later time it is recommended to keep it in a variable
                 PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Home");
-                PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("Profile");
+                PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("uidAndemail");
                 PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("Logout");
 
+
+           //     toolbar.setNavigationIcon(R.drawable.icons_calendar_px_);
 
                 Drawer result = new DrawerBuilder()
                         .withActivity(BottomNav.this)
                         .withAccountHeader(headerResult)
                         .withToolbar(toolbar)
                         .addDrawerItems(
-                                item1, item2, item3
+                                item1.withIcon(R.drawable.ic_home_black_24dp), item2, item3
                         )
                         .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                             @Override
@@ -155,6 +162,9 @@ public class BottomNav extends AppCompatActivity {
                     break;
                 case R.id.language:
                     f = new ChatFragment();
+                    break;
+                case R.id.trackProgress:
+                    f = new TrackProgressFragmentUser();
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fContr , f).commit()  ;

@@ -63,6 +63,7 @@ public class ExerciseDetailsAdapter  extends RecyclerView.Adapter<ExerciseDetail
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+              //  if(Volume != null)
                 exList.get(position).setWeight(holder.etWeight.getText().toString());
 
                 double Volume =Double.valueOf(exList.get(position).getWeight())*exList.size()*

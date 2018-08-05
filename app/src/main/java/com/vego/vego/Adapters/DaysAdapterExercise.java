@@ -41,9 +41,9 @@ public class DaysAdapterExercise extends RecyclerView.Adapter<DaysAdapterExercis
 
 
         final Exercises dayList = daysList.get(position);
-        holder.txtDay.setText(dayList.getDay());
+        holder.txtDay.setText("اليوم :"+dayList.getDay());
         holder.txtMuscl.setText(dayList.getTargetedmuscles());
-        holder.txtCount.setText(dayList.getExercisecount());
+        holder.txtCount.setText("عدد التمارين :"+dayList.getExercisecount());
 
 
 

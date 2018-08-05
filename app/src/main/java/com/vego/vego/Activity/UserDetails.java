@@ -381,7 +381,8 @@ public class UserDetails extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databasaeReference = firebaseDatabase.getReference();
         UserInfo userInfo = new UserInfo(name, weight, height, age, userActivity, userGoal,
-                (ArrayList<DietDay>) dietList,"false",firebaseAuth.getUid());
+                (ArrayList<DietDay>) dietList,"false",firebaseAuth.getUid()," "
+                ,"wait for admin...",firebaseAuth.getCurrentUser().getEmail());
 
         HashMap<String,String> hashMap=new HashMap<>();
         hashMap.put("age",userInfo.age);
@@ -392,6 +393,10 @@ public class UserDetails extends AppCompatActivity {
         hashMap.put("userGoal", userGoal);
         hashMap.put("isAdmin", String.valueOf(false));
         hashMap.put("uidUser",userInfo.getUidUser());
+        hashMap.put("previousWeight",userInfo.getPreviousWeight());
+        hashMap.put("adminBrief",userInfo.getAdminBrief());
+        hashMap.put("userEmail",userInfo.getEmail());
+
 
         HashMap<String,String> hashMap2=new HashMap<>();
       //  hashMap.put("img",dayMeals.getImg());
@@ -402,7 +407,7 @@ public class UserDetails extends AppCompatActivity {
         //mealRef.child("meals").setValue(dietList);
 
         //databasaeReference.child("users").child(firebaseAuth.getUid()).setValue(userInfo);
-        databasaeReference.child("users").child(firebaseAuth.getUid()).child("Profile").setValue(hashMap);
+        databasaeReference.child("users").child(firebaseAuth.getUid()).child("uidAndemail").setValue(hashMap);
      //   databasaeReference.child("users").child(firebaseAuth.getUid()).child("Exercises").setValue(exBigList);
       //  databasaeReference.child("users").child(firebaseAuth.getUid()).child("Diet").child("0").child("dayMeals").setValue(hashMap2);
 

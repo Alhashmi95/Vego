@@ -110,22 +110,22 @@ public class LoginActivity extends AppCompatActivity {
                                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                               if(dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile").exists()
-                                       && dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile")
+                               if(dataSnapshot.child("users").child(firebaseAuth.getUid()).child("uidAndemail").exists()
+                                       && dataSnapshot.child("users").child(firebaseAuth.getUid()).child("uidAndemail")
                                        .child("isAdmin").getValue().equals("false") ){
                                     LoginActivity.this.startActivity(new Intent(LoginActivity.this, BottomNav.class));
                                    progressDialog.dismiss();
 
                                    LoginActivity.this.finish();
 
-                               }else if(dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile").exists()
-                                       && dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile")
+                               }else if(dataSnapshot.child("users").child(firebaseAuth.getUid()).child("uidAndemail").exists()
+                                       && dataSnapshot.child("users").child(firebaseAuth.getUid()).child("uidAndemail")
                                        .child("isAdmin").getValue().equals("true") ){
                                    LoginActivity.this.startActivity(new Intent(LoginActivity.this, AdminActivity.class));
                                    progressDialog.dismiss();
                                    LoginActivity.this.finish();
 
-                              }else if(!dataSnapshot.child("users").child(firebaseAuth.getUid()).child("Profile").exists()) {
+                              }else if(!dataSnapshot.child("users").child(firebaseAuth.getUid()).child("uidAndemail").exists()) {
                                    LoginActivity.this.startActivity(new Intent(LoginActivity.this, UserDetails.class));
                                    progressDialog.dismiss();
                                    LoginActivity.this.finish();

@@ -59,7 +59,8 @@
         <activity android:name=".Activity.AddNewExerciseActivity" />
         <activity android:name=".Activity.ActivityWorkoutUser" />
         <activity android:name=".Activity.ActivityInsideExercise" />
-        <activity android:name=".Activity.PasswordActivity"></activity>
+        <activity android:name=".Activity.PasswordActivity" />
+        <activity android:name=".Activity.TrackProgressUserActivity"></activity>
     </application>
 
 </manifest>

@@ -27,6 +27,11 @@
         android:icon="@drawable/toolbar_support"
         android:title="الدعم"/>
 
+    <item
+        android:id="@+id/trackProgress"
+        android:icon="@drawable/ic_update_black_24dp"
+        android:title="المتابعة"/>
+
 
 
     //limit is 5

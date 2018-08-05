@@ -33,6 +33,7 @@ import com.vego.vego.R;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.UserInfo;
 import com.vego.vego.model.meal;
+import com.vego.vego.model.uidAndemail;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -83,10 +84,8 @@ public class AddMealsFragment extends Fragment {
     meal mTest, mTest2, mTest3,mTest4,mTest5;
     FirebaseDatabase firebaseDatabaseMeal = FirebaseDatabase.getInstance();
     String mealNo1,mealNo2,mealNo3,mealNo4,mealNo5;
+    ArrayList<String> arrayList2;
 
-    RadioButton radioButtonTrue, radioButtonFalse;
-
-    boolean role;
 
 
 
@@ -179,7 +178,7 @@ public class AddMealsFragment extends Fragment {
 //
         selectedMeal();
 
-        changeRole();
+//        changeRole();
 
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
         DatabaseReference uidRef = usersRef.child("ZU7wS37XJUU6oeueYlciKWxx5X23");
@@ -233,53 +232,7 @@ public class AddMealsFragment extends Fragment {
 
 
     }
-    public void changeRole(){
-        radioButtonTrue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!choosenUser.equals("اختر متدرب")) {
-                    String s = "this is true";
-                    Toast.makeText(getContext(), "helooooo    " + s, Toast.LENGTH_LONG).show();
 
-                    role = true;
-
-                    //set admin = true to specific user
-                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
-
-
-
-                    databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
-                            .setValue(String.valueOf(role));
-                }else {
-                    Toast.makeText(getContext(), "please choose user to set as admin", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        radioButtonFalse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!choosenUser.equals("اختر متدرب")) {
-                    String s = "this is faaalse";
-                    Toast.makeText(getContext(), "helooooo    " + s, Toast.LENGTH_LONG).show();
-
-                    role = false;
-                    //set admin = true to specific user
-                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
-
-
-
-                    databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
-                            .setValue(String.valueOf(role));
-                }else {
-                    Toast.makeText(getContext(), "please choose user to set as admin", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-
-    }
     public ArrayList<meal> getMeal(){
 
         arrayListMeals.add(0,"اختر وجبة");
@@ -1019,7 +972,7 @@ public class AddMealsFragment extends Fragment {
         });
     }
 
-    public void userProfile(final String choosenUser){
+    public void userProfile(String choosenUser){
         Log.d("test","this is path : "+usersprofile);
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
                 .child(choosenUser).child("Profile");
@@ -1034,12 +987,12 @@ public class AddMealsFragment extends Fragment {
 
 
 
-                profileName.setText("Name: " + userinfo.getName());
-                profileAge.setText("Age: " + userinfo.getAge());
-                profileWeight.setText("Weight: " + userinfo.getWeight());
-                profileHeight.setText("Height : "+ userinfo.getHeight());
-                profileActivity.setText("مستوى النشاط: "+ userinfo.getUserActivity());
-                profileGoal.setText("الهدف: "+userinfo.getUserGoal());
+                profileName.setText(userinfo.getName());
+                profileAge.setText(userinfo.getAge());
+                profileWeight.setText(userinfo.getWeight());
+                profileHeight.setText(userinfo.getHeight());
+                profileActivity.setText(userinfo.getUserActivity());
+                profileGoal.setText(userinfo.getUserGoal());
             }
 
             @Override
@@ -1133,7 +1086,7 @@ public class AddMealsFragment extends Fragment {
 
     }
     public void selectedUser(){
-        final Spinner spSelectUser = getView().findViewById(R.id.selectUser);
+        Spinner spSelectUser = getView().findViewById(R.id.selectUser);
 
         // Initializing an ArrayAdapter
         Log.d("test","frist  "+arrayList.size());
@@ -1145,7 +1098,7 @@ public class AddMealsFragment extends Fragment {
                 {
                     // Disable the first item from Spinner
                     // First item will be use for hint
-                    return false;
+                    return true;
                 }
                 else
                 {
@@ -1159,10 +1112,10 @@ public class AddMealsFragment extends Fragment {
                 TextView tv = (TextView) view;
                 if(position == 0){
                     // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
+                  //  tv.setTextColor(Color.GRAY);
                 }
                 else {
-                    tv.setTextColor(Color.BLACK);
+                 //   tv.setTextColor(Color.BLACK);
                 }
                 return view;
             }
@@ -1182,20 +1135,21 @@ public class AddMealsFragment extends Fragment {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
                 String s = arrayList.get(position);
                 Log.d("test","thid dfjkdl : "+s);
-                choosenUser = selectedItemText;
+                choosenUser = arrayList2.get(position);
+               // choosenUser = selectedItemText;
                 usersprofile = FirebaseDatabase.getInstance().getReference();
-                if (position!=0)
+                usersprofile.child(choosenUser);
                 userProfile(choosenUser);
                 //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
                 // If user change the default selection
                 // First item is disable and it is used for hint
-                if(position > 0){
+
                     // Notify the selected item text
                     Toast.makeText
                             (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
                             .show();
                 }
-            }
+
 
 
             @Override
@@ -1205,29 +1159,46 @@ public class AddMealsFragment extends Fragment {
         });
     }
 
-    public void getUsers(){
+    public void getUsers() {
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users");
-
-        arrayList=new ArrayList<>();
+        arrayList = new ArrayList<>();
+        arrayList2 = new ArrayList<>();
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("users");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                arrayList.add(0,"اختر متدرب");
-                for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
-                    arrayList.add(dataSnapshot1.getKey());
+//                arrayList.add(0, "اختر متدرب");
+//                arrayList2.add(0, "اختر متدرب");
+
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    String email =  dataSnapshot1.child("uidAndemail").child("userEmail").getValue(String.class);
+
+                    Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +  dataSnapshot1.getKey());
+
+                    Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +
+                            dataSnapshot1.child("uidAndemail").child("userEmail").getValue(String.class));
+
+
+                    UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
+                   // arrayList.add(dataSnapshot1.getKey());
+
+
+
+                    arrayList.add( dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
+                    arrayList2.add(dataSnapshot1.getKey());
                     spinnerArrayAdapter.notifyDataSetChanged();
 
 //                    Log.d("test","this is size of arr: "+ array.length);
 
 
-                    Log.d("test","this is uid :"+dataSnapshot1.getKey());
+              //      Log.d("test", "this is uid :" + dataSnapshot1.getKey());
+
+                    Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
+
                 }
                 //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
-
-
 
 
             }
@@ -1238,6 +1209,34 @@ public class AddMealsFragment extends Fragment {
             }
         });
     }
+//    databaseReference.addValueEventListener(new ValueEventListener() {
+//        @Override
+//        public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//            arrayList.add(0,"اختر متدرب");
+//            for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
+//
+//                UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
+//                arrayList.add(dataSnapshot1.getKey());
+//                spinnerArrayAdapter.notifyDataSetChanged();
+//
+////                    Log.d("test","this is size of arr: "+ array.length);
+//
+//
+//                Log.d("test","this is uid :"+dataSnapshot1.getKey());
+//            }
+//            //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
+//
+//
+//
+//
+//        }
+//
+//        @Override
+//        public void onCancelled(DatabaseError databaseError) {
+//            Toast.makeText(AddMealsFragment.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+//    });
 
     /**
      * This interface must be implemented by activities that contain this

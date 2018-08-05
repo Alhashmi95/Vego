@@ -46,9 +46,9 @@ import java.util.List;
 
 
             final DietDay dayList = daysList.get(position);
-            holder.txtDay.setText(dayList.getDay());
-            holder.txtCals.setText(dayList.getTotalCals());
-            holder.txtCount.setText(dayList.getMealsCount());
+            holder.txtDay.setText("اليوم :"+dayList.getDay());
+            holder.txtCals.setText(dayList.getTotalCals()+" سعرة");
+            holder.txtCount.setText("عدد الوجبات :"+dayList.getMealsCount());
 
 
 

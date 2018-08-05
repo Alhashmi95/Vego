@@ -12,6 +12,7 @@ import com.vego.vego.Fragment.AddMealsFragment;
 import com.vego.vego.Fragment.Add_workout2user;
 import com.vego.vego.Fragment.FragmentAddWorkout;
 import com.vego.vego.Fragment.FragmentSupport;
+import com.vego.vego.Fragment.TrackProgressFragmentAdmin;
 import com.vego.vego.R;
 
 public class AdminActivity extends AppCompatActivity {
@@ -50,6 +51,9 @@ public class AdminActivity extends AppCompatActivity {
                     break;
                 case R.id.support:
                     f = new FragmentSupport();
+                    break;
+                case R.id.trackProgress:
+                    f = new TrackProgressFragmentAdmin();
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fCenterAdmin , f).commit()  ;
