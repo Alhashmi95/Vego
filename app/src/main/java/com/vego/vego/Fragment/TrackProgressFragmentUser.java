@@ -109,7 +109,7 @@ public class TrackProgressFragmentUser extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         DatabaseReference databaseReference2 = firebaseDatabase.getReference().child("users")
-                .child(firebaseAuth.getUid()).child("uidAndemail");
+                .child(firebaseAuth.getUid()).child("Profile");
 
 
 

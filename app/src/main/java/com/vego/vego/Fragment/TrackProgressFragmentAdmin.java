@@ -125,7 +125,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
 //
 //
 //
-//                    databasaeReference.child("users").child(choosenUser).child("uidAndemail").child("isAdmin")
+//                    databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
 //                            .setValue(String.valueOf(role));
 //                }else {
 //                    Toast.makeText(getContext(), "please choose user to set as admin", Toast.LENGTH_LONG).show();
@@ -146,7 +146,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
 //
 //
 //
-//                    databasaeReference.child("users").child(choosenUser).child("uidAndemail").child("isAdmin")
+//                    databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
 //                            .setValue(String.valueOf(role));
 //                }else {
 //                    Toast.makeText(getContext(), "please choose user to set as admin", Toast.LENGTH_LONG).show();
@@ -161,7 +161,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         DatabaseReference databaseReference2 = firebaseDatabase.getReference().child("users")
-                .child(firebaseAuth.getUid()).child("uidAndemail");
+                .child(firebaseAuth.getUid()).child("Profile");
 
 
 

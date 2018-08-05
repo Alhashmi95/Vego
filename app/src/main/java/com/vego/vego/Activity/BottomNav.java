@@ -72,7 +72,7 @@ public class BottomNav extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         final DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
-                .child(firebaseAuth.getUid()).child("uidAndemail");
+                .child(firebaseAuth.getUid()).child("Profile");
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -98,7 +98,7 @@ public class BottomNav extends AppCompatActivity {
                 //create the drawer and remember the `Drawer` result object
                 //if you want to update the items at a later time it is recommended to keep it in a variable
                 PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Home");
-                PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("uidAndemail");
+                PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("Profile");
                 PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("Logout");
 
 

@@ -74,7 +74,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 .child(firebaseAuth.getUid()).child("Profile");
 
 //        StorageReference storageReference = firebaseStorage.getReference();
-//        storageReference.child(firebaseAuth.getUid()).child("Images/uidAndemail Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//        storageReference.child(firebaseAuth.getUid()).child("Images/Profile Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 //            @Override
 //            public void onSuccess(Uri uri) {
 //                Picasso.get().load(uri).fit().centerCrop().into(profilePic);
@@ -348,7 +348,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 //        });
 
 //        final StorageReference storageReference = firebaseStorage.getReference();
-//        storageReference.child(firebaseAuth.getUid()).child("Images/uidAndemail Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//        storageReference.child(firebaseAuth.getUid()).child("Images/Profile Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 //            @Override
 //            public void onSuccess(Uri uri) {
 //                Picasso.get().load(uri).fit().centerCrop().into(updateProfilePic);
@@ -382,10 +382,10 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 DatabaseReference databasaeReference = firebaseDatabase.getReference();
 
 
-                databasaeReference.child("users").child(firebaseAuth.getUid()).child("uidAndemail").setValue(hashMap);
+                databasaeReference.child("users").child(firebaseAuth.getUid()).child("Profile").setValue(hashMap);
 
 
-//                StorageReference imageReference = storageReference.child(firebaseAuth.getUid()).child("Images").child("uidAndemail Pic");  //User id/Images/uidAndemail Pic.jpg
+//                StorageReference imageReference = storageReference.child(firebaseAuth.getUid()).child("Images").child("Profile Pic");  //User id/Images/Profile Pic.jpg
 //                UploadTask uploadTask = imageReference.putFile(imagePath);
 //                uploadTask.addOnFailureListener(new OnFailureListener() {
 //                    @Override

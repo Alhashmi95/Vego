@@ -75,7 +75,7 @@ public class ChatFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
-                .child(firebaseAuth.getUid()).child("uidAndemail");
+                .child(firebaseAuth.getUid()).child("Profile");
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {

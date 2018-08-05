@@ -33,7 +33,6 @@ import com.vego.vego.R;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.UserInfo;
 import com.vego.vego.model.meal;
-import com.vego.vego.model.uidAndemail;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1173,12 +1172,12 @@ public class AddMealsFragment extends Fragment {
 //                arrayList2.add(0, "اختر متدرب");
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    String email =  dataSnapshot1.child("uidAndemail").child("userEmail").getValue(String.class);
+                    String email =  dataSnapshot1.child("Profile").child("userEmail").getValue(String.class);
 
                     Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +  dataSnapshot1.getKey());
 
                     Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +
-                            dataSnapshot1.child("uidAndemail").child("userEmail").getValue(String.class));
+                            dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
 
 
                     UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);

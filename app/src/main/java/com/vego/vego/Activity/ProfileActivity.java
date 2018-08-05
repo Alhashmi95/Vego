@@ -60,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
                 .child(firebaseAuth.getUid()).child("Profile");
 
 //        StorageReference storageReference = firebaseStorage.getReference();
-//        storageReference.child(firebaseAuth.getUid()).child("Images/uidAndemail Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//        storageReference.child(firebaseAuth.getUid()).child("Images/Profile Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 //            @Override
 //            public void onSuccess(Uri uri) {
 //                Picasso.get().load(uri).fit().centerCrop().into(profilePic);

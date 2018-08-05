@@ -63,18 +63,22 @@ public class ExerciseDetailsAdapter  extends RecyclerView.Adapter<ExerciseDetail
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-              //  if(Volume != null)
-                exList.get(position).setWeight(holder.etWeight.getText().toString());
+                if(holder.etWeight.getText().toString() != null && holder.etWeight.getText().length() > 0) {
+                    exList.get(position).setWeight(holder.etWeight.getText().toString());
 
-                double Volume =Double.valueOf(exList.get(position).getWeight())*exList.size()*
-                        Double.valueOf( exListTest.getReps());
+                    double Volume = Double.valueOf(exList.get(position).getWeight()) * exList.size() *
+                            Double.valueOf(exListTest.getReps());
 
-                double RM1 =Double.valueOf(exList.get(position).getWeight())*(36/(37
-                        -Double.valueOf( exListTest.getReps())));
+                    double RM1 = Double.valueOf(exList.get(position).getWeight()) * (36 / (37
+                            - Double.valueOf(exListTest.getReps())));
 
 
-                holder.textViewRM1.setText(String.valueOf(RM1));
-                holder.textViewVolume.setText(String.valueOf(Volume));
+                    holder.textViewRM1.setText(String.format("%.1f", RM1));
+                    holder.textViewVolume.setText(String.valueOf(Volume));
+                }else {
+                    holder.textViewRM1.setText("");
+                    holder.textViewVolume.setText("");
+                }
 
             }
 
