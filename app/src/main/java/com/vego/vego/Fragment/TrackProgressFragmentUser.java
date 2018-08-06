@@ -41,6 +41,8 @@ public class TrackProgressFragmentUser extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
 
+    String previousW;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -103,6 +105,48 @@ public class TrackProgressFragmentUser extends Fragment {
 
 
         getWeights();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        DatabaseReference databaseReference2 = firebaseDatabase.getReference().child("users")
+                .child(firebaseAuth.getUid()).child("Profile");
+
+
+
+        databaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
+
+
+
+                previousW =userinfo.getWeight();
+
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference databasaeReference = firebaseDatabase.getReference();
+
+
+                databasaeReference.child("users").child(firebaseAuth.getUid()).child("Profile")
+                        .child("previousWeight")
+                        .setValue(previousW);
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+
+
+        updateWeight();
     }
     public void getWeights(){
         firebaseAuth = FirebaseAuth.getInstance();
@@ -120,9 +164,9 @@ public class TrackProgressFragmentUser extends Fragment {
                 UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
 
 
-                currentWeight.setText(userinfo.getPreviousWeight());
+             //   currentWeight.setText(userinfo.getPreviousWeight());
                 perfectWeight.setText(userinfo.getAdminBrief());
-                previousWeight.setText(userinfo.getWeight());
+                previousWeight.setText(userinfo.getPreviousWeight());
 
             }
 
@@ -137,9 +181,21 @@ public class TrackProgressFragmentUser extends Fragment {
         updateWeights.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String cuWeight = currentWeight.getText().toString().trim();
 
-                previousWeight.setText(cuWeight);
+              //  previousWeight.setText(cuWeight);
+
+                    //set admin = true to specific user
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
+
+
+
+                    databasaeReference.child("users").child(firebaseAuth.getUid()).child("Profile").child("weight")
+                            .setValue(cuWeight);
+
+
 
             }
         });

@@ -1,5 +1,6 @@
 package com.vego.vego.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -74,6 +75,7 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
     private static int PICK_IMAGE = 123;
     Uri imagePath;
     ProgressBar progressBar;
+    ProgressDialog p;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -157,11 +159,18 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
             public void onClick(View v) {
                 if (!importedIngredientsArrayList.isEmpty() && !importedElementsArrayList.isEmpty() && imagePath != null) {
 
+                    saveMeal.setEnabled(true);
+
                     // here we upload meal pics
                       mealRef = storageReference.child("meals/").child(String.valueOf(test));
                     UploadTask uploadTask = (UploadTask) mealRef.putFile(imagePath);
 
                     if(uploadTask != null && uploadTask.isInProgress()){
+
+                        p = new ProgressDialog(v.getContext());
+                        p.setTitle("Loading");
+                        p.setMessage("Fetching data...");
+                        p.show();
                         Toast.makeText(AddNewMealActivity.this, "upload is in progress .. please wait", Toast.LENGTH_LONG).show();
 
                     }
@@ -183,6 +192,7 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
                                 Uri downloadUri = task.getResult();
                                 mealUrl = downloadUri.toString();
                                 Toast.makeText(AddNewMealActivity.this, "upload successeded", Toast.LENGTH_SHORT).show();
+                                p.dismiss();
                             meal m = new meal();
 
                             ArrayList test1 = importedIngredientsArrayList;
@@ -413,7 +423,6 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         c = totalCal;
 
 
-        saveMeal.setEnabled(true);
 
 
         //uploadMeal();

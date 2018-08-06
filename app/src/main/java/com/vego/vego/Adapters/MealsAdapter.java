@@ -50,7 +50,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
                 .load(dayMeals.getImage())
                 .placeholder(R.drawable.ic_loading)
                 .fit()
-                .centerCrop()
+
                 .into(holder.imageView);
         //holder.imageView
 

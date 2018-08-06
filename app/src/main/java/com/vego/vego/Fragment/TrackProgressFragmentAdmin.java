@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vego.vego.R;
 import com.vego.vego.model.UserInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +47,11 @@ public class TrackProgressFragmentAdmin extends Fragment {
     RadioButton radioButtonTrue, radioButtonFalse;
 
     boolean role;
+
+    ArrayList<String> arrayList, arrayList2;
+    String choosenUser, brief;
+    Spinner spSelectUser, spSelectDay;
+    ArrayAdapter<String> spinnerArrayAdapter;
 
 
     private FirebaseAuth firebaseAuth;
@@ -98,7 +110,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
 
         currentWeight = view.findViewById(R.id.tvCurrentWeight);
         previousWeight = view.findViewById(R.id.tvPreviousWeight);
-        perfectWeight = view.findViewById(R.id.tvPerfectWeight);
+        perfectWeight = view.findViewById(R.id.etBrief);
 
         updateWeights = view.findViewById(R.id.btnUpdateWeight);
 
@@ -106,62 +118,215 @@ public class TrackProgressFragmentAdmin extends Fragment {
         radioButtonTrue = view.findViewById(R.id.radio_true);
         radioButtonFalse = view.findViewById(R.id.radio_false);
 
-     //   getWeights();
+
+
+        getUsers();
+        selectedUser();
+
+
+    }
+    public void uploadBrief(){
+        updateWeights.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!perfectWeight.getText().toString().isEmpty() && perfectWeight.getText().toString().length() > 10) {
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
+
+
+                    databasaeReference.child("users").child(choosenUser).child("Profile")
+                            .child("adminBrief")
+                            .setValue(perfectWeight.getText().toString());
+                } else {
+                        Toast.makeText(TrackProgressFragmentAdmin.this.getContext(), "Please Rnter A Long brief ,,",
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                }
+        });
+
+    }
+    public void selectedUser(){
+        Spinner spSelectUser = getView().findViewById(R.id.selectUser);
+
+        // Initializing an ArrayAdapter
+        Log.d("test","frist  "+arrayList.size());
+        spinnerArrayAdapter = new ArrayAdapter<String>(
+                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+//                if(position == 0){
+//                    // Set the hint text color gray
+//                    tv.setTextColor(Color.GRAY);
+//                }
+//                else {
+//                    tv.setTextColor(Color.BLACK);
+//                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spSelectUser.setAdapter(spinnerArrayAdapter);
+        spinnerArrayAdapter.notifyDataSetChanged();
+
+//        Log.d("test",""+arrayList.size());
+
+
+
+
+        spSelectUser.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+                String s = arrayList.get(position);
+                Log.d("test","thid dfjkdl : "+s);
+                choosenUser = arrayList2.get(position);
+                getWeights();
+                changeRole();
+                uploadBrief();
+                // choosenUser = selectedItemText;
+//                usersprofile = FirebaseDatabase.getInstance().getReference();
+//                usersprofile.child(choosenUser);
+//                userProfile(choosenUser);
+                //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
+                // If user change the default selection
+                // First item is disable and it is used for hint
+
+                // Notify the selected item text
+                Toast.makeText
+                        (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                        .show();
+            }
+
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
-//    public void changeRole(){
-//        radioButtonTrue.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (!choosenUser.equals("اختر متدرب")) {
-//                    String s = "this is true";
-//                    Toast.makeText(getContext(), "helooooo    " + s, Toast.LENGTH_LONG).show();
-//
-//                    role = true;
-//
-//                    //set admin = true to specific user
-//                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
-//
-//
-//
-//                    databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
-//                            .setValue(String.valueOf(role));
-//                }else {
-//                    Toast.makeText(getContext(), "please choose user to set as admin", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
-//        radioButtonFalse.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (!choosenUser.equals("اختر متدرب")) {
-//                    String s = "this is faaalse";
-//                    Toast.makeText(getContext(), "helooooo    " + s, Toast.LENGTH_LONG).show();
-//
-//                    role = false;
-//                    //set admin = true to specific user
-//                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
-//
-//
-//
-//                    databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
-//                            .setValue(String.valueOf(role));
-//                }else {
-//                    Toast.makeText(getContext(), "please choose user to set as admin", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
-//
-//
-//    }
+    public void getUsers() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        arrayList = new ArrayList<>();
+        arrayList2 = new ArrayList<>();
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("users");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+//                arrayList.add(0, "اختر متدرب");
+//                arrayList2.add(0, "اختر متدرب");
+
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    String email =  dataSnapshot1.child("Profile").child("userEmail").getValue(String.class);
+
+                    Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +  dataSnapshot1.getKey());
+
+                    Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +
+                            dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
+
+
+                    UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
+                    // arrayList.add(dataSnapshot1.getKey());
+
+
+
+                    arrayList.add( dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
+                    arrayList2.add(dataSnapshot1.getKey());
+                    spinnerArrayAdapter.notifyDataSetChanged();
+
+//                    Log.d("test","this is size of arr: "+ array.length);
+
+
+                    //      Log.d("test", "this is uid :" + dataSnapshot1.getKey());
+
+                    //   Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
+
+                }
+                //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(TrackProgressFragmentAdmin.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+   public void changeRole(){
+        radioButtonTrue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!choosenUser.equals("اختر متدرب")) {
+                    String s = "this is true";
+                    Toast.makeText(getContext(), "helooooo    " + s, Toast.LENGTH_LONG).show();
+
+                    role = true;
+
+                    //set admin = true to specific user
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
+
+
+
+                    databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
+                            .setValue(String.valueOf(role));
+                }else {
+                    Toast.makeText(getContext(), "please choose user to set as admin", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        radioButtonFalse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!choosenUser.equals("اختر متدرب")) {
+                    String s = "this is faaalse";
+                    Toast.makeText(getContext(), "helooooo    " + s, Toast.LENGTH_LONG).show();
+
+                    role = false;
+                    //set admin = true to specific user
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
+
+
+
+                    databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
+                            .setValue(String.valueOf(role));
+                }else {
+                    Toast.makeText(getContext(), "please choose user to set as admin", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+    }
     public void getWeights(){
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         DatabaseReference databaseReference2 = firebaseDatabase.getReference().child("users")
-                .child(firebaseAuth.getUid()).child("Profile");
+                .child(choosenUser).child("Profile");
 
 
 
@@ -173,7 +338,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
 
 
                 currentWeight.setText(userinfo.getWeight());
-                perfectWeight.setText(userinfo.getAdminBrief());
+             //   perfectWeight.setText(userinfo.getAdminBrief());
                 previousWeight.setText(userinfo.getPreviousWeight());
 
             }

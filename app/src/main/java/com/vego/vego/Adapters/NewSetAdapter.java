@@ -28,9 +28,6 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
         this.setList = setList;
         this.mContext = mContext;
     }
-    public ArrayList<sets> getSetsArray() {
-        return setList;
-    }
 
 
     @Override
@@ -76,6 +73,11 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
     public int getItemCount() {
         return setList.size();
     }
+
+//    public ArrayList<sets> getSetsArray() {
+//        return setList;
+//    }
+
 
     class SetViewHolder extends RecyclerView.ViewHolder {
 

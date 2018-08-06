@@ -1,5 +1,6 @@
 package com.vego.vego.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -85,6 +86,8 @@ public class AddMealsFragment extends Fragment {
     String mealNo1,mealNo2,mealNo3,mealNo4,mealNo5;
     ArrayList<String> arrayList2;
 
+    ProgressDialog p;
+
 
 
 
@@ -165,6 +168,11 @@ public class AddMealsFragment extends Fragment {
         addNewMeal=view.findViewById(R.id.addNewMeal);
 
         addMealForUser = view.findViewById(R.id.saveDayMeal);
+
+        p = new ProgressDialog(getContext());
+        p.setTitle("Loading");
+        p.setMessage("Fetching data...");
+        p.show();
 
 
         getUsers();
@@ -1109,13 +1117,13 @@ public class AddMealsFragment extends Fragment {
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                  //  tv.setTextColor(Color.GRAY);
-                }
-                else {
-                 //   tv.setTextColor(Color.BLACK);
-                }
+//                if(position == 0){
+//                    // Set the hint text color gray
+//                    tv.setTextColor(Color.GRAY);
+//                }
+//                else {
+//                    tv.setTextColor(Color.BLACK);
+//                }
                 return view;
             }
         };
@@ -1135,7 +1143,7 @@ public class AddMealsFragment extends Fragment {
                 String s = arrayList.get(position);
                 Log.d("test","thid dfjkdl : "+s);
                 choosenUser = arrayList2.get(position);
-               // choosenUser = selectedItemText;
+                // choosenUser = selectedItemText;
                 usersprofile = FirebaseDatabase.getInstance().getReference();
                 usersprofile.child(choosenUser);
                 userProfile(choosenUser);
@@ -1143,11 +1151,11 @@ public class AddMealsFragment extends Fragment {
                 // If user change the default selection
                 // First item is disable and it is used for hint
 
-                    // Notify the selected item text
-                    Toast.makeText
-                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                }
+                // Notify the selected item text
+                Toast.makeText
+                        (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                        .show();
+            }
 
 
 
@@ -1189,12 +1197,14 @@ public class AddMealsFragment extends Fragment {
                     arrayList2.add(dataSnapshot1.getKey());
                     spinnerArrayAdapter.notifyDataSetChanged();
 
+                    p.dismiss();
+
 //                    Log.d("test","this is size of arr: "+ array.length);
 
 
               //      Log.d("test", "this is uid :" + dataSnapshot1.getKey());
 
-                    Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
+                 //   Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
 
                 }
                 //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
