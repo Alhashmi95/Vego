@@ -400,13 +400,12 @@
                 android:id="@+id/spinnertargetedMu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
                 android:layout_marginRight="32dp"
                 android:layout_gravity="center"
                 android:background="@color/transparent"
                 android:gravity="center"
                 android:spinnerMode="dropdown"
-                android:layout_alignParentLeft="true" />
+                 />
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/relaSpinner6"

@@ -1,99 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.AddNewExerciseActivity"
     android:background="#ededed"
-    >
-    <RelativeLayout
-        android:id="@+id/relaSpinner1"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="249dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:background="@drawable/custom_spinner_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ageTxt2">
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="12dp"
-            app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
-            android:layout_marginRight="12dp"
-            android:layout_alignParentRight="true" />
-        <Spinner
-            android:id="@+id/spinnerMu"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_marginRight="32dp"
-            android:layout_gravity="center"
-            android:background="#00000000"
-            android:gravity="center"
-            android:spinnerMode="dropdown"
-            android:layout_alignParentLeft="true" />
-    </RelativeLayout>
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/actionBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:gravity="top"
-        android:layout_alignParentTop="true"
-        android:background="#002e65"
-        android:paddingRight="0dp"
-        android:layout_alignParentLeft="true">
+    android:orientation="vertical"
+    tools:context=".Activity.AddNewExerciseActivity">
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal"
+            android:background="@color/scifitBlue"
             >
+
             <ImageView
                 android:id="@+id/logo"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="135dp"
-                android:paddingTop="9dp"
-                android:src="@drawable/logo_white"
-                android:layout_marginLeft="135dp"
-                android:layout_alignParentLeft="true" />
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/logo_white" />
         </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_below="@+id/actionBar"
-        android:background="@color/md_white_1000"
-        >
+        android:background="@color/md_white_1000">
+
         <TextView
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="إضافة تمرين جديد"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:fontFamily="@font/cairo_semibold"
-            android:textSize="16sp"
-            android:layout_centerHorizontal="true"/>
+            android:text="إضافة تمرين جديد"
+            android:textSize="16sp" />
     </RelativeLayout>
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="113dp"
         android:layout_marginLeft="55dp"
-        android:layout_marginRight="55dp">
+        android:layout_marginRight="55dp"
+        android:layout_marginTop="30dp">
+
         <ImageView
             android:id="@+id/imageViewNewEx"
             android:layout_width="match_parent"
@@ -104,37 +57,67 @@
         android:id="@+id/txtExName"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_centerInParent="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/custom_edit_text_white"
         android:ems="10"
         android:gravity="center"
         android:hint="اسم التمرين"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName" />
+    <RelativeLayout
+        android:id="@+id/relaSpinner1"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"/>
+        android:layout_marginRight="30dp"
+        android:background="@drawable/custom_spinner_white">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
+
+        <Spinner
+            android:id="@+id/spinnerMu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center"
+            android:layout_marginRight="32dp"
+            android:background="#00000000"
+            android:gravity="center"
+            android:spinnerMode="dropdown" />
+    </RelativeLayout>
+
     <Button
         android:id="@+id/saveNewExBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="175dp"
-        android:backgroundTint="@color/blackGrey"
-        android:text="إضافة تمرين جديد"
-        android:textColor="@color/md_white_1000"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"/>
+        android:layout_marginRight="25dp"
+        android:backgroundTint="@color/scifitBlue"
+        android:text="إضافة تمرين جديد"
+        android:textColor="@color/md_white_1000" />
 
     <Button
         android:id="@+id/saveNewExForAllBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="21dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="21dp"
         android:backgroundTint="@color/scifitRed"
         android:text="إضافة تمرين عام"
         android:textColor="@color/md_white_1000" />
-</RelativeLayout>
+</LinearLayout>
