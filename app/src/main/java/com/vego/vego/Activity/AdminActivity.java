@@ -33,7 +33,7 @@ public class AdminActivity extends AppCompatActivity {
         navAdmin.setOnNavigationItemSelectedListener(navListener);
 
         //+++++++++++++++defult Fragment ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        getSupportFragmentManager().beginTransaction().replace(R.id.fCenterAdmin , new AddMealsFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fCenterAdmin , new TrackProgressFragmentAdmin()).commit();
 
     }
 

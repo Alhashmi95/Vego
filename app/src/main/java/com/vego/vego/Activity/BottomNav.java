@@ -56,7 +56,7 @@ public class BottomNav extends AppCompatActivity {
         bTV = findViewById(R.id.bNavigation);
         bTV.setOnNavigationItemSelectedListener(navListener);
         //+++++++++++++++defult Fragment ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        getSupportFragmentManager().beginTransaction().replace(R.id.fContr , new FragmentHome()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fContr , new TrackProgressFragmentUser()).commit();
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -126,10 +126,10 @@ public class BottomNav extends AppCompatActivity {
                                 // do something with the clicked item :D
                                 switch (position) {
                                     case 1:
+                                        startActivity(new Intent(BottomNav.this, BottomNav.class));
                                         break;
                                     case 2:
                                         startActivity(new Intent(BottomNav.this, UpdateProfileActivity.class));
-                                        BottomNav.this.finish();
                                         break;
                                     case 3:
                                         Logout();
@@ -174,7 +174,7 @@ public class BottomNav extends AppCompatActivity {
             Fragment f = null;
             switch (menuItem.getItemId()){
                 case R.id.wallet:
-                    f = new FragmentWallet();
+                    f = new FragmentHome();
                     break;
                 case R.id.setting:
                     f = new FragmentExercises();
@@ -182,7 +182,6 @@ public class BottomNav extends AppCompatActivity {
                 case R.id.trackProgress:
                     f = new TrackProgressFragmentUser();
                     break;
-
                 case R.id.language:
                     f = new ChatFragment();
                     break;

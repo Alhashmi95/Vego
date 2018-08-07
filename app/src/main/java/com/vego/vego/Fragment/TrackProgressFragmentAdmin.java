@@ -1,5 +1,6 @@
 package com.vego.vego.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -52,6 +53,8 @@ public class TrackProgressFragmentAdmin extends Fragment {
     String choosenUser, brief;
     Spinner spSelectUser, spSelectDay;
     ArrayAdapter<String> spinnerArrayAdapter;
+    ProgressDialog p;
+
 
 
     private FirebaseAuth firebaseAuth;
@@ -107,6 +110,11 @@ public class TrackProgressFragmentAdmin extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        p = new ProgressDialog(getContext());
+        p.setTitle("Loading");
+        p.setMessage("Fetching data...");
+        p.show();
 
         currentWeight = view.findViewById(R.id.tvCurrentWeight);
         previousWeight = view.findViewById(R.id.tvPreviousWeight);
@@ -253,6 +261,8 @@ public class TrackProgressFragmentAdmin extends Fragment {
                     arrayList.add( dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
                     arrayList2.add(dataSnapshot1.getKey());
                     spinnerArrayAdapter.notifyDataSetChanged();
+
+                    p.dismiss();
 
 //                    Log.d("test","this is size of arr: "+ array.length);
 

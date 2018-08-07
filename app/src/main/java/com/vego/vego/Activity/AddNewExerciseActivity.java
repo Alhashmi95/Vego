@@ -1,5 +1,6 @@
 package com.vego.vego.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -55,6 +56,8 @@ public class AddNewExerciseActivity extends AppCompatActivity {
     StorageReference storageReference = firebaseStorage.getReference();
     int indexofImages =0;
     int indexofImagesForAll =0;
+    ProgressDialog p;
+
 
 
 
@@ -164,6 +167,10 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                     UploadTask uploadTask = (UploadTask) exRef.putFile(imagePath);
 
                     if (uploadTask != null && uploadTask.isInProgress()) {
+                        p = new ProgressDialog(v.getContext());
+                        p.setTitle("Uploading");
+                        p.setMessage("Uploading data...");
+                        p.show();
                         Toast.makeText(AddNewExerciseActivity.this, "upload is in progress .. please wait", Toast.LENGTH_LONG).show();
 
                     }

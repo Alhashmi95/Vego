@@ -95,6 +95,7 @@ public class ChatFragment extends Fragment {
                 name = userinfo.getName();
 
                 //start chat ++++++++++++++++++++++++++++++++++++++++
+                //avoid crash context.lang
                 if(getActivity() != null) {
                     arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, list_chat);
                 }

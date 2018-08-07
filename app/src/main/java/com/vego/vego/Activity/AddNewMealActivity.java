@@ -159,7 +159,7 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
             public void onClick(View v) {
                 if (!importedIngredientsArrayList.isEmpty() && !importedElementsArrayList.isEmpty() && imagePath != null) {
 
-                    saveMeal.setEnabled(true);
+
 
                     // here we upload meal pics
                       mealRef = storageReference.child("meals/").child(String.valueOf(test));
@@ -168,8 +168,8 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
                     if(uploadTask != null && uploadTask.isInProgress()){
 
                         p = new ProgressDialog(v.getContext());
-                        p.setTitle("Loading");
-                        p.setMessage("Fetching data...");
+                        p.setTitle("Uploading");
+                        p.setMessage("Uploading data...");
                         p.show();
                         Toast.makeText(AddNewMealActivity.this, "upload is in progress .. please wait", Toast.LENGTH_LONG).show();
 
@@ -210,6 +210,7 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
 
                             //upload meal to firebase
                             d.child("meals").child(String.valueOf(test)).setValue(m);
+                                startActivity(new Intent(AddNewMealActivity.this, AdminActivity.class));
                             } else {
                                 // Handle failures
                                 Toast.makeText(AddNewMealActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
@@ -421,6 +422,9 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         importedElementsArrayList.addAll(ele);
 
         c = totalCal;
+
+
+        saveMeal.setEnabled(true);
 
 
 
