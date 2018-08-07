@@ -259,7 +259,7 @@ public class UserDetails extends AppCompatActivity {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spActivity.setAdapter(spinnerArrayAdapter);
 
         spActivity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -290,7 +290,7 @@ public class UserDetails extends AppCompatActivity {
 
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter2 = new ArrayAdapter<String>(
-                this,R.layout.spinner_item,goalList){
+                this,R.layout.support_simple_spinner_dropdown_item,goalList){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -319,7 +319,7 @@ public class UserDetails extends AppCompatActivity {
                 return view;
             }
         };
-        spinnerArrayAdapter2.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spGoal.setAdapter(spinnerArrayAdapter2);
 
         spGoal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -416,14 +416,14 @@ public class UserDetails extends AppCompatActivity {
     }
     private Boolean validate(){
         Boolean result = false;
-
-        userNameTxt.setText("fjl");
-        userHeight.setText("38");
-        userAge.setText("489");
-        userWeight.setText("49");
-
-        spActivity.setSelection(2);
-        spGoal.setSelection(3);
+//
+//        userNameTxt.setText("fjl");
+//        userHeight.setText("38");
+//        userAge.setText("489");
+//        userWeight.setText("49");
+//
+//        spActivity.setSelection(2);
+//        spGoal.setSelection(3);
 
         name = userNameTxt.getText().toString();
         height = userHeight.getText().toString();

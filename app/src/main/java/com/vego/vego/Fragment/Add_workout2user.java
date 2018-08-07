@@ -402,7 +402,7 @@ public class Add_workout2user extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectMu.setAdapter(spinnerArrayAdapter);
 
         spSelectMu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -451,8 +451,10 @@ public class Add_workout2user extends Fragment {
 //                "تمرين 8",
 //                "تمرين 9";
         // Initializing an ArrayAdapter
+        //2 problems with the font ,, getcontext() instead of ( getActivity().getApplicationContext() )
+        //replace item_spinner with support_simple_spinner_dropdown_item
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,ex){
+                getContext(),R.layout.support_simple_spinner_dropdown_item,ex){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -481,7 +483,7 @@ public class Add_workout2user extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectEx.setAdapter(spinnerArrayAdapter);
 
         spSelectEx.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -647,8 +649,7 @@ public class Add_workout2user extends Fragment {
 
 
             spinnerArrayAdapter = new ArrayAdapter<String>(
-                    getActivity().getApplicationContext(), R.layout.support_simple_spinner_dropdown_item
-                    , arrayListNamesEx) {
+                    getContext(), R.layout.support_simple_spinner_dropdown_item, arrayListNamesEx) {
                 @Override
                 public boolean isEnabled(int position) {
                     if (position == 0) {
@@ -674,7 +675,7 @@ public class Add_workout2user extends Fragment {
                     return view;
                 }
             };
-            spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+            spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
             spSelectExName.setAdapter(spinnerArrayAdapter);
             spinnerArrayAdapter.notifyDataSetChanged();
 
@@ -749,8 +750,9 @@ public class Add_workout2user extends Fragment {
                 "Day7",
         };
         // Initializing an ArrayAdapter
+        // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,day){
+                getContext(), R.layout.support_simple_spinner_dropdown_item, day) {
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -779,7 +781,7 @@ public class Add_workout2user extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectDay.setAdapter(spinnerArrayAdapter);
 
         spSelectDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -823,7 +825,7 @@ public class Add_workout2user extends Fragment {
         // Initializing an ArrayAdapter
         Log.d("test","frist  "+arrayList.size());
         spinnerArrayAdapter = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
+                getContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)

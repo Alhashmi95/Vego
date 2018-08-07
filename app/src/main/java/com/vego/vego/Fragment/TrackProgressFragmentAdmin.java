@@ -152,7 +152,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
         // Initializing an ArrayAdapter
         Log.d("test","frist  "+arrayList.size());
         spinnerArrayAdapter = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
+                getContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)

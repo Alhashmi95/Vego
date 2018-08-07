@@ -298,7 +298,7 @@ public class AddMealsFragment extends Fragment {
             m.add(s);
         }
             spinnerArrayAdapter2 = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item
+                    getContext(),R.layout.support_simple_spinner_dropdown_item
                 ,m) {
             @Override
             public boolean isEnabled(int position){
@@ -328,7 +328,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter2.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser.setAdapter(spinnerArrayAdapter2);
         spinnerArrayAdapter2.notifyDataSetChanged();
 
@@ -413,7 +413,7 @@ public class AddMealsFragment extends Fragment {
             m2.add(s);
         }
         spinnerArrayAdapter3 = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item
+                getContext(),R.layout.support_simple_spinner_dropdown_item
                 ,m2) {
             @Override
             public boolean isEnabled(int position){
@@ -443,7 +443,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter3.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter3.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser2.setAdapter(spinnerArrayAdapter3);
         spinnerArrayAdapter3.notifyDataSetChanged();
 
@@ -523,7 +523,7 @@ public class AddMealsFragment extends Fragment {
             m2.add(s);
         }
         spinnerArrayAdapter4 = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item
+                getContext(),R.layout.support_simple_spinner_dropdown_item
                 ,m2) {
             @Override
             public boolean isEnabled(int position){
@@ -553,7 +553,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter4.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser3.setAdapter(spinnerArrayAdapter4);
         spinnerArrayAdapter4.notifyDataSetChanged();
 
@@ -633,7 +633,7 @@ public class AddMealsFragment extends Fragment {
             m2.add(s);
         }
         spinnerArrayAdapter4 = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item
+                getContext(),R.layout.support_simple_spinner_dropdown_item
                 ,m2) {
             @Override
             public boolean isEnabled(int position){
@@ -663,7 +663,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter4.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser4.setAdapter(spinnerArrayAdapter4);
         spinnerArrayAdapter4.notifyDataSetChanged();
 
@@ -743,7 +743,7 @@ public class AddMealsFragment extends Fragment {
             m2.add(s);
         }
         spinnerArrayAdapter4 = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item
+                getContext(),R.layout.support_simple_spinner_dropdown_item
                 ,m2) {
             @Override
             public boolean isEnabled(int position){
@@ -773,7 +773,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter4.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser5.setAdapter(spinnerArrayAdapter4);
         spinnerArrayAdapter4.notifyDataSetChanged();
 
@@ -1023,7 +1023,7 @@ public class AddMealsFragment extends Fragment {
         final Spinner spSelectDay = getView().findViewById(R.id.selectDay);
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,day){
+                getContext(),R.layout.support_simple_spinner_dropdown_item,day){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -1052,7 +1052,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectDay.setAdapter(spinnerArrayAdapter);
 
         spSelectDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1098,7 +1098,7 @@ public class AddMealsFragment extends Fragment {
         // Initializing an ArrayAdapter
         Log.d("test","frist  "+arrayList.size());
         spinnerArrayAdapter = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
+                getContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -1127,7 +1127,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser.setAdapter(spinnerArrayAdapter);
         spinnerArrayAdapter.notifyDataSetChanged();
 

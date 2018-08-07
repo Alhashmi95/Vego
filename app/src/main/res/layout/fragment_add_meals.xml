@@ -53,25 +53,12 @@
 
                 app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
 
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="12dp"
-                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="12dp" />
-
                 <Spinner
                     android:id="@+id/selectUser"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
-                    android:layout_marginRight="32dp"
                     android:layout_gravity="center"
-                    android:background="@color/transparent"
                     android:gravity="center"
                     android:spinnerMode="dropdown"
                     android:layout_alignParentLeft="true" />
@@ -329,25 +316,13 @@
 
                 app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
 
-                <ImageView
-                    android:id="@+id/imagenah7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="12dp"
-                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="12dp" />
 
                 <Spinner
                     android:id="@+id/selectDay"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
-                    android:layout_marginRight="32dp"
                     android:layout_gravity="center"
-                    android:background="@color/transparent"
                     android:gravity="center"
                     android:spinnerMode="dropdown"
                     android:layout_alignParentLeft="true" />
@@ -367,25 +342,12 @@
 
                 app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
 
-                <ImageView
-                    android:id="@+id/imageVied"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="12dp"
-                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="12dp" />
-
                 <Spinner
                     android:id="@+id/selectMeal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
-                    android:layout_marginRight="32dp"
                     android:layout_gravity="center"
-                    android:background="@color/transparent"
                     android:gravity="center"
                     android:spinnerMode="dropdown"
                     android:layout_alignParentLeft="true" />
@@ -405,25 +367,14 @@
 
                 app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
 
-                <ImageView
-                    android:id="@+id/imageVie2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="12dp"
-                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="12dp" />
+
 
                 <Spinner
                     android:id="@+id/selectMeal2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
-                    android:layout_marginRight="32dp"
                     android:layout_gravity="center"
-                    android:background="@color/transparent"
                     android:gravity="center"
                     android:spinnerMode="dropdown"
                     android:layout_alignParentLeft="true" />
@@ -443,25 +394,14 @@
 
                 app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
 
-                <ImageView
-                    android:id="@+id/imageVie"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="12dp"
-                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="12dp" />
+
 
                 <Spinner
                     android:id="@+id/selectMeal3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
-                    android:layout_marginRight="32dp"
                     android:layout_gravity="center"
-                    android:background="@color/transparent"
                     android:gravity="center"
                     android:spinnerMode="dropdown"
                     android:layout_alignParentLeft="true" />
@@ -481,25 +421,13 @@
 
                 app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
 
-                <ImageView
-                    android:id="@+id/imageView66"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="12dp"
-                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="12dp" />
 
                 <Spinner
                     android:id="@+id/selectMeal4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
-                    android:layout_marginRight="32dp"
                     android:layout_gravity="center"
-                    android:background="@color/transparent"
                     android:gravity="center"
                     android:spinnerMode="dropdown"
                     android:layout_alignParentLeft="true" />
@@ -519,25 +447,13 @@
 
                 app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
 
-                <ImageView
-                    android:id="@+id/imageView77"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="12dp"
-                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="12dp" />
 
                 <Spinner
                     android:id="@+id/selectMeal5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
-                    android:layout_marginRight="32dp"
                     android:layout_gravity="center"
-                    android:background="@color/transparent"
                     android:gravity="center"
                     android:spinnerMode="dropdown"
                     android:layout_alignParentLeft="true" />

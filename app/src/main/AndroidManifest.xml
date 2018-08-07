@@ -31,18 +31,22 @@
             android:theme="@style/AppThemeNo" />
         <activity
             android:name=".Activity.LoginActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan"
             android:theme="@style/AppThemeNo" />
         <activity
             android:name=".Activity.SignupActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan"
             android:theme="@style/AppThemeNo" />
         <activity
             android:name=".Activity.UserDetails"
+            android:windowSoftInputMode="stateVisible|adjustPan"
             android:theme="@style/AppThemeNo" />
         <activity
             android:name=".Activity.BottomNav"
             android:label="@string/title_activity_bottom_nav"
             android:theme="@style/AppThemeNo" />
-        <activity android:name=".Activity.ProfileActivity" />
+        <activity android:name=".Activity.ProfileActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
         <activity
             android:name=".Activity.DayMealsActivity"
             android:theme="@style/AppThemeNo" />
@@ -56,11 +60,12 @@
         <activity
             android:name=".Activity.AddNewMealActivity"
             android:windowSoftInputMode="stateVisible|adjustPan" />
-        <activity android:name=".Activity.AddNewExerciseActivity" />
+        <activity android:name=".Activity.AddNewExerciseActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
         <activity android:name=".Activity.ActivityWorkoutUser" />
         <activity android:name=".Activity.ActivityInsideExercise" />
-        <activity android:name=".Activity.PasswordActivity" />
-        <activity android:name=".Activity.TrackProgressUserActivity"></activity>
+        <activity android:name=".Activity.PasswordActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
     </application>
 
 </manifest>
