@@ -329,7 +329,7 @@ public class Add_workout2user extends Fragment {
                     databaseReference1.setValue(eTest).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(getContext(),"successfully added exercise to user",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"تم اضافة التمرين",Toast.LENGTH_SHORT).show();
 
                             spSelectDay.setSelection(0);
                             spSelectEx.setSelection(0);
