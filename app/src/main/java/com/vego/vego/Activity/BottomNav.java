@@ -1,5 +1,6 @@
 package com.vego.vego.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -64,7 +66,7 @@ public class BottomNav extends AppCompatActivity {
         //to add Drawer ++++++++++++++++++++++++++++++++++++++++++++++++++++
         toolbar = findViewById(R.id.actionBar);
         toolbar.setTitle("Drawer Demo");
-        toolbar.setNavigationIcon(R.drawable.icons_calendar_px_);
+      //  toolbar.setNavigationIcon(R.drawable.icons_calendar_px_);
 
 
         //get User data +++++++++++++++++++++++++++++++++++++++++++++++
@@ -76,6 +78,7 @@ public class BottomNav extends AppCompatActivity {
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -86,7 +89,9 @@ public class BottomNav extends AppCompatActivity {
                         .withActivity(BottomNav.this)
                         .withHeaderBackground(R.drawable.header)
                         .addProfiles(
-                                new ProfileDrawerItem().withName(userInfo.getName()).withEmail(firebaseAuth.getCurrentUser().getEmail()).withIcon(getResources().getDrawable(R.drawable.profile))
+                                new ProfileDrawerItem().withName(userInfo.getName())
+                                        .withEmail(firebaseAuth.getCurrentUser().getEmail())
+                                        .withIcon(getResources().getDrawable(R.drawable.profile_pic_large))
                         )
                         .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                             @Override
@@ -104,12 +109,16 @@ public class BottomNav extends AppCompatActivity {
 
            //     toolbar.setNavigationIcon(R.drawable.icons_calendar_px_);
 
+
+
                 Drawer result = new DrawerBuilder()
                         .withActivity(BottomNav.this)
                         .withAccountHeader(headerResult)
                         .withToolbar(toolbar)
                         .addDrawerItems(
-                                item1.withIcon(R.drawable.ic_home_black_24dp), item2, item3
+                                item1.withIcon(R.drawable.ic_home_black_24dp)
+                                ,item2.withIcon(R.drawable.profile_ic2)
+                                ,item3.withIcon(R.drawable.logout_ic)
                         )
                         .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                             @Override
@@ -119,7 +128,8 @@ public class BottomNav extends AppCompatActivity {
                                     case 1:
                                         break;
                                     case 2:
-                                        startActivity(new Intent(BottomNav.this, ProfileActivity.class));
+                                        startActivity(new Intent(BottomNav.this, UpdateProfileActivity.class));
+                                        BottomNav.this.finish();
                                         break;
                                     case 3:
                                         Logout();
@@ -128,7 +138,19 @@ public class BottomNav extends AppCompatActivity {
                                 return true;
                             }
                         })
+
                         .build();
+
+            //    getSupportActionBar().setIcon(R.drawable.icons_calendar_px_);
+
+
+
+                //get the DrawerLayout from the Drawer
+                DrawerLayout drawerLayout = result.getDrawerLayout();
+                //do whatever you want with the Drawer. Like locking it.
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+             //   drawerLayout.setBackgroundColor(R.color.material_drawer_dark_background);
+                //or (int lockMode, int edgeGravity)
 
 
 

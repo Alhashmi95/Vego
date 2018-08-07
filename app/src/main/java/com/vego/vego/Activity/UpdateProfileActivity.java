@@ -42,7 +42,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     private EditText newUserName, newUserAge, newUserWeight, newUserHeight;
     Spinner spActivity;
     Spinner spGoal;
-    private Button save,reset;
+    private Button save, reset;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private StorageReference storageReference;
@@ -104,59 +104,57 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         // Initializing a String Array
         String[] activity = new String[]{
-                "         مستوى النشاط",
+                "مستوى النشاط",
                 "مرتفع",
                 "متوسط",
                 "منخفض",
                 "خامل"
         };
         String[] goal = new String[]{
-                "         هدفك من التطبيق",
+                "هدفك من التطبيق",
                 "زيادة الوزن",
                 "انقاص الوزن",
                 "زيادة عضلات",
                 "المحافظة على الوزن الحالي"
         };
 
-        ingredients[] ingredients = new ingredients[] {new ingredients("478","cheickn")};
+        ingredients[] ingredients = new ingredients[]{new ingredients("478", "cheickn")};
 
         List mealIngrList = new ArrayList<ingredients>(Arrays.asList(ingredients));
 
-        elements[] elements = new elements[] {new elements("cals","409"),
-                new elements("carbo","490")};
+        elements[] elements = new elements[]{new elements("cals", "409"),
+                new elements("carbo", "490")};
         List mealElementList = new ArrayList<elements>(Arrays.asList(elements));
 
 
-
-
-        DayMeals[] dayMealsDay1 = new DayMeals[] {new DayMeals("meal1day1","1",
+        DayMeals[] dayMealsDay1 = new DayMeals[]{new DayMeals("meal1day1", "1",
                 R.drawable.setting, (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList), //add get(0)
-                new DayMeals("meal2day1","2",R.drawable.profile, (ArrayList<ingredients>) mealIngrList,
+                new DayMeals("meal2day1", "2", R.drawable.profile, (ArrayList<ingredients>) mealIngrList,
                         (ArrayList<elements>) mealElementList)};
 
         List dayMealsD1 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay1));
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        DayMeals[] dayMealsDay2 = new DayMeals[] {new DayMeals("meal1day2","22",R.drawable.setting
-                ,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
+        DayMeals[] dayMealsDay2 = new DayMeals[]{new DayMeals("meal1day2", "22", R.drawable.setting
+                , (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
 
         };
 
         List dayMealsD2 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay2));
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        DayMeals[] dayMealsDay3 = new DayMeals[] {new DayMeals("fds","meal1day3",R.drawable.setting,
+        DayMeals[] dayMealsDay3 = new DayMeals[]{new DayMeals("fds", "meal1day3", R.drawable.setting,
                 (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-                new DayMeals("meal2day3","333",R.drawable.home_w,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
+                new DayMeals("meal2day3", "333", R.drawable.home_w, (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
         };
 
         List dayMealsD3 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay3));
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        DayMeals[] dayMealsDay4 = new DayMeals[] {new DayMeals("meal1day4","9328",R.drawable.setting,
+        DayMeals[] dayMealsDay4 = new DayMeals[]{new DayMeals("meal1day4", "9328", R.drawable.setting,
                 (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-                new DayMeals("fdskjdfs","928",R.drawable.home_w,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
+                new DayMeals("fdskjdfs", "928", R.drawable.home_w, (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
 
         };
 
@@ -164,9 +162,9 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        DayMeals[] dayMealsDay5 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting
-                ,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-                new DayMeals("fdskjdfs","928",R.drawable.home_w,
+        DayMeals[] dayMealsDay5 = new DayMeals[]{new DayMeals("fds", "9328", R.drawable.setting
+                , (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
+                new DayMeals("fdskjdfs", "928", R.drawable.home_w,
                         (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
 
         };
@@ -174,7 +172,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         List dayMealsD5 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay5));
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        DayMeals[] dayMealsDay6 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
+        DayMeals[] dayMealsDay6 = new DayMeals[]{new DayMeals("fds", "9328", R.drawable.setting,
                 (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
 
         };
@@ -183,9 +181,9 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        DayMeals[] dayMealsDay7 = new DayMeals[] {new DayMeals("fds","9328",R.drawable.setting,
+        DayMeals[] dayMealsDay7 = new DayMeals[]{new DayMeals("fds", "9328", R.drawable.setting,
                 (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-                new DayMeals("fdskjdfs","928",R.drawable.home_w,(ArrayList<ingredients>) mealIngrList,
+                new DayMeals("fdskjdfs", "928", R.drawable.home_w, (ArrayList<ingredients>) mealIngrList,
                         (ArrayList<elements>) mealElementList)
         };
 
@@ -193,13 +191,13 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         ///////////////////////////////////////////////////////////////////////////////
 
-        final DietDay[] dietDay = new DietDay[] {new DietDay("1","389", "4",(ArrayList<meal>) dayMealsD1),
-                new DietDay("2","23","3",(ArrayList<meal>) dayMealsD2),
-                new DietDay("3","12334", "242",(ArrayList<meal>) dayMealsD3),
-                new DietDay("4","2443","34",(ArrayList<meal>) dayMealsD4),
-                new DietDay("4","253948","31",(ArrayList<meal>) dayMealsD5),
-                new DietDay("6","27","33",(ArrayList<meal>) dayMealsD6),
-                new DietDay("7","287","34",(ArrayList<meal>) dayMealsD7),
+        final DietDay[] dietDay = new DietDay[]{new DietDay("1", "389", "4", (ArrayList<meal>) dayMealsD1),
+                new DietDay("2", "23", "3", (ArrayList<meal>) dayMealsD2),
+                new DietDay("3", "12334", "242", (ArrayList<meal>) dayMealsD3),
+                new DietDay("4", "2443", "34", (ArrayList<meal>) dayMealsD4),
+                new DietDay("4", "253948", "31", (ArrayList<meal>) dayMealsD5),
+                new DietDay("6", "27", "33", (ArrayList<meal>) dayMealsD6),
+                new DietDay("7", "287", "34", (ArrayList<meal>) dayMealsD7),
         };
 
         //For first spinner +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -208,30 +206,27 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.support_simple_spinner_dropdown_item,plantsList){
+                this, R.layout.support_simple_spinner_dropdown_item, plantsList) {
             @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
+            public boolean isEnabled(int position) {
+                if (position == 0) {
                     // Disable the first item from Spinner
                     // First item will be use for hint
                     return false;
-                }
-                else
-                {
+                } else {
                     return true;
                 }
             }
+
             @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
+                if (position == 0) {
                     // Set the hint text color gray
                     tv.setTextColor(Color.GRAY);
-                }
-                else {
+                } else {
                     tv.setTextColor(Color.BLACK);
                 }
                 return view;
@@ -247,7 +242,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 userActivity = selectedItemText;
                 // If user change the default selection
                 // First item is disable and it is used for hint
-                if(position > 0){
+                if (position > 0) {
                     // Notify the selected item text
                     Toast.makeText
                             (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
@@ -268,30 +263,27 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter2 = new ArrayAdapter<String>(
-                this,R.layout.spinner_item,goalList){
+                this, R.layout.support_simple_spinner_dropdown_item, goalList) {
             @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
+            public boolean isEnabled(int position) {
+                if (position == 0) {
                     // Disable the first item from Spinner
                     // First item will be use for hint
                     return false;
-                }
-                else
-                {
+                } else {
                     return true;
                 }
             }
+
             @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
+                if (position == 0) {
                     // Set the hint text color gray
                     tv.setTextColor(Color.GRAY);
-                }
-                else {
+                } else {
                     tv.setTextColor(Color.BLACK);
                 }
                 return view;
@@ -304,10 +296,10 @@ public class UpdateProfileActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
-                userGoal= selectedItemText;
+                userGoal = selectedItemText;
                 // If user change the default selection
                 // First item is disable and it is used for hint
-                if(position > 0){
+                if (position > 0) {
                     // Notify the selected item text
                     Toast.makeText
                             (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
@@ -331,7 +323,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         final DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
 
-      //  databaseReference.addValueEventListener(new ValueEventListener() {
+        //  databaseReference.addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
 //                com.vego.vego.model.UserInfo userinfo = dataSnapshot.getValue(com.vego.vego.model.UserInfo.class);
@@ -363,26 +355,82 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 String weight = newUserWeight.getText().toString();
                 String height = newUserHeight.getText().toString();
 
-                ArrayList dietList ;
-                dietList= new ArrayList<DietDay>(Arrays.asList(dietDay));
+                if (name.isEmpty() || height.isEmpty() || age.isEmpty() || weight.isEmpty()
+                        || userActivity.equals("مستوى النشاط") || userGoal.equals("هدفك من التطبيق")) {
+                    Toast.makeText(UpdateProfileActivity.this
+                            , "Please enter all the details", Toast.LENGTH_SHORT).show();
+                } else {
+                    DatabaseReference databasaeReferenceName = firebaseDatabase.getReference();
 
-                com.vego.vego.model.UserInfo userinfo = new com.vego.vego.model.UserInfo(
-                        name, weight, height,age,userActivity,userGoal,(ArrayList<DietDay>) dietList,
-                        "false",firebaseAuth.getUid().toString(),"",""
-                        ,firebaseAuth.getCurrentUser().getEmail());
+                    databasaeReferenceName.child("users").child(firebaseAuth.getUid()).child("Profile").child("name")
+                            .setValue(name);
 
-                HashMap<String,String> hashMap=new HashMap<>();
-                hashMap.put("age",userinfo.age);
-                hashMap.put("height",userinfo.height);
-                hashMap.put("name",userinfo.name);
-                hashMap.put("weight",userinfo.weight);
-                hashMap.put("userActivity", userActivity);
-                hashMap.put("userGoal", userGoal);
+                    DatabaseReference databasaeReferenceAge = firebaseDatabase.getReference();
 
-                DatabaseReference databasaeReference = firebaseDatabase.getReference();
+                    databasaeReferenceAge.child("users").child(firebaseAuth.getUid()).child("Profile").child("age")
+                            .setValue(age);
+
+                    DatabaseReference databasaeReferenceWeight = firebaseDatabase.getReference();
+
+                    databasaeReferenceWeight.child("users").child(firebaseAuth.getUid()).child("Profile").child("weight")
+                            .setValue(weight);
+
+                    DatabaseReference databasaeReferenceHeight = firebaseDatabase.getReference();
+
+                    databasaeReferenceHeight.child("users").child(firebaseAuth.getUid()).child("Profile").child("height")
+                            .setValue(height);
+
+                    DatabaseReference databasaeReferenceGoal = firebaseDatabase.getReference();
+
+                    databasaeReferenceGoal.child("users").child(firebaseAuth.getUid()).child("Profile").child("userGoal")
+                            .setValue(userGoal);
+
+                    DatabaseReference databasaeReferenceActive = firebaseDatabase.getReference();
+
+                    databasaeReferenceActive.child("users").child(firebaseAuth.getUid()).child("Profile").child("userActivity")
+                            .setValue(userActivity);
+                    Toast.makeText(getApplicationContext(), "Data Updated successfully", Toast.LENGTH_SHORT).show();
+
+                    UpdateProfileActivity.this.startActivity(new Intent(UpdateProfileActivity.this, BottomNav.class));
+
+                    finish();
+                }
+            }
+        });
+
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateProfileActivity.this.startActivity(new Intent(UpdateProfileActivity.this, PasswordActivity.class));
+            }
+        });
 
 
-                databasaeReference.child("users").child(firebaseAuth.getUid()).child("Profile").setValue(hashMap);
+//                ArrayList dietList ;
+//                dietList= new ArrayList<DietDay>(Arrays.asList(dietDay));
+//
+//                com.vego.vego.model.UserInfo userinfo = new com.vego.vego.model.UserInfo(
+//                        name, weight, height,age,userActivity,userGoal,(ArrayList<DietDay>) dietList,
+//                        "false",firebaseAuth.getUid().toString(),"",""
+//                        ,firebaseAuth.getCurrentUser().getEmail());
+//
+//                HashMap<String,String> hashMap=new HashMap<>();
+//                hashMap.put("age",userinfo.age);
+//                hashMap.put("height",userinfo.height);
+//                hashMap.put("name",userinfo.name);
+//                hashMap.put("weight",userinfo.weight);
+//                hashMap.put("userActivity", userActivity);
+//                hashMap.put("userGoal", userGoal);
+//                hashMap.put("isAdmin", String.valueOf(false));
+//                hashMap.put("uidUser",userinfo.getUidUser());
+//                hashMap.put("previousWeight",userinfo.getPreviousWeight());
+//                hashMap.put("adminBrief",userinfo.getAdminBrief());
+//                hashMap.put("userEmail",userinfo.getEmail());
+//
+//                DatabaseReference databasaeReference = firebaseDatabase.getReference();
+//
+//
+//                databasaeReference.child("users").child(firebaseAuth.getUid()).child("Profile").setValue(hashMap);
 
 
 //                StorageReference imageReference = storageReference.child(firebaseAuth.getUid()).child("Images").child("Profile Pic");  //User id/Images/Profile Pic.jpg
@@ -398,20 +446,9 @@ public class UpdateProfileActivity extends AppCompatActivity {
 //                        Toast.makeText(UpdateProfileActivity.this, "Upload successful!", Toast.LENGTH_SHORT).show();
 //                    }
 //                });
-                Toast.makeText(getApplicationContext(), "Data Updated successfully", Toast.LENGTH_SHORT).show();
 
-                UpdateProfileActivity.this.startActivity(new Intent(UpdateProfileActivity.this, BottomNav.class));
 
-                finish();
-            }
-        });
 
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UpdateProfileActivity.this.startActivity(new Intent(UpdateProfileActivity.this, PasswordActivity.class));
-            }
-        });
 
 //        updateProfilePic.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -427,7 +464,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
         }

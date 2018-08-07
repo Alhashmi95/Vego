@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vego.vego.Activity.ActivityWorkoutUser;
+import com.vego.vego.Fragment.Add_workout2user;
 import com.vego.vego.R;
 import com.vego.vego.model.exercise;
 import com.vego.vego.model.ingredients;
@@ -25,16 +26,13 @@ import java.util.List;
 public class ExerciseDetailsAdapter  extends RecyclerView.Adapter<ExerciseDetailsAdapter.ViewHolder> {
 
 
-    private List<sets> exList;
+    private ArrayList<sets> exList;
     private Context mContext;
     sets exListTest;
 
-    public ExerciseDetailsAdapter(List<sets> exList, Context mContext) {
+    public ExerciseDetailsAdapter(ArrayList<sets> exList, Context mContext) {
         this.exList = exList;
         this.mContext = mContext;
-    }
-    public ArrayList<sets> getSetsArray() {
-        return (ArrayList<sets>) exList;
     }
 
     @Override
@@ -114,6 +112,10 @@ public class ExerciseDetailsAdapter  extends RecyclerView.Adapter<ExerciseDetail
 
         return exList.size();
     }
+    public ArrayList<sets> getSetsArray() {
+        return exList ;
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtSets;

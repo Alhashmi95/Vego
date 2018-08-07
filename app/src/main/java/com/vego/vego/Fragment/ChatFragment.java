@@ -1,6 +1,7 @@
 package com.vego.vego.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -64,6 +65,12 @@ public class ChatFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto","admin@gmail.com", null));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Sci-FIT support");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+        startActivity(Intent.createChooser(emailIntent, "Send email..."));
+
         root = FirebaseDatabase.getInstance().getReference().child("MainChatRoom");
 
         listView_chat = view.findViewById(R.id.listView_chat);
@@ -88,7 +95,9 @@ public class ChatFragment extends Fragment {
                 name = userinfo.getName();
 
                 //start chat ++++++++++++++++++++++++++++++++++++++++
-                arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, list_chat);
+                if(getActivity() != null) {
+                    arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, list_chat);
+                }
                 listView_chat.setAdapter(arrayAdapter);
 
                 btn_send_msg.setOnClickListener(new View.OnClickListener() {

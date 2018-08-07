@@ -1,5 +1,6 @@
 package com.vego.vego.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -85,6 +86,8 @@ public class AddMealsFragment extends Fragment {
     String mealNo1,mealNo2,mealNo3,mealNo4,mealNo5;
     ArrayList<String> arrayList2;
 
+    ProgressDialog p;
+
 
 
 
@@ -165,6 +168,11 @@ public class AddMealsFragment extends Fragment {
         addNewMeal=view.findViewById(R.id.addNewMeal);
 
         addMealForUser = view.findViewById(R.id.saveDayMeal);
+
+        p = new ProgressDialog(getContext());
+        p.setTitle("Loading");
+        p.setMessage("Fetching data...");
+        p.show();
 
 
         getUsers();
@@ -290,7 +298,7 @@ public class AddMealsFragment extends Fragment {
             m.add(s);
         }
             spinnerArrayAdapter2 = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item
+                    getContext(),R.layout.support_simple_spinner_dropdown_item
                 ,m) {
             @Override
             public boolean isEnabled(int position){
@@ -320,7 +328,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter2.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser.setAdapter(spinnerArrayAdapter2);
         spinnerArrayAdapter2.notifyDataSetChanged();
 
@@ -405,7 +413,7 @@ public class AddMealsFragment extends Fragment {
             m2.add(s);
         }
         spinnerArrayAdapter3 = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item
+                getContext(),R.layout.support_simple_spinner_dropdown_item
                 ,m2) {
             @Override
             public boolean isEnabled(int position){
@@ -435,7 +443,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter3.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter3.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser2.setAdapter(spinnerArrayAdapter3);
         spinnerArrayAdapter3.notifyDataSetChanged();
 
@@ -515,7 +523,7 @@ public class AddMealsFragment extends Fragment {
             m2.add(s);
         }
         spinnerArrayAdapter4 = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item
+                getContext(),R.layout.support_simple_spinner_dropdown_item
                 ,m2) {
             @Override
             public boolean isEnabled(int position){
@@ -545,7 +553,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter4.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser3.setAdapter(spinnerArrayAdapter4);
         spinnerArrayAdapter4.notifyDataSetChanged();
 
@@ -625,7 +633,7 @@ public class AddMealsFragment extends Fragment {
             m2.add(s);
         }
         spinnerArrayAdapter4 = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item
+                getContext(),R.layout.support_simple_spinner_dropdown_item
                 ,m2) {
             @Override
             public boolean isEnabled(int position){
@@ -655,7 +663,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter4.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser4.setAdapter(spinnerArrayAdapter4);
         spinnerArrayAdapter4.notifyDataSetChanged();
 
@@ -735,7 +743,7 @@ public class AddMealsFragment extends Fragment {
             m2.add(s);
         }
         spinnerArrayAdapter4 = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item
+                getContext(),R.layout.support_simple_spinner_dropdown_item
                 ,m2) {
             @Override
             public boolean isEnabled(int position){
@@ -765,7 +773,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter4.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser5.setAdapter(spinnerArrayAdapter4);
         spinnerArrayAdapter4.notifyDataSetChanged();
 
@@ -1015,7 +1023,7 @@ public class AddMealsFragment extends Fragment {
         final Spinner spSelectDay = getView().findViewById(R.id.selectDay);
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,day){
+                getContext(),R.layout.support_simple_spinner_dropdown_item,day){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -1044,7 +1052,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectDay.setAdapter(spinnerArrayAdapter);
 
         spSelectDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1090,7 +1098,7 @@ public class AddMealsFragment extends Fragment {
         // Initializing an ArrayAdapter
         Log.d("test","frist  "+arrayList.size());
         spinnerArrayAdapter = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
+                getContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -1109,17 +1117,17 @@ public class AddMealsFragment extends Fragment {
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                  //  tv.setTextColor(Color.GRAY);
-                }
-                else {
-                 //   tv.setTextColor(Color.BLACK);
-                }
+//                if(position == 0){
+//                    // Set the hint text color gray
+//                    tv.setTextColor(Color.GRAY);
+//                }
+//                else {
+//                    tv.setTextColor(Color.BLACK);
+//                }
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser.setAdapter(spinnerArrayAdapter);
         spinnerArrayAdapter.notifyDataSetChanged();
 
@@ -1135,7 +1143,7 @@ public class AddMealsFragment extends Fragment {
                 String s = arrayList.get(position);
                 Log.d("test","thid dfjkdl : "+s);
                 choosenUser = arrayList2.get(position);
-               // choosenUser = selectedItemText;
+                // choosenUser = selectedItemText;
                 usersprofile = FirebaseDatabase.getInstance().getReference();
                 usersprofile.child(choosenUser);
                 userProfile(choosenUser);
@@ -1143,11 +1151,11 @@ public class AddMealsFragment extends Fragment {
                 // If user change the default selection
                 // First item is disable and it is used for hint
 
-                    // Notify the selected item text
-                    Toast.makeText
-                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                }
+                // Notify the selected item text
+                Toast.makeText
+                        (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                        .show();
+            }
 
 
 
@@ -1189,12 +1197,14 @@ public class AddMealsFragment extends Fragment {
                     arrayList2.add(dataSnapshot1.getKey());
                     spinnerArrayAdapter.notifyDataSetChanged();
 
+                    p.dismiss();
+
 //                    Log.d("test","this is size of arr: "+ array.length);
 
 
               //      Log.d("test", "this is uid :" + dataSnapshot1.getKey());
 
-                    Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
+                 //   Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
 
                 }
                 //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());

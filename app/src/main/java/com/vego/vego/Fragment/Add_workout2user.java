@@ -39,6 +39,7 @@ import com.vego.vego.Adapters.NewElementAdapter;
 import com.vego.vego.Adapters.NewSetAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.DietDay;
+import com.vego.vego.model.UserInfo;
 import com.vego.vego.model.elements;
 import com.vego.vego.model.exercise;
 import com.vego.vego.model.meal;
@@ -69,7 +70,7 @@ public class Add_workout2user extends Fragment {
     Button addNewSet, addNewExercise, saveExercise;
     FirebaseDatabase firebaseDatabaseExercise = FirebaseDatabase.getInstance();
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    ArrayList<String> arrayListNamesEx, arrayList;
+    ArrayList<String> arrayListNamesEx, arrayList, arrayList2;
     ArrayAdapter<String> spinnerArrayAdapter;
     String choosenUser, choosenDay, choosenEx, choosenExNumber, getChoosenExNumberIndex, choosenMu;
     Spinner spSelectUser, spSelectDay, spSelectEx, spSelectMu,spSelectExName;
@@ -92,6 +93,12 @@ public class Add_workout2user extends Fragment {
     String s;
     int exCounterD1=0,exCounterD2=0,exCounterD3=0,exCounterD4=0,exCounterD5=0,exCounterD6=0,exCounterD7=0;
     int tt=1;
+    TextView profileName;
+    TextView profileAge;
+    TextView profileWeight;
+    TextView profileHeight;
+    TextView profileActivity;
+    TextView profileGoal;
 
     FirebaseDatabase firebaseDatabaseMeal = FirebaseDatabase.getInstance();
 
@@ -148,6 +155,14 @@ public class Add_workout2user extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+        profileName = view.findViewById(R.id.tvProfileName);
+        profileAge = view.findViewById(R.id.tvProfileAge);
+        profileWeight = view.findViewById(R.id.tvWeight);
+        profileHeight = view.findViewById(R.id.tvProfileHeight);
+        profileActivity = view.findViewById(R.id.tvprofileActivity);
+        profileGoal = view.findViewById(R.id.tvprofileGoal);
+
         spSelectUser = view.findViewById(R.id.spinnerUser);
         spSelectDay = view.findViewById(R.id.spinnerDay);
         spSelectEx = view.findViewById(R.id.spinnerExerciseNo);
@@ -188,6 +203,36 @@ public class Add_workout2user extends Fragment {
         saveExerciseToUser();
 
 
+    }
+    public void userProfile(String choosenUser){
+        Log.d("test","this is path : "+usersprofile);
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
+                .child(choosenUser).child("Profile");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ;
+                //   Log.d("test", userinfo.getName());
+
+                UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
+
+
+
+                profileName.setText(userinfo.getName());
+                profileAge.setText(userinfo.getAge());
+                profileWeight.setText(userinfo.getWeight());
+                profileHeight.setText(userinfo.getHeight());
+                profileActivity.setText(userinfo.getUserActivity());
+                profileGoal.setText(userinfo.getUserGoal());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getContext().getApplicationContext(), databaseError.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     public void saveExerciseToUser(){
         saveExercise.setOnClickListener(new View.OnClickListener() {
@@ -357,7 +402,7 @@ public class Add_workout2user extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectMu.setAdapter(spinnerArrayAdapter);
 
         spSelectMu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -406,8 +451,10 @@ public class Add_workout2user extends Fragment {
 //                "تمرين 8",
 //                "تمرين 9";
         // Initializing an ArrayAdapter
+        //2 problems with the font ,, getcontext() instead of ( getActivity().getApplicationContext() )
+        //replace item_spinner with support_simple_spinner_dropdown_item
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,ex){
+                getContext(),R.layout.support_simple_spinner_dropdown_item,ex){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -436,7 +483,7 @@ public class Add_workout2user extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectEx.setAdapter(spinnerArrayAdapter);
 
         spSelectEx.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -602,8 +649,7 @@ public class Add_workout2user extends Fragment {
 
 
             spinnerArrayAdapter = new ArrayAdapter<String>(
-                    getActivity().getApplicationContext(), R.layout.support_simple_spinner_dropdown_item
-                    , arrayListNamesEx) {
+                    getContext(), R.layout.support_simple_spinner_dropdown_item, arrayListNamesEx) {
                 @Override
                 public boolean isEnabled(int position) {
                     if (position == 0) {
@@ -629,7 +675,7 @@ public class Add_workout2user extends Fragment {
                     return view;
                 }
             };
-            spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+            spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
             spSelectExName.setAdapter(spinnerArrayAdapter);
             spinnerArrayAdapter.notifyDataSetChanged();
 
@@ -704,8 +750,9 @@ public class Add_workout2user extends Fragment {
                 "Day7",
         };
         // Initializing an ArrayAdapter
+        // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,day){
+                getContext(), R.layout.support_simple_spinner_dropdown_item, day) {
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -734,7 +781,7 @@ public class Add_workout2user extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectDay.setAdapter(spinnerArrayAdapter);
 
         spSelectDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -776,15 +823,16 @@ public class Add_workout2user extends Fragment {
     }
     public void selectedUser(){
         // Initializing an ArrayAdapter
+        Log.d("test","frist  "+arrayList.size());
         spinnerArrayAdapter = new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
+                getContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
                 {
                     // Disable the first item from Spinner
                     // First item will be use for hint
-                    return false;
+                    return true;
                 }
                 else
                 {
@@ -798,10 +846,10 @@ public class Add_workout2user extends Fragment {
                 TextView tv = (TextView) view;
                 if(position == 0){
                     // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
+                    //  tv.setTextColor(Color.GRAY);
                 }
                 else {
-                    tv.setTextColor(Color.BLACK);
+                    //   tv.setTextColor(Color.BLACK);
                 }
                 return view;
             }
@@ -820,17 +868,22 @@ public class Add_workout2user extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
                 String s = arrayList.get(position);
-                choosenUser = selectedItemText;
+                Log.d("test","thid dfjkdl : "+s);
+                choosenUser = arrayList2.get(position);
+                // choosenUser = selectedItemText;
+                usersprofile = FirebaseDatabase.getInstance().getReference();
+                usersprofile.child(choosenUser);
+                userProfile(choosenUser);
                 //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
                 // If user change the default selection
                 // First item is disable and it is used for hint
-                if(position > 0){
-                    // Notify the selected item text
-                    Toast.makeText
-                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                }
+
+                // Notify the selected item text
+                Toast.makeText
+                        (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                        .show();
             }
+
 
 
             @Override
@@ -852,26 +905,43 @@ public class Add_workout2user extends Fragment {
     public void getUsers(){
         firebaseDatabase = FirebaseDatabase.getInstance();
 
+        arrayList = new ArrayList<>();
+        arrayList2 = new ArrayList<>();
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users");
-
-        arrayList=new ArrayList<>();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                arrayList.add(0,"اختر متدرب");
-                for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
-                    arrayList.add(dataSnapshot1.getKey());
+//                arrayList.add(0, "اختر متدرب");
+//                arrayList2.add(0, "اختر متدرب");
+
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    String email =  dataSnapshot1.child("Profile").child("userEmail").getValue(String.class);
+
+                    Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +  dataSnapshot1.getKey());
+
+                    Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +
+                            dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
+
+
+                    UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
+                    // arrayList.add(dataSnapshot1.getKey());
+
+
+
+                    arrayList.add( dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
+                    arrayList2.add(dataSnapshot1.getKey());
                     spinnerArrayAdapter.notifyDataSetChanged();
 
 //                    Log.d("test","this is size of arr: "+ array.length);
 
 
-                    Log.d("test","this is uid :"+dataSnapshot1.getKey());
+                    //      Log.d("test", "this is uid :" + dataSnapshot1.getKey());
+
+                    Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
+
                 }
                 //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
-
-
 
 
             }
