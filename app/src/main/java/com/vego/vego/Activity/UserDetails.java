@@ -392,7 +392,7 @@ public class UserDetails extends AppCompatActivity {
         hashMap.put("userActivity", userActivity);
         hashMap.put("userGoal", userGoal);
         hashMap.put("isAdmin", String.valueOf(false));
-        hashMap.put("uidUser",userInfo.getUid());
+        hashMap.put("uid",userInfo.getUid());
         hashMap.put("previousWeight",userInfo.getPreviousWeight());
         hashMap.put("adminBrief",userInfo.getAdminBrief());
         hashMap.put("userEmail",userInfo.getEmail());

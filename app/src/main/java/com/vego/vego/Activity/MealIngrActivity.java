@@ -50,8 +50,8 @@ public class MealIngrActivity extends AppCompatActivity implements FragmentMealI
 
         //add Fragments
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentMealIngr(),"Meal Ingredients");
-        adapter.addFragment(new FragmentMealsDetails(), "Meal Elements");
+        adapter.addFragment(new FragmentMealIngr(),"مكونات الوجبة");
+        adapter.addFragment(new FragmentMealsDetails(), "القيم الغذائية");
 
         //set adapter
         viewPager.setAdapter(adapter);
