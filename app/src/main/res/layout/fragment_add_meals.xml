@@ -86,7 +86,7 @@
                     android:gravity="right"
                     android:text="الهدف الرياضي"
                     android:textColor="@color/blackGrey"
-                    android:textSize="14sp"
+                    android:textSize="11sp"
                     app:layout_constraintEnd_toStartOf="@+id/imageView9"
                     app:layout_constraintHorizontal_bias="0.795"
                     app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +105,7 @@
                     android:layout_marginTop="16dp"
                     android:text="عالي"
                     android:textColor="@color/blackGrey"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView13"
                     app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +124,7 @@
                     android:gravity="center"
                     android:text="23"
                     android:textColor="@color/blackGrey"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toStartOf="@+id/imageView12"
                     app:layout_constraintTop_toBottomOf="@+id/tvProfileName" />
 
@@ -135,10 +135,10 @@
                     android:layout_height="30dp"
                     android:layout_below="@+id/tvWeight"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="18dp"
                     android:text="سنة"
                     android:textColor="@color/blackGrey"
-                    android:textSize="14sp"
+                    android:textSize="11sp"
                     app:layout_constraintEnd_toStartOf="@+id/tvProfileAge"
                     app:layout_constraintTop_toBottomOf="@+id/tvProfileName" />
 
@@ -154,7 +154,7 @@
                     android:text="190"
                     android:gravity="center"
                     android:textColor="@color/blackGrey"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toStartOf="@+id/imageView11"
                     app:layout_constraintTop_toBottomOf="@+id/tvProfileName" />
 
@@ -166,10 +166,10 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginEnd="1dp"
                     android:layout_marginRight="1dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="18dp"
                     android:text="سم"
                     android:textColor="@color/blackGrey"
-                    android:textSize="14sp"
+                    android:textSize="11sp"
                     app:layout_constraintEnd_toStartOf="@+id/tvProfileHeight"
                     app:layout_constraintTop_toBottomOf="@+id/tvProfileName" />
 
@@ -187,7 +187,7 @@
                     android:gravity="center"
                     android:text="72"
                     android:textColor="@color/blackGrey"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     app:layout_constraintEnd_toStartOf="@+id/imageView10"
                     app:layout_constraintTop_toBottomOf="@+id/tvProfileName" />
 
@@ -199,11 +199,11 @@
                     android:layout_alignLeft="@+id/tvprofileGoal"
                     android:layout_alignStart="@+id/tvprofileGoal"
                     android:layout_below="@+id/tvprofileGoal"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="18dp"
                     android:gravity="right"
                     android:text="كغ"
                     android:textColor="@color/blackGrey"
-                    android:textSize="14sp"
+                    android:textSize="11sp"
                     app:layout_constraintEnd_toStartOf="@+id/tvWeight"
                     app:layout_constraintTop_toBottomOf="@+id/tvProfileName" />
 

@@ -335,6 +335,8 @@ public class Add_workout2user extends Fragment {
                             spSelectEx.setSelection(0);
                             spSelectMu.setSelection(0);
 
+
+                            //add if statment
                                 tt = tt + 1;
                                 ex.add("تمرين "+String.valueOf(tt));
 
