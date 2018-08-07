@@ -20,7 +20,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-
         <TextView
             android:id="@+id/textView18"
             android:layout_width="match_parent"
@@ -28,6 +27,7 @@
             android:fontFamily="@font/cairo_semibold"
             android:gravity="center"
             android:text="متابعة التقدم الشخصي"
+            android:textColor="@color/blackGrey"
             android:textSize="16sp" />
     </RelativeLayout>
 
@@ -152,9 +152,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_above="@+id/tvPerfectWeight"
+            android:layout_alignParentStart="true"
+            android:text="نبذة عن البرنامج"
+            android:layout_marginHorizontal="25dp"
             android:textColor="@color/blackGrey"
-            android:text="نبذة عن البرنامج"/>
+            android:layout_alignParentLeft="true" />
 
         <TextView
             android:id="@+id/tvPerfectWeight"
@@ -174,7 +177,7 @@
     <Button
         android:id="@+id/btnUpdateWeight"
         android:layout_marginHorizontal="25dp"
-        android:background="@color/scifitBlue"
+        android:backgroundTint="@color/scifitBlue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
