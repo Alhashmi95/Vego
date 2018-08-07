@@ -26,6 +26,7 @@ tools:context=".Fragment.FragmentAddMealDetailes">
         android:layout_centerHorizontal="true"
         android:text="إسم الوجبة"
         android:gravity="center"
+        android:layout_marginTop="8dp"
         android:background="@drawable/custom_edit_text_white"/>
 
     <RelativeLayout

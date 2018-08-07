@@ -66,13 +66,15 @@
 
         <ImageView
             android:id="@+id/mealimg"
-            android:layout_width="384dp"
-            android:layout_height="171dp"
+            android:layout_width="300dp"
+            android:layout_height="130dp"
             android:layout_marginBottom="150dp"
             android:layout_marginEnd="14dp"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="14dp"
             android:layout_marginStart="13dp"
+            android:layout_marginTop="5dp"
+
             android:src="@drawable/header" />
 
 
@@ -86,9 +88,10 @@
         android:layout_below="@+id/appbarid"
         android:background="#333333"
         app:tabGravity="fill"
-        app:tabIndicatorColor="#1d1d1d"
+        app:tabSelectedTextColor="@color/md_white_1000"
+        app:tabIndicatorColor="#0f0f0f"
         app:tabMode="fixed"
-        app:tabTextColor="@color/tabtextcolor"
+        app:tabTextColor="#a39e9e"
         android:layout_alignParentLeft="true" />
 
     <android.support.v7.widget.RecyclerView
@@ -102,10 +105,11 @@
     <TextView
         android:id="@+id/showMealName"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="35dp"
         android:layout_below="@+id/actionBar"
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="25dp"
+        android:layout_marginVertical="12dp"
         android:background="@drawable/custom_edit_text_white"
         android:gravity="center"
         android:text="إسم الوجبة" />

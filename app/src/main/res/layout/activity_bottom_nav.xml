@@ -39,8 +39,9 @@
                 android:id="@+id/logo"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
+                android:layout_marginStart="123dp"
                 android:paddingTop="9dp"
                 android:src="@drawable/logo_white" />
 
@@ -56,6 +57,7 @@
         app:menu="@menu/menu_nav"
         android:background="#333333"
         android:scrollbars="horizontal"
+        app:itemBackground="@color/blackGrey"
         ></android.support.design.widget.BottomNavigationView>
 
 

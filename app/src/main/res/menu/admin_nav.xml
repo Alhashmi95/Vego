@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/trackProgress"
+        android:icon="@drawable/ic_update_black_24dp"
+        android:title="المتابعة" />
+    <item
         android:id="@+id/diet"
         android:icon="@drawable/toolbar_diet"
         android:title="البرنامج الغذائي"/>
@@ -17,14 +21,6 @@
         android:id="@+id/support"
         android:icon="@drawable/toolbar_support"
         android:title="الدعم"/>
-
-    <item
-        android:id="@+id/trackProgress"
-        android:icon="@drawable/ic_update_black_24dp"
-        android:title="المتابعة"/>
-
-
-
 
 
     //limit is 5

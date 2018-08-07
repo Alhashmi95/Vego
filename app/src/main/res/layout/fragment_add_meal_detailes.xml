@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
@@ -59,7 +59,7 @@
             android:layout_height="35dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-
+            android:layout_marginTop="2dp"
             android:background="@drawable/table_diet_under">
 
             <TextView
@@ -67,13 +67,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="42dp"
-                android:layout_marginRight="42dp"
-                android:text="مجموع السعرات"
-                android:textColor="#ffffff" />
+                android:layout_marginEnd="55dp"
+                android:text="النوع"
+                android:textColor="#ffffff"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="55dp" />
 
             <TextView
                 android:id="@+id/totalcals"
@@ -95,9 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/grey">
 
         </android.support.v7.widget.RecyclerView>
@@ -142,4 +139,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</ScrollView>

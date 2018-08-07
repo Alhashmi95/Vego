@@ -64,7 +64,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="42dp"
                 android:layout_centerVertical="true"
-                android:text="الكمية"
+                android:text="نوع الغذاء"
                 android:textColor="#ffffff" />
 
             <TextView
@@ -76,7 +76,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="54dp"
                 android:layout_centerVertical="true"
-                android:text="نوع الغذاء"
+                android:text="الكمية"
                 android:textColor="#ffffff" />
         </RelativeLayout>
 

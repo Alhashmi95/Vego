@@ -179,14 +179,12 @@ public class BottomNav extends AppCompatActivity {
                 case R.id.setting:
                     f = new FragmentExercises();
                     break;
-                case R.id.home:
-                    f = new FragmentHome();
-                    break;
-                case R.id.language:
-                    f = new ChatFragment();
-                    break;
                 case R.id.trackProgress:
                     f = new TrackProgressFragmentUser();
+                    break;
+
+                case R.id.language:
+                    f = new ChatFragment();
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fContr , f).commit()  ;
