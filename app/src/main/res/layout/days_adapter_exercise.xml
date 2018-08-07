@@ -26,7 +26,7 @@
                 android:layout_height="39dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="114dp"
+                android:layout_marginStart="118dp"
                 app:srcCompat="@drawable/workoutcount" />
 
             <ImageView
@@ -44,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="0dp"
                 android:text="عدد التمارين"
                 android:textColor="@android:color/black" />
 
@@ -52,9 +51,7 @@
                 android:id="@+id/txtCals"
                 android:layout_width="52dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="155dp"
+                android:layout_centerInParent="true"
                 android:gravity="center"
                 android:text="صدر"
                 tools:textColor="@android:color/black" />

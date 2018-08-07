@@ -4,35 +4,31 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context=".Activity.BottomNav"
     android:background="@color/grey"
-    >
+    android:orientation="vertical"
+    tools:context=".Activity.BottomNav">
+
+
     <RelativeLayout
-        android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/actionBar"
-        android:background="@color/md_white_1000"
-        android:layout_alignParentLeft="true">
-
+        android:background="@color/md_white_1000">
 
         <TextView
-            android:id="@+id/mealNo"
-            android:layout_width="match_parent"
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:fontFamily="@font/cairo_semibold"
-            android:gravity="center"
-            android:text="جدول التمارين"
+            android:text="إضافة تمرين جديد"
             android:textColor="@color/blackGrey"
             android:textSize="16sp" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/recyclerViewEx"
-        android:background="@color/grey"
-      ></android.support.v7.widget.RecyclerView>
+        android:layout_width="match_parent"
+        android:layout_height="797dp"
+        android:background="@color/grey"></android.support.v7.widget.RecyclerView>
 </LinearLayout>
