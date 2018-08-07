@@ -1,6 +1,7 @@
 package com.vego.vego.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -120,6 +121,7 @@ public class FragmentSupport extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
 
 
@@ -279,6 +281,12 @@ public class FragmentSupport extends Fragment {
                 String s = arrayList.get(position);
                 Log.d("test","thid dfjkdl : "+s);
                 choosenUser = selectedItemText;
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto",choosenUser, null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Sci-FIT support");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+
                 usersprofile = FirebaseDatabase.getInstance().getReference();
                 if (position!=0)
                     chat(choosenUser);

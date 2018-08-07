@@ -40,14 +40,14 @@ public class ActivityInsideExercise extends AppCompatActivity {
         exNameTextView = findViewById(R.id.textViewExNameUser);
         imageViewEx = findViewById(R.id.imageViewEximage);
         tvTotalVolume = findViewById(R.id.tvTotalVolume);
-        calVAndR = findViewById(R.id.btnCalVolumeAndRM1);
+       // calVAndR = findViewById(R.id.btnCalVolumeAndRM1);
 
-        calVAndR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // calculateVolumeAndRM1();
-            }
-        });
+//        calVAndR.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               // calculateVolumeAndRM1();
+//            }
+//        });
 
 
         recyclerView.setHasFixedSize(true);

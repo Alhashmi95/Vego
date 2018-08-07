@@ -26,10 +26,10 @@ public class HomeActivity extends AppCompatActivity {    @Override
     }
 
 
-    public void openAdmin(View view) {
-        startActivity(new Intent(this, AdminActivity.class));
-
-    }
+//    public void openAdmin(View view) {
+//        startActivity(new Intent(this, AdminActivity.class));
+//
+//    }
 
 
 

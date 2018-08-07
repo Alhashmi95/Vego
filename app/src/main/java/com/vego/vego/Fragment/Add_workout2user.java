@@ -558,7 +558,7 @@ public class Add_workout2user extends Fragment {
         addNewSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // saveExercise.setVisibility(v.VISIBLE);
+                saveExercise.setVisibility(v.VISIBLE);
                 sets s2 = new sets();
                 list.add(s2);
                 newSetAdapter.notifyDataSetChanged();

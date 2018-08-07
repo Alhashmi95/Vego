@@ -971,6 +971,8 @@ public class AddMealsFragment extends Fragment {
                     databaseReference4.setValue(mTest4);
                     databaseReference5.setValue(mTest5);
 
+                    Toast.makeText(getContext(),"تم حفظ الزجبة",Toast.LENGTH_LONG).show();
+
 
                     int chossenDayInt =Integer.valueOf(choosenDay)+1;
                     databaseReferenceDay.setValue(String.valueOf(chossenDayInt));
