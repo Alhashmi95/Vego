@@ -21,7 +21,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:fontFamily="@font/cairo_semibold"
-            android:text="إضافة تمرين جديد"
+            android:text="جدول التمارين"
             android:textColor="@color/blackGrey"
             android:textSize="16sp" />
     </RelativeLayout>

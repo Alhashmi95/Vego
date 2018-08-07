@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
@@ -40,40 +41,36 @@
                 android:textColor="#ffffff" />
         </RelativeLayout>
 
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
 
-            android:background="@drawable/table_diet_under">
+            android:background="@drawable/table_diet_under"
+            android:id="@+id/relativeLayout3">
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="42dp"
-                android:layout_marginRight="42dp"
+                android:layout_marginEnd="88dp"
                 android:text="النوع"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/totalcals"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="54dp"
-                android:layout_marginStart="54dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp"
                 android:text="مجموع السعرات"
-                android:textColor="#ffffff" />
-        </RelativeLayout>
+                android:textColor="#ffffff"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
