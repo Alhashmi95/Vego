@@ -1,23 +1,44 @@
 package com.vego.vego.Activity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.vego.vego.Fragment.AddMealsFragment;
 import com.vego.vego.Fragment.Add_workout2user;
 import com.vego.vego.Fragment.FragmentAddWorkout;
 import com.vego.vego.Fragment.FragmentSupport;
 import com.vego.vego.Fragment.TrackProgressFragmentAdmin;
 import com.vego.vego.R;
+import com.vego.vego.model.UserInfo;
 
 public class AdminActivity extends AppCompatActivity {
     android.support.v7.widget.Toolbar toolbar;
     BottomNavigationView navAdmin = null;
+    FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
+    UserInfo userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +56,115 @@ public class AdminActivity extends AppCompatActivity {
         //+++++++++++++++defult Fragment ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         getSupportFragmentManager().beginTransaction().replace(R.id.fCenterAdmin , new TrackProgressFragmentAdmin()).commit();
 
+        //to add Drawer ++++++++++++++++++++++++++++++++++++++++++++++++++++
+        toolbar = findViewById(R.id.actionBar);
+        toolbar.setTitle("Drawer Demo");
+        //  toolbar.setNavigationIcon(R.drawable.icons_calendar_px_);
+
+
+        //get User data +++++++++++++++++++++++++++++++++++++++++++++++
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        final DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
+                .child(firebaseAuth.getUid()).child("Profile");
+
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                userInfo = dataSnapshot.getValue(UserInfo.class);
+
+                // Create the AccountHeader
+                AccountHeader headerResult = new AccountHeaderBuilder()
+                        .withActivity(AdminActivity.this)
+                        .withHeaderBackground(R.drawable.header)
+                        .addProfiles(
+                                new ProfileDrawerItem().withName(userInfo.getName())
+                                        .withEmail(firebaseAuth.getCurrentUser().getEmail())
+                                        .withIcon(getResources().getDrawable(R.drawable.profile_pic_large))
+                        )
+                        .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                            @Override
+                            public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                                return false;
+                            }
+                        })
+                        .build();
+                //create the drawer and remember the `Drawer` result object
+                //if you want to update the items at a later time it is recommended to keep it in a variable
+                PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Home");
+                PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("Profile");
+                PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("Logout");
+
+
+                //     toolbar.setNavigationIcon(R.drawable.icons_calendar_px_);
+
+
+
+                Drawer result = new DrawerBuilder()
+                        .withActivity(AdminActivity.this)
+                        .withAccountHeader(headerResult)
+                        .withToolbar(toolbar)
+                        .addDrawerItems(
+                                item1.withIcon(R.drawable.ic_home_black_24dp)
+                                ,item2.withIcon(R.drawable.profile_ic2)
+                                ,item3.withIcon(R.drawable.logout_ic)
+                        )
+                        .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                            @Override
+                            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                                // do something with the clicked item :D
+                                switch (position) {
+                                    case 1:
+                                        startActivity(new Intent(AdminActivity.this, BottomNav.class));
+                                        break;
+                                    case 2:
+                                        startActivity(new Intent(AdminActivity.this, UpdateProfileActivity.class));
+                                        break;
+                                    case 3:
+                                        Logout();
+                                        break;
+                                }
+                                return true;
+                            }
+                        })
+
+                        .build();
+
+                //    getSupportActionBar().setIcon(R.drawable.icons_calendar_px_);
+
+
+
+                //get the DrawerLayout from the Drawer
+                DrawerLayout drawerLayout = result.getDrawerLayout();
+                //do whatever you want with the Drawer. Like locking it.
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                //   drawerLayout.setBackgroundColor(R.color.material_drawer_dark_background);
+                //or (int lockMode, int edgeGravity)
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
+
     }
+    private void Logout() {
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(this, HomeActivity.class));
+    }
+
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override

@@ -118,8 +118,8 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
 
         //add Fragments
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentAddMealDetailes(), "Meal Details");
-        adapter.addFragment(new FragmentAddMealIng(), "Meal Ingredients");
+        adapter.addFragment(new FragmentAddMealDetailes(), "مكونات الوجبة");
+        adapter.addFragment(new FragmentAddMealIng(), "القيم الغذائية");
 
 
         //set adapter
