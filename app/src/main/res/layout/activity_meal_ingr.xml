@@ -74,7 +74,6 @@
             android:layout_marginRight="14dp"
             android:layout_marginStart="13dp"
             android:layout_marginTop="5dp"
-
             android:src="@drawable/header" />
 
 
@@ -115,16 +114,14 @@
         android:text="إسم الوجبة" />
 
 
-
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_id"
         android:layout_width="match_parent"
-        android:layout_height="385dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+        android:layout_height="449dp"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="0dp"
-        android:background="@color/grey" />
+        android:layout_below="@+id/tablayout_id"
+        android:background="@color/grey"
+        android:layout_alignParentLeft="true" />
 
 
 </RelativeLayout>
