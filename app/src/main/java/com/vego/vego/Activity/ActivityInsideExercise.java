@@ -78,7 +78,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
         Ion.with(this)
                 .load(exImage)
                 .withBitmap()
-                .placeholder(R.drawable.spinner_drawable)
+               // .placeholder(R.drawable.ic_loading)
                 .intoImageView(imageViewEx);
 
 

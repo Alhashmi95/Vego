@@ -76,7 +76,9 @@ android:layout_centerVertical="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="77dp"
             android:text="الكمية"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="77dp" />
 
         <TextView
             android:id="@+id/textView12"
@@ -89,7 +91,9 @@ android:layout_centerVertical="true"
             android:layout_marginVertical="3dp"
             android:textColor="@color/grey"
 
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="44dp" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

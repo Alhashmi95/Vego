@@ -1,5 +1,6 @@
 package com.vego.vego.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -42,6 +43,8 @@ public class TrackProgressFragmentUser extends Fragment {
     private FirebaseDatabase firebaseDatabase;
 
     String previousW;
+    ProgressDialog p;
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -102,6 +105,11 @@ public class TrackProgressFragmentUser extends Fragment {
         perfectWeight = view.findViewById(R.id.tvPerfectWeight);
 
         updateWeights = view.findViewById(R.id.btnUpdateWeight);
+
+        p = new ProgressDialog(getContext());
+        p.setTitle("Loading");
+        p.setMessage("Fetching data...");
+        p.show();
 
 
         getWeights();
@@ -167,6 +175,8 @@ public class TrackProgressFragmentUser extends Fragment {
              //   currentWeight.setText(userinfo.getPreviousWeight());
                 perfectWeight.setText(userinfo.getAdminBrief());
                 previousWeight.setText(userinfo.getPreviousWeight());
+
+                p.dismiss();
 
             }
 

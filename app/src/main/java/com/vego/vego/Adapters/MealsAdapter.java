@@ -48,7 +48,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
         holder.textViewShortDesc.setText(dayMeals.getCal());
         Picasso.get()
                 .load(dayMeals.getImage())
-                .placeholder(R.drawable.ic_loading)
+//                .placeholder(R.drawable.progress)
                 .fit()
 
                 .into(holder.imageView);

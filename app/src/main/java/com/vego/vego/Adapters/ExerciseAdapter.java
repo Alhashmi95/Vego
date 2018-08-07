@@ -50,7 +50,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         holder.txtMu.setText(exListTest.getTargetedmuscle());
         Picasso.get()
                 .load(exListTest.getImage())
-                .placeholder(R.drawable.ic_loading)
+                //.placeholder(R.drawable.ic_loading)
                 .fit()
                 .centerCrop()
                 .into(holder.exImage);

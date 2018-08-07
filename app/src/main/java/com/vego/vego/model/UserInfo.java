@@ -13,7 +13,7 @@ public class UserInfo {
     String userGoal;
     ArrayList<DietDay> dietDay;
     String isAdmin;
-    String uidUser, previousWeight, adminBrief, email;
+    String uid, previousWeight, adminBrief, email;
 
     public UserInfo() {
     }
@@ -23,7 +23,7 @@ public class UserInfo {
 
 
     public UserInfo(String name, String weight, String height, String age, String userActivity, String userGoal,
-                    ArrayList<DietDay> dietDay, String isAdmin, String uidUser,String previousWeight
+                    ArrayList<DietDay> dietDay, String isAdmin, String uid,String previousWeight
                     ,String adminBrief , String email) {
         this.name = name;
         this.weight = weight;
@@ -33,7 +33,7 @@ public class UserInfo {
         this.userGoal = userGoal;
         this.dietDay = dietDay;
         this.isAdmin = isAdmin;
-        this.uidUser = uidUser;
+        this.uid = uid;
         this.previousWeight = previousWeight;
         this.adminBrief = adminBrief;
         this.email = email;
@@ -71,12 +71,12 @@ public class UserInfo {
         this.isAdmin = isAdmin;
     }
 
-    public String getUidUser() {
-        return uidUser;
+    public String getUid() {
+        return uid;
     }
 
-    public void setUidUser(String uidUser) {
-        this.uidUser = uidUser;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public void setDietDay(ArrayList<DietDay> dietDay) {

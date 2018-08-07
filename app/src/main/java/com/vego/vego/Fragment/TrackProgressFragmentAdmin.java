@@ -50,7 +50,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
     boolean role;
 
     ArrayList<String> arrayList, arrayList2;
-    String choosenUser, brief;
+    String choosenUser,choosenUser2, brief;
     Spinner spSelectUser, spSelectDay;
     ArrayAdapter<String> spinnerArrayAdapter;
     ProgressDialog p;
@@ -205,6 +205,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
                 String s = arrayList.get(position);
                 Log.d("test","thid dfjkdl : "+s);
                 choosenUser = arrayList2.get(position);
+                choosenUser2 = arrayList.get(position);
                 getWeights();
                 changeRole();
                 uploadBrief();
@@ -289,8 +290,8 @@ public class TrackProgressFragmentAdmin extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!choosenUser.equals("اختر متدرب")) {
-                    String s = "this is true";
-                    Toast.makeText(getContext(), "helooooo    " + s, Toast.LENGTH_LONG).show();
+                    String s = choosenUser2;
+                    Toast.makeText(getContext(), s + "  is now an Admin", Toast.LENGTH_LONG).show();
 
                     role = true;
 
@@ -311,8 +312,8 @@ public class TrackProgressFragmentAdmin extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!choosenUser.equals("اختر متدرب")) {
-                    String s = "this is faaalse";
-                    Toast.makeText(getContext(), "helooooo    " + s, Toast.LENGTH_LONG).show();
+                    String s = choosenUser2;
+                    Toast.makeText(getContext(), s + "  is now Trainee", Toast.LENGTH_LONG).show();
 
                     role = false;
                     //set admin = true to specific user

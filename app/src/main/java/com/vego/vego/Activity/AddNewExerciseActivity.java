@@ -162,15 +162,16 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                 }else {
                     exerciseName = exName.getText().toString();
 
+                    p = new ProgressDialog(v.getContext());
+                    p.setTitle("Uploading");
+                    p.setMessage("Uploading data...");
+                    p.show();
+
                     // here we upload meal pics
                     exRef = storageReference.child("exercises/").child(String.valueOf(indexofImages));
                     UploadTask uploadTask = (UploadTask) exRef.putFile(imagePath);
 
                     if (uploadTask != null && uploadTask.isInProgress()) {
-                        p = new ProgressDialog(v.getContext());
-                        p.setTitle("Uploading");
-                        p.setMessage("Uploading data...");
-                        p.show();
                         Toast.makeText(AddNewExerciseActivity.this, "upload is in progress .. please wait", Toast.LENGTH_LONG).show();
 
                     }
@@ -243,6 +244,11 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                 }else {
                     exerciseName = exName.getText().toString();
 
+                    p = new ProgressDialog(v.getContext());
+                    p.setTitle("Uploading");
+                    p.setMessage("Uploading data...");
+                    p.show();
+
                     // here we upload meal pics
                     exRef = storageReference.child("exercises/").child(String.valueOf(indexofImages));
                     UploadTask uploadTask = (UploadTask) exRef.putFile(imagePath);
@@ -270,6 +276,8 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                                 exUrl = downloadUri.toString();
                                 Toast.makeText(AddNewExerciseActivity.this, "upload successeded", Toast.LENGTH_SHORT).show();
                                 exercise e = new exercise();
+
+                                p.dismiss();
 
 //                                sets[] setsArray = new sets[] {new sets("","", "","") };
 
