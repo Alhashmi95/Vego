@@ -73,6 +73,11 @@ public class ExerciseDetailsAdapter  extends RecyclerView.Adapter<ExerciseDetail
 
                     holder.textViewRM1.setText(String.format("%.1f", RM1));
                     holder.textViewVolume.setText(String.valueOf(Volume));
+
+
+                    //get text of text views here to use it in the activity using (getSetsArray) method
+                    exList.get(position).setVolume(holder.textViewVolume.getText().toString());
+                    exList.get(position).setRM1(holder.textViewRM1.getText().toString());
                 }else {
                     holder.textViewRM1.setText("");
                     holder.textViewVolume.setText("");

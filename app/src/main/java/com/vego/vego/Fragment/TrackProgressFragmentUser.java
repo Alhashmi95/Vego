@@ -206,6 +206,9 @@ public class TrackProgressFragmentUser extends Fragment {
                             .setValue(cuWeight);
 
 
+                    Toast.makeText(getContext(),"تم تحديث الوزن",Toast.LENGTH_LONG).show();
+
+
 
             }
         });

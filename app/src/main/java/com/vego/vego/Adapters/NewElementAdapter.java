@@ -34,7 +34,7 @@ public class NewElementAdapter extends RecyclerView.Adapter<NewElementAdapter.El
 
     public NewElementAdapter(ArrayList<elements> eleList, Context mContext) {
         this.eleList = eleList;
-        inflater = LayoutInflater.from(mContext);
+            inflater = LayoutInflater.from(mContext);
     }
 
 

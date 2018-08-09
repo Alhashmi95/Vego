@@ -64,10 +64,8 @@ public class Add_workout2user extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private RecyclerView recyclerView;
-    private DaysAdapter adapter;
     DatabaseReference usersprofile;
     Button addNewSet, addNewExercise, saveExercise;
-    FirebaseDatabase firebaseDatabaseExercise = FirebaseDatabase.getInstance();
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     ArrayList<String> arrayListNamesEx, arrayList, arrayList2;
     ArrayAdapter<String> spinnerArrayAdapter;
@@ -78,7 +76,7 @@ public class Add_workout2user extends Fragment {
     exercise eTest;
     ImageView imageViewEx;
     TextView textViewExName;
-    ArrayList<sets> setsArrayList = new ArrayList<>();
+    private ArrayList<sets> setsArrayList;
     NewSetAdapter newSetAdapter;
     ArrayList<sets> list = new ArrayList<>();
     int indexofExercise = 0;
@@ -90,7 +88,7 @@ public class Add_workout2user extends Fragment {
     String imgUrl;
     String exMu;
     String s;
-    int exCounterD1=0,exCounterD2=0,exCounterD3=0,exCounterD4=0,exCounterD5=0,exCounterD6=0,exCounterD7=0;
+   // int exCounterD1=0,exCounterD2=0,exCounterD3=0,exCounterD4=0,exCounterD5=0,exCounterD6=0,exCounterD7=0;
     int tt=1;
     TextView profileName;
     TextView profileAge;
@@ -99,7 +97,13 @@ public class Add_workout2user extends Fragment {
     TextView profileActivity;
     TextView profileGoal;
 
+    boolean checker;
+
+
     FirebaseDatabase firebaseDatabaseMeal = FirebaseDatabase.getInstance();
+
+    int indexOfExDay1=0,indexOfExDay2=0,indexOfExDay3=0,indexOfExDay4=0,indexOfExDay5=0, indexOfExDay6=0,
+    indexOfExDay7=0;
 
 
 
@@ -178,8 +182,11 @@ public class Add_workout2user extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerSetsAdmin);
 
 
-//        sets s = new sets();
-//        list.add(s);
+
+//        sets s2 = new sets();
+//        list.add(s2);
+
+
 
         saveExercise.setVisibility(view.INVISIBLE);
         setsArrayList = populateList();
@@ -269,25 +276,175 @@ public class Add_workout2user extends Fragment {
                             .child(choosenUser).child("Exercises").child(choosenDay).child("exercise")
                             .child(getChoosenExNumberIndex);
                     if(choosenDay.equals("0")){
-                        exCounterD1 = exCounterD1 +1;
+                        FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                        DatabaseReference databaseReference = f.getReference().child("users")
+                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                //Note ** : ondatachange discards the value of arraylist after it finishs
+                                indexOfExDay1 = (int) dataSnapshot.getChildrenCount();
+
+                                Log.d("test","CCCCOOOUUNNNTT : "+indexOfExDay1);
+
+                            }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+
+
+                        });
+
+                       // exCounterD1 = exCounterD1 +1;
                     }
                     if(choosenDay.equals("1")){
-                        exCounterD2= exCounterD2 +1;
+                        FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                        DatabaseReference databaseReference = f.getReference().child("users")
+                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                //Note ** : ondatachange discards the value of arraylist after it finishs
+                                indexOfExDay2 = (int) dataSnapshot.getChildrenCount();
+
+
+                            }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+
+
+                        });
                     }
                     if(choosenDay.equals("2")){
-                        exCounterD3= exCounterD3 +1;
+                        FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                        DatabaseReference databaseReference = f.getReference().child("users")
+                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                //Note ** : ondatachange discards the value of arraylist after it finishs
+                                indexOfExDay3 = (int) dataSnapshot.getChildrenCount();
+
+
+                            }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+
+
+                        });
                     }
                     if(choosenDay.equals("3")){
-                        exCounterD4= exCounterD4 +1;
+                        FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                        DatabaseReference databaseReference = f.getReference().child("users")
+                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                //Note ** : ondatachange discards the value of arraylist after it finishs
+                                indexOfExDay4 = (int) dataSnapshot.getChildrenCount();
+
+
+                            }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+
+
+                        });
                     }
                     if(choosenDay.equals("4")){
-                        exCounterD5= exCounterD5 +1;
+                        FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                        DatabaseReference databaseReference = f.getReference().child("users")
+                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                //Note ** : ondatachange discards the value of arraylist after it finishs
+                                indexOfExDay5 = (int) dataSnapshot.getChildrenCount();
+
+
+                            }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+
+
+                        });
                     }
                     if(choosenDay.equals("5")){
-                        exCounterD6= exCounterD6 +1;
+                        FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                        DatabaseReference databaseReference = f.getReference().child("users")
+                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                //Note ** : ondatachange discards the value of arraylist after it finishs
+                                indexOfExDay6 = (int) dataSnapshot.getChildrenCount();
+
+
+                            }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+
+
+                        });
                     }
                     if(choosenDay.equals("6")){
-                        exCounterD7 = exCounterD7 +1;
+                        FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                        DatabaseReference databaseReference = f.getReference().child("users")
+                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                //Note ** : ondatachange discards the value of arraylist after it finishs
+                                indexOfExDay7 = (int) dataSnapshot.getChildrenCount();
+
+
+                            }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+
+
+                        });
                     }
 
 
@@ -299,44 +456,58 @@ public class Add_workout2user extends Fragment {
 
 
 
-                    if(choosenDay.equals("0")) {
-                        databaseReferenceExCount.setValue(String.valueOf(exCounterD1));
-                    }
-                    if(choosenDay.equals("1")) {
-                        databaseReferenceExCount.setValue(String.valueOf(exCounterD2));
-                    }
-                    if(choosenDay.equals("2")) {
-                        databaseReferenceExCount.setValue(String.valueOf(exCounterD3));
-                    }
-                    if(choosenDay.equals("3")) {
-                        databaseReferenceExCount.setValue(String.valueOf(exCounterD4));
-                    }
-                    if(choosenDay.equals("4")) {
-                        databaseReferenceExCount.setValue(String.valueOf(exCounterD5));
-                    }
-                    if(choosenDay.equals("5")) {
-                        databaseReferenceExCount.setValue(String.valueOf(exCounterD6));
-                    }
-                    if(choosenDay.equals("6")) {
-                        databaseReferenceExCount.setValue(String.valueOf(exCounterD7));
-                    }
-
-                    eTest.setSets(setsArrayList);
 
 
-                    databaseReferenceMu.setValue(eTest.getTargetedmuscle());
+                    for(int i = 0; i < setsArrayList.size(); i++){
+                        if(newSetAdapter.getSetsArray().get(i).getReps().isEmpty()){
+                            Toast.makeText(getContext(),"الرجاء تحديد جميع التكرارات",Toast.LENGTH_SHORT).show();
+                            checker = false;
+                        }else {
+                            checker = true;
+                        }
 
-                    databaseReference1.setValue(eTest).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(getContext(),"تم اضافة التمرين",Toast.LENGTH_SHORT).show();
-
-                            spSelectDay.setSelection(0);
-                            spSelectEx.setSelection(0);
-                            spSelectMu.setSelection(0);
+                    }
+                    if(checker){
+                        eTest.setSets(setsArrayList);
 
 
-                            //add if statment
+
+                        databaseReferenceMu.setValue(eTest.getTargetedmuscle());
+
+                        databaseReference1.setValue(eTest).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getContext(),"تم اضافة التمرين",Toast.LENGTH_SHORT).show();
+
+                                spSelectDay.setSelection(0);
+                                spSelectEx.setSelection(0);
+                                spSelectMu.setSelection(0);
+
+
+                                if(choosenDay.equals("0")) {
+                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay1));
+                                }
+                                if(choosenDay.equals("1")) {
+                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay2));
+                                }
+                                if(choosenDay.equals("2")) {
+                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay3));
+                                }
+                                if(choosenDay.equals("3")) {
+                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay4));
+                                }
+                                if(choosenDay.equals("4")) {
+                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay5));
+                                }
+                                if(choosenDay.equals("5")) {
+                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay6));
+                                }
+                                if(choosenDay.equals("6")) {
+                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay7));
+                                }
+
+
+                                //add if statment
                                 tt = tt + 1;
                                 ex.add("تمرين "+String.valueOf(tt));
 
@@ -346,8 +517,13 @@ public class Add_workout2user extends Fragment {
 //                            Intent intent= new Intent(getContext(), AdminActivity.class);
 //
 //                            getContext().startActivity(intent);
-                        }
-                    });
+                            }
+                        });
+
+                    }
+
+
+
 
 
 
@@ -686,7 +862,7 @@ public class Add_workout2user extends Fragment {
                     String selectedItemText = (String) parent.getItemAtPosition(position);
                     choosenEx = selectedItemText;
                     //because first element is reserved as hint
-                    for (int i = 0; i < arrayListObjectEx.size() - 1; i++) {
+                    for (int i = 0; i < arrayListObjectEx.size(); i++) {
                         Log.d("test","this is chosen EXXXXX Object"+arrayListObjectEx.get(i).getExername());
                         Log.d("test","this is chosen SSSSSIIZEE Object   "+arrayListObjectEx.size());
                         Log.d("test","this is chosen SSSSSIIZEE22 Object   "+arrayListNamesEx.size());
@@ -916,6 +1092,9 @@ public class Add_workout2user extends Fragment {
 //                arrayList.add(0, "اختر متدرب");
 //                arrayList2.add(0, "اختر متدرب");
 
+
+                arrayList.clear();
+                arrayList2.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     String email =  dataSnapshot1.child("Profile").child("userEmail").getValue(String.class);
 

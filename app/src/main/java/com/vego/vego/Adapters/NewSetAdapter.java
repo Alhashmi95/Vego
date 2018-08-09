@@ -26,15 +26,15 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
 
     public NewSetAdapter(ArrayList<sets> setList, Context mContext) {
         this.setList = setList;
-        this.mContext = mContext;
+        inflater = LayoutInflater.from(mContext);
     }
 
 
     @Override
     public NewSetAdapter.SetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        View view = inflater.inflate(R.layout.card_sets_add, null);
-        NewSetAdapter.SetViewHolder holder = new NewSetAdapter.SetViewHolder(view);
+        //LayoutInflater inflater = LayoutInflater.from(mContext);
+        View view = inflater.inflate(R.layout.card_sets_add, parent, false);
+        SetViewHolder holder = new SetViewHolder(view);
         return holder;
     }
 
@@ -46,26 +46,8 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
         String StringSetsNo = String.valueOf(setsNo);
         holder.txtSets.setText(StringSetsNo);
 
-        holder.txtReps.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                setList.get(position).setReps(holder.txtReps.getText().toString());
-                setList.get(position).setRM1("");
-                setList.get(position).setWeight("");
-                setList.get(position).setVolume("");
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        //dont forget this (to maintain order of arraylist      IIIDDDDDIIIOOOTT
+        holder.txtReps.setText(setList.get(position).getReps());
 
     }
 
@@ -74,9 +56,9 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
         return setList.size();
     }
 
-//    public ArrayList<sets> getSetsArray() {
-//        return setList;
-//    }
+    public ArrayList<sets> getSetsArray() {
+        return setList;
+    }
 
 
     class SetViewHolder extends RecyclerView.ViewHolder {
@@ -92,6 +74,27 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
             txtReps = itemView.findViewById(R.id.txtReps);
             txtSets = itemView.findViewById(R.id.txtSet);
           //  setCount = itemView.findViewById(R.id.mealCount);
+
+            txtReps.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    setList.get(getAdapterPosition()).setReps(txtReps.getText().toString());
+                    setList.get(getAdapterPosition()).setRM1("");
+                    setList.get(getAdapterPosition()).setWeight("");
+                    setList.get(getAdapterPosition()).setVolume("");
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
 
 
         }

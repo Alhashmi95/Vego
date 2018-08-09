@@ -149,14 +149,14 @@
             android:text="Volume"
             android:textColor="@color/md_white_1000"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/txtRepsShow4"
+            app:layout_constraintEnd_toStartOf="@+id/txtMaxRm1"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtRepsShow4"
+            android:id="@+id/txtMaxRm1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -188,7 +188,7 @@
             android:textColor="@color/md_white_1000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/txtRepsShow2"
-            app:layout_constraintStart_toEndOf="@+id/txtRepsShow4"
+            app:layout_constraintStart_toEndOf="@+id/txtMaxRm1"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -226,25 +226,25 @@
         app:layout_constraintVertical_bias="0.0" />
 
 
-    <!--<Button-->
-        <!--android:id="@+id/btnCalVolumeAndRM1"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="48dp"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:layout_marginEnd="25dp"-->
-        <!--android:layout_marginLeft="25dp"-->
-        <!--android:layout_marginRight="25dp"-->
-        <!--android:layout_marginStart="25dp"-->
-        <!--android:layout_marginTop="212dp"-->
-        <!--android:text="Calculate Total Volume and RM1"-->
-        <!--android:backgroundTint="@color/scifitBlue"-->
-        <!--android:textColor="@color/md_white_1000"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"-->
-        <!--app:layout_constraintVertical_bias="1.0" />-->
+    <Button
+        android:id="@+id/btnCalVolumeAndRM1"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="212dp"
+        android:text="Calculate Total Volume and RM1"
+        android:backgroundTint="@color/scifitBlue"
+        android:textColor="@color/md_white_1000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </android.support.constraint.ConstraintLayout>

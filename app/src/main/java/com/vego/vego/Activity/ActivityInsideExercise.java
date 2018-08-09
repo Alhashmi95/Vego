@@ -20,15 +20,17 @@ import com.vego.vego.model.exercise;
 import com.vego.vego.model.sets;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ActivityInsideExercise extends AppCompatActivity {
     private ExerciseDetailsAdapter adapter;
     RecyclerView recyclerView;
-    TextView exNumberTextView, exNameTextView, tvTotalVolume;
+    TextView exNumberTextView, exNameTextView, tvTotalVolume,tvMaxRM1;
     ImageView imageViewEx;
     double totalVolume, sumVolume = 0;
     Button calVAndR;
+    double max;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +42,15 @@ public class ActivityInsideExercise extends AppCompatActivity {
         exNameTextView = findViewById(R.id.textViewExNameUser);
         imageViewEx = findViewById(R.id.imageViewEximage);
         tvTotalVolume = findViewById(R.id.tvTotalVolume);
-       // calVAndR = findViewById(R.id.btnCalVolumeAndRM1);
+        calVAndR = findViewById(R.id.btnCalVolumeAndRM1);
+        tvMaxRM1 = findViewById(R.id.txtMaxRm1);
 
-//        calVAndR.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               // calculateVolumeAndRM1();
-//            }
-//        });
+        calVAndR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculateVolumeAndRM1();
+            }
+        });
 
 
         recyclerView.setHasFixedSize(true);
@@ -78,7 +81,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
         Ion.with(this)
                 .load(exImage)
                 .withBitmap()
-               // .placeholder(R.drawable.ic_loading)
+                // .placeholder(R.drawable.ic_loading)
                 .intoImageView(imageViewEx);
 
 
@@ -87,22 +90,27 @@ public class ActivityInsideExercise extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
 
-
     }
 
     public void calculateVolumeAndRM1() {
 
-                if (adapter.getSetsArray() != null) {
-                        for (int i = 0; i < adapter.getSetsArray().size(); i++) {
-                            if(!adapter.getSetsArray().get(i).getVolume().isEmpty()) {
-                                Log.d("test","VVVOLLLUME:  "+adapter.getSetsArray().get(i).getVolume());
-                                Log.d("test","SUM V:  "+sumVolume);
-                                totalVolume = Double.valueOf(adapter.getSetsArray().get(i).getVolume());
-                                Log.d("test","TOTal V:  "+totalVolume);
-                                sumVolume = sumVolume + totalVolume;
-                        }
-                        tvTotalVolume.setText(String.valueOf(sumVolume));
+        if (adapter.getSetsArray() != null) {
+            for (int i = 0; i < adapter.getSetsArray().size(); i++) {
+                if (!adapter.getSetsArray().get(i).getVolume().isEmpty() &&
+                        !adapter.getSetsArray().get(i).getRM1().isEmpty()) {
+                    //calculate total volume
+                    totalVolume = Double.valueOf(adapter.getSetsArray().get(i).getVolume());
+                    sumVolume = sumVolume + totalVolume;
+
+                    //maximum of RM1 here
+                    max = Double.MIN_VALUE;
+                    if(Double.valueOf(adapter.getSetsArray().get(i).getRM1()) > max){
+                        max = Double.valueOf(adapter.getSetsArray().get(i).getRM1());
                     }
                 }
+                tvTotalVolume.setText(String.valueOf(sumVolume));
+                tvMaxRM1.setText(String.valueOf(max));
+            }
+        }
     }
 }
