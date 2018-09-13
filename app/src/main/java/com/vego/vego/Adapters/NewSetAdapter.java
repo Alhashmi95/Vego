@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -48,6 +49,13 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
 
         //dont forget this (to maintain order of arraylist      IIIDDDDDIIIOOOTT
         holder.txtReps.setText(setList.get(position).getReps());
+        holder.btn_delet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setList.remove(position);
+                notifyDataSetChanged();
+            }
+        });
 
     }
 
@@ -66,7 +74,7 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
         EditText txtReps;
         TextView txtSets;
         TextView setCount;
-
+        Button btn_delet ;
 
         public SetViewHolder(final View itemView) {
             super(itemView);
@@ -74,6 +82,7 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
             txtReps = itemView.findViewById(R.id.txtReps);
             txtSets = itemView.findViewById(R.id.txtSet);
           //  setCount = itemView.findViewById(R.id.mealCount);
+            btn_delet=itemView.findViewById(R.id.btn_delet);
 
             txtReps.addTextChangedListener(new TextWatcher() {
                 @Override
