@@ -14,6 +14,8 @@
         android:allowBackup="true"
         android:icon="@drawable/icon_home"
         android:label="SCIFIT"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyActionBar">

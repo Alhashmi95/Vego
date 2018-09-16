@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,7 +61,12 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
 //        holder.imageView.setImageDrawable(mContext.getResources().getDrawable(dayMeals.getImg()));
 
-
+        holder.btn_delet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ingrList.remove(position);
+            }
+        });
 
     }
 
@@ -73,9 +79,12 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
         TextView textViewTitle, textViewShortDesc;
         ImageView imageView;
+        Button btn_delet ;
+
 
         public IngredientsViewHolder(final View itemView) {
             super(itemView);
+            btn_delet=itemView.findViewById(R.id.btn_delet);
 
             textViewTitle = itemView.findViewById(R.id.txtQuantity);
             textViewShortDesc = itemView.findViewById(R.id.txtIngr);

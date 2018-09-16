@@ -16,7 +16,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <TextView
                 android:id="@+id/txtSet"
@@ -47,6 +48,13 @@
                 android:background="@drawable/custom_table_text"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"/>
+            <Button
+                android:id="@+id/btn_delet"
+                android:layout_width="33dp"
+                android:layout_height="wrap_content"
+                android:text="X"
+                android:gravity="center_vertical"
+                />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

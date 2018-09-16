@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,14 +49,19 @@ public class NewElementAdapter extends RecyclerView.Adapter<NewElementAdapter.El
     }
 
     @Override
-    public void onBindViewHolder(ElementViewHolder holder, int position) {
+    public void onBindViewHolder(ElementViewHolder holder, final int position) {
         holder.txtQuan.setText(eleList.get(position).getAmount());
         holder.txtIngr.setText(eleList.get(position).getName());
         Log.d("print","yes");
 
         //holder.mealCount.setText("."+String.valueOf(position+1));
 
-
+        holder.btn_delet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eleList.remove(position);
+            }
+        });
     }
 
     @Override
@@ -70,11 +76,13 @@ public class NewElementAdapter extends RecyclerView.Adapter<NewElementAdapter.El
 
         EditText txtIngr, txtQuan;
         TextView mealCount;
+        Button btn_delet ;
 
 
 
         public ElementViewHolder(final View itemView) {
             super(itemView);
+            btn_delet=itemView.findViewById(R.id.btn_delet);
 
             txtIngr = itemView.findViewById(R.id.txtIngr);
             txtQuan = itemView.findViewById(R.id.txtQuantity);
