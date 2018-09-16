@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vego.vego.Activity.MealIngrActivity;
 import com.vego.vego.R;
@@ -59,7 +60,11 @@ public class NewElementAdapter extends RecyclerView.Adapter<NewElementAdapter.El
         holder.btn_delet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(eleList.size()==1){
+                    Toast.makeText(mContext,"يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
+                }else {
                 eleList.remove(position);
+                notifyDataSetChanged();}
             }
         });
     }
