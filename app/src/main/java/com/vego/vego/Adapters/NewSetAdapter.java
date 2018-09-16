@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vego.vego.R;
 import com.vego.vego.model.ingredients;
@@ -52,8 +53,12 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
         holder.btn_delet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setList.remove(position);
-                notifyDataSetChanged();
+                if(setList.size()==1){
+                    Toast.makeText(mContext,"يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
+                }else {
+                    setList.remove(position);
+                    notifyDataSetChanged();
+                }
             }
         });
 
