@@ -65,7 +65,7 @@
             android:id="@+id/tvCurrentWeight"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-
+            android:inputType="number"
             android:layout_alignLeft="@+id/tvPreviousWeight"
             android:layout_alignStart="@+id/tvPreviousWeight"
             android:layout_alignTop="@+id/imageView6"
@@ -169,6 +169,7 @@
             android:background="@drawable/custom_table_text"
             android:gravity="center"
             android:text="..."
+            android:scrollbars="vertical"
             android:textColor="@color/blackGrey"
             android:textSize="13sp" />
 

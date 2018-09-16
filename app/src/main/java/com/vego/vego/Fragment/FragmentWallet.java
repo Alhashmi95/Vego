@@ -1,5 +1,6 @@
 package com.vego.vego.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,6 +33,9 @@ public class FragmentWallet extends Fragment {
     RecyclerView myrv;
     RecyclerViewAdapter myAdapter;
     ArrayList<Mucsle> MuList = new ArrayList<>();
+    String mucsleName;
+
+    static int sizeMuList = 0;
 
 
 
@@ -55,10 +59,16 @@ public class FragmentWallet extends Fragment {
 
         myrv.setLayoutManager(new GridLayoutManager(getContext(),3));
 
+//        Intent intent= getActivity().getIntent();
+//
+//
+//        mucsleName = intent.getStringExtra("mucsleName");
+//
 
 
 
-     //   ex2List.add(new exercise("lfdg","pflg","lf"));
+
+        //   ex2List.add(new exercise("lfdg","pflg","lf"));
 
 
 
@@ -73,6 +83,8 @@ public class FragmentWallet extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
+
+
                     ex2List.add(ds.getValue(exercise.class));
 
                 }
@@ -83,12 +95,23 @@ public class FragmentWallet extends Fragment {
 
 
                 MuList.add(new Mucsle("بطن",R.drawable.age,ex2List));
+                MuList.add(new Mucsle("تراي",R.drawable.age,ex2List));
                 MuList.add(new Mucsle("صدر",R.mipmap.ic_muchest,ex2List));
                 MuList.add(new Mucsle("ترابيس",R.drawable.age,ex2List));
                 MuList.add(new Mucsle("قدم",R.drawable.age,ex2List));
                 MuList.add(new Mucsle("ذراع",R.drawable.age,ex2List));
                 MuList.add(new Mucsle("راس",R.drawable.age,ex2List));
                 MuList.add(new Mucsle("زعبولة",R.drawable.age,ex2List));
+
+               // sizeMuList = MuList.size();
+
+
+
+//                for(int i =0 ; i<MuList.size(); i++) {
+//                    if (mucsleName.equals(MuList.get(i).getMucsleName())) {
+//
+//                    }
+//                }
 
 
                 //Set adapter

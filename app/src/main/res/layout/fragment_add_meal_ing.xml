@@ -54,11 +54,12 @@
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="88dp"
-                android:text="النوع"
+                android:layout_marginEnd="52dp"
+                android:layout_marginRight="52dp"
+                android:text="العناصر الغذائية"
                 android:textColor="#ffffff"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/totalcals"
@@ -66,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_marginStart="40dp"
-                android:text="مجموع السعرات"
+                android:text="الكمية"
                 android:textColor="#ffffff"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

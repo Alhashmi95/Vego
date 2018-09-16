@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:background="@color/grey"
         android:orientation="vertical"
-
+        android:textDirection="rtl"
         android:layout_alignParentLeft="true">
 
 
@@ -39,6 +39,7 @@
             android:layout_marginRight="25dp"
             android:layout_marginLeft="25dp"
             android:background="@drawable/table_diet"
+            android:textDirection="rtl"
             android:layout_marginTop="12dp">
 
             <TextView

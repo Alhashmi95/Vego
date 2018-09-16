@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -49,6 +50,7 @@ public class FragmentAddMealIng extends Fragment {
     private TextView totalCals;
     double sum;
     passArrayListEle listner;
+    boolean checker = true;
 
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -145,19 +147,33 @@ public class FragmentAddMealIng extends Fragment {
     }
 
     public void updateCals(){
+
         updateCalsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (newElementAdapter.getElementssArray() != null) {
-                    sum = 0;
                     for (int i = 0; i < newElementAdapter.getElementssArray().size(); i++) {
-                        double totalCals = Double.valueOf(newElementAdapter.getElementssArray().get(i).getAmount());
-                        sum = sum + totalCals;
-
+                        if (newElementAdapter.getElementssArray().get(i).getName().isEmpty() ||
+                                newElementAdapter.getElementssArray().get(i).getAmount().isEmpty()) {
+                            Toast.makeText(getContext(), "please enter all details",
+                                    Toast.LENGTH_SHORT).show();
+                            checker = false;
+                            break;
+                        }
                     }
-                    totalCals.setText(String.valueOf(sum));
-                    listner.passArrayListEle(newElementAdapter.getElementssArray(),String.valueOf(sum));
-                }
+                    if(checker){
+                        sum = 0;
+                        for (int i = 0; i < newElementAdapter.getElementssArray().size(); i++) {
+                            double totalCals = Double.valueOf(newElementAdapter.getElementssArray().get(i).getAmount());
+                            sum = sum + totalCals;
+                        }
+
+                        }
+                        if(checker) {
+                            totalCals.setText(String.valueOf(sum));
+                            listner.passArrayListEle(newElementAdapter.getElementssArray(), String.valueOf(sum));
+                        }
+                    }
             }
         });
 

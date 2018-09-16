@@ -54,6 +54,25 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                 .fit()
                 .centerCrop()
                 .into(holder.exImage);
+        String mu = exListTest.getTargetedmuscle();
+
+        if(mu.equals("صدر")){
+            Picasso.get()
+                    .load(R.drawable.balance)
+                    //.placeholder(R.drawable.ic_loading)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.muImage);
+        }
+        if(mu.equals("ظهر")){
+            Picasso.get()
+                    .load(R.drawable.age)
+                    //.placeholder(R.drawable.ic_loading)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.muImage);
+        }
+
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +100,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         public TextView txtName;
         public TextView txtMu;
         public ImageView exImage;
+        public ImageView muImage;
         final Context context;
 
 
@@ -90,6 +110,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
             txtName = itemView.findViewById(R.id.txtNameExercise);
             txtMu = itemView.findViewById(R.id.txtMu);
             exImage = itemView.findViewById(R.id.imageViewMu);
+            muImage = itemView.findViewById(R.id.ivtargtedMu);
             context = itemView.getContext();
 
 

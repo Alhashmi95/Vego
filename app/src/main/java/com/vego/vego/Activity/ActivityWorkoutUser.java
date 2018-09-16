@@ -12,7 +12,10 @@ import android.widget.TextView;
 import com.vego.vego.Adapters.ExerciseAdapter;
 import com.vego.vego.Adapters.MealsAdapter;
 import com.vego.vego.Adapters.RecyclerViewAdapter;
+import com.vego.vego.Fragment.FragmentAddMealDetailes;
+import com.vego.vego.Fragment.FragmentWallet;
 import com.vego.vego.R;
+import com.vego.vego.model.Mucsle;
 import com.vego.vego.model.exercise;
 import com.vego.vego.model.meal;
 
@@ -23,6 +26,17 @@ public class ActivityWorkoutUser extends AppCompatActivity {
     private ExerciseAdapter adapter;
     RecyclerView recyclerView;
     TextView dayTextView;
+    String mucsleName;
+
+    ArrayList<exercise> muExList = new ArrayList<>();
+
+    List<exercise> exList = new ArrayList<>();
+    List<exercise> exListForAll = new ArrayList<>();
+
+
+
+
+
 
 
     @Override
@@ -33,54 +47,57 @@ public class ActivityWorkoutUser extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.exRecycler);
         dayTextView = findViewById(R.id.daytv2);
+        getValuesfromAdapter();
 
 
-        Intent intent=this.getIntent();
+    }
+    private void getValuesfromAdapter() {
+        Intent intent = this.getIntent();
         //here we receive array of objects from daysAdapter
         //because daysAdapter has an object of DietDay which contains DayMeals array of objects
-        List<exercise> exList= (List<exercise>) intent.getSerializableExtra("DayExercise");
-//
-//        if (exList == null){
-//            recyclerView.setVisibility(View.GONE);
-//
-//            ArrayList<exercise> ex2List = new ArrayList<>();
-//
-//
-//            ex2List.add(new exercise("54","fdkjfkld","354"));
-//            ex2List.add(new exercise("54","glgkhgf","354"));
-//            ex2List.add(new exercise("54","fdgfdkgklf","354"));
-//            ex2List.add(new exercise("54","gkjdfgkjdf","354"));
-//            ex2List.add(new exercise("54","fdkjfkld","354"));
-//
-//
-//            RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this,exList);
-//            recyclerView.setLayoutManager(new GridLayoutManager(this,3));
-//            recyclerView.setAdapter(myAdapter);
-//        }
+
+        exList = (List<exercise>) intent.getSerializableExtra("DayExercise");
+        exListForAll = (List<exercise>) intent.getSerializableExtra("DayExercise2");
+
         //get day number from الكلاس المعضل (daysAdapter)
         String day = intent.getStringExtra("day");
-        dayTextView.setText(" يوم "+day);
+        dayTextView.setText(" يوم " + day);
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ExerciseAdapter(exList,this);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        mucsleName = intent.getStringExtra("mucsleName");
+
+        displayExOrExforAll();
+
+    }
+    private void displayExOrExforAll() {
+        if(exListForAll == null) {
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            adapter = new ExerciseAdapter(exList, this);
+            recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+        if(exListForAll != null){
+        for(int i =0 ; i<exListForAll.size(); i++) {
+            if (mucsleName.equals(exListForAll.get(i).getTargetedmuscle())) {
+
+                exercise e = exListForAll.get(i);
+
+                //save the name of selected mu from 3 lines adapter
+                String selectedMu = exListForAll.get(i).getTargetedmuscle();
+
+                muExList.add(e);
 
 
-
-        //////////////////////////////////////////////////////////////
-//
-//        List<exercise> exListForAll= (List<exercise>) intent.getSerializableExtra("ExArrayList");
-//
-//
-//        String mucsleName = intent.getStringExtra("mucsleName");
-//
-//        adapter = new ExerciseAdapter(exListForAll,this);
-//        adapter.notifyDataSetChanged();
-
-
-
-
+            }
+        }
+        }
+        //if we clicked on ExforAll mucsles exList will be empty
+        if(exList == null) {
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            adapter = new ExerciseAdapter(muExList, this);
+            recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
     }
 }

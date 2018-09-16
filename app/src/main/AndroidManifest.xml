@@ -63,7 +63,8 @@
         <activity android:name=".Activity.AddNewExerciseActivity"
             android:windowSoftInputMode="stateVisible|adjustPan"/>
         <activity android:name=".Activity.ActivityWorkoutUser" />
-        <activity android:name=".Activity.ActivityInsideExercise" />
+        <activity android:name=".Activity.ActivityInsideExercise"
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
         <activity android:name=".Activity.PasswordActivity"
             android:windowSoftInputMode="stateVisible|adjustPan"/>
     </application>

@@ -75,16 +75,16 @@
             android:id="@+id/tvPreviousWeight"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView21"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="103dp"
+            android:layout_alignTop="@+id/imageView7"
+            android:layout_marginStart="104dp"
             android:background="@drawable/custom_table_text"
             android:gravity="center"
             android:text="72"
             android:textColor="@color/blackGrey"
             android:textSize="18sp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="103dp" />
+            android:layout_marginLeft="104dp" />
 
         <TextView
             android:id="@+id/tvCurrentWeight"
@@ -114,36 +114,31 @@
             android:id="@+id/textView24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageView6"
+            android:layout_alignBottom="@+id/tvCurrentWeight"
             android:layout_alignParentStart="true"
             android:layout_marginStart="79dp"
             android:text="كغ"
             android:textColor="@color/blackGrey"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="79dp" />
+            android:layout_marginLeft="79dp"
+            android:layout_alignParentLeft="true" />
 
         <TextView
             android:id="@+id/textView21"
-            android:layout_width="wrap_content"
+            android:layout_width="79dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="124dp"
-            android:layout_marginTop="38dp"
+            android:layout_toLeftOf="@+id/imageView7"
+            android:layout_alignBottom="@+id/tvPreviousWeight"
             android:text="الوزن السابق"
-            android:textColor="@color/blackGrey"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="124dp" />
+            android:textColor="@color/blackGrey" />
 
         <TextView
             android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageView6"
-            android:layout_alignStart="@+id/textView21"
+            android:layout_alignBottom="@+id/tvCurrentWeight"
+            android:layout_toLeftOf="@+id/imageView6"
             android:text="الوزن الحالي"
-            android:textColor="@color/blackGrey"
-            android:layout_alignLeft="@+id/textView21" />
+            android:textColor="@color/blackGrey" />
 
         <ImageView
             android:id="@+id/imageView6"
@@ -186,7 +181,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textColor="@color/md_white_1000"
-        android:text="تحديث الوزن المثالي" />
+        android:text="حفظ" />
 
     <TextView
         android:layout_width="match_parent"

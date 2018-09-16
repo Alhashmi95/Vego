@@ -43,7 +43,7 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 
-/**
+/**j
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link AddMealsFragment.OnFragmentInteractionListener} interface
@@ -863,7 +863,7 @@ public class AddMealsFragment extends Fragment {
                                 .child(choosenUser).child("Diet").child(choosenDay).child("mealsCount");
 
                         //set number of meals
-                        int mealCount = Integer.valueOf(mealNo1)+1;
+                        int mealCount = Integer.valueOf(mealNo5)+1;
 
                         databaseReferenceTotalCal.setValue(String.valueOf(calSumOfMeals));
                         databaseReferenceMealCount.setValue(String.valueOf(mealCount));
@@ -1129,7 +1129,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         spSelectUser.setAdapter(spinnerArrayAdapter);
         spinnerArrayAdapter.notifyDataSetChanged();
 

@@ -65,11 +65,11 @@ public class ChatFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto","admin@gmail.com", null));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Sci-FIT support");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "");
-        startActivity(Intent.createChooser(emailIntent, "Send email..."));
+//        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+//                "mailto","admin@gmail.com", null));
+//        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Sci-FIT support");
+//        emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+//        startActivity(Intent.createChooser(emailIntent, "Send email..."));
 
         root = FirebaseDatabase.getInstance().getReference().child("MainChatRoom");
 

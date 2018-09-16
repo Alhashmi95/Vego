@@ -52,7 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Intent intent = new Intent(v.getContext(),ActivityWorkoutUser.class);
 
                 // passing data to the book activity
-                intent.putExtra("DayExercise",mData.get(position).getExerciseArrayList());
+                intent.putExtra("DayExercise2",mData.get(position).getExerciseArrayList());
                 intent.putExtra("mucsleName",mData.get(position).getMucsleName());
                 // start the activity
                 v.getContext().startActivity(intent);

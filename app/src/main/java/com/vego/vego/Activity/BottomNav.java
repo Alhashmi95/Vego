@@ -185,6 +185,9 @@ public class BottomNav extends AppCompatActivity {
                 case R.id.language:
                     f = new ChatFragment();
                     break;
+                case R.id.ExerciseForAll:
+                    f = new FragmentWallet();
+                    break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fContr , f).commit()  ;
             return true;}

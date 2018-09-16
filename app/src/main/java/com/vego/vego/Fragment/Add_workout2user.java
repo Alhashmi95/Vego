@@ -1,5 +1,6 @@
 package com.vego.vego.Fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,10 +15,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,8 +31,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
+import com.vego.vego.Activity.ActivityInsideExercise;
 import com.vego.vego.Activity.AddNewExerciseActivity;
 import com.vego.vego.Activity.AdminActivity;
 import com.vego.vego.Activity.LoginActivity;
@@ -39,6 +44,7 @@ import com.vego.vego.Adapters.NewElementAdapter;
 import com.vego.vego.Adapters.NewSetAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.DietDay;
+import com.vego.vego.model.Exercises;
 import com.vego.vego.model.UserInfo;
 import com.vego.vego.model.elements;
 import com.vego.vego.model.exercise;
@@ -98,6 +104,14 @@ public class Add_workout2user extends Fragment {
     TextView profileGoal;
 
     boolean checker;
+
+    ArrayList<Exercises> bigExList = new ArrayList<>();
+
+
+    ArrayList<exercise> t= new ArrayList<>();
+
+    int exCouunt = 0;
+
 
 
     FirebaseDatabase firebaseDatabaseMeal = FirebaseDatabase.getInstance();
@@ -209,7 +223,55 @@ public class Add_workout2user extends Fragment {
         saveExerciseToUser();
 
 
+
+
+
     }
+
+    private void getExCount() {
+        tt = 1;
+        ex.clear();
+
+        ex.add(0,"اختر تمرين");
+        ex.add("تمرين 1");
+
+
+        t= new ArrayList<>();
+        FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+        DatabaseReference databaseReference = f.getReference().child("users")
+                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               // bigExList.add(dataSnapshot.getValue(Exercises.class));
+
+                exCouunt = (int) dataSnapshot.getChildrenCount();
+
+
+//                for(int i = 0; i < bigExList.size(); i++) {
+//                    t = (bigExList.get(i).getExercise());
+//                }
+                for(int i =0 ; i < exCouunt; i++) {
+                    tt = tt + 1;
+                    ex.add("تمرين " + String.valueOf(tt));
+                    spinnerArrayAdapter.notifyDataSetChanged();
+                }
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void userProfile(String choosenUser){
         Log.d("test","this is path : "+usersprofile);
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
@@ -508,8 +570,13 @@ public class Add_workout2user extends Fragment {
 
 
                                 //add if statment
-                                tt = tt + 1;
-                                ex.add("تمرين "+String.valueOf(tt));
+
+
+//                                tt = tt + 1;
+//                                ex.add("تمرين "+String.valueOf(tt));
+
+                             //   getExCount();
+
 
 
                                 spinnerArrayAdapter.notifyDataSetChanged();
@@ -897,6 +964,7 @@ public class Add_workout2user extends Fragment {
 
                         }
                     }
+                    clickToEnlarge();
                     // If user change the default selection
                     // First item is disable and it is used for hint
                     if (position > 0) {
@@ -988,6 +1056,9 @@ public class Add_workout2user extends Fragment {
                     Toast.makeText
                             (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
                             .show();
+                    //------------------------------------------------------------------
+                    //get exercise count after we choose a day
+                    getExCount();
                 }
             }
 
@@ -1031,7 +1102,7 @@ public class Add_workout2user extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser.setAdapter(spinnerArrayAdapter);
         spinnerArrayAdapter.notifyDataSetChanged();
 
@@ -1093,8 +1164,8 @@ public class Add_workout2user extends Fragment {
 //                arrayList2.add(0, "اختر متدرب");
 
 
-                arrayList.clear();
-                arrayList2.clear();
+//                arrayList.clear();
+//                arrayList2.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     String email =  dataSnapshot1.child("Profile").child("userEmail").getValue(String.class);
 
@@ -1131,6 +1202,48 @@ public class Add_workout2user extends Fragment {
                 Toast.makeText(Add_workout2user.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void clickToEnlarge() {
+        imageViewEx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPic();
+            }
+        });
+    }
+    private void showPic() {
+        final Dialog nagDialog = new Dialog(getActivity()
+                ,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        nagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // nagDialog.setCancelable(false);
+        nagDialog.setCanceledOnTouchOutside(true);
+        nagDialog.setContentView(R.layout.preview_image);
+        Button btnClose = nagDialog.findViewById(R.id.btnIvClose);
+        ImageView ivPreview = nagDialog.findViewById(R.id.iv_preview_image);
+        final ProgressBar progressBar = nagDialog.findViewById(R.id.progressBar2);
+
+
+        Ion.with(this)
+                .load(imgUrl)
+                .progressBar(progressBar)
+                .withBitmap()
+                // .placeholder(R.drawable.ic_loading)
+                .intoImageView(ivPreview)
+                .setCallback(new FutureCallback<ImageView>() {
+                    @Override
+                    public void onCompleted(Exception e, ImageView result) {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+
+                nagDialog.dismiss();
+            }
+        });
+        nagDialog.show();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -29,6 +29,7 @@ public class ExerciseDetailsAdapter  extends RecyclerView.Adapter<ExerciseDetail
     private ArrayList<sets> exList;
     private Context mContext;
     sets exListTest;
+    int setsNo;
 
     public ExerciseDetailsAdapter(ArrayList<sets> exList, Context mContext) {
         this.exList = exList;
@@ -49,7 +50,7 @@ public class ExerciseDetailsAdapter  extends RecyclerView.Adapter<ExerciseDetail
 
 
           exListTest = exList.get(position);
-        int setsNo = position+1;
+        setsNo = position+1;
         holder.txtSets.setText(String.valueOf(setsNo));
         holder.txtReps.setText(exListTest.getReps());
 
@@ -64,11 +65,12 @@ public class ExerciseDetailsAdapter  extends RecyclerView.Adapter<ExerciseDetail
                 if(holder.etWeight.getText().toString() != null && holder.etWeight.getText().length() > 0) {
                     exList.get(position).setWeight(holder.etWeight.getText().toString());
 
-                    double Volume = Double.valueOf(exList.get(position).getWeight()) * exList.size() *
-                            Double.valueOf(exListTest.getReps());
+                    double Volume = Double.valueOf(exList.get(position).getWeight()) *
+                            Double.valueOf(position+1) *
+                            Double.valueOf(exList.get(position).getReps());
 
                     double RM1 = Double.valueOf(exList.get(position).getWeight()) * (36 / (37
-                            - Double.valueOf(exListTest.getReps())));
+                            - Double.valueOf(exList.get(position).getReps())));
 
 
                     holder.textViewRM1.setText(String.format("%.1f", RM1));

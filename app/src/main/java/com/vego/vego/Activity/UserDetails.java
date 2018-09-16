@@ -425,7 +425,7 @@ public class UserDetails extends AppCompatActivity {
 //        spActivity.setSelection(2);
 //        spGoal.setSelection(3);
 
-        name = userNameTxt.getText().toString();
+        name = userNameTxt.getText().toString().trim();
         height = userHeight.getText().toString();
         age = userAge.getText().toString();
         weight = userWeight.getText().toString();

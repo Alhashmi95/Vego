@@ -45,11 +45,11 @@ public class Exercises implements Serializable {
         this.exercisecount = exercisecount;
     }
 
-    public ArrayList<com.vego.vego.model.exercise> getExercise() {
+    public ArrayList<exercise> getExercise() {
         return exercise;
     }
 
-    public void setExercise(ArrayList<com.vego.vego.model.exercise> exercise) {
+    public void setExercise(ArrayList<exercise> exercise) {
         this.exercise = exercise;
     }
 }

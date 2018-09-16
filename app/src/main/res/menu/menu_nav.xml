@@ -25,6 +25,10 @@
         android:id="@+id/language"
         android:icon="@drawable/toolbar_support"
         android:title="الدعم"/>
+    <item
+        android:id="@+id/ExerciseForAll"
+        android:icon="@drawable/forall"
+        android:title="تمارين عامة"/>
 
 
     //limit is 5

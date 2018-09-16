@@ -65,6 +65,7 @@ public class FragmentSupport extends Fragment {
     Spinner spSelectUser;
     ArrayAdapter<String> spinnerArrayAdapter;
     DatabaseReference usersprofile;
+    FirebaseAuth firebaseAuth;
 
 
     // TODO: Rename and change types of parameters
@@ -144,8 +145,16 @@ public class FragmentSupport extends Fragment {
     }
     public void chat(final String userUID){
 
+
+        firebaseAuth = FirebaseAuth.getInstance();
         root = FirebaseDatabase.getInstance().getReference().child("MainChatRoom");
-        name = "Admin";
+
+        //add the id of sender and reciver
+//        root.child(firebaseAuth.getUid()+" : "+ choosenUser).child("adminID").setValue(firebaseAuth.getUid());
+//        root.child(firebaseAuth.getUid()+" : "+ choosenUser).child("userID").setValue(choosenUser);
+
+
+        name = "(Admin)";
 
         arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, list_chat);
         listView_chat.setAdapter(arrayAdapter);
@@ -154,11 +163,14 @@ public class FragmentSupport extends Fragment {
             @Override
             public void onClick(View view) {
 
+
+
                 Map<String, Object> map = new HashMap<String, Object>();
                 temp_key = root.push().getKey();
                 root.updateChildren(map);
 
-                DatabaseReference message_root = root.child(temp_key);
+                //DatabaseReference message_root = root.child(temp_key);
+                DatabaseReference message_root = root.child(firebaseAuth.getUid()+" : "+ choosenUser);
                 Map<String, Object> map2 = new HashMap<String, Object>();
                 map2.put("name", name);
                 map2.put("msg", input_msg.getText().toString());
@@ -281,11 +293,11 @@ public class FragmentSupport extends Fragment {
                 String s = arrayList.get(position);
                 Log.d("test","thid dfjkdl : "+s);
                 choosenUser = selectedItemText;
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto",choosenUser, null));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Sci-FIT support");
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
-                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+//                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+//                        "mailto",choosenUser, null));
+//                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Sci-FIT support");
+//                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+//                startActivity(Intent.createChooser(emailIntent, "Send email..."));
 
                 usersprofile = FirebaseDatabase.getInstance().getReference();
                 if (position!=0)

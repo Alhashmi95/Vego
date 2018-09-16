@@ -1,16 +1,22 @@
 package com.vego.vego.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 import com.vego.vego.Adapters.ExerciseAdapter;
@@ -19,6 +25,7 @@ import com.vego.vego.R;
 import com.vego.vego.model.exercise;
 import com.vego.vego.model.sets;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,9 +35,16 @@ public class ActivityInsideExercise extends AppCompatActivity {
     RecyclerView recyclerView;
     TextView exNumberTextView, exNameTextView, tvTotalVolume,tvMaxRM1;
     ImageView imageViewEx;
+    ProgressBar progressBar;
     double totalVolume, sumVolume = 0;
     Button calVAndR;
-    double max;
+    double max =0;
+
+    ArrayList<sets> setsList = new ArrayList<>();
+
+    String exImage;
+
+    boolean checker = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +58,30 @@ public class ActivityInsideExercise extends AppCompatActivity {
         tvTotalVolume = findViewById(R.id.tvTotalVolume);
         calVAndR = findViewById(R.id.btnCalVolumeAndRM1);
         tvMaxRM1 = findViewById(R.id.txtMaxRm1);
+        progressBar = findViewById(R.id.progressBar);
+
+        clickToEnlarge();
+
+        //showPic();
+
+
+
+
+
 
         calVAndR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 calculateVolumeAndRM1();
+
+                if(checker == false){
+                    calVAndR.setVisibility(View.VISIBLE);
+                }
+                else {
+                    calVAndR.setVisibility(View.INVISIBLE);
+
+                }
             }
         });
 
@@ -60,11 +93,11 @@ public class ActivityInsideExercise extends AppCompatActivity {
         Intent intent = this.getIntent();
         //here we receive array of objects from daysAdapter
         //because daysAdapter has an object of DietDay which contains DayMeals array of objects
-        ArrayList<sets> setsList = (ArrayList<sets>) intent.getSerializableExtra("exSets");
+        setsList = (ArrayList<sets>) intent.getSerializableExtra("exSets");
         //get day number from الكلاس المعضل (daysAdapter)
         String exNumber = intent.getStringExtra("exNumber");
         String exName = intent.getStringExtra("exName");
-        String exImage = intent.getStringExtra("exImage");
+        exImage = intent.getStringExtra("exImage");
         Log.d("test", "this is image   " + exImage);
         int exNo = Integer.parseInt(exNumber) + 1;
 
@@ -80,9 +113,18 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
         Ion.with(this)
                 .load(exImage)
+                .progressBar(progressBar)
                 .withBitmap()
                 // .placeholder(R.drawable.ic_loading)
-                .intoImageView(imageViewEx);
+                .intoImageView(imageViewEx)
+        .setCallback(new FutureCallback<ImageView>() {
+            @Override
+            public void onCompleted(Exception e, ImageView result) {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
+
 
 
         adapter = new ExerciseDetailsAdapter(setsList, this);
@@ -92,25 +134,84 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
     }
 
+
+
+
     public void calculateVolumeAndRM1() {
+        max = Double.MIN_VALUE;
 
         if (adapter.getSetsArray() != null) {
             for (int i = 0; i < adapter.getSetsArray().size(); i++) {
-                if (!adapter.getSetsArray().get(i).getVolume().isEmpty() &&
-                        !adapter.getSetsArray().get(i).getRM1().isEmpty()) {
-                    //calculate total volume
-                    totalVolume = Double.valueOf(adapter.getSetsArray().get(i).getVolume());
-                    sumVolume = sumVolume + totalVolume;
+                if (!adapter.getSetsArray().get(i).getWeight().isEmpty()) {
+                    checker = true;
+                    if (!adapter.getSetsArray().get(i).getVolume().isEmpty() &&
+                            !adapter.getSetsArray().get(i).getRM1().isEmpty() && checker) {
+                        //calculate total volume
+                        totalVolume = Double.valueOf(adapter.getSetsArray().get(i).getVolume());
+                        sumVolume = sumVolume + totalVolume;
 
-                    //maximum of RM1 here
-                    max = Double.MIN_VALUE;
-                    if(Double.valueOf(adapter.getSetsArray().get(i).getRM1()) > max){
-                        max = Double.valueOf(adapter.getSetsArray().get(i).getRM1());
+                        //maximum of RM1 here
+                        if (Double.valueOf(setsList.get(i).getRM1()) > max) {
+                            max = Double.valueOf(setsList.get(i).getRM1());
+                        }
                     }
+
+                } else {
+                    checker = false;
+                    sumVolume =0;
+                    max = 0;
+                    Toast.makeText
+                            (this, "please enter all weights for all sets", Toast.LENGTH_SHORT).show();
+                    break;
+
                 }
+            }
+            if(checker) {
                 tvTotalVolume.setText(String.valueOf(sumVolume));
                 tvMaxRM1.setText(String.valueOf(max));
             }
         }
+    }
+    private void clickToEnlarge() {
+        imageViewEx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPic();
+            }
+        });
+    }
+    private void showPic() {
+        final Dialog nagDialog = new Dialog(ActivityInsideExercise.this
+                ,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        nagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+       // nagDialog.setCancelable(false);
+        nagDialog.setCanceledOnTouchOutside(true);
+        nagDialog.setContentView(R.layout.preview_image);
+        Button btnClose = nagDialog.findViewById(R.id.btnIvClose);
+        ImageView ivPreview = nagDialog.findViewById(R.id.iv_preview_image);
+        final ProgressBar progressBar = nagDialog.findViewById(R.id.progressBar2);
+
+
+        Ion.with(this)
+                .load(exImage)
+                .progressBar(progressBar)
+                .withBitmap()
+                // .placeholder(R.drawable.ic_loading)
+                .intoImageView(ivPreview)
+                .setCallback(new FutureCallback<ImageView>() {
+                    @Override
+                    public void onCompleted(Exception e, ImageView result) {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+
+                nagDialog.dismiss();
+            }
+        });
+        nagDialog.show();
     }
 }

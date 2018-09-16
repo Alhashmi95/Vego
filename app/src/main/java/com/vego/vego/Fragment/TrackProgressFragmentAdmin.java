@@ -20,6 +20,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -144,9 +146,15 @@ public class TrackProgressFragmentAdmin extends Fragment {
 
                     databasaeReference.child("users").child(choosenUser).child("Profile")
                             .child("adminBrief")
-                            .setValue(perfectWeight.getText().toString());
+                            .setValue(perfectWeight.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(TrackProgressFragmentAdmin.this.getContext(), "Brief has been successfully added",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
                 } else {
-                        Toast.makeText(TrackProgressFragmentAdmin.this.getContext(), "Please Rnter A Long brief ,,",
+                        Toast.makeText(TrackProgressFragmentAdmin.this.getContext(), "Please Enter A Long brief ,,",
                                 Toast.LENGTH_LONG).show();
                     }
 
@@ -189,7 +197,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser.setAdapter(spinnerArrayAdapter);
         spinnerArrayAdapter.notifyDataSetChanged();
 
