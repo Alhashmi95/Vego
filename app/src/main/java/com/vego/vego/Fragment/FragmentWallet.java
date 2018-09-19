@@ -1,5 +1,6 @@
 package com.vego.vego.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -35,6 +36,9 @@ public class FragmentWallet extends Fragment {
     ArrayList<Mucsle> MuList = new ArrayList<>();
     String mucsleName;
 
+    ProgressDialog p;
+
+
     static int sizeMuList = 0;
 
 
@@ -52,6 +56,11 @@ public class FragmentWallet extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        p = new ProgressDialog(getContext());
+        p.setTitle("Loading");
+        p.setMessage("Fetching data...");
+        p.show();
 
 
             myrv = view.findViewById(R.id.recyclerview_id);
@@ -93,17 +102,37 @@ public class FragmentWallet extends Fragment {
                 Log.d("test", "this is ex2Meals   : "+ex2List.size());
 
 
+//                                "اكتاف",
+//                                 "باي",
+//                                "بطن",
+//                               "ترابيس",
+//                                "تراي",
+//                                "ذراع",
+//                              "صدر",
+//                                "ظهر",
+//                                "قدم",
+//                               "عضلة السمانة",
 
-                MuList.add(new Mucsle("بطن",R.drawable.age,ex2List));
-                MuList.add(new Mucsle("تراي",R.drawable.age,ex2List));
-                MuList.add(new Mucsle("صدر",R.mipmap.ic_muchest,ex2List));
-                MuList.add(new Mucsle("ترابيس",R.drawable.age,ex2List));
-                MuList.add(new Mucsle("قدم",R.drawable.age,ex2List));
-                MuList.add(new Mucsle("ذراع",R.drawable.age,ex2List));
-                MuList.add(new Mucsle("راس",R.drawable.age,ex2List));
-                MuList.add(new Mucsle("زعبولة",R.drawable.age,ex2List));
 
-               // sizeMuList = MuList.size();
+
+
+
+
+
+                MuList.add(new Mucsle("اكتاف",R.drawable.mu_shoulders,ex2List));
+                MuList.add(new Mucsle("باي",R.drawable.mu_biceps,ex2List));
+                MuList.add(new Mucsle("بطن",R.drawable.mu_abs,ex2List));
+                MuList.add(new Mucsle("ترابيس",R.drawable.mu_trapeze,ex2List));
+                MuList.add(new Mucsle("تراي",R.drawable.mu_triceps,ex2List));
+                MuList.add(new Mucsle("صدر",R.drawable.mu_chest,ex2List));
+                MuList.add(new Mucsle("ظهر",R.drawable.mu_bavk,ex2List));
+                MuList.add(new Mucsle("قدم",R.drawable.mu_quadriceps,ex2List));
+                MuList.add(new Mucsle("ذراع",R.drawable.mu_quadriceps,ex2List));
+                MuList.add(new Mucsle("عضلة السمانة",R.drawable.mu_gastrocnemius,ex2List));
+
+
+
+                // sizeMuList = MuList.size();
 
 
 
@@ -118,6 +147,8 @@ public class FragmentWallet extends Fragment {
                 myAdapter = new RecyclerViewAdapter(FragmentWallet.this.getContext(),MuList);
                 myrv.setAdapter(myAdapter);
                 myAdapter.notifyDataSetChanged();
+
+                p.dismiss();
 
 
             }

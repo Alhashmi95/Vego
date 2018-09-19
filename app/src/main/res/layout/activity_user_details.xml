@@ -149,6 +149,7 @@
             android:id="@+id/heightTxt"
             android:layout_width="108dp"
             android:layout_height="45dp"
+            android:maxLength="3"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="18dp"
@@ -172,6 +173,7 @@
         <EditText
             android:id="@+id/userNameTxt"
             android:layout_width="match_parent"
+            android:maxLength="20"
             android:layout_height="45dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -195,6 +197,7 @@
         <EditText
             android:id="@+id/weightTxt"
             android:layout_width="108dp"
+            android:maxLength="3"
             android:layout_height="45dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="30dp"
@@ -218,6 +221,7 @@
         <EditText
             android:id="@+id/ageTxt"
             android:layout_width="108dp"
+            android:maxLength="2"
             android:layout_height="45dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="18dp"

@@ -25,6 +25,7 @@
             <EditText
                 android:id="@+id/etReps"
                 android:layout_width="51dp"
+                android:maxLength="2"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:layout_marginLeft="12dp"
@@ -107,6 +108,7 @@
             <EditText
                 android:id="@+id/txtWeight"
                 android:layout_width="51dp"
+                android:maxLength="3"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:layout_marginLeft="12dp"

@@ -117,6 +117,8 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         etTotalCal = findViewById(R.id.etTotalCal);
         progressBar = new ProgressBar(this);
 
+        imageMeal.setImageResource(R.drawable.addpic2);
+
         imageMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

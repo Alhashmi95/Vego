@@ -335,13 +335,16 @@ public class AddNewExerciseActivity extends AppCompatActivity {
     public void selectMu() {
         String[] day = new String[]{
                 "اختر عضلة",
-                "صدر",
+                "اكتاف",
+                "باي",
                 "بطن",
-                "ذراع",
-                "ظهر",
-                "قدم",
                 "ترابيس",
                 "تراي",
+                "ذراع",
+                "صدر",
+                "ظهر",
+                "قدم",
+                "عضلة السمانة",
         };
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(

@@ -105,6 +105,8 @@ public class Add_workout2user extends Fragment {
 
     boolean checker;
 
+    ProgressBar progressBar;
+
     ArrayList<Exercises> bigExList = new ArrayList<>();
 
 
@@ -194,6 +196,10 @@ public class Add_workout2user extends Fragment {
         textViewExName = view.findViewById(R.id.textViewExName);
 
         recyclerView = view.findViewById(R.id.recyclerSetsAdmin);
+
+        progressBar = view.findViewById(R.id.progressBar);
+
+        progressBar.setVisibility(View.GONE);
 
 
 
@@ -610,13 +616,16 @@ public class Add_workout2user extends Fragment {
     public void selectMu() {
         String[] day = new String[]{
                 "اختر عضلة",
-                "صدر",
+                "اكتاف",
+                "باي",
                 "بطن",
-                "ذراع",
-                "ظهر",
-                "قدم",
                 "ترابيس",
                 "تراي",
+                "ذراع",
+                "صدر",
+                "ظهر",
+                "قدم",
+                "عضلة السمانة",
         };
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
@@ -936,6 +945,7 @@ public class Add_workout2user extends Fragment {
 
 
                         if (choosenEx.equals(arrayListObjectEx.get(i).getExername())) {
+                            progressBar.setVisibility(View.VISIBLE);
                             eTest = (arrayListObjectEx.get(i));
 
 
@@ -958,8 +968,13 @@ public class Add_workout2user extends Fragment {
                             Ion.with(getContext())
                                     .load(imgUrl)
                                     .withBitmap()
-                                    .placeholder(R.drawable.ic_loading)
-                                    .intoImageView(imageViewEx);
+                                    .intoImageView(imageViewEx).setCallback(new FutureCallback<ImageView>() {
+                                @Override
+                                public void onCompleted(Exception e, ImageView result) {
+                                    progressBar.setVisibility(View.GONE);
+
+                                }
+                            });
 
 
                         }

@@ -128,6 +128,7 @@ public class ExerciseDetailsAdapterFree extends RecyclerView.Adapter<ExerciseDet
         EditText etWeight;
 
 
+
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -137,6 +138,9 @@ public class ExerciseDetailsAdapterFree extends RecyclerView.Adapter<ExerciseDet
             exImage = itemView.findViewById(R.id.imageViewMu);
             etWeight = itemView.findViewById(R.id.txtWeight);
             textViewRM1 = itemView.findViewById(R.id.txtRM1);
+
+            etWeight.setEnabled(false);
+            etWeight.setFocusable(false);
 
 
 
@@ -149,8 +153,8 @@ public class ExerciseDetailsAdapterFree extends RecyclerView.Adapter<ExerciseDet
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     double Volume = 0;
-                    if(etWeight.getText().toString() != null && etWeight.getText().length() > 0
-                            && txtReps.getText().toString() != null && txtReps.getText().length() > 0) {
+                    if(etWeight.getText().toString() != null && !etWeight.getText().toString().isEmpty()
+                            && txtReps.getText().toString() != null && !txtReps.getText().toString().isEmpty()) {
 //                    exList.get(position).setWeight(holder.etWeight.getText().toString());
 //                    exList.get(position).setReps(holder.txtReps.getText().toString());
 
@@ -180,6 +184,29 @@ public class ExerciseDetailsAdapterFree extends RecyclerView.Adapter<ExerciseDet
                         textViewVolume.setText("");
                     }
 
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+            txtReps.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!txtReps.getText().toString().isEmpty() && !txtReps.getText().equals("")){
+                    etWeight.setEnabled(true);
+                    etWeight.setFocusableInTouchMode(true);
+                }else {
+                    etWeight.setEnabled(false);
+                    etWeight.setFocusable(false);
+                }
                 }
 
                 @Override
