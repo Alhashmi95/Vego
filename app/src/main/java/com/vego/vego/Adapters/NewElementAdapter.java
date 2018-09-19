@@ -61,7 +61,7 @@ public class NewElementAdapter extends RecyclerView.Adapter<NewElementAdapter.El
             @Override
             public void onClick(View v) {
                 if(eleList.size()==1){
-                    Toast.makeText(mContext,"يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(inflater.getContext(),"يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
                 }else {
                 eleList.remove(position);
                 notifyDataSetChanged();}

@@ -542,8 +542,8 @@ public class Add_workout2user extends Fragment {
                                 Toast.makeText(getContext(),"تم اضافة التمرين",Toast.LENGTH_SHORT).show();
 
                                 spSelectDay.setSelection(0);
-                                spSelectEx.setSelection(0);
-                                spSelectMu.setSelection(0);
+//                                spSelectEx.setSelection(0);
+//                                spSelectMu.setSelection(0);
 
 
                                 if(choosenDay.equals("0")) {

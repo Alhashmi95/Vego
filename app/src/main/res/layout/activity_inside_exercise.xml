@@ -217,9 +217,10 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerInsideWorkout"
         android:layout_width="match_parent"
-        android:layout_height="193dp"
+        android:layout_height="190dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCalVolumeAndRM1"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginStart="25dp"
@@ -230,6 +231,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnAddnewSet"
+        android:layout_width="35dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="+"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.793" />
 
 
     <Button

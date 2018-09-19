@@ -21,7 +21,10 @@ import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 import com.vego.vego.Adapters.ExerciseAdapter;
 import com.vego.vego.Adapters.ExerciseDetailsAdapter;
+import com.vego.vego.Adapters.ExerciseDetailsAdapterFree;
+import com.vego.vego.Adapters.NewSetAdapter;
 import com.vego.vego.R;
+import com.vego.vego.model.elements;
 import com.vego.vego.model.exercise;
 import com.vego.vego.model.sets;
 
@@ -32,15 +35,21 @@ import java.util.List;
 
 public class ActivityInsideExercise extends AppCompatActivity {
     private ExerciseDetailsAdapter adapter;
+    private ExerciseDetailsAdapterFree adapterFree;
     RecyclerView recyclerView;
     TextView exNumberTextView, exNameTextView, tvTotalVolume,tvMaxRM1;
     ImageView imageViewEx;
     ProgressBar progressBar;
     double totalVolume, sumVolume = 0;
-    Button calVAndR;
+    Button calVAndR, addNewSetBtn;
     double max =0;
 
     ArrayList<sets> setsList = new ArrayList<>();
+
+    ArrayList<sets> list = new ArrayList<>();
+
+    private ArrayList<sets> setsArrayList;
+
 
     String exImage;
 
@@ -59,8 +68,24 @@ public class ActivityInsideExercise extends AppCompatActivity {
         calVAndR = findViewById(R.id.btnCalVolumeAndRM1);
         tvMaxRM1 = findViewById(R.id.txtMaxRm1);
         progressBar = findViewById(R.id.progressBar);
+        addNewSetBtn = findViewById(R.id.btnAddnewSet);
+
+
+        calVAndR.setVisibility(View.INVISIBLE);
+
+
+
+
+        setsArrayList = populateList();
+
+
 
         clickToEnlarge();
+
+
+
+
+
 
         //showPic();
 
@@ -82,12 +107,10 @@ public class ActivityInsideExercise extends AppCompatActivity {
                     calVAndR.setVisibility(View.INVISIBLE);
 
                 }
-            }
+           }
         });
 
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
         Intent intent = this.getIntent();
@@ -125,13 +148,43 @@ public class ActivityInsideExercise extends AppCompatActivity {
         });
 
 
+        for(int i =0; i < setsList.size(); i++){
+            addNewSetBtn.setVisibility(View.VISIBLE);
+            if(setsList.get(i).getReps().equals("1234")){
+                adapterFree = new ExerciseDetailsAdapterFree(setsArrayList, this);
+                recyclerView.setAdapter(adapterFree);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this,
+                        LinearLayoutManager.VERTICAL, false));
+                adapterFree.notifyDataSetChanged();
+            }else {
+                addNewSetBtn.setVisibility(View.INVISIBLE);
+                calVAndR.setVisibility(View.VISIBLE);
+                adapter = new ExerciseDetailsAdapter(setsList, this);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+        }
 
 
-        adapter = new ExerciseDetailsAdapter(setsList, this);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
+    }
+    private ArrayList<sets> populateList() {
 
 
+        addNewSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sets s2 = new sets();
+                list.add(s2);
+                adapterFree.notifyDataSetChanged();
+                calVAndR.setVisibility(View.VISIBLE);
+                sumVolume = 0;
+            }
+        });
+        return list;
     }
 
 
@@ -139,8 +192,47 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
     public void calculateVolumeAndRM1() {
         max = Double.MIN_VALUE;
+        sumVolume = 0;
 
-        if (adapter.getSetsArray() != null) {
+        if(adapterFree != null){
+            for (int i = 0; i < adapterFree.getSetsArrayFree().size(); i++) {
+                if(adapterFree.getSetsArrayFree().get(i).getWeight() == null){
+                    checker = false;
+                    Toast.makeText
+                            (this, "الرجاء ادخال الوزن و عدد مرات التكرار لكل الجلسات", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else if (!adapterFree.getSetsArrayFree().get(i).getWeight().isEmpty()) {
+                    if(!adapterFree.getSetsArrayFree().get(i).getReps().isEmpty())
+                    checker = true;
+                    if (!adapterFree.getSetsArrayFree().get(i).getVolume().isEmpty() &&
+                            !adapterFree.getSetsArrayFree().get(i).getRM1().isEmpty() && checker) {
+                        //calculate total volume
+                        totalVolume = Double.valueOf(adapterFree.getSetsArrayFree().get(i).getVolume());
+                        sumVolume = sumVolume + totalVolume;
+
+                        //maximum of RM1 here
+                        if (Double.valueOf(setsArrayList.get(i).getRM1()) > max) {
+                            max = Double.valueOf(setsArrayList.get(i).getRM1());
+                        }
+                    }
+
+                } else {
+                    checker = false;
+                    sumVolume =0;
+                    max = 0;
+                    Toast.makeText
+                            (this, "الرجاء ادخال الوزن وعدد مرات التكرار", Toast.LENGTH_SHORT).show();
+                    break;
+
+                }
+            }
+        }
+        if(checker) {
+            tvTotalVolume.setText(String.valueOf(sumVolume));
+            tvMaxRM1.setText(String.valueOf(max));
+        }
+        if (adapterFree == null) {
             for (int i = 0; i < adapter.getSetsArray().size(); i++) {
                 if (!adapter.getSetsArray().get(i).getWeight().isEmpty()) {
                     checker = true;
@@ -166,6 +258,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
                 }
             }
+
             if(checker) {
                 tvTotalVolume.setText(String.valueOf(sumVolume));
                 tvMaxRM1.setText(String.valueOf(max));

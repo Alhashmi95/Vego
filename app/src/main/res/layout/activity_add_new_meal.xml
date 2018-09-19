@@ -86,7 +86,8 @@
         android:layout_height="406dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tablayout_id"
-        android:background="@color/grey"></android.support.v4.view.ViewPager>
+        android:background="@color/grey"
+        android:layout_alignParentLeft="true"></android.support.v4.view.ViewPager>
 
     <Button
         android:id="@+id/saveMealBtn"
@@ -100,5 +101,19 @@
         android:backgroundTint="@color/blackGrey"
         android:textColor="@color/md_white_1000"
         android:text="احفظ الوجبة" />
+
+    <EditText
+        android:id="@+id/etTotalCal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="52dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="ادخل مجموع السعرات هنا"
+        android:inputType="number" />
 
 </RelativeLayout>

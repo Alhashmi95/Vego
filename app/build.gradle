@@ -42,6 +42,10 @@ dependencies {
     //for email and password authintication
     implementation 'com.google.firebase:firebase-auth:16.0.2'
 
+    //sign in with google
+    implementation 'com.google.android.gms:play-services-auth:16.0.0'
+
+
     //add spinner lib
     implementation 'com.jaredrummler:material-spinner:1.2.5'
 

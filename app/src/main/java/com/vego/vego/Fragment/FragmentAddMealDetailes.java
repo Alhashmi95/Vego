@@ -2,33 +2,23 @@ package com.vego.vego.Fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vego.vego.Activity.AddNewMealActivity;
-import com.vego.vego.Activity.LoginActivity;
-import com.vego.vego.Activity.MainActivity;
-import com.vego.vego.Adapters.DaysAdapter;
 import com.vego.vego.Adapters.NewElementAdapter;
-import com.vego.vego.Adapters.NewMealAdapter;
+import com.vego.vego.Adapters.NewIngredientAdapter;
 import com.vego.vego.R;
-import com.vego.vego.model.elements;
 import com.vego.vego.model.ingredients;
-import com.vego.vego.model.meal;
 
 import java.util.ArrayList;
 
@@ -37,7 +27,7 @@ public class FragmentAddMealDetailes extends Fragment {
 
 
     private RecyclerView recyclerview;
-    NewMealAdapter newMealAdapter;
+    NewIngredientAdapter newIngredientAdapter;
     NewElementAdapter newElementAdapter;
     private ArrayList<ingredients> ingrList;
     ArrayList<ingredients> list = new ArrayList<>();
@@ -120,12 +110,12 @@ public class FragmentAddMealDetailes extends Fragment {
 
 
         ingrList = populateList();
-        newMealAdapter = new NewMealAdapter(ingrList, getContext());
-        recyclerview.setAdapter(newMealAdapter);
+        newIngredientAdapter = new NewIngredientAdapter(ingrList, getContext());
+        recyclerview.setAdapter(newIngredientAdapter);
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false));
 
-//        newMealAdapter.getIngredientsArray().get(0).getQuantity();
+//        newIngredientAdapter.getIngredientsArray().get(0).getQuantity();
 //        newElementAdapter.getElementssArray().get(0).getName();
 
         saveMeal();
@@ -142,7 +132,7 @@ public class FragmentAddMealDetailes extends Fragment {
             public void onClick(View v) {
                 ingredients ing = new ingredients();
                 list.add(ing);
-                newMealAdapter.notifyDataSetChanged();
+                newIngredientAdapter.notifyDataSetChanged();
             }
         });
         return list;
@@ -162,10 +152,10 @@ public class FragmentAddMealDetailes extends Fragment {
                 //first we check if arraylist of elements is not null
                 //check if there's any null edit text in all cardviews of meal elements3
                 checker = true;
-                for (int i = 0; i < newMealAdapter.getIngredientsArray().size(); i++) {
+                for (int i = 0; i < newIngredientAdapter.getIngredientsArray().size(); i++) {
                     //check if there's any null edit text in all cardviews of meal elements
-                    if (newMealAdapter.getIngredientsArray().get(i).getType().isEmpty() ||
-                            newMealAdapter.getIngredientsArray().get(i).getQuantity().isEmpty()) {
+                    if (newIngredientAdapter.getIngredientsArray().get(i).getType().isEmpty() ||
+                            newIngredientAdapter.getIngredientsArray().get(i).getQuantity().isEmpty()) {
                         Toast.makeText(getContext(), "please enter all ingr details",
                                 Toast.LENGTH_SHORT).show();
                         checker = false;
@@ -175,8 +165,10 @@ public class FragmentAddMealDetailes extends Fragment {
 
                 }
 
-                if (newMealAdapter.getIngredientsArray() != null && checker) {
-                    listner.passArrayListIng(newMealAdapter.getIngredientsArray(), mealName);
+                if (newIngredientAdapter.getIngredientsArray() != null && checker) {
+                    Toast.makeText(getContext(), "تم الحفظ",
+                            Toast.LENGTH_SHORT).show();
+                    listner.passArrayListIng(newIngredientAdapter.getIngredientsArray(), mealName);
 
                 }
             }

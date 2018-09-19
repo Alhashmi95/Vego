@@ -166,6 +166,10 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                     p.setTitle("Uploading");
                     p.setMessage("Uploading data...");
                     p.show();
+                    p.setCanceledOnTouchOutside(false);
+                    saveNewEx.setVisibility(View.INVISIBLE);
+                    saveNewExForAll.setVisibility(View.INVISIBLE);
+
 
                     // here we upload meal pics
                     exRef = storageReference.child("exercises/").child(String.valueOf(indexofImages));
@@ -194,8 +198,10 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                                 exUrl = downloadUri.toString();
                                 Toast.makeText(AddNewExerciseActivity.this, "upload successeded", Toast.LENGTH_SHORT).show();
                                 exercise e = new exercise();
+                                saveNewEx.setVisibility(View.VISIBLE);
+                                saveNewExForAll.setVisibility(View.VISIBLE);
 
-                                sets[] setsArray = new sets[] {new sets("1","", "","") };
+                                sets[] setsArray = new sets[] {new sets("1234","", "","") };
 
                                   List setsList = new ArrayList<sets>(Arrays.asList(setsArray));
 
@@ -219,7 +225,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
 //                                intent.putExtra("name",exerciseName);
 //                                intent.putExtra("choosenMu",choosenMu);
 //                                intent.putExtra("index",String.valueOf(indexofImages));
-                                v.getContext().startActivity(intent);
+                               // v.getContext().startActivity(intent);
                             } else {
                                 // Handle failures
                                 Toast.makeText(AddNewExerciseActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
@@ -248,6 +254,9 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                     p.setTitle("Uploading");
                     p.setMessage("Uploading data...");
                     p.show();
+                    p.setCanceledOnTouchOutside(false);
+                    saveNewEx.setVisibility(View.INVISIBLE);
+                    saveNewExForAll.setVisibility(View.INVISIBLE);
 
                     // here we upload meal pics
                     exRef = storageReference.child("exercises/").child(String.valueOf(indexofImages));
@@ -276,6 +285,9 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                                 exUrl = downloadUri.toString();
                                 Toast.makeText(AddNewExerciseActivity.this, "upload successeded", Toast.LENGTH_SHORT).show();
                                 exercise e = new exercise();
+
+                                saveNewEx.setVisibility(View.VISIBLE);
+                                saveNewExForAll.setVisibility(View.VISIBLE);
 
                                 p.dismiss();
 

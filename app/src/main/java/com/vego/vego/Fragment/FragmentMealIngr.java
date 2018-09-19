@@ -13,40 +13,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 
-import com.squareup.picasso.Picasso;
-import com.vego.vego.Activity.MealIngrActivity;
-import com.vego.vego.Adapters.DaysAdapter;
-import com.vego.vego.Adapters.MealIngAdapter;
-import com.vego.vego.Adapters.MealsAdapter;
-import com.vego.vego.Adapters.NewElementAdapter;
-import com.vego.vego.Adapters.NewMealAdapter;
 import com.vego.vego.R;
-import com.vego.vego.model.DayMeals;
-import com.vego.vego.model.DietDay;
 import com.vego.vego.model.ingredients;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
+
 import android.widget.TextView;
 
-import com.vego.vego.Adapters.DaysAdapter;
 import com.vego.vego.Adapters.IngredientsAdapter;
-import com.vego.vego.Adapters.MealsAdapter;
-import com.vego.vego.Adapters.NewElementAdapter;
-import com.vego.vego.R;
-import com.vego.vego.model.ingredients;
-import com.vego.vego.model.meal;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FragmentMealIngr extends Fragment{
     View view;
@@ -60,7 +36,7 @@ public class FragmentMealIngr extends Fragment{
 
 
     private RecyclerView recyclerView_mealIng;
-    //private MealIngAdapter adapter;
+    //private MealIngAdapterUser adapter;
 
     private FragmentManager fragmentManager;
     private List<ingredients> mealsIngrList;

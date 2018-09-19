@@ -1,7 +1,6 @@
 package com.vego.vego.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -10,20 +9,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.vego.vego.Activity.MealIngrActivity;
 import com.vego.vego.R;
-import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.ingredients;
-import com.vego.vego.model.meal;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsViewHolder> {
+public class NewIngredientAdapter extends RecyclerView.Adapter<NewIngredientAdapter.MealsViewHolder> {
 
     private ArrayList<ingredients> ingrList;
     private Context mContext;
@@ -33,14 +29,14 @@ public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsVie
     ArrayList qtyArray,nameArray;
 
 
-    public NewMealAdapter(ArrayList<ingredients> ingrList, Context mContext) {
+    public NewIngredientAdapter(ArrayList<ingredients> ingrList, Context mContext) {
         this.ingrList = ingrList;
         inflater = LayoutInflater.from(mContext);
     }
 
 
     @Override
-    public NewMealAdapter.MealsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NewIngredientAdapter.MealsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.meal_card_view, parent, false);
         MealsViewHolder holder = new MealsViewHolder(view);
 
@@ -52,7 +48,7 @@ public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsVie
     }
 
     @Override
-    public void onBindViewHolder(NewMealAdapter.MealsViewHolder holder, final int position) {
+    public void onBindViewHolder(NewIngredientAdapter.MealsViewHolder holder, final int position) {
 
         holder.txtQuan.setText(ingrList.get(position).getQuantity());
         holder.txtIngr.setText(ingrList.get(position).getType());
@@ -60,6 +56,18 @@ public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsVie
 
 
 //            holder.mealCount.setText("."+String.valueOf(position+1));
+
+        holder.btn_delet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(ingrList.size()==1){
+                    Toast.makeText(inflater.getContext(),"يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
+                }else {
+                    ingrList.remove(position);
+                    notifyDataSetChanged();
+                }
+            }
+        });
 
 
 
@@ -75,6 +83,8 @@ public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsVie
 
         EditText txtIngr, txtQuan;
         TextView mealCount;
+        Button btn_delet ;
+
 
 
 
@@ -83,6 +93,7 @@ public class NewMealAdapter extends RecyclerView.Adapter<NewMealAdapter.MealsVie
 
             txtIngr = itemView.findViewById(R.id.txtIngr);
             txtQuan = itemView.findViewById(R.id.txtQuantity);
+            btn_delet = itemView.findViewById(R.id.btn_delet);
 //            mealCount = itemView.findViewById(R.id.mealCount);
 
             txtIngr.addTextChangedListener(new TextWatcher() {

@@ -13,14 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
-import com.vego.vego.Adapters.MealDetailesAdapter;
-import com.vego.vego.Adapters.MealIngAdapter;
 import com.vego.vego.Adapters.ElementsAdapter;
-import com.vego.vego.Adapters.IngredientsAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.elements;
-import com.vego.vego.model.ingredients;
 
 import java.util.ArrayList;
 import java.util.List;

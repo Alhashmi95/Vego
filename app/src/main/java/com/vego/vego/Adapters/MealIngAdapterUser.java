@@ -15,7 +15,7 @@ import com.vego.vego.model.ingredients;
 
 import java.util.List;
 
-public class MealIngAdapter extends  RecyclerView.Adapter<MealIngAdapter.ViewHolder> {
+public class MealIngAdapterUser extends  RecyclerView.Adapter<MealIngAdapterUser.ViewHolder> {
 
 
     private List<ingredients> ingsList;
@@ -23,7 +23,7 @@ public class MealIngAdapter extends  RecyclerView.Adapter<MealIngAdapter.ViewHol
     public FragmentManager f_manager;
 
 
-    public MealIngAdapter(List<ingredients> ingsList, Context mContext) {
+    public MealIngAdapterUser(List<ingredients> ingsList, Context mContext) {
         this.ingsList = ingsList;
         this.mContext = mContext;
 
@@ -43,6 +43,8 @@ public class MealIngAdapter extends  RecyclerView.Adapter<MealIngAdapter.ViewHol
         final ingredients ingList = ingsList.get(position);
         holder.txtType.setText(ingList.getType());
         holder.txtQuantity.setText(ingList.getQuantity());
+
+
 
 
 

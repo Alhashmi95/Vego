@@ -54,7 +54,7 @@ public class NewSetAdapter extends RecyclerView.Adapter<NewSetAdapter.SetViewHol
             @Override
             public void onClick(View v) {
                 if(setList.size()==1){
-                    Toast.makeText(mContext,"يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(inflater.getContext(),"يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
                 }else {
                     setList.remove(position);
                     notifyDataSetChanged();

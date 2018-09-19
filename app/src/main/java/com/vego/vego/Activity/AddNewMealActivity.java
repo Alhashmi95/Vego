@@ -18,7 +18,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -39,6 +41,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.vego.vego.Adapters.MealsAdapter;
 import com.vego.vego.Adapters.ViewPagerAdapter;
+import com.vego.vego.Fragment.AddMealsFragment;
 import com.vego.vego.Fragment.FragmentAddMealDetailes;
 import com.vego.vego.Fragment.FragmentAddMealIng;
 import com.vego.vego.Fragment.FragmentMealIngr;
@@ -77,6 +80,9 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
     ProgressBar progressBar;
     ProgressDialog p;
 
+    EditText etTotalCal;
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getData() != null){
@@ -97,12 +103,18 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         setContentView(R.layout.activity_add_new_meal);
 
 
+        //to prevent open keyboard auto
+//        getWindow().setSoftInputMode(
+//                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+
         //connect views to layout
         appBarLayout = findViewById(R.id.appbarid);
         tableLayout = findViewById(R.id.tablayout_id);
         viewPager = findViewById(R.id.viewpager_id);
         saveMeal = findViewById(R.id.saveMealBtn);
         imageMeal = findViewById(R.id.mealImg);
+        etTotalCal = findViewById(R.id.etTotalCal);
         progressBar = new ProgressBar(this);
 
         imageMeal.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +126,8 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
                 startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE);
             }
         });
+
+
 
 
         //add Fragments
@@ -157,67 +171,83 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         saveMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!importedIngredientsArrayList.isEmpty() && !importedElementsArrayList.isEmpty() && imagePath != null) {
+                if (!importedIngredientsArrayList.isEmpty() && !importedElementsArrayList.isEmpty()
+                        && imagePath != null) {
+
+                    if(etTotalCal.getText().toString().isEmpty()){
+                        etTotalCal.setError("ارجاء ادخال مجموع السعرات");
+                    }
+                    else {
+                        c = etTotalCal.getText().toString();
+
+                        // here we upload meal pics
+                        mealRef = storageReference.child("meals/").child(String.valueOf(test));
+                        UploadTask uploadTask = (UploadTask) mealRef.putFile(imagePath);
+
+                        if(uploadTask != null && uploadTask.isInProgress()){
+
+                            p = new ProgressDialog(v.getContext());
+                            p.setTitle("Uploading");
+                            p.setMessage("Uploading data...");
+                            p.show();
+                            p.setCanceledOnTouchOutside(false);
+                            Toast.makeText(AddNewMealActivity.this, "upload is in progress .. please wait",
+                                    Toast.LENGTH_LONG).show();
+                            saveMeal.setVisibility(View.INVISIBLE);
+                        }
+
+                        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                            @Override
+                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                if (!task.isSuccessful()) {
+                                    throw task.getException();
+                                }
+
+                                // Continue with the task to get the download URL
+                                return mealRef.getDownloadUrl();
+                            }
+                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                if (task.isSuccessful()) {
+                                    Uri downloadUri = task.getResult();
+                                    mealUrl = downloadUri.toString();
+                                    Toast.makeText(AddNewMealActivity.this, "upload successeded",
+                                            Toast.LENGTH_SHORT).show();
+                                    saveMeal.setVisibility(View.VISIBLE);
+                                    p.dismiss();
+                                    meal m = new meal();
+
+                                    ArrayList test1 = importedIngredientsArrayList;
+                                    ArrayList test2 = importedElementsArrayList;
+                                    m.setCal(c);
+                                    m.setName(n);
+                                    m.setingredients(test1);
+                                    m.setElements(test2);
+                                    m.setImage(mealUrl);
+
+                                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                                    DatabaseReference d = firebaseDatabase.getReference();
 
 
 
-                    // here we upload meal pics
-                      mealRef = storageReference.child("meals/").child(String.valueOf(test));
-                    UploadTask uploadTask = (UploadTask) mealRef.putFile(imagePath);
+                                    //upload meal to firebase
+                                    d.child("meals").child(String.valueOf(test)).setValue(m);
 
-                    if(uploadTask != null && uploadTask.isInProgress()){
-
-                        p = new ProgressDialog(v.getContext());
-                        p.setTitle("Uploading");
-                        p.setMessage("Uploading data...");
-                        p.show();
-                        Toast.makeText(AddNewMealActivity.this, "upload is in progress .. please wait", Toast.LENGTH_LONG).show();
-
+                                 //   startActivity(new Intent(AddNewMealActivity.this, AdminActivity.class));
+                                } else {
+                                    // Handle failures
+                                    Toast.makeText(AddNewMealActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                                    saveMeal.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        });
                     }
 
-                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                        @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                            if (!task.isSuccessful()) {
-                                throw task.getException();
-                            }
-
-                            // Continue with the task to get the download URL
-                            return mealRef.getDownloadUrl();
-                        }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                Uri downloadUri = task.getResult();
-                                mealUrl = downloadUri.toString();
-                                Toast.makeText(AddNewMealActivity.this, "upload successeded", Toast.LENGTH_SHORT).show();
-                                p.dismiss();
-                            meal m = new meal();
-
-                            ArrayList test1 = importedIngredientsArrayList;
-                            ArrayList test2 = importedElementsArrayList;
-                            m.setCal(c);
-                            m.setName(n);
-                            m.setingredients(test1);
-                            m.setElements(test2);
-                            m.setImage(mealUrl);
-
-                            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                            DatabaseReference d = firebaseDatabase.getReference();
 
 
 
-                            //upload meal to firebase
-                            d.child("meals").child(String.valueOf(test)).setValue(m);
-                                startActivity(new Intent(AddNewMealActivity.this, AdminActivity.class));
-                            } else {
-                                // Handle failures
-                                Toast.makeText(AddNewMealActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
 
-                            }
-                        }
-                    });
 //
 // .addOnSuccessListener(
 //                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -421,7 +451,7 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         importedElementsArrayList.clear();
         importedElementsArrayList.addAll(ele);
 
-        c = totalCal;
+       // c = totalCal;
 
 
         saveMeal.setEnabled(true);

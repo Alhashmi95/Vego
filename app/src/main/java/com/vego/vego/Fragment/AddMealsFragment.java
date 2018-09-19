@@ -264,7 +264,6 @@ public class AddMealsFragment extends Fragment {
 
 
                 }
-              selectedMeal();
 
 
 
@@ -1080,11 +1079,13 @@ public class AddMealsFragment extends Fragment {
 
                 // First item is disable and it is used for hint
                 if(position > 0){
+                    selectedMeal();
                     // Notify the selected item text
                     Toast.makeText
                             (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
                             .show();
                 }
+
             }
 
             @Override
@@ -1129,7 +1130,7 @@ public class AddMealsFragment extends Fragment {
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser.setAdapter(spinnerArrayAdapter);
         spinnerArrayAdapter.notifyDataSetChanged();
 
