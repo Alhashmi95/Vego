@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.vego.vego.Activity.ActivityInsideExercise;
 import com.vego.vego.Activity.ActivityWorkoutUser;
@@ -26,6 +28,10 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     private Context mContext;
     public FragmentManager f_manager;
 
+    ProgressBar progressBar;
+
+
+
 
     public ExerciseAdapter(List<exercise> exList, Context mContext) {
         this.exList = exList;
@@ -34,6 +40,9 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        progressBar = parent.findViewById(R.id.progressBar);
+
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.cardview_addworkout, null);
         ExerciseAdapter.ViewHolder exerciseViewHolder = new ExerciseAdapter.ViewHolder(view);
@@ -45,6 +54,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
 
+
+
         final exercise exListTest = exList.get(position);
         holder.txtName.setText(exListTest.getExername());
         holder.txtMu.setText(exListTest.getTargetedmuscle());
@@ -53,12 +64,78 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                 //.placeholder(R.drawable.ic_loading)
                 .fit()
                 .centerCrop()
-                .into(holder.exImage);
+                .into(holder.exImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        progressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
         String mu = exListTest.getTargetedmuscle();
 
         if(mu.equals("صدر")){
             Picasso.get()
-                    .load(R.drawable.balance)
+                    .load(R.drawable.mu_chest)
+                    //.placeholder(R.drawable.ic_loading)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.muImage);
+        }
+        if(mu.equals("بطن")){
+            Picasso.get()
+                    .load(R.drawable.mu_abs)
+                    //.placeholder(R.drawable.ic_loading)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.muImage);
+        }
+        if(mu.equals("قدم")){
+            Picasso.get()
+                    .load(R.drawable.mu_quadriceps)
+                    //.placeholder(R.drawable.ic_loading)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.muImage);
+        }
+        if(mu.equals("تراي")){
+            Picasso.get()
+                    .load(R.drawable.mu_triceps)
+                    //.placeholder(R.drawable.ic_loading)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.muImage);
+        }
+        if(mu.equals("ترابيس")){
+            Picasso.get()
+                    .load(R.drawable.mu_trapeze)
+                    //.placeholder(R.drawable.ic_loading)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.muImage);
+        }
+        if(mu.equals("اكتاف")){
+            Picasso.get()
+                    .load(R.drawable.mu_shoulders)
+                    //.placeholder(R.drawable.ic_loading)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.muImage);
+        }
+        if(mu.equals("باي")){
+            Picasso.get()
+                    .load(R.drawable.mu_biceps)
+                    //.placeholder(R.drawable.ic_loading)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.muImage);
+        }
+        if(mu.equals("عضلة السمانة")){
+            Picasso.get()
+                    .load(R.drawable.mu_gastrocnemius)
                     //.placeholder(R.drawable.ic_loading)
                     .fit()
                     .centerCrop()
@@ -66,7 +143,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         }
         if(mu.equals("ظهر")){
             Picasso.get()
-                    .load(R.drawable.age)
+                    .load(R.drawable.mu_bavk)
                     //.placeholder(R.drawable.ic_loading)
                     .fit()
                     .centerCrop()
@@ -101,6 +178,9 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         public TextView txtMu;
         public ImageView exImage;
         public ImageView muImage;
+
+        ProgressBar progressBar;
+
         final Context context;
 
 
@@ -112,6 +192,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
             exImage = itemView.findViewById(R.id.imageViewMu);
             muImage = itemView.findViewById(R.id.ivtargtedMu);
             context = itemView.getContext();
+            progressBar = itemView.findViewById(R.id.progressBar);
+
 
 
         }

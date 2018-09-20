@@ -27,7 +27,7 @@
         android:title="الدعم"/>
     <item
         android:id="@+id/ExerciseForAll"
-        android:icon="@drawable/forall"
+        android:icon="@drawable/forall3"
         android:title="تمارين عامة"/>
 
 

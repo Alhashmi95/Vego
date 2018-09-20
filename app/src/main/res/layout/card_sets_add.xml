@@ -38,6 +38,7 @@
             <EditText
                 android:id="@+id/txtReps"
                 android:layout_width="82dp"
+                android:maxLength="2"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"

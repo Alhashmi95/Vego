@@ -111,6 +111,7 @@
                 android:id="@+id/txtWeight"
                 android:layout_width="51dp"
                 android:layout_height="wrap_content"
+                android:maxLength="3"
                 android:layout_marginBottom="4dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginStart="12dp"

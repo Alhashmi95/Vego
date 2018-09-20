@@ -2,6 +2,7 @@ package com.vego.vego.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +47,13 @@ public class AdminActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     UserInfo userInfo;
+
+    private GoogleApiClient mGoogleApiClient;
+
+    //step 1 (on back twice exit)
+    private boolean backPressedToExitOnce = false;
+    private Toast toast = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +176,34 @@ public class AdminActivity extends AppCompatActivity {
         firebaseAuth.signOut();
         finish();
         startActivity(new Intent(this, HomeActivity.class));
+
+
+        // Google sign out
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        // ...
+                        Toast.makeText(getApplicationContext(),"Logged Out",Toast.LENGTH_SHORT).show();
+                        Intent i=new Intent(getApplicationContext(),HomeActivity.class);
+                        startActivity(i);
+                    }
+                });
+
+        // Facebook Sign out
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
+    }
+    @Override
+    protected void onStart() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+        mGoogleApiClient.connect();
+        super.onStart();
     }
 
 
@@ -189,6 +232,60 @@ public class AdminActivity extends AppCompatActivity {
             return true;}
     };
 
-    public void openDrawer(View view) {
+    //Adding on back method to close App +++++++++++++++++++++++++++++++++++++++++++++
+    //step 2
+    @Override
+    public void onBackPressed() {
+        if (backPressedToExitOnce) {
+            super.onBackPressed();
+        } else {
+            this.backPressedToExitOnce = true;
+            showToast("Press again to exit");
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    backPressedToExitOnce = false;
+                }
+            }, 2000);
+        }
     }
+    /**
+     * Created to make sure that you toast doesn't show miltiple times, if user pressed back
+     * button more than once.
+     * @param message Message to show on toast.
+     */
+    private void showToast(String message) {
+        if (this.toast == null) {
+            // Create toast if found null, it would he the case of first call only
+            this.toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+
+        } else if (this.toast.getView() == null) {
+            // Toast not showing, so create new one
+            this.toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+
+        } else {
+            // Updating toast message is showing
+            this.toast.setText(message);
+        }
+
+        // Showing toast finally
+        this.toast.show();
+    }
+    /**
+     * Kill the toast if showing. Supposed to call from onPause() of activity.
+     * So that toast also get removed as activity goes to background, to improve
+     * better app experiance for user
+     */
+    private void killToast() {
+        if (this.toast != null) {
+            this.toast.cancel();
+        }
+    }
+    @Override
+    protected void onPause() {
+        killToast();
+        super.onPause();
+    }
+
 }

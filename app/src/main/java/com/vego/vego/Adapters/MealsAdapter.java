@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.vego.vego.Activity.MealIngrActivity;
 import com.vego.vego.R;
@@ -24,6 +26,8 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
     private Context mContext;
     private CardView cardViewMeals;
 
+    ProgressBar progressBar;
+
 
     public MealsAdapter(List<meal> mealsList, Context mContext) {
         this.mealsList = mealsList;
@@ -32,6 +36,9 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
 
     @Override
     public MealsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        progressBar = parent.findViewById(R.id.progressBar);
+
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.meals_list, null);
         MealsViewHolder mealsViewHolder = new MealsViewHolder(view);
@@ -40,6 +47,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
 
     @Override
     public void onBindViewHolder(MealsViewHolder holder, final int position) {
+
         //getting the product of the specified position
         final meal dayMeals = mealsList.get(position);
 
@@ -51,7 +59,17 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
 //                .placeholder(R.drawable.progress)
                 .fit()
 
-                .into(holder.imageView);
+                .into(holder.imageView, new Callback() {
+            @Override
+            public void onSuccess() {
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
         //holder.imageView
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

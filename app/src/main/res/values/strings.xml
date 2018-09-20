@@ -5,6 +5,13 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="facebook_app_id">1254043808071951</string>
+    <string name="fb_login_protocol_scheme">fb1254043808071951</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="on_back_button_title">تنبيه</string>
+    <string name="on_back_button_message">هل انت متأكد من اغلاق التطبيق</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
 </resources>
