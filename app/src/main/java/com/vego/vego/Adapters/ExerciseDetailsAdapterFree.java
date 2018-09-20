@@ -7,9 +7,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vego.vego.R;
 import com.vego.vego.model.sets;
@@ -47,6 +49,17 @@ public class ExerciseDetailsAdapterFree extends RecyclerView.Adapter<ExerciseDet
         holder.txtReps.setText(exList.get(position).getReps());
         holder.etWeight.setText(exList.get(position).getWeight());
 
+        holder.btn_delet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(exList.size()==1){
+                    Toast.makeText(mContext,"يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
+                }else {
+                    exList.remove(position);
+                    notifyDataSetChanged();
+                }
+            }
+        });
 //        holder.txtReps.addTextChangedListener(new TextWatcher() {
 //            @Override
 //            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -126,6 +139,7 @@ public class ExerciseDetailsAdapterFree extends RecyclerView.Adapter<ExerciseDet
         EditText txtReps;
         ImageView exImage;
         EditText etWeight;
+        Button btn_delet ;
 
 
         public ViewHolder(View itemView) {
@@ -137,6 +151,7 @@ public class ExerciseDetailsAdapterFree extends RecyclerView.Adapter<ExerciseDet
             exImage = itemView.findViewById(R.id.imageViewMu);
             etWeight = itemView.findViewById(R.id.txtWeight);
             textViewRM1 = itemView.findViewById(R.id.txtRM1);
+            btn_delet=itemView.findViewById(R.id.btn_delet);
 
 
 
