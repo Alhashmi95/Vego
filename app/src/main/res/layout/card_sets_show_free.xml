@@ -17,54 +17,42 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp" >
 
-        <android.support.constraint.ConstraintLayout
+        <RelativeLayout
+            android:id="@+id/relativeLayout10"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/relativeLayout10">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/etReps"
-                android:layout_width="51dp"
-                android:maxLength="2"
+                android:layout_width="43dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="4dp"
+                android:layout_alignParentTop="true"
                 android:layout_marginVertical="4dp"
+                android:layout_toStartOf="@+id/txtSet"
                 android:background="@drawable/custom_table_text"
                 android:ems="10"
-                android:inputType="number"
                 android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/txtSet"
-                app:layout_constraintStart_toEndOf="@+id/txtWeight"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.428" />
+                android:inputType="number"
+                android:maxLength="2" />
 
             <TextView
                 android:id="@+id/txtSet"
                 android:layout_width="45dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="4dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="15dp"
                 android:ems="10"
                 android:fontFamily="@font/cairo_semibold"
                 android:gravity="center"
                 android:inputType="number"
                 android:text="1"
                 android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/textViewVolume"
-                android:layout_width="69dp"
-                android:gravity="center"
+                android:layout_width="57dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:layout_marginEnd="10dp"
@@ -75,55 +63,38 @@
                 android:layout_marginVertical="4dp"
                 android:background="@drawable/custom_table_text"
                 android:ems="10"
+                android:gravity="center"
                 android:inputType="number"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/txtRM1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.428" />
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/txtRM1"
-                android:layout_width="62dp"
+                android:layout_width="53dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginEnd="17dp"
-                android:layout_marginRight="17dp"
-                android:layout_marginTop="4dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="76dp"
                 android:layout_marginVertical="4dp"
                 android:background="@drawable/custom_table_text"
                 android:ems="10"
                 android:gravity="center"
-
                 android:inputType="number"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/txtWeight"
-                app:layout_constraintStart_toEndOf="@+id/textViewVolume"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.428" />
+                android:textSize="18dp" />
 
             <EditText
                 android:id="@+id/txtWeight"
                 android:layout_width="51dp"
-                android:maxLength="3"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="4dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="111dp"
                 android:layout_marginVertical="4dp"
                 android:background="@drawable/custom_table_text"
                 android:ems="10"
-                android:inputType="number"
                 android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txtRM1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.428" />
-        </android.support.constraint.ConstraintLayout>
+                android:inputType="number"
+                android:maxLength="3" />
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 
 

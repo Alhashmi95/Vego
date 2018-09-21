@@ -62,17 +62,17 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
 //        holder.imageView.setImageDrawable(mContext.getResources().getDrawable(dayMeals.getImg()));
 
-        holder.btn_delet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(ingrList.size()==1){
-                    Toast.makeText(mContext,"يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
-                }else {
-                ingrList.remove(position);
-                notifyDataSetChanged();
-                }
-            }
-        });
+//        holder.btn_delet.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(ingrList.size()==1){
+//                    Toast.makeText(mContext,"يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
+//                }else {
+//                ingrList.remove(position);
+//                notifyDataSetChanged();
+//                }
+//            }
+//        });
 
     }
 

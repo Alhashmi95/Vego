@@ -46,7 +46,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
     }
 
     @Override
-    public void onBindViewHolder(MealsViewHolder holder, final int position) {
+    public void onBindViewHolder(final MealsViewHolder holder, final int position) {
 
         //getting the product of the specified position
         final meal dayMeals = mealsList.get(position);
@@ -62,7 +62,8 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
                 .into(holder.imageView, new Callback() {
             @Override
             public void onSuccess() {
-                progressBar.setVisibility(View.GONE);
+
+                holder.progressBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -100,8 +101,10 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
 
         TextView textViewTitle, textViewShortDesc;
         ImageView imageView;
+        ProgressBar progressBar;
 
-       public MealsViewHolder(final View itemView) {
+
+        public MealsViewHolder(final View itemView) {
            super(itemView);
 
            textViewTitle = itemView.findViewById(R.id.textViewTitle);
@@ -109,7 +112,10 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
            cardViewMeals = itemView.findViewById(R.id.cardViewMeals);
            imageView = itemView.findViewById(R.id.imageView);
 
-           itemView.setOnClickListener(new View.OnClickListener(){
+            progressBar = itemView.findViewById(R.id.progressBar);
+
+
+            itemView.setOnClickListener(new View.OnClickListener(){
                @Override
                public void onClick(View view){
                    itemView.getContext().startActivity(new Intent(itemView.getContext(),MealIngrActivity.class));

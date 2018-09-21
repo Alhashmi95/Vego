@@ -41,7 +41,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        progressBar = parent.findViewById(R.id.progressBar);
+        //progressBar = parent.findViewById(R.id.progressBar);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.cardview_addworkout, null);
@@ -67,7 +67,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                 .into(holder.exImage, new Callback() {
                     @Override
                     public void onSuccess() {
-                        progressBar.setVisibility(View.GONE);
+                        holder.progressBar.setVisibility(View.GONE);
                     }
 
                     @Override
