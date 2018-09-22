@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.vego.vego.Activity.ActivityInsideExercise;
+import com.vego.vego.Fragment.FragmentAddMealDetailes;
 import com.vego.vego.R;
 import com.vego.vego.model.sets;
 
@@ -23,10 +25,19 @@ public class ExerciseDetailsAdapterFree extends RecyclerView.Adapter<ExerciseDet
     private Context mContext;
     sets exListTest;
     int setsNo;
+    DataTransferInterface dtInterface;
+    //step 3
+    DataTransferInterface listner;
+
+
+
+    boolean checker = false;
+    private boolean activate;
 
     public ExerciseDetailsAdapterFree(ArrayList<sets> exList, Context mContext) {
         this.exList = exList;
         this.mContext = mContext;
+
     }
 
     @Override
@@ -35,6 +46,9 @@ public class ExerciseDetailsAdapterFree extends RecyclerView.Adapter<ExerciseDet
         View view = inflater.inflate(R.layout.card_sets_show_free, null);
         ExerciseDetailsAdapterFree.ViewHolder exerciseDetailsViewHolder = new ExerciseDetailsAdapterFree.ViewHolder(view);
         return exerciseDetailsViewHolder;
+    }
+    public interface DataTransferInterface {
+        public void setValues(boolean ch);
     }
 
 
@@ -57,6 +71,10 @@ public class ExerciseDetailsAdapterFree extends RecyclerView.Adapter<ExerciseDet
                 }else {
                     exList.remove(position);
                     notifyDataSetChanged();
+                    checker = true;
+                    if(mContext instanceof ActivityInsideExercise){
+                        ((ActivityInsideExercise)mContext).showCalBtn();
+                    }
                 }
             }
         });
@@ -130,6 +148,10 @@ public class ExerciseDetailsAdapterFree extends RecyclerView.Adapter<ExerciseDet
     }
     public ArrayList<sets> getSetsArrayFree() {
         return exList ;
+    }
+
+    public boolean getCheckerValue() {
+        return checker;
     }
 
 

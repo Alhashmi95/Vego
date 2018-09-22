@@ -26,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.vego.vego.Activity.UpdateProfileActivity;
 import com.vego.vego.R;
+import com.vego.vego.model.Chat;
+import com.vego.vego.model.DietDay;
 import com.vego.vego.model.UserInfo;
 
 import java.util.ArrayList;
@@ -51,25 +53,39 @@ public class ChatFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
 
+    ArrayList<UserInfo> userInfos = new ArrayList<>();
+
+    ArrayList<String> usersUID = new ArrayList<>();
+
+    ArrayList<String> adminUid = new ArrayList<>();
+
+    ArrayList<Chat> messagesArray = new ArrayList<>();
+
+    String isAdmin, userUid;
+
+
     public ChatFragment() {
         // Required empty public constructor
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_chat , container,false);
+        return inflater.inflate(R.layout.fragment_chat, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
 //        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
 //                "mailto","admin@gmail.com", null));
 //        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Sci-FIT support");
 //        emailIntent.putExtra(Intent.EXTRA_TEXT, "");
 //        startActivity(Intent.createChooser(emailIntent, "Send email..."));
+
+        getAllAdminsUid();
 
         root = FirebaseDatabase.getInstance().getReference().child("MainChatRoom");
 
@@ -78,10 +94,9 @@ public class ChatFragment extends Fragment {
         btn_send_msg = view.findViewById(R.id.btn_send_msg);
 
         name = "Ayman";
-        firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
+        final DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
                 .child(firebaseAuth.getUid()).child("Profile");
 
 
@@ -96,7 +111,7 @@ public class ChatFragment extends Fragment {
 
                 //start chat ++++++++++++++++++++++++++++++++++++++++
                 //avoid crash context.lang
-                if(getActivity() != null) {
+                if (getActivity() != null) {
                     arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, list_chat);
                 }
                 listView_chat.setAdapter(arrayAdapter);
@@ -109,12 +124,18 @@ public class ChatFragment extends Fragment {
                         temp_key = root.push().getKey();
                         root.updateChildren(map);
 
-                        DatabaseReference message_root = root.child(temp_key);
-                        Map<String, Object> map2 = new HashMap<String, Object>();
-                        map2.put("name", name);
-                        map2.put("msg", input_msg.getText().toString());
+                        for (int i = 0; i < adminUid.size(); i++) {
+                            DatabaseReference message_root = root.child(adminUid.get(i) + " : " +
+                                    firebaseAuth.getCurrentUser().getUid()).child(temp_key);
 
-                        message_root.updateChildren(map2);
+                            Map<String, Object> map2 = new HashMap<String, Object>();
+                            map2.put("name", name);
+                            map2.put("msg", input_msg.getText().toString());
+
+                            message_root.updateChildren(map2);
+                        }
+
+
                     }
                 });
 
@@ -149,29 +170,104 @@ public class ChatFragment extends Fragment {
 
             }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
 
             private String chat_msg, chat_user_name;
 
-            private void Add_Chat(DataSnapshot dataSnapshot) {
+            private void Add_Chat(final DataSnapshot dataSnapshot) {
 
                 Iterator i = dataSnapshot.getChildren().iterator();
                 input_msg.setText("");
-                while (i.hasNext()) {
+                final Chat c = new Chat();
 
-                    chat_msg = (String) ((DataSnapshot) i.next()).getValue();
-                    chat_user_name = (String) ((DataSnapshot) i.next()).getValue();
+                //اي رسايل نظهر؟ يعني حقت ايت ادمن
+                if (dataSnapshot.getKey().equals(adminUid.get(0) + " : " + firebaseAuth.getUid())) {
+                    String tt= adminUid.get(0);
+                    root.child(adminUid.get(0) + " : " + firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+                            int j = (int) dataSnapshot2.getChildrenCount();
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                c.setNameChat((String) (ds.child("name").getValue(String.class)));
+                                c.setMessageChat((String) (ds.child("msg")).getValue(String.class));
 
-                    list_chat.add(chat_user_name + " : " + chat_msg);
-                    arrayAdapter.notifyDataSetChanged();
-                    listView_chat.setSelection(list_chat.size());
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+
+
+                                list_chat.add(c.getnameChat() + " : " + c.getMessageChat());
+                                arrayAdapter.notifyDataSetChanged();
+                                listView_chat.setSelection(list_chat.size());
+                            }
+                            if (list_chat.size() > j) {
+                                list_chat.clear();
+                            }
+                            if (list_chat.size() == 0) {
+                                Add_Chat(dataSnapshot);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
+            }
+        });
+
+    }
+
+    private void getAllAdminsUid() {
+        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref2, ref3, ref4;
+        ref2 = ref1.child("users");
+
+
+        ref2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                // Result will be holded Here
+                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                    //Loop 1 to go through all the child nodes of users to get uid (key)
+                    usersUID.add(dsp.getKey());
+                    for(DataSnapshot dspProfile : dsp.getChildren()){
+                        //loop 2 to go through all the child nodes of Profile node
+
+                        if(dspProfile.getKey().equals("Profile"))
+                        userInfos.add(dspProfile.getValue(UserInfo.class));
+                    }
+
+
+                }
+                for(int i =0; i < userInfos.size(); i++){
+                    String t = userInfos.get(i).getUid();
+                    String v = usersUID.get(i);
+                    if(userInfos.get(i).getUid().equals(usersUID.get(i))){
+                        isAdmin =userInfos.get(i).getAdmin();
+                    }
+                    if(isAdmin.equals("true")){
+                        userUid = usersUID.get(i);
+                        adminUid.add(userUid);
+                    }
+                }
+    /* userlist will store all values of users, then point to every userlist item
+    and get mobile numbers*/
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                //handle databaseError
             }
         });
-
     }
 }

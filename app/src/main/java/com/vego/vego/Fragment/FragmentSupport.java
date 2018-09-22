@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vego.vego.R;
+import com.vego.vego.model.Chat;
 import com.vego.vego.model.UserInfo;
 
 import java.util.ArrayList;
@@ -60,12 +63,15 @@ public class FragmentSupport extends Fragment {
     private String name, value;
     private FirebaseDatabase firebaseDatabase;
     ArrayList<String> arrayList;
+    ArrayList<String> arrayList2;
     List<String> list;
     String choosenUser, choosenDay;
     Spinner spSelectUser;
     ArrayAdapter<String> spinnerArrayAdapter;
     DatabaseReference usersprofile;
     FirebaseAuth firebaseAuth;
+
+    UserInfo userinfo;
 
 
     // TODO: Rename and change types of parameters
@@ -156,6 +162,8 @@ public class FragmentSupport extends Fragment {
 
         name = "(Admin)";
 
+        getNames();
+
         arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, list_chat);
         listView_chat.setAdapter(arrayAdapter);
 
@@ -170,7 +178,8 @@ public class FragmentSupport extends Fragment {
                 root.updateChildren(map);
 
                 //DatabaseReference message_root = root.child(temp_key);
-                DatabaseReference message_root = root.child(firebaseAuth.getUid()+" : "+ choosenUser);
+                DatabaseReference message_root = root.child(firebaseAuth.getUid()+" : "+ choosenUser)
+                        .child(temp_key);
                 Map<String, Object> map2 = new HashMap<String, Object>();
                 map2.put("name", name);
                 map2.put("msg", input_msg.getText().toString());
@@ -182,7 +191,7 @@ public class FragmentSupport extends Fragment {
 
         root.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onChildAdded(final DataSnapshot dataSnapshot, String s) {
                 Add_Chat(dataSnapshot);
             }
 
@@ -209,38 +218,79 @@ public class FragmentSupport extends Fragment {
         });
 
     }
-    public void getUsers(){
-        firebaseDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference databaseReference = firebaseDatabase.getReference().child("users");
+    private void getNames() {
+        final DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
+                .child(firebaseAuth.getUid()).child("Profile");
 
-        arrayList=new ArrayList<>();
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                arrayList.add(0,"اختر متدرب");
-                for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
-                    arrayList.add(dataSnapshot1.getKey());
-                    spinnerArrayAdapter.notifyDataSetChanged();
+                userinfo = dataSnapshot.getValue(UserInfo.class);
+
+                name = "(Admin)" + userinfo.getName();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+            public void getUsers(){
+                firebaseDatabase = FirebaseDatabase.getInstance();
+
+                arrayList = new ArrayList<>();
+                arrayList2 = new ArrayList<>();
+
+
+                DatabaseReference databaseReference = firebaseDatabase.getReference().child("users");
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+//                arrayList.add(0, "اختر متدرب");
+//                arrayList2.add(0, "اختر متدرب");
+
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                            String email =  dataSnapshot1.child("Profile").child("userEmail").getValue(String.class);
+
+                            Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +  dataSnapshot1.getKey());
+
+                            Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +
+                                    dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
+
+
+                            UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
+                            // arrayList.add(dataSnapshot1.getKey());
+
+
+                            arrayList.add( dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
+                            arrayList2.add(dataSnapshot1.getKey());
+                            spinnerArrayAdapter.notifyDataSetChanged();
+
 
 //                    Log.d("test","this is size of arr: "+ array.length);
 
 
-                    Log.d("test","this is uid :"+dataSnapshot1.getKey());
-                }
-                //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
+                            //      Log.d("test", "this is uid :" + dataSnapshot1.getKey());
+
+                            //   Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
+
+                        }
+                        //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
 
 
+                    }
 
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(FragmentSupport.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Toast.makeText(FragmentSupport.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
     public String selectedUser(){
         final Spinner spSelectUser = getView().findViewById(R.id.spinner);
@@ -267,17 +317,17 @@ public class FragmentSupport extends Fragment {
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                }
-                else {
-                    tv.setTextColor(Color.BLACK);
-                }
+//                if(position == 0){
+//                    // Set the hint text color gray
+//                    tv.setTextColor(Color.GRAY);
+//                }
+//                else {
+//                    tv.setTextColor(Color.BLACK);
+//                }
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spSelectUser.setAdapter(spinnerArrayAdapter);
         spinnerArrayAdapter.notifyDataSetChanged();
 
@@ -292,7 +342,7 @@ public class FragmentSupport extends Fragment {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
                 String s = arrayList.get(position);
                 Log.d("test","thid dfjkdl : "+s);
-                choosenUser = selectedItemText;
+                choosenUser = arrayList2.get(position);
 //                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
 //                        "mailto",choosenUser, null));
 //                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Sci-FIT support");
@@ -301,12 +351,13 @@ public class FragmentSupport extends Fragment {
 
                 usersprofile = FirebaseDatabase.getInstance().getReference();
                 if (position!=0)
-                    chat(choosenUser);
+                chat(choosenUser);
                 //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
                 // If user change the default selection
                 // First item is disable and it is used for hint
                 if(position > 0){
                     // Notify the selected item text
+                    //clear arraylist of chat to load new one
                     Toast.makeText
                             (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
                             .show();
@@ -325,18 +376,60 @@ public class FragmentSupport extends Fragment {
 
     private String chat_msg, chat_user_name;
 
-    private void Add_Chat(DataSnapshot dataSnapshot) {
+
+    private void Add_Chat(final DataSnapshot dataSnapshot) {
 
         Iterator i = dataSnapshot.getChildren().iterator();
         input_msg.setText("");
-        while (i.hasNext()) {
+        final Chat c = new Chat();
 
-            chat_msg = (String) ((DataSnapshot) i.next()).getValue();
-            chat_user_name = (String) ((DataSnapshot) i.next()).getValue();
 
-            list_chat.add(chat_user_name + " : " + chat_msg);
-            arrayAdapter.notifyDataSetChanged();
-            listView_chat.setSelection(list_chat.size());
+        if (dataSnapshot.getKey().equals(firebaseAuth.getUid() + " : " + choosenUser)) {
+            root.child(firebaseAuth.getUid() + " : " + choosenUser).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+                    int j = (int) dataSnapshot2.getChildrenCount();
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        c.setNameChat((String) (ds.child("name").getValue(String.class)));
+                        c.setMessageChat((String) (ds.child("msg")).getValue(String.class));
+//                    chat_msg = (String) ((DataSnapshot) i.next()).getValue();
+//                    chat_user_name = (String) ((DataSnapshot) i.next()).getValue();
+//                root.child(firebaseAuth.getUid() + " : " + choosenUser).addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+//                        int j = (int) dataSnapshot2.getChildrenCount();
+//                        if(list_chat.size() > j){
+//                            list_chat = new ArrayList<>();
+//                        }else {
+//                        }if(list_chat.size() == 0){
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+
+
+                        list_chat.add(c.getnameChat() + " : " + c.getMessageChat());
+                        arrayAdapter.notifyDataSetChanged();
+                        listView_chat.setSelection(list_chat.size());
+                    }
+                    if (list_chat.size() > j) {
+                        list_chat.clear();
+                    }
+                    if (list_chat.size() == 0) {
+                        Add_Chat(dataSnapshot);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
     }
 

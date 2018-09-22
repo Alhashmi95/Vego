@@ -13,7 +13,7 @@ public class UserInfo {
     String userGoal;
     ArrayList<DietDay> dietDay;
     String isAdmin;
-    String uid, previousWeight, adminBrief, email;
+    String uid, previousWeight, adminBrief, userEmail;
 
     public UserInfo() {
     }
@@ -24,7 +24,7 @@ public class UserInfo {
 
     public UserInfo(String name, String weight, String height, String age, String userActivity, String userGoal,
                     ArrayList<DietDay> dietDay, String isAdmin, String uid,String previousWeight
-                    ,String adminBrief , String email) {
+                    ,String adminBrief , String userEmail) {
         this.name = name;
         this.weight = weight;
         this.height = height;
@@ -36,15 +36,15 @@ public class UserInfo {
         this.uid = uid;
         this.previousWeight = previousWeight;
         this.adminBrief = adminBrief;
-        this.email = email;
+        this.userEmail = userEmail;
     }
 
     public String getEmail() {
-        return email;
+        return userEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getPreviousWeight() {

@@ -55,6 +55,8 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
     boolean checker = false;
 
+    boolean checkerForRemove;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +83,6 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
 
         clickToEnlarge();
-
 
 
 
@@ -171,6 +172,12 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
 
     }
+
+    public void showCalBtn() {
+        calculateVolumeAndRM1();
+        //calVAndR.setVisibility(View.VISIBLE);
+    }
+
     private ArrayList<sets> populateList() {
 
 
@@ -307,4 +314,6 @@ public class ActivityInsideExercise extends AppCompatActivity {
         });
         nagDialog.show();
     }
+
+
 }
