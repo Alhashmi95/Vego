@@ -5,15 +5,19 @@ import java.util.ArrayList;
 public class Chat {
     String name;
     String msg;
+    String userUID;
+    String createdAt;
 
 
     public Chat() {
 
     }
 
-    public Chat(String name,String msg) {
+    public Chat(String name,String msg,String userUID, String createdAt) {
         this.name = name;
         this.msg = msg;
+        this.userUID = userUID;
+        this.createdAt = createdAt;
 
     }
 
@@ -33,4 +37,19 @@ public class Chat {
         this.msg = msg;
     }
 
+    public String getUserUID() {
+        return userUID;
+    }
+
+    public void setUserUID(String userUID) {
+        this.userUID = userUID;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
 }

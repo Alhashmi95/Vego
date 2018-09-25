@@ -6,14 +6,7 @@
     android:background="@drawable/vegowall"
     tools:context=".Activity.HomeActivity">
 
-        <VideoView android:id="@+id/video"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </VideoView>
+
 
     <TextView
         android:id="@+id/currentUserTxt"
@@ -87,5 +80,14 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="180dp" />
+
+    <VideoView android:id="@+id/video"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </VideoView>
 
 </RelativeLayout>

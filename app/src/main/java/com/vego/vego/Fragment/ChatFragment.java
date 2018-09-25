@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +27,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.vego.vego.Activity.UpdateProfileActivity;
+import com.vego.vego.Adapters.MessageListAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.Chat;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.UserInfo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -53,6 +58,9 @@ public class ChatFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
 
+    private RecyclerView mMessageRecycler;
+    private MessageListAdapter mMessageAdapter;
+
     ArrayList<UserInfo> userInfos = new ArrayList<>();
 
     ArrayList<String> usersUID = new ArrayList<>();
@@ -61,7 +69,7 @@ public class ChatFragment extends Fragment {
 
     ArrayList<Chat> messagesArray = new ArrayList<>();
 
-    String isAdmin, userUid;
+    String isAdmin, userUid, currentDate, currentTime;
 
 
     public ChatFragment() {
@@ -71,13 +79,25 @@ public class ChatFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        return inflater.inflate(R.layout.bubbleschat, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         firebaseAuth = FirebaseAuth.getInstance();
+
+        //bubbles
+        mMessageRecycler = (RecyclerView) view.findViewById(R.id.reyclerview_message_list);
+
+        mMessageAdapter = new MessageListAdapter(getContext(), messagesArray);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setStackFromEnd(true);
+        mMessageRecycler.setLayoutManager(layoutManager);
+        mMessageRecycler.setAdapter(mMessageAdapter);
+        mMessageAdapter.notifyDataSetChanged();
+
+
 
 //        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
 //                "mailto","admin@gmail.com", null));
@@ -89,9 +109,9 @@ public class ChatFragment extends Fragment {
 
         root = FirebaseDatabase.getInstance().getReference().child("MainChatRoom");
 
-        listView_chat = view.findViewById(R.id.listView_chat);
-        input_msg = view.findViewById(R.id.input_msg);
-        btn_send_msg = view.findViewById(R.id.btn_send_msg);
+//        listView_chat = view.findViewById(R.id.listView_chat);
+        input_msg = view.findViewById(R.id.et_chatbox);
+        btn_send_msg = view.findViewById(R.id.button_chatbox_send);
 
         name = "Ayman";
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -114,25 +134,43 @@ public class ChatFragment extends Fragment {
                 if (getActivity() != null) {
                     arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, list_chat);
                 }
-                listView_chat.setAdapter(arrayAdapter);
+                //listView_chat.setAdapter(arrayAdapter);
 
                 btn_send_msg.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        Map<String, Object> map = new HashMap<String, Object>();
-                        temp_key = root.push().getKey();
-                        root.updateChildren(map);
+                        if(input_msg.getText().toString().isEmpty()){
 
-                        for (int i = 0; i < adminUid.size(); i++) {
-                            DatabaseReference message_root = root.child(adminUid.get(i) + " : " +
-                                    firebaseAuth.getCurrentUser().getUid()).child(temp_key);
+                        }else {
 
-                            Map<String, Object> map2 = new HashMap<String, Object>();
-                            map2.put("name", name);
-                            map2.put("msg", input_msg.getText().toString());
+                            //getting current date and time
+                            Calendar calForDate = Calendar.getInstance();
+                            SimpleDateFormat currentDateFormat = new SimpleDateFormat("MM DD, YYYY");
+                            currentDate = currentDateFormat.format(calForDate.getTime());
 
-                            message_root.updateChildren(map2);
+                            Calendar calForTime = Calendar.getInstance();
+                            SimpleDateFormat currentTimeFormat = new SimpleDateFormat("hh:mm a");
+                            currentTime = currentTimeFormat.format(calForTime.getTime());
+
+                            Map<String, Object> map = new HashMap<String, Object>();
+                            temp_key = root.push().getKey();
+                            root.updateChildren(map);
+
+                            for (int i = 0; i < adminUid.size(); i++) {
+                                DatabaseReference message_root = root.child(adminUid.get(i) + " : " +
+                                        firebaseAuth.getCurrentUser().getUid()).child(temp_key);
+
+                                Map<String, Object> map2 = new HashMap<String, Object>();
+                                map2.put("name", name);
+                                map2.put("msg", input_msg.getText().toString());
+                                map2.put("userUID", firebaseAuth.getCurrentUser().getUid());
+                                map2.put("createdAt", currentTime);
+                                map2.put("date", currentDate);
+
+
+                                message_root.updateChildren(map2);
+                            }
                         }
 
 
@@ -195,6 +233,22 @@ public class ChatFragment extends Fragment {
                                 c.setNameChat((String) (ds.child("name").getValue(String.class)));
                                 c.setMessageChat((String) (ds.child("msg")).getValue(String.class));
 
+                                Chat testChat = ds.getValue(Chat.class);
+
+                                messagesArray.add(testChat);
+
+                                mMessageAdapter = new MessageListAdapter(getContext(), messagesArray);
+                                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                                layoutManager.setStackFromEnd(true);
+                                mMessageRecycler.setLayoutManager(layoutManager);
+                                mMessageRecycler.setAdapter(mMessageAdapter);
+
+
+                                mMessageAdapter.notifyDataSetChanged();
+
+
+
+
 //                    @Override
 //                    public void onCancelled(@NonNull DatabaseError databaseError) {
 //
@@ -202,16 +256,20 @@ public class ChatFragment extends Fragment {
 //                });
 
 
-                                list_chat.add(c.getnameChat() + " : " + c.getMessageChat());
-                                arrayAdapter.notifyDataSetChanged();
-                                listView_chat.setSelection(list_chat.size());
+//                                list_chat.add(c.getnameChat() + " : " + c.getMessageChat());
+//                                arrayAdapter.notifyDataSetChanged();
+//                                listView_chat.setSelection(list_chat.size());
                             }
-                            if (list_chat.size() > j) {
-                                list_chat.clear();
+
+
+
+                            if (messagesArray.size() > j) {
+                                messagesArray.clear();
                             }
-                            if (list_chat.size() == 0) {
+                            if(messagesArray.size() == 0){
                                 Add_Chat(dataSnapshot);
                             }
+
 
                         }
 

@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/message_body"
+        android:id="@+id/text_message_body"
         android:background="@drawable/my_message"
         android:textColor="#fff"
         android:padding="10dp"
@@ -19,5 +19,14 @@
         android:layout_alignParentRight="true"
         android:text="Placeholder message"
         />
+    <TextView
+        android:id="@+id/text_message_time"
+        android:text="11:40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:layout_marginLeft="4dp"
+        android:layout_toLeftOf="@+id/text_message_body"
+        android:layout_below="@+id/text_message_body"/>
 
 </RelativeLayout>

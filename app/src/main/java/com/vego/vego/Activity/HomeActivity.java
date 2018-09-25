@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
@@ -63,6 +64,24 @@ public class HomeActivity extends AppCompatActivity {
         params.bottomMargin = 1500;
         params.topMargin = 100;
 
+        //media player
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);
+        bar=new ProgressDialog(HomeActivity.this);
+        bar.setTitle("Connecting server");
+        bar.setMessage("Please Wait... ");
+        bar.setCancelable(false);
+        bar.show();
+        if(bar.isShowing()) {
+            Uri uri = Uri.parse(path);
+            videoView.setVideoURI(uri);
+            videoView.start();
+            ctlr = new MediaController(this);
+            ctlr.setMediaPlayer(videoView);
+            videoView.setMediaController(ctlr);
+            videoView.requestFocus();
+        }
+        bar.dismiss();
+
         videoView.setLayoutParams(params);
 
         videoViewEnlarge();
@@ -93,12 +112,11 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void videoViewEnlarge() {
-        videoView.setOnClickListener(new View.OnClickListener() {
+        videoView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-
-
+            public boolean onTouch(View v, MotionEvent event) {
                 if(showingFirst == true){
                     //full screen video
                     DisplayMetrics metrics = new DisplayMetrics(); getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -138,25 +156,55 @@ public class HomeActivity extends AppCompatActivity {
 
                 }
 
+                return false;
             }
         });
-
-        getWindow().setFormat(PixelFormat.TRANSLUCENT);
-        bar=new ProgressDialog(HomeActivity.this);
-        bar.setTitle("Connecting server");
-        bar.setMessage("Please Wait... ");
-        bar.setCancelable(false);
-        bar.show();
-        if(bar.isShowing()) {
-            Uri uri = Uri.parse(path);
-            videoView.setVideoURI(uri);
-            videoView.start();
-            ctlr = new MediaController(this);
-            ctlr.setMediaPlayer(videoView);
-            videoView.setMediaController(ctlr);
-            videoView.requestFocus();
-        }
-        bar.dismiss();
+//        videoView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//                if(showingFirst == true){
+//                    //full screen video
+//                    DisplayMetrics metrics = new DisplayMetrics(); getWindowManager().getDefaultDisplay().getMetrics(metrics);
+//                    android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
+//                    params.width =  metrics.widthPixels;
+//                    params.height = metrics.heightPixels;
+//                    params.leftMargin = 0;
+//                    params.leftMargin = 0;
+//                    params.rightMargin = 0;
+//                    params.bottomMargin = 0;
+//                    params.topMargin = 0;
+//
+//                    videoView.setLayoutParams(params);
+//
+//                    //change to true so we do full screen again
+//                    showingFirst = false;
+//
+//                }else{
+//                    //small window video
+//                    DisplayMetrics metrics = new DisplayMetrics();
+//                    getWindowManager().getDefaultDisplay().getMetrics(metrics);
+//                    android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
+//                    params.width =  (int) (300*metrics.density);
+//                    params.height = (int) (250*metrics.density);
+//                    params.leftMargin = 200;
+//                    params.rightMargin = 200;
+//                    params.bottomMargin = 1500;
+//                    params.topMargin = 100;
+//
+//                    videoView.setLayoutParams(params);
+//
+//
+//
+//
+//                    //changeto false so we can toggle back fullscreen
+//                    showingFirst = true;
+//
+//                }
+//
+//            }
+//        });
     }
 
     private void loadWebsite() {

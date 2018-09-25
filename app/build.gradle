@@ -82,6 +82,8 @@ dependencies {
     //facebook login
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
+    implementation 'com.sendbird.sdk:sendbird-android-sdk:3.0.54'
+
 
 }
 
