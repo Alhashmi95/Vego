@@ -14,6 +14,7 @@ import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.meal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DayMealsActivity extends AppCompatActivity {
@@ -38,7 +39,7 @@ public class DayMealsActivity extends AppCompatActivity {
         Intent intent=this.getIntent();
         //here we receive array of objects from daysAdapter
         //because daysAdapter has an object of DietDay which contains DayMeals array of objects
-        List<meal>mealsList= (List<meal>) intent.getSerializableExtra("DayMeals");
+        ArrayList<meal>mealsList= (ArrayList<meal>) intent.getSerializableExtra("DayMeals");
         //get day number from الكلاس المعضل (daysAdapter)
         String day = intent.getStringExtra("day");
         dayTextView.setText(" يوم "+day);
