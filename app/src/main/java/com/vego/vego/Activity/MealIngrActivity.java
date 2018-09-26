@@ -68,7 +68,6 @@ public class MealIngrActivity extends AppCompatActivity implements FragmentMealI
             @Override
             public void onClick(View v) {
                 if(mealsList.size()>mealN){
-                int next = mealN;
                 Intent intent= new Intent(getBaseContext(), MealIngrActivity.class);
                 intent.putExtra("DayMeals",mealsList.get(mealN).getingredients());
                 intent.putExtra("DayMealsElements",mealsList.get(mealN).getElements());
