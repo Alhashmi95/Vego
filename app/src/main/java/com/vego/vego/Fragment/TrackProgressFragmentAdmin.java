@@ -2,11 +2,14 @@ package com.vego.vego.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +59,11 @@ public class TrackProgressFragmentAdmin extends Fragment {
     Spinner spSelectUser, spSelectDay;
     ArrayAdapter<String> spinnerArrayAdapter;
     ProgressDialog p;
+
+    String masterPassword = "احمد المدني";
+    String masterPassEnter = "";
+
+    boolean checker = false;
 
 
 
@@ -297,49 +305,116 @@ public class TrackProgressFragmentAdmin extends Fragment {
         radioButtonTrue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!choosenUser.equals("اختر متدرب")) {
-                    String s = choosenUser2;
-                    Toast.makeText(getContext(), s + "  is now an Admin", Toast.LENGTH_LONG).show();
+                masterPassEnter = "";
+                //========================================================
+                final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                final EditText edittext = new EditText(getContext());
+                alert.setMessage("ادخل الرقم السري");
+                alert.setTitle("Master Password");
 
-                    role = true;
+                alert.setView(edittext);
 
-                    //set admin = true to specific user
-                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
+                alert.setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //What ever you want to do with the value
+                        //OR
+                        masterPassEnter = edittext.getText().toString();
+
+                        //=====================================================
+                        if (!choosenUser.equals("اختر متدرب") && masterPassEnter.equals(masterPassword)) {
+                            String s = choosenUser2;
+                            Toast.makeText(getContext(), s + " اصبح الان مدرب ", Toast.LENGTH_LONG).show();
+
+                            role = true;
+
+                            //set admin = true to specific user
+                            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                            DatabaseReference databasaeReference = firebaseDatabase.getReference();
 
 
 
-                    databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
-                            .setValue(String.valueOf(role));
-                }else {
-                    Toast.makeText(getContext(), "please choose user to set as admin", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+                            databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
+                                    .setValue(String.valueOf(role));
+                        }else {
+                            Toast.makeText(getContext(), "كلمة المرور غير صحيحة", Toast.LENGTH_LONG).show();
+                            radioButtonTrue.setChecked(false);
+                        }
+
+
+                    }
+
+
+                });
+                alert.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                    }
+                });
+
+                alert.show();
+
+                    }
+                });
+
+
+
         radioButtonFalse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!choosenUser.equals("اختر متدرب")) {
-                    String s = choosenUser2;
-                    Toast.makeText(getContext(), s + "  is now Trainee", Toast.LENGTH_LONG).show();
+                masterPassEnter = "";
+                //========================================================
+                final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                final EditText edittext = new EditText(getContext());
+                alert.setMessage("ادخل الرقم السري");
+                alert.setTitle("Master Password");
 
-                    role = false;
-                    //set admin = true to specific user
-                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
+                alert.setView(edittext);
+
+                alert.setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //What ever you want to do with the value
+                        //OR
+                        masterPassEnter = edittext.getText().toString();
+
+                        //=====================================================
+                        if (!choosenUser.equals("اختر متدرب") && masterPassEnter.equals(masterPassword)) {
+                            String s = choosenUser2;
+                            Toast.makeText(getContext(), s + " اصبح الان متدرب (مستخدم) ", Toast.LENGTH_LONG).show();
+
+                            role = false;
+
+                            //set admin = true to specific user
+                            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                            DatabaseReference databasaeReference = firebaseDatabase.getReference();
 
 
 
-                    databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
-                            .setValue(String.valueOf(role));
-                }else {
-                    Toast.makeText(getContext(), "please choose user to set as admin", Toast.LENGTH_LONG).show();
-                }
+                            databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
+                                    .setValue(String.valueOf(role));
+                        }else {
+                            Toast.makeText(getContext(), "كلمة المرور غير صحيحة", Toast.LENGTH_LONG).show();
+                            radioButtonFalse.setChecked(false);
+                        }
+
+
+                    }
+
+
+                });
+                alert.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                    }
+                });
+
+                alert.show();
+
             }
         });
 
 
-    }
+
+   }
     public void getWeights(){
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
