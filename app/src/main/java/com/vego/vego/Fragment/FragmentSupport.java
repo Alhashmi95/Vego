@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,12 +30,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.vego.vego.Adapters.MessageListAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.Chat;
 import com.vego.vego.model.UserInfo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -71,7 +78,18 @@ public class FragmentSupport extends Fragment {
     DatabaseReference usersprofile;
     FirebaseAuth firebaseAuth;
 
+    ArrayList<Chat> messagesArray = new ArrayList<>();
+
+
     UserInfo userinfo;
+
+    String isAdmin, userUid, currentDate, currentTime , message;
+
+    private RecyclerView mMessageRecycler;
+    private MessageListAdapter mMessageAdapter;
+
+    int j =0;
+
 
 
     // TODO: Rename and change types of parameters
@@ -118,7 +136,7 @@ public class FragmentSupport extends Fragment {
         //Retrieve the value
 //        value = getArguments().getString("userUID");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_support, container, false);
+        return inflater.inflate(R.layout.bubbleschatadmin, container, false);
 
 
 
@@ -131,24 +149,64 @@ public class FragmentSupport extends Fragment {
 
 
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        root = FirebaseDatabase.getInstance().getReference().child("MainChatRoom");
+
 
 
         getUsers();
         selectedUser();
 
 
+        //bubbles
+        mMessageRecycler = (RecyclerView) view.findViewById(R.id.reyclerview_message_list);
+
+        mMessageAdapter = new MessageListAdapter(getContext(), messagesArray);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setStackFromEnd(true);
+        mMessageRecycler.setLayoutManager(layoutManager);
+        mMessageRecycler.setAdapter(mMessageAdapter);
+        mMessageAdapter.notifyDataSetChanged();
 
 
 
-        listView_chat = view.findViewById(R.id.listView_chat);
-        input_msg = view.findViewById(R.id.input_msg);
-        btn_send_msg = view.findViewById(R.id.btn_send_msg);
+
+
+        input_msg = view.findViewById(R.id.et_chatbox);
+        btn_send_msg = view.findViewById(R.id.button_chatbox_send);
 
 
 
 
 
     }
+
+    private void getMessages() {
+        String s = firebaseAuth.getCurrentUser().getUid();
+        //حدد اي من الادمنز تنعرض رسايله
+        root.child(firebaseAuth.getCurrentUser().getUid() + " : " + choosenUser)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                j = (int) dataSnapshot.getChildrenCount();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+
+
+                    messagesArray.add(ds.getValue(Chat.class));
+
+                    mMessageAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void chat(final String userUID){
 
 
@@ -165,26 +223,48 @@ public class FragmentSupport extends Fragment {
         getNames();
 
         arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, list_chat);
-        listView_chat.setAdapter(arrayAdapter);
+        //listView_chat.setAdapter(arrayAdapter);
 
         btn_send_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                if(input_msg.length()  == 0){
+
+                }else {
+
+                    //getting current date and time
+                    Calendar calForDate = Calendar.getInstance();
+                    DateFormat currentDateFormat2 = DateFormat.getDateInstance(DateFormat.MEDIUM);
+                    currentDate = currentDateFormat2.format(calForDate.getTime());
 
 
-                Map<String, Object> map = new HashMap<String, Object>();
-                temp_key = root.push().getKey();
-                root.updateChildren(map);
+                    Calendar calForTime = Calendar.getInstance();
+                    SimpleDateFormat currentTimeFormat = new SimpleDateFormat("hh:mm a");
+                    currentTime = currentTimeFormat.format(calForTime.getTime());
 
-                //DatabaseReference message_root = root.child(temp_key);
-                DatabaseReference message_root = root.child(firebaseAuth.getUid()+" : "+ choosenUser)
-                        .child(temp_key);
-                Map<String, Object> map2 = new HashMap<String, Object>();
-                map2.put("name", name);
-                map2.put("msg", input_msg.getText().toString());
 
-                message_root.updateChildren(map2);
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    temp_key = root.push().getKey();
+                    root.updateChildren(map);
+
+                    message = input_msg.getText().toString();
+
+
+                    //DatabaseReference message_root = root.child(temp_key);
+                    DatabaseReference message_root = root.child(firebaseAuth.getUid() + " : " + choosenUser)
+                            .child(temp_key);
+                    Map<String, Object> map2 = new HashMap<String, Object>();
+                    map2.put("name", name);
+                    map2.put("msg", input_msg.getText().toString());
+                    map2.put("userUID", firebaseAuth.getCurrentUser().getUid());
+                    map2.put("createdAt", currentTime);
+                    map2.put("date", currentDate);
+
+
+                    message_root.updateChildren(map2);
+                }
+                input_msg.setText("");
             }
         });
 
@@ -193,11 +273,14 @@ public class FragmentSupport extends Fragment {
             @Override
             public void onChildAdded(final DataSnapshot dataSnapshot, String s) {
                 Add_Chat(dataSnapshot);
+                mMessageAdapter.notifyDataSetChanged();
+
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Add_Chat(dataSnapshot);
+                mMessageAdapter.notifyDataSetChanged();
 
             }
 
@@ -352,6 +435,7 @@ public class FragmentSupport extends Fragment {
                 usersprofile = FirebaseDatabase.getInstance().getReference();
                 if (position!=0)
                 chat(choosenUser);
+                getMessages();
                 //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
                 // If user change the default selection
                 // First item is disable and it is used for hint
@@ -379,59 +463,187 @@ public class FragmentSupport extends Fragment {
 
     private void Add_Chat(final DataSnapshot dataSnapshot) {
 
+        // if (input_msg.length() > 0) {
+        //check if there's a new message =====================================
+        root.child(firebaseAuth.getCurrentUser().getUid() + " : " + choosenUser)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                j = (int) dataSnapshot.getChildrenCount();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         Iterator i = dataSnapshot.getChildren().iterator();
-        input_msg.setText("");
-        final Chat c = new Chat();
+        //  input_msg.setText("");
+        Chat c = new Chat();
 
+//                        c.setMessageChat(message);
+//                        c.setCreatedAt(currentTime);
+//                        c.setUserUID(firebaseAuth.getCurrentUser().getUid());
 
-        if (dataSnapshot.getKey().equals(firebaseAuth.getUid() + " : " + choosenUser)) {
-            root.child(firebaseAuth.getUid() + " : " + choosenUser).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
-                    int j = (int) dataSnapshot2.getChildrenCount();
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        c.setNameChat((String) (ds.child("name").getValue(String.class)));
-                        c.setMessageChat((String) (ds.child("msg")).getValue(String.class));
-//                    chat_msg = (String) ((DataSnapshot) i.next()).getValue();
-//                    chat_user_name = (String) ((DataSnapshot) i.next()).getValue();
-//                root.child(firebaseAuth.getUid() + " : " + choosenUser).addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
-//                        int j = (int) dataSnapshot2.getChildrenCount();
-//                        if(list_chat.size() > j){
-//                            list_chat = new ArrayList<>();
-//                        }else {
-//                        }if(list_chat.size() == 0){
-//                        }
-//                    }
+        //messagesArray.add(c);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setStackFromEnd(true);
+        mMessageRecycler.setLayoutManager(layoutManager);
+
+        mMessageAdapter.notifyDataSetChanged();
+
+//                        //==================================================================
+//                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference();
+//                        DatabaseReference ref2, ref3, ref4;
+//                        ref2 = ref1.child("users");
 //
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
 //
-//                    }
-//                });
+//                        ref2.addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                                // Result will be holded Here
+//                                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+//                                    //Loop 1 to go through all the child nodes of users to get uid (key)
+//                                    usersUID.add(dsp.getKey());
+//                                    for (DataSnapshot dspProfile : dsp.getChildren()) {
+//                                        //loop 2 to go through all the child nodes of Profile node
+//
+//                                        if (dspProfile.getKey().equals("Profile"))
+//                                            userInfos.add(dspProfile.getValue(UserInfo.class));
+//                                    }
+//
+//
+//                                }
+//                                for (int i = 0; i < userInfos.size(); i++) {
+//                                    String t = userInfos.get(i).getUid();
+//                                    String v = usersUID.get(i);
+//                                    if (userInfos.get(i).getUid().equals(usersUID.get(i))) {
+//                                        isAdmin = userInfos.get(i).getAdmin();
+//                                    }
+//                                    if (isAdmin.equals("true")) {
+//                                        userUid = usersUID.get(i);
+//                                        adminUid.add(userUid);
+//                                    }
+//                                }
+//                            }
+//                                @Override
+//                                public void onCancelled(DatabaseError databaseError) {
+//                                    //handle databaseError
+//                                }
+//                            });
+
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference()
+                .child("MainChatRoom").child(firebaseAuth.getCurrentUser().getUid() + " : " + choosenUser);
+
+        Query lastQuery = db.orderByKey().limitToLast(1);
+
+        //get last element of messages
+        lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                        list_chat.add(c.getnameChat() + " : " + c.getMessageChat());
-                        arrayAdapter.notifyDataSetChanged();
-                        listView_chat.setSelection(list_chat.size());
-                    }
-                    if (list_chat.size() > j) {
-                        list_chat.clear();
-                    }
-                    if (list_chat.size() == 0) {
-                        Add_Chat(dataSnapshot);
-                    }
 
+                if(messagesArray.size() == j){
+
+                }else {
+
+                    try {
+
+                        Chat account = dataSnapshot.getChildren().iterator().next()
+                                .getValue(Chat.class);
+
+                        messagesArray.add(account);
+
+
+                    } catch (Throwable ignored) {
+                    }
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
-        }
+//                                String message = dataSnapshot.child("message").getValue().toString();
+                //  Chat c2 = dataSnapshot.getValue(Chat.class);
+
+//                                c2.setUserUID(firebaseAuth.getCurrentUser().getUid());
+
+                //   messagesArray.add(c2);
+
+
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                layoutManager.setStackFromEnd(true);
+                mMessageRecycler.setLayoutManager(layoutManager);
+
+                mMessageAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Handle possible errors.
+            }
+        });
+
+
+        //اي رسايل نظهر؟ يعني حقت ايت ادمن
+//                    if (dataSnapshot.getKey().equals(adminUid.get(0) + " : " + firebaseAuth.getUid())) {
+//                        String tt = adminUid.get(0);
+//                        root.child(adminUid.get(0) + " : " + firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+//                                int j = (int) dataSnapshot2.getChildrenCount();
+//                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                                    c.setNameChat((String) (ds.child("name").getValue(String.class)));
+//                                    c.setMessageChat((String) (ds.child("msg")).getValue(String.class));
+//
+//                                    Chat testChat = ds.getValue(Chat.class);
+//
+//                                    messagesArray.add(testChat);
+//
+//                                    mMessageAdapter = new MessageListAdapter(getContext(), messagesArray);
+//                                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//                                    layoutManager.setStackFromEnd(true);
+//                                    mMessageRecycler.setLayoutManager(layoutManager);
+//                                    mMessageRecycler.setAdapter(mMessageAdapter);
+//
+//
+//                                    mMessageAdapter.notifyDataSetChanged();
+//
+//
+////                    @Override
+////                    public void onCancelled(@NonNull DatabaseError databaseError) {
+////
+////                    }
+////                });
+//
+//
+////                                list_chat.add(c.getnameChat() + " : " + c.getMessageChat());
+////                                arrayAdapter.notifyDataSetChanged();
+////                                listView_chat.setSelection(list_chat.size());
+//                                }
+//                                checker = false;
+//
+//
+//                                if (messagesArray.size() > j) {
+//                                    messagesArray.clear();
+//                                }
+//                                if (messagesArray.size() == 0) {
+//                                    Add_Chat(dataSnapshot);
+//                                }
+//
+//
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//                        });
+        //    }
+        //    }
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
