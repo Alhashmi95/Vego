@@ -7,6 +7,22 @@
     tools:context=".Activity.MealIngrActivity"
     android:background="@color/grey">
 
+    <io.netopen.hotbitmapgg.library.view.RingProgressBar
+        android:id="@+id/progress_bar_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="175dp"
+        app:max="100"
+        app:ringColor="@android:color/darker_gray"
+        app:ringProgressColor="@color/colorPrimary"
+        app:ringWidth="3dp"
+        app:style="STROKE"
+        app:textColor="@color/colorPrimary"
+        app:textIsShow="true"
+        app:textSize="16sp" />
+
     // هذي اللي تسوي البار اللي فوق
 
     <android.support.v7.widget.Toolbar

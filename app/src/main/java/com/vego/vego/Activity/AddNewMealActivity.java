@@ -36,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnPausedListener;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -56,6 +57,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import io.netopen.hotbitmapgg.library.view.RingProgressBar;
 
 //Step 5 implement the method
 public class AddNewMealActivity extends AppCompatActivity implements FragmentAddMealDetailes.passArrayListIng
@@ -79,6 +82,8 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
     Uri imagePath;
     ProgressBar progressBar;
     ProgressDialog p;
+
+    RingProgressBar mRingProgressBar;
 
     EditText etTotalCal;
 
@@ -118,6 +123,11 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
         progressBar = new ProgressBar(this);
 
         imageMeal.setImageResource(R.drawable.addpic2);
+
+        mRingProgressBar = (RingProgressBar) findViewById(R.id.progress_bar_2);
+
+
+
 
         imageMeal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +197,25 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
                         UploadTask uploadTask = (UploadTask) mealRef.putFile(imagePath);
 
                         if(uploadTask != null && uploadTask.isInProgress()){
+//                            uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                                @Override
+//                                public void onProgress(final UploadTask.TaskSnapshot taskSnapshot) {
+//                                    mRingProgressBar.setOnProgressListener(new RingProgressBar.OnProgressListener() {
+//                                        @Override
+//                                        public void progressToComplete() {
+//                                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+//                                            int currentprogress = (int) progress;
+//                                            mRingProgressBar.setProgress(currentprogress);
+//
+//                                        }
+//                                    });
+//                                }
+//                            }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
+//                                @Override
+//                                public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
+//                                    System.out.println("Upload is paused");
+//                                }
+//                            });
 
                             p = new ProgressDialog(v.getContext());
                             p.setTitle("Uploading");
@@ -198,7 +227,8 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
                             saveMeal.setVisibility(View.INVISIBLE);
                         }
 
-                        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot
+                                , Task<Uri>>() {
                             @Override
                             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                                 if (!task.isSuccessful()) {
