@@ -18,18 +18,19 @@ import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.meal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHolder> {
 
-    private List<meal> mealsList;
+    private ArrayList<meal> mealsList;
     private Context mContext;
     private CardView cardViewMeals;
 
     ProgressBar progressBar;
 
 
-    public MealsAdapter(List<meal> mealsList, Context mContext) {
+    public MealsAdapter(ArrayList<meal> mealsList, Context mContext) {
         this.mealsList = mealsList;
         this.mContext = mContext;
     }
@@ -82,6 +83,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
                 intent.putExtra("name",mealsList.get(position).getName());
                 intent.putExtra("position",String.valueOf(position));
                 intent.putExtra("image",mealsList.get(position).getImage());
+                intent.putExtra("meals list",mealsList);
                 v.getContext().startActivity(intent);
             }
         });
