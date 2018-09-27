@@ -30,7 +30,7 @@ public class ActivityWorkoutUser extends AppCompatActivity {
 
     ArrayList<exercise> muExList = new ArrayList<>();
 
-    List<exercise> exList = new ArrayList<>();
+    ArrayList<exercise> exList = new ArrayList<>();
     List<exercise> exListForAll = new ArrayList<>();
 
 
@@ -56,7 +56,7 @@ public class ActivityWorkoutUser extends AppCompatActivity {
         //here we receive array of objects from daysAdapter
         //because daysAdapter has an object of DietDay which contains DayMeals array of objects
 
-        exList = (List<exercise>) intent.getSerializableExtra("DayExercise");
+        exList = (ArrayList<exercise>) intent.getSerializableExtra("DayExercise");
         exListForAll = (List<exercise>) intent.getSerializableExtra("DayExercise2");
 
         //get day number from الكلاس المعضل (daysAdapter)
@@ -77,7 +77,9 @@ public class ActivityWorkoutUser extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
         if(exListForAll != null){
-        for(int i =0 ; i<exListForAll.size(); i++) {
+            dayTextView.setText(" التمارين ");
+
+            for(int i =0 ; i<exListForAll.size(); i++) {
             if (mucsleName.equals(exListForAll.get(i).getTargetedmuscle())) {
 
                 exercise e = exListForAll.get(i);

@@ -1,6 +1,7 @@
 package com.vego.vego.Activity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -46,6 +49,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
     ArrayList<sets> setsList = new ArrayList<>();
 
+    ArrayList<exercise> exList = new ArrayList<>();
     ArrayList<sets> list = new ArrayList<>();
 
     private ArrayList<sets> setsArrayList;
@@ -56,6 +60,12 @@ public class ActivityInsideExercise extends AppCompatActivity {
     boolean checker = false;
 
     boolean checkerForRemove;
+
+    Button btnNext,btnPrevious ;
+
+    int exerciseN = 0;
+    int exerciseP = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +82,9 @@ public class ActivityInsideExercise extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         addNewSetBtn = findViewById(R.id.btnAddnewSet);
 
+        btnNext=findViewById(R.id.btnNext);
+        btnPrevious = findViewById(R.id.btnPreviousMeal);
+
 
         calVAndR.setVisibility(View.INVISIBLE);
 
@@ -84,6 +97,8 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
         clickToEnlarge();
 
+
+        nextAndPreviousExercise();
 
 
 
@@ -115,6 +130,8 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
 
         Intent intent = this.getIntent();
+
+        exList = (ArrayList<exercise>) intent.getSerializableExtra("exercise list");
         //here we receive array of objects from daysAdapter
         //because daysAdapter has an object of DietDay which contains DayMeals array of objects
         setsList = (ArrayList<sets>) intent.getSerializableExtra("exSets");
@@ -123,9 +140,10 @@ public class ActivityInsideExercise extends AppCompatActivity {
         String exName = intent.getStringExtra("exName");
         exImage = intent.getStringExtra("exImage");
         Log.d("test", "this is image   " + exImage);
-        int exNo = Integer.parseInt(exNumber) + 1;
+        exerciseN = Integer.parseInt(exNumber) + 1;
+        exerciseP = Integer.valueOf(exNumber) - 1;
 
-        exNumberTextView.setText(" التمرين " + String.valueOf(exNo));
+        exNumberTextView.setText(" التمرين " + String.valueOf(exerciseN));
         exNameTextView.setText(exName);
 
 //        Picasso.get()
@@ -152,6 +170,11 @@ public class ActivityInsideExercise extends AppCompatActivity {
         for(int i =0; i < setsList.size(); i++){
             addNewSetBtn.setVisibility(View.VISIBLE);
             if(setsList.get(i).getReps().equals("1234")){
+                //hide keyboard focus
+                getWindow().setSoftInputMode(WindowManager.
+                        LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                btnNext.setVisibility(View.GONE);
+                btnPrevious.setVisibility(View.GONE);
                 adapterFree = new ExerciseDetailsAdapterFree(setsArrayList, this);
                 recyclerView.setAdapter(adapterFree);
                 recyclerView.setHasFixedSize(true);
@@ -171,6 +194,47 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
 
 
+    }
+
+    private void nextAndPreviousExercise() {
+        //moving to next meal
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(exList.size()>exerciseN){
+                    Intent intent = new Intent(getApplicationContext(), ActivityInsideExercise.class);
+
+                    intent.putExtra("exSets", exList.get(exerciseN).getSets());
+                    intent.putExtra("exName", exList.get(exerciseN).getExername());
+                    intent.putExtra("exImage", exList.get(exerciseN).getImage());
+                    intent.putExtra("exNumber",String.valueOf(exerciseN));
+                    intent.putExtra("exercise list", exList);
+                    v.getContext().startActivity(intent);
+                    finish();}
+                else {
+                    Toast.makeText(getBaseContext(),"هذا اخر تمرين",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        //moving to previous meal
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(exList.size() > exerciseP && exerciseP >= 0){
+                    Intent intent = new Intent(getApplicationContext(), ActivityInsideExercise.class);
+
+                    intent.putExtra("exSets", exList.get(exerciseP).getSets());
+                    intent.putExtra("exName", exList.get(exerciseP).getExername());
+                    intent.putExtra("exImage", exList.get(exerciseP).getImage());
+                    intent.putExtra("exNumber",String.valueOf(exerciseP));
+                    intent.putExtra("exercise list", exList);
+                    v.getContext().startActivity(intent);
+                    finish();}
+                else {
+                    Toast.makeText(getBaseContext(),"هذا اول تمرين",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public void showCalBtn() {

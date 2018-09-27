@@ -7,17 +7,19 @@ public class Chat {
     String msg;
     String userUID;
     String createdAt;
+    String date;
 
 
     public Chat() {
 
     }
 
-    public Chat(String name,String msg,String userUID, String createdAt) {
+    public Chat(String name,String msg,String userUID, String createdAt, String date) {
         this.name = name;
         this.msg = msg;
         this.userUID = userUID;
         this.createdAt = createdAt;
+        this.date = date;
 
     }
 
@@ -51,5 +53,13 @@ public class Chat {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getDateChat() {
+        return date;
+    }
+
+    public void setDateChat(String date) {
+        this.date = date;
     }
 }

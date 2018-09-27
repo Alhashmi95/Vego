@@ -266,7 +266,8 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
                                     //upload meal to firebase
                                     d.child("meals").child(String.valueOf(test)).setValue(m);
 
-                                 //   startActivity(new Intent(AddNewMealActivity.this, AdminActivity.class));
+                                    finish();
+
                                 } else {
                                     // Handle failures
                                     Toast.makeText(AddNewMealActivity.this, "upload failed", Toast.LENGTH_SHORT).show();

@@ -547,7 +547,9 @@ public class Add_workout2user extends Fragment {
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(getContext(),"تم اضافة التمرين",Toast.LENGTH_SHORT).show();
 
-                                spSelectDay.setSelection(0);
+                                getUsers();
+
+//                                spSelectDay.setSelection(0);
 //                                spSelectEx.setSelection(0);
 //                                spSelectMu.setSelection(0);
 
@@ -585,7 +587,7 @@ public class Add_workout2user extends Fragment {
 
 
 
-                                spinnerArrayAdapter.notifyDataSetChanged();
+           //                     spinnerArrayAdapter.notifyDataSetChanged();
 
 //                            Intent intent= new Intent(getContext(), AdminActivity.class);
 //

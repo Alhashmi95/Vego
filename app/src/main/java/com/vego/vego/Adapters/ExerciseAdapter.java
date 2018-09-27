@@ -19,12 +19,13 @@ import com.vego.vego.Activity.DayMealsActivity;
 import com.vego.vego.R;
 import com.vego.vego.model.exercise;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder> {
 
 
-    private List<exercise> exList;
+    private ArrayList<exercise> exList;
     private Context mContext;
     public FragmentManager f_manager;
 
@@ -33,7 +34,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
 
 
 
-    public ExerciseAdapter(List<exercise> exList, Context mContext) {
+    public ExerciseAdapter(ArrayList<exercise> exList, Context mContext) {
         this.exList = exList;
         this.mContext = mContext;
     }
@@ -161,6 +162,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                 intent.putExtra("exName", exList.get(position).getExername());
                 intent.putExtra("exImage", exList.get(position).getImage());
                 intent.putExtra("exNumber",String.valueOf(position));
+                intent.putExtra("exercise list", exList);
                 v.getContext().startActivity(intent);
             }
         });

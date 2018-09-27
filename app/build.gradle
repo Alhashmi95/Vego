@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
@@ -30,33 +30,24 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //add this line for firebase connection
-
     implementation 'com.google.firebase:firebase-core:16.0.0'
-
     //required support lib modules
-    implementation "com.android.support:appcompat-v7:26.1.0"
-    implementation "com.android.support:recyclerview-v7:26.1.0"
-    implementation "com.android.support:support-annotations:26.1.0"
-    implementation "com.android.support:design:26.1.0"
-
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:support-annotations:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
     //for email and password authintication
     implementation 'com.google.firebase:firebase-auth:16.0.2'
-
     //sign in with google
     implementation 'com.google.android.gms:play-services-auth:16.0.0'
-
-
     //add spinner lib
     implementation 'com.jaredrummler:material-spinner:1.2.5'
-
     //for accessing fire base read/write
     implementation 'com.google.firebase:firebase-database:16.0.1'
-
     //to see .....
     implementation 'com.google.firebase:firebase-core:16.0.1'
-
     //add this for drawer
-    implementation("com.mikepenz:materialdrawer:5.3.3@aar") {
+    implementation('com.mikepenz:materialdrawer:5.3.3@aar') {
         transitive = true
     }
     //add this to access firebase storage
@@ -64,33 +55,22 @@ dependencies {
     // to support card view and recycler view
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
-
     //add firebase storage to store imgs, vids, audios ...etc
     implementation 'com.google.firebase:firebase-storage:16.0.1'
-
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'com.android.support:design:26.1.0'
     //spinner
     implementation 'com.github.arcadefire:nice-spinner:1.3.4'
-
     //add picasso to download images from url's
     implementation 'com.squareup.picasso:picasso:2.71828'
-
     //to make gif moves
     implementation 'com.koushikdutta.ion:ion:2.+'
-
     implementation 'com.firebaseui:firebase-ui-database:1.2.0'
-
     //facebook login
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
-
     implementation 'com.sendbird.sdk:sendbird-android-sdk:3.0.54'
-
     //progressbar precentage
     implementation 'com.github.HotBitmapGG:RingProgressBar:V1.2.3'
-
-
-
+    implementation 'com.facebook.android:facebook-login:4.36.1'
 }
 
 // add this line for firebase connection

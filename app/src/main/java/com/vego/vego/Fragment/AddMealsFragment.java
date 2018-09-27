@@ -975,6 +975,7 @@ public class AddMealsFragment extends Fragment {
 
                     int chossenDayInt =Integer.valueOf(choosenDay)+1;
                     databaseReferenceDay.setValue(String.valueOf(chossenDayInt));
+                    getUsers();
                 }
             }
         });

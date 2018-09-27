@@ -219,8 +219,9 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                                 d.child("exerciesForALL").child(String.valueOf(indexofImagesForAll)).setValue(e);
 
 
-                                Intent intent= new Intent(AddNewExerciseActivity.this,
-                                        AdminActivity.class);
+                                finish();
+//                                Intent intent= new Intent(AddNewExerciseActivity.this,
+//                                        AdminActivity.class);
 //                                intent.putExtra("image",exUrl);
 //                                intent.putExtra("name",exerciseName);
 //                                intent.putExtra("choosenMu",choosenMu);
