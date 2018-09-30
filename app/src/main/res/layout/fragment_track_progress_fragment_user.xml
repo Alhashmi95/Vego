@@ -1,188 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/grey"
-    >
+    android:background="@color/grey">
 
-
-    <RelativeLayout
-        android:id="@+id/relative"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginBottom="13dp"
-        android:background="@color/md_white_1000"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerUser"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/grey"
+        >
 
 
-        <TextView
-            android:id="@+id/textView18"
+        <RelativeLayout
+            android:id="@+id/relative"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/cairo_semibold"
-            android:gravity="center"
-            android:text="متابعة التقدم الشخصي"
-            android:textColor="@color/blackGrey"
-            android:textSize="16sp" />
-    </RelativeLayout>
+            android:layout_height="35dp"
+            android:layout_marginBottom="13dp"
+            android:background="@color/md_white_1000"
+            app:layout_constraintBottom_toTopOf="@+id/spinnerUser"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="178dp"
-        android:layout_marginHorizontal="25dp"
-        android:layout_marginVertical="20dp"
-        android:background="@drawable/custom_edit_text_white">
 
-        <View
-            android:id="@+id/divider3"
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cairo_semibold"
+                android:gravity="center"
+                android:text="متابعة التقدم الشخصي"
+                android:textColor="@color/blackGrey"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:background="@color/grey" />
-
-        <TextView
-            android:id="@+id/tvPreviousWeight"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView21"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="103dp"
-            android:layout_marginStart="103dp"
-            android:background="@drawable/custom_table_text"
-            android:gravity="center"
-            android:textColor="@color/blackGrey"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/tvCurrentWeight"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:layout_alignLeft="@+id/tvPreviousWeight"
-            android:layout_alignStart="@+id/tvPreviousWeight"
-            android:layout_alignTop="@+id/imageView6"
-            android:background="@drawable/custom_table_text"
-            android:gravity="center"
-            android:textColor="@color/blackGrey"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/textView20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tvPreviousWeight"
-            android:layout_alignLeft="@+id/textView24"
-            android:layout_alignStart="@+id/textView24"
-            android:text="كغ"
-            android:textColor="@color/blackGrey" />
-
-        <TextView
-            android:id="@+id/textView24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageView6"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="79dp"
-            android:layout_marginStart="79dp"
-            android:text="كغ"
-            android:textColor="@color/blackGrey" />
-
-        <TextView
-            android:id="@+id/textView21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="124dp"
-            android:layout_marginRight="124dp"
-            android:layout_marginTop="38dp"
-            android:text="الوزن السابق"
-            android:textColor="@color/blackGrey" />
-
-        <TextView
-            android:id="@+id/textView22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageView6"
-            android:layout_alignLeft="@+id/textView21"
-            android:layout_alignStart="@+id/textView21"
-            android:text="الوزن الحالي"
-            android:textColor="@color/blackGrey" />
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_alignLeft="@+id/imageView7"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/imageView7"
-            android:layout_marginBottom="30dp"
-            app:srcCompat="@drawable/balance" />
-
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="65dp"
-            android:layout_marginRight="65dp"
-            android:layout_marginTop="30dp"
-            app:srcCompat="@drawable/balance" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="196dp"
-        android:layout_marginHorizontal="25dp"
-        android:layout_marginVertical="20dp"
-        android:background="@drawable/custom_edit_text_white">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/tvPerfectWeight"
-            android:layout_alignParentStart="true"
-            android:text="نبذة عن البرنامج"
+            android:layout_height="178dp"
             android:layout_marginHorizontal="25dp"
-            android:textColor="@color/blackGrey"
-            android:layout_alignParentLeft="true" />
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/custom_edit_text_white">
 
-        <TextView
-            android:id="@+id/tvPerfectWeight"
-            android:layout_width="323dp"
-            android:layout_height="139dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="18dp"
-            android:background="@drawable/custom_table_text"
-            android:gravity="center"
-            android:text="..."
-            android:scrollbars="vertical"
-            android:textColor="@color/blackGrey"
-            android:textSize="13sp" />
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="@color/grey" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tvPreviousWeight"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView21"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="103dp"
+                android:layout_marginStart="103dp"
+                android:background="@drawable/custom_table_text"
+                android:gravity="center"
+                android:textColor="@color/blackGrey"
+                android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/btnUpdateWeight"
-        android:layout_marginHorizontal="25dp"
-        android:backgroundTint="@color/scifitBlue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/md_white_1000"
-        android:text="تحديث الوزن الحالي" />
+            <EditText
+                android:id="@+id/tvCurrentWeight"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_alignLeft="@+id/tvPreviousWeight"
+                android:layout_alignStart="@+id/tvPreviousWeight"
+                android:layout_alignTop="@+id/imageView6"
+                android:background="@drawable/custom_table_text"
+                android:gravity="center"
+                android:textColor="@color/blackGrey"
+                android:textSize="18sp" />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvPreviousWeight"
+                android:layout_alignLeft="@+id/textView24"
+                android:layout_alignStart="@+id/textView24"
+                android:text="كغ"
+                android:textColor="@color/blackGrey" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imageView6"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="79dp"
+                android:layout_marginStart="79dp"
+                android:text="كغ"
+                android:textColor="@color/blackGrey" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="124dp"
+                android:layout_marginRight="124dp"
+                android:layout_marginTop="38dp"
+                android:text="الوزن السابق"
+                android:textColor="@color/blackGrey" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imageView6"
+                android:layout_alignLeft="@+id/textView21"
+                android:layout_alignStart="@+id/textView21"
+                android:text="الوزن الحالي"
+                android:textColor="@color/blackGrey" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_alignLeft="@+id/imageView7"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/imageView7"
+                android:layout_marginBottom="30dp"
+                app:srcCompat="@drawable/balance" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="65dp"
+                android:layout_marginRight="65dp"
+                android:layout_marginTop="30dp"
+                app:srcCompat="@drawable/balance" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="196dp"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/custom_edit_text_white">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvPerfectWeight"
+                android:layout_alignParentStart="true"
+                android:text="نبذة عن البرنامج"
+                android:layout_marginHorizontal="25dp"
+                android:textColor="@color/blackGrey"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:id="@+id/tvPerfectWeight"
+                android:layout_width="323dp"
+                android:layout_height="139dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="18dp"
+                android:background="@drawable/custom_table_text"
+                android:gravity="center"
+                android:text="..."
+                android:scrollbars="vertical"
+                android:textColor="@color/blackGrey"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnUpdateWeight"
+            android:layout_marginHorizontal="25dp"
+            android:backgroundTint="@color/scifitBlue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/md_white_1000"
+            android:text="تحديث الوزن الحالي" />
+
+    </LinearLayout>
+</ScrollView>
+
