@@ -35,6 +35,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.vego.vego.Fragment.AddMealsFragment;
 import com.vego.vego.Fragment.Add_workout2user;
+import com.vego.vego.Fragment.DietFragmentAdmin;
 import com.vego.vego.Fragment.FragmentAddWorkout;
 import com.vego.vego.Fragment.FragmentSupport;
 import com.vego.vego.Fragment.TrackProgressFragmentAdmin;
@@ -219,7 +220,7 @@ public class AdminActivity extends AppCompatActivity {
                     f = new Add_workout2user();
                     break;
                 case R.id.diet:
-                    f = new AddMealsFragment();
+                    f = new DietFragmentAdmin();
                     break;
                 case R.id.support:
                     f = new FragmentSupport();

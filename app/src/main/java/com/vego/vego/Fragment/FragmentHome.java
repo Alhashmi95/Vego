@@ -5,11 +5,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 //import android.support.v4.app.FragmentManager;
 import android.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vego.vego.Adapters.DaysAdapter;
 import com.vego.vego.Adapters.IngredientsAdapter;
+import com.vego.vego.Adapters.toolbarAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
@@ -48,6 +52,11 @@ public class FragmentHome extends Fragment {
     private FragmentManager fragmentManager;
     private ArrayList<meal> mealsList;
     public static ArrayList<ingredients> mealsIngrList;
+
+    Toolbar toolbar;
+    TabLayout tabLayout;
+
+    toolbarAdapter toolbarAdapter;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -105,6 +114,26 @@ public class FragmentHome extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //adding toolbar
+        //toolbar = view.findViewById(R.id.app_bar);
+
+//        tabLayout = view.findViewById(R.id.tablayout);
+//
+//        ViewPager viewPager = view.findViewById(R.id.viewpager);
+//
+//        tabLayout.setupWithViewPager(viewPager);
+//
+        toolbarAdapter = new toolbarAdapter(getChildFragmentManager(), getContext());
+//
+//
+        toolbarAdapter.addFragment(new FragmentHome(),"month 1");
+//
+//
+        CharSequence c = toolbarAdapter.getPageTitle(0);
+
+//        viewPager.setAdapter(toolbarAdapter);
+
 
         // هذا الكود لربط الكارد فيو
         recyclerView = view.findViewById(R.id.recyclerView);

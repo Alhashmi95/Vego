@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -121,6 +122,12 @@ public class Add_workout2user extends Fragment {
     int indexOfExDay1=0,indexOfExDay2=0,indexOfExDay3=0,indexOfExDay4=0,indexOfExDay5=0, indexOfExDay6=0,
     indexOfExDay7=0;
 
+    private DatabaseReference root;
+
+    private DatabaseReference rootUserEx;
+
+
+
 
 
 
@@ -201,6 +208,9 @@ public class Add_workout2user extends Fragment {
 
         progressBar.setVisibility(View.GONE);
 
+        childlistrner();
+
+
 
 
 //        sets s2 = new sets();
@@ -230,6 +240,69 @@ public class Add_workout2user extends Fragment {
 
 
 
+
+
+    }
+
+    private void childlistrnerForEx() {
+        rootUserEx = FirebaseDatabase.getInstance().getReference().child(choosenUser)
+                .child("Exercises").child(choosenDay).child("exercise");
+        rootUserEx.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                getExCount();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                getExCount();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void childlistrner() {
+        root = FirebaseDatabase.getInstance().getReference().child("exercise");
+        root.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            getExNames();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
     }
@@ -548,6 +621,8 @@ public class Add_workout2user extends Fragment {
                                 Toast.makeText(getContext(),"تم اضافة التمرين",Toast.LENGTH_SHORT).show();
 
                                 getUsers();
+                                childlistrnerForEx();
+
 
 //                                spSelectDay.setSelection(0);
 //                                spSelectEx.setSelection(0);
@@ -594,6 +669,10 @@ public class Add_workout2user extends Fragment {
 //                            getContext().startActivity(intent);
                             }
                         });
+                        getUsers();
+                        childlistrnerForEx();
+                        getExCount();
+
 
                     }
 
@@ -1144,9 +1223,9 @@ public class Add_workout2user extends Fragment {
                 // First item is disable and it is used for hint
 
                 // Notify the selected item text
-                Toast.makeText
-                        (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText
+//                        (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+//                        .show();
             }
 
 

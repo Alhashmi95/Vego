@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import com.vego.vego.Activity.AddNewMealActivity;
+import com.vego.vego.Adapters.toolbarAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.UserInfo;
@@ -87,6 +88,12 @@ public class AddMealsFragment extends Fragment {
     ArrayList<String> arrayList2;
 
     ProgressDialog p;
+
+    ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
+
+    ArrayList<String> fragmentArrayListTitles = new ArrayList<>();
+
+
 
 
 
@@ -184,6 +191,7 @@ public class AddMealsFragment extends Fragment {
         getMeal();
 //
         selectedMeal();
+
 
 //        changeRole();
 
@@ -1151,14 +1159,16 @@ public class AddMealsFragment extends Fragment {
                 usersprofile = FirebaseDatabase.getInstance().getReference();
                 usersprofile.child(choosenUser);
                 userProfile(choosenUser);
+
+                selectMonth();
                 //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
                 // If user change the default selection
                 // First item is disable and it is used for hint
 
                 // Notify the selected item text
-                Toast.makeText
-                        (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText
+//                        (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+//                        .show();
             }
 
 
@@ -1265,4 +1275,46 @@ public class AddMealsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+    private void selectMonth() {
+
+   //     toolbarAdapter toolbarAdapter = new toolbarAdapter(getChildFragmentManager(), getContext());
+
+        Bundle bundle = this.getArguments();
+
+        toolbarAdapter toolbarAdapter = new toolbarAdapter(getFragmentManager(),getContext());
+
+
+
+        //fragmentArrayList = (ArrayList<Fragment>) bundle.getParcelableArrayList("fragmentList");
+
+        fragmentArrayList = (ArrayList<Fragment>) toolbarAdapter.getFragmentList();
+
+        fragmentArrayListTitles = (ArrayList<String>) toolbarAdapter.getFragmentTitles();
+
+
+
+        for(int  i =0; i < fragmentArrayList.size(); i++) {
+
+
+            CharSequence c = toolbarAdapter.getPageTitle(i);
+
+
+            if(c.toString().equals("month 1") && toolbarAdapter.getItem(0).equals(fragmentArrayList.get(0))){
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference firstMonthRef= root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 1");
+            }
+            if(c.toString().equals("month 2") && toolbarAdapter.getItem(1).equals(fragmentArrayList.get(1))){
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference secondMonthRef= root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 2");
+            }
+            if(c.toString().equals("month 3") && toolbarAdapter.getItem(2).equals(fragmentArrayList.get(2))){
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference thirdMonthRef= root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 3");
+            }
+        }
+    }
+
 }

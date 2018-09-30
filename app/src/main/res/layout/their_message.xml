@@ -29,8 +29,9 @@ android:clipToPadding="false">
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="46dp"
-        android:layout_alignTop="@+id/avatar"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/text_message_name"
         android:background="@drawable/date_chat"
         android:elevation="2dp"
         android:gravity="center"
@@ -40,11 +41,10 @@ android:clipToPadding="false">
         android:textSize="18dp" />
 
 <TextView
-    android:layout_marginTop="20dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/text_message_body"
-    android:layout_below="@+id/text_message_name"
+    android:layout_below="@+id/tv_date"
     android:layout_alignLeft="@+id/text_message_name"
     android:background="@drawable/their_message"
     android:paddingVertical="12dp"

@@ -38,8 +38,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -161,11 +163,12 @@ public class ChatFragment extends Fragment {
 
                             //getting current date and time
                             Calendar calForDate = Calendar.getInstance();
-                            DateFormat currentDateFormat2 = DateFormat.getDateInstance(DateFormat.MEDIUM);
+                            DateFormat currentDateFormat2 = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH);
+                            //currentDateFormat2.setTimeZone();
                             currentDate = currentDateFormat2.format(calForDate.getTime());
 
                             Calendar calForTime = Calendar.getInstance();
-                            SimpleDateFormat currentTimeFormat = new SimpleDateFormat("hh:mm a");
+                            SimpleDateFormat currentTimeFormat = new SimpleDateFormat("hh:mm a",Locale.ENGLISH);
                             currentTime = currentTimeFormat.format(calForTime.getTime());
 
                             Map<String, Object> map = new HashMap<String, Object>();

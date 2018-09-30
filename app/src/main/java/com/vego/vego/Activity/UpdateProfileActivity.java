@@ -93,6 +93,30 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 newUserWeight.setText(userinfo.getWeight());
                 newUserHeight.setText(userinfo.getHeight());
 
+                userGoal = userinfo.getUserGoal();
+                userActivity = userinfo.getUserActivity();
+
+                if(userinfo.getUserActivity().equals("مرتفع")){
+                    spActivity.setSelection(1);
+                }else if(userinfo.getUserActivity().equals("متوسط")){
+                    spActivity.setSelection(2);
+                }else if(userinfo.getUserActivity().equals("منخفض")) {
+                    spActivity.setSelection(3);
+                } else if(userinfo.getUserActivity().equals("خامل")) {
+                    spActivity.setSelection(4);
+                }
+
+
+                if(userinfo.getUserGoal().equals("زيادة الوزن")){
+                    spGoal.setSelection(1);
+                }else if(userinfo.getUserGoal().equals("انقاص الوزن")){
+                    spGoal.setSelection(2);
+                }else if(userinfo.getUserGoal().equalsIgnoreCase("زيادة عضلات")) {
+                    spGoal.setSelection(3);
+                }else if(userinfo.getUserGoal().equals("المحافظة على الوزن الحالي")) {
+                    spGoal.setSelection(4);
+                }
+
             }
 
             @Override
@@ -244,9 +268,9 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 // First item is disable and it is used for hint
                 if (position > 0) {
                     // Notify the selected item text
-                    Toast.makeText
-                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
+//                    Toast.makeText
+//                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+//                            .show();
                 }
             }
 
@@ -301,9 +325,9 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 // First item is disable and it is used for hint
                 if (position > 0) {
                     // Notify the selected item text
-                    Toast.makeText
-                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
+//                    Toast.makeText
+//                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+//                            .show();
                 }
             }
 

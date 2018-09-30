@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
@@ -199,7 +200,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             , String dateAPICompareStr
             , boolean isFirstItem) {
 
-        DateFormat f = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        DateFormat f = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH);
         if (isFirstItem) {
             //first item always got date/today to shows
             //and overkill to compare with next item flow

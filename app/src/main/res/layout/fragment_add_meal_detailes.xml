@@ -22,25 +22,26 @@
         <EditText
             android:id="@+id/mealName"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="26dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:ems="10"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="25dp"
             android:layout_marginLeft="25dp"
-            android:gravity="center"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/custom_edit_text_white"
-            android:inputType="textPersonName"
-            android:hint="Meal name" />
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Meal name"
+            android:inputType="textPersonName" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginRight="25dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/table_diet"
-            android:textDirection="rtl"
-            android:layout_marginTop="12dp">
+            android:textDirection="rtl">
 
             <TextView
                 android:id="@+id/textView8"
@@ -48,17 +49,17 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:gravity="center"
-
                 android:fontFamily="@font/cairo_semibold"
-                android:textSize="18sp"
+
+                android:gravity="center"
                 android:text="القيم الغذائية"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="2dp"
@@ -66,76 +67,77 @@
 
             <TextView
                 android:id="@+id/textView9"
-                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="75dp"
-                android:text="النوع"
                 android:layout_centerVertical="true"
-                android:textColor="#ffffff"
+                android:layout_marginEnd="75dp"
                 android:layout_marginRight="75dp"
-                android:layout_alignParentRight="true" />
+                android:layout_marginTop="5dp"
+                android:text="النوع"
+                android:textColor="#ffffff" />
 
             <TextView
                 android:id="@+id/totalcals"
-                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="40dp"
-                android:text="الكمية  (جم)"
                 android:layout_centerVertical="true"
-                android:textColor="#ffffff"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="72dp" />
+                android:layout_marginLeft="72dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                android:text="الكمية  (جم)"
+                android:textColor="#ffffff" />
         </RelativeLayout>
 
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="188dp"
+            android:layout_height="95dp"
             android:layout_marginBottom="10dp"
             android:background="@color/grey">
 
         </android.support.v7.widget.RecyclerView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/grey"
-            android:weightSum="2"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <Button
                 android:id="@+id/saveBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/scifitRed"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text="حفظ"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:textColor="@color/md_white_1000"/>
+                android:backgroundTint="@color/scifitRed"
+                android:text="حفظ"
+                android:textColor="@color/md_white_1000" />
+
             <Button
                 android:id="@+id/addNewTypeBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/scifitRed"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:text="اضف صنف"
-                android:layout_marginRight="25dp"
-                android:layout_marginLeft="5dp"
                 android:layout_alignParentRight="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="25dp"
                 android:layout_weight="1"
-                android:textColor="@color/md_white_1000"/>
-
+                android:backgroundTint="@color/scifitRed"
+                android:text="اضف صنف"
+                android:textColor="@color/md_white_1000" />
 
 
         </LinearLayout>

@@ -309,14 +309,14 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                                 //upload meal to firebase
                                 d.child("exercies").child(String.valueOf(indexofImages)).setValue(e);
 
-
-                                Intent intent= new Intent(AddNewExerciseActivity.this,
-                                        AdminActivity.class);
+                                finish();
+//                                Intent intent= new Intent(AddNewExerciseActivity.this,
+//                                        AdminActivity.class);
 //                                intent.putExtra("image",exUrl);
 //                                intent.putExtra("name",exerciseName);
 //                                intent.putExtra("choosenMu",choosenMu);
 //                                intent.putExtra("index",String.valueOf(indexofImages));
-                                v.getContext().startActivity(intent);
+                          //      v.getContext().startActivity(intent);
                             } else {
                                 // Handle failures
                                 Toast.makeText(AddNewExerciseActivity.this, "upload failed", Toast.LENGTH_SHORT).show();

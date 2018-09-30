@@ -41,6 +41,7 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.vego.vego.Fragment.ChatFragment;
+import com.vego.vego.Fragment.DietFragment;
 import com.vego.vego.Fragment.FragmentExercises;
 import com.vego.vego.Fragment.FragmentHome;
 import com.vego.vego.Fragment.FragmentWallet;
@@ -203,7 +204,7 @@ public class BottomNav extends AppCompatActivity {
             Fragment f = null;
             switch (menuItem.getItemId()){
                 case R.id.wallet:
-                    f = new FragmentHome();
+                    f = new DietFragment();
                     break;
                 case R.id.setting:
                     f = new FragmentExercises();
