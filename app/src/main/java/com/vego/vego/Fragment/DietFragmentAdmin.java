@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vego.vego.Adapters.toolbarAdapter;
+import com.vego.vego.Adapters.toolbarAdapterWeek;
 import com.vego.vego.R;
 
 import java.util.ArrayList;
@@ -35,9 +36,10 @@ import java.util.ArrayList;
  */
 public class DietFragmentAdmin extends Fragment {
 
-    TabLayout tabLayout;
+    TabLayout tabLayout, tabLayoutWeek;
 
     toolbarAdapter toolbarAdapter;
+    toolbarAdapterWeek toolbarAdapterWeek;
 
     Button addMonth, removeMonth;
 
@@ -46,6 +48,14 @@ public class DietFragmentAdmin extends Fragment {
     int counterMonth =2;
 
     ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
+
+    ArrayList<String> fragmentArrayListTitles = new ArrayList<>();
+
+
+    private OnFeedItemClickListener onFeedItemClickListener;
+
+    int position =0;
+
 
 
 
@@ -96,6 +106,7 @@ public class DietFragmentAdmin extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_diet_fragment_admin, container, false);
+
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -104,31 +115,62 @@ public class DietFragmentAdmin extends Fragment {
         //adding toolbar
 //        toolbar = view.findViewById(R.id.app_bar);
 
-        tabLayout = view.findViewById(R.id.tablayout);
-
-        viewPager = view.findViewById(R.id.viewpager);
-
-        addMonth = view.findViewById(R.id.btn_addMonth);
-
-        removeMonth = view.findViewById(R.id.btn_removeMonth);
-
-        tabLayout.setupWithViewPager(viewPager);
-
-        toolbarAdapter = new toolbarAdapter(getChildFragmentManager(), getContext());
-
-
-
-        toolbarAdapter.addFragment(new AddMealsFragment(),"month 1");
-
-
-        viewPager.setAdapter(toolbarAdapter);
-
-
-        addNewMonth();
-
-        removeMonth();
-
-        tabListener();
+//        tabLayout = view.findViewById(R.id.tablayout);
+//
+//        tabLayoutWeek = view.findViewById(R.id.tablayoutWeek);
+//
+//        viewPager = view.findViewById(R.id.viewpager);
+//
+//        addMonth = view.findViewById(R.id.btn_addMonth);
+//
+//        removeMonth = view.findViewById(R.id.btn_removeMonth);
+//
+//        tabLayoutWeek.setupWithViewPager(viewPager);
+//
+////        toolbarAdapter = new toolbarAdapter(getContext());
+//
+//        toolbarAdapterWeek = new toolbarAdapterWeek(getChildFragmentManager(), getContext());
+//
+//
+//
+//        tabLayout.addTab(tabLayout.newTab().setText("month 1"));
+//
+//
+//
+//        if(toolbarAdapterWeek.getCount() < 4) {
+//            toolbarAdapterWeek.addFragment(new AddMealsFragment(), "week 1");
+//
+//            toolbarAdapterWeek.addFragment(new AddMealsFragment(), "week 2");
+//
+//
+//            toolbarAdapterWeek.addFragment(new AddMealsFragment(), "week 3");
+//
+//
+//            toolbarAdapterWeek.addFragment(new AddMealsFragment(), "week 4");
+//        } if(toolbarAdapterWeek.getCount() > 4){
+//            toolbarAdapterWeek.getFragmentList().clear();
+//            toolbarAdapterWeek.addFragment(new AddMealsFragment(), "week 1");
+//
+//            toolbarAdapterWeek.addFragment(new AddMealsFragment(), "week 2");
+//
+//
+//            toolbarAdapterWeek.addFragment(new AddMealsFragment(), "week 3");
+//
+//
+//            toolbarAdapterWeek.addFragment(new AddMealsFragment(), "week 4");
+//
+//        }
+//
+//
+//
+//        viewPager.setAdapter(toolbarAdapterWeek);
+//
+//
+//        addNewMonth();
+//
+//        removeMonth();
+//
+//        tabListener();
 
     }
 
@@ -136,6 +178,8 @@ public class DietFragmentAdmin extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                onFeedItemClickListener.onButtonClick();
+
 //                if(tabLayout.getSelectedTabPosition() != 0) {
 //                    final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
 //                    alert.setMessage("ستفقد جميع البيانات .. الرجاء التأكد من الضغط على زر (حفظ الوجبات) قبل المتابعة");
@@ -176,24 +220,45 @@ public class DietFragmentAdmin extends Fragment {
 
             }
         });
+
+        //================================================ tab weeks
+        tabLayoutWeek.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                onFeedItemClickListener.onButtonClick();
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void removeMonth() {
         removeMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(toolbarAdapter.getCount() == 1){
+                if(tabLayout.getTabCount() == 1){
                     Toast.makeText(getContext(),
                             "يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
 
                 }else{
-                    int index = toolbarAdapter.getCount();
+                    int index = tabLayout.getTabCount();
                     index--;
-                    fragmentArrayList = (ArrayList<Fragment>) toolbarAdapter.getFragmentList();
+                    //fragmentArrayList = (ArrayList<Fragment>) toolbarAdapter.getFragmentList();
 
-                    fragmentArrayList.remove(index);
+                   // fragmentArrayListTitles = (ArrayList<String>) toolbarAdapter.getFragmentTitles();
 
-                    toolbarAdapter.notifyDataSetChanged();
+                    tabLayout.removeTabAt(index);
+
+                    //toolbarAdapter.notifyDataSetChanged();
 
 
                 }
@@ -205,8 +270,8 @@ public class DietFragmentAdmin extends Fragment {
         addMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toolbarAdapter.addFragment(new AddMealsFragment(),"month "+String.valueOf(counterMonth));
-                toolbarAdapter.notifyDataSetChanged();
+                tabLayout.addTab(tabLayout.newTab().setText("month "+String.valueOf(counterMonth)));
+                //toolbarAdapter.notifyDataSetChanged();
                 counterMonth++;
             }
         });
@@ -236,5 +301,21 @@ public class DietFragmentAdmin extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    public void setOnFeedItemClickListener(OnFeedItemClickListener onFeedItemClickListener) {
+        this.onFeedItemClickListener = onFeedItemClickListener;
+        this.position = tabLayout.getSelectedTabPosition();
+    }
+
+
+    public interface OnFeedItemClickListener {
+        void onButtonClick();
+
+    }
+    public int getCount(){
+        return tabLayout.getSelectedTabPosition();
+    }
+    public int getCountWeek(){
+        return tabLayoutWeek.getSelectedTabPosition();
     }
 }

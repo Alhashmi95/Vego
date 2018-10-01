@@ -204,7 +204,7 @@ public class BottomNav extends AppCompatActivity {
             Fragment f = null;
             switch (menuItem.getItemId()){
                 case R.id.wallet:
-                    f = new DietFragment();
+                    f = new FragmentHome();
                     break;
                 case R.id.setting:
                     f = new FragmentExercises();

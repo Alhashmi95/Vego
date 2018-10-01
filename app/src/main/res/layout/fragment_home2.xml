@@ -8,20 +8,33 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     >
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/scifitRed"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/md_white_1000"
+        app:tabTextColor="@color/scifitBlue"
+         />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayoutWeek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tablayout"
+        android:background="@color/md_light_green_100"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:tabIndicatorColor="@color/blackGrey"
+        app:tabTextColor="@color/scifitBlue" />
     <!--<include-->
         <!--layout="@layout/toolbar"-->
         <!--android:id="@+id/app_bar"-->
         <!--&gt;</include>-->
     <!---->
-    <!--<android.support.design.widget.TabLayout-->
-        <!--android:id="@+id/tablayout"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@color/scifitRed"-->
-        <!--app:tabGravity="center"-->
-        <!--app:tabIndicatorColor="@color/md_white_1000"-->
-        <!--app:tabTextColor="@color/scifitBlue"-->
-        <!--app:tabMode="scrollable" />-->
+
 
     <!--<android.support.v4.view.ViewPager-->
         <!--android:layout_width="match_parent"-->

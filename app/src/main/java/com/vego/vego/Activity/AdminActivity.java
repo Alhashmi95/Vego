@@ -220,7 +220,7 @@ public class AdminActivity extends AppCompatActivity {
                     f = new Add_workout2user();
                     break;
                 case R.id.diet:
-                    f = new DietFragmentAdmin();
+                    f = new AddMealsFragment();
                     break;
                 case R.id.support:
                     f = new FragmentSupport();

@@ -7,7 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import com.vego.vego.Activity.AddNewMealActivity;
 import com.vego.vego.Adapters.toolbarAdapter;
+import com.vego.vego.Adapters.toolbarAdapterWeek;
 import com.vego.vego.R;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.UserInfo;
@@ -93,6 +96,30 @@ public class AddMealsFragment extends Fragment {
 
     ArrayList<String> fragmentArrayListTitles = new ArrayList<>();
 
+    int position =0;
+    int positionWeek =0;
+
+    DietFragmentAdmin DietFragment;
+
+    DatabaseReference thirdMonthRef, secondMonthRef, firstMonthRef;
+
+    DatabaseReference firstMonthWeek1,firstMonthWeek2,firstMonthWeek3,firstMonthWeek4;
+    DatabaseReference secondMonthWeek1, secondMonthWeek2,secondMonthWeek3,secondMonthWeek4;
+    DatabaseReference thirdMonthWeek1, thirdMonthWeek2,thirdMonthWeek3,thirdMonthWeek4;
+
+    String chosenMonth= "Month 1", chosenWeek = "Week 1";
+
+
+    TabLayout tabLayout, tabLayoutWeek;
+
+    toolbarAdapter toolbarAdapter;
+    com.vego.vego.Adapters.toolbarAdapterWeek toolbarAdapterWeek;
+
+    Button addMonth, removeMonth;
+
+    ViewPager viewPager;
+
+    int counterMonth =2;
 
 
 
@@ -146,6 +173,8 @@ public class AddMealsFragment extends Fragment {
 
 
 
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -159,6 +188,44 @@ public class AddMealsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //add tabLayout
+        tabLayout = view.findViewById(R.id.tablayout);
+
+        tabLayoutWeek = view.findViewById(R.id.tablayoutWeek);
+
+        viewPager = view.findViewById(R.id.viewpager);
+
+        addMonth = view.findViewById(R.id.btn_addMonth);
+
+        removeMonth = view.findViewById(R.id.btn_removeMonth);
+
+
+//        toolbarAdapter = new toolbarAdapter(getContext());
+
+
+
+
+        tabLayout.addTab(tabLayout.newTab().setText("month 1"));
+
+
+
+            tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 1"));
+
+            tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 2"));
+
+            tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 3"));
+
+            tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 4"));
+
+
+        addNewMonth();
+        removeMonth();
+        tabListener();
+
+
+        //==============================================================
+
+
          profileName = view.findViewById(R.id.tvProfileName);
         profileAge = view.findViewById(R.id.tvProfileAge);
         profileWeight = view.findViewById(R.id.tvWeight);
@@ -166,6 +233,10 @@ public class AddMealsFragment extends Fragment {
         profileActivity = view.findViewById(R.id.tvprofileActivity);
         profileGoal = view.findViewById(R.id.tvprofileGoal);
         spSelectUser = view.findViewById(R.id.selectUser);
+
+
+        DietFragment = ((DietFragmentAdmin)AddMealsFragment.this.getParentFragment());
+
 
 //        radioButtonTrue = view.findViewById(R.id.radio_true);
 //        radioButtonFalse = view.findViewById(R.id.radio_false);
@@ -247,6 +318,103 @@ public class AddMealsFragment extends Fragment {
 
 
     }
+    private void removeMonth() {
+        removeMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tabLayout.getTabCount() == 1){
+                    Toast.makeText(getContext(),
+                            "يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
+
+                }else{
+                    int index = tabLayout.getTabCount();
+                    index--;
+
+                    tabLayout.removeTabAt(index);
+
+                    counterMonth--;
+
+                }
+            }
+        });
+    }
+
+    private void addNewMonth() {
+        addMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tabLayout.addTab(tabLayout.newTab().setText("month "+String.valueOf(counterMonth)));
+                counterMonth++;
+            }
+        });
+
+    }
+    private void tabListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                position = tabLayout.getSelectedTabPosition();
+
+//                if(tabLayout.getSelectedTabPosition() != 0) {
+//                    final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+//                    alert.setMessage("ستفقد جميع البيانات .. الرجاء التأكد من الضغط على زر (حفظ الوجبات) قبل المتابعة");
+//                    alert.setTitle("تنبيه");
+//
+//
+//                    alert.setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int whichButton) {
+//
+//                        }
+//
+//
+//                    });
+//                    alert.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int whichButton) {
+//                            int tabIndex = tabLayout.getSelectedTabPosition() - 1;
+//
+//                          //  tabLayout.getTabAt(tabIndex);
+//
+//                            viewPager.setCurrentItem(tabIndex);
+//
+//                            toolbarAdapter.notifyDataSetChanged();
+//
+//                        }
+//                    });
+//
+//                    alert.show();
+//                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        //================================================ tab weeks
+        tabLayoutWeek.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+            positionWeek = tabLayoutWeek.getSelectedTabPosition();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
 
     public ArrayList<meal> getMeal(){
 
@@ -853,6 +1021,9 @@ public class AddMealsFragment extends Fragment {
         addMealForUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(choosenUser != null){
+                    selectMonth();
+                }
                 // check if there's a chosen user and a chosen day
                 if(choosenUser.equals("اختر متدرب") || choosenDay.equals("اختر يوم")){
                     Toast.makeText(getContext(),"please choose day and user",Toast.LENGTH_SHORT).show();
@@ -865,9 +1036,11 @@ public class AddMealsFragment extends Fragment {
                                 + Double.valueOf(mTest5.getCal());
                         //Assigning total meals cals to the tree
                         DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(choosenDay).child("totalCals");
+                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("totalCals");
                         DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(choosenDay).child("mealsCount");
+                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("mealsCount");
 
                         //set number of meals
                         int mealCount = Integer.valueOf(mealNo5)+1;
@@ -883,9 +1056,11 @@ public class AddMealsFragment extends Fragment {
                                 + Double.valueOf(mTest3.getCal()) + Double.valueOf(mTest4.getCal());
                         //Assigning total meals cals to the tree
                         DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(choosenDay).child("totalCals");
+                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("totalCals");
                         DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(choosenDay).child("mealsCount");
+                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("mealsCount");
 
                         //set number of meals
                         int mealCount = Integer.valueOf(mealNo4)+1;
@@ -901,9 +1076,11 @@ public class AddMealsFragment extends Fragment {
                                 + Double.valueOf(mTest3.getCal());
                         //Assigning total meals cals to the tree
                         DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(choosenDay).child("totalCals");
+                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("totalCals");
                         DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(choosenDay).child("mealsCount");
+                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("mealsCount");
 
                         //set number of meals
                         int mealCount = Integer.valueOf(mealNo3)+1;
@@ -918,9 +1095,11 @@ public class AddMealsFragment extends Fragment {
                         double calSumOfMeals = Double.valueOf(mTest.getCal()) + Double.valueOf(mTest2.getCal());
                         //Assigning total meals cals to the tree
                         DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(choosenDay).child("totalCals");
+                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("totalCals");
                         DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(choosenDay).child("mealsCount");
+                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("mealsCount");
 
                         //set number of meals
                         int mealCount = Integer.valueOf(mealNo2)+1;
@@ -935,9 +1114,11 @@ public class AddMealsFragment extends Fragment {
                         double calSumOfMeals = Double.valueOf(mTest.getCal());
                         //Assigning total meals cals to the tree
                         DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(choosenDay).child("totalCals");
+                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("totalCals");
                         DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(choosenDay).child("mealsCount");
+                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("mealsCount");
 
                         //set number of meals
                         int mealCount = Integer.valueOf(mealNo1)+1;
@@ -953,7 +1134,8 @@ public class AddMealsFragment extends Fragment {
                     }
 
                     DatabaseReference databaseReferenceDay = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Diet").child(choosenDay).child("day");
+                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                            .child(choosenDay).child("day");
 
 
 
@@ -961,15 +1143,24 @@ public class AddMealsFragment extends Fragment {
 
                     //add meals to corresponding user and day
                     DatabaseReference databaseReference1 = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Diet").child(choosenDay).child("dayMeals").child(mealNo1);
+                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                            .child(choosenDay).child("dayMeals").child(mealNo1);
+
                     DatabaseReference databaseReference2 = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Diet").child(choosenDay).child("dayMeals").child(mealNo2);
+                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                            .child(choosenDay).child("dayMeals").child(mealNo2);
+
                     DatabaseReference databaseReference3 = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Diet").child(choosenDay).child("dayMeals").child(mealNo3);
+                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                            .child(choosenDay).child("dayMeals").child(mealNo3);
+
                     DatabaseReference databaseReference4 = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Diet").child(choosenDay).child("dayMeals").child(mealNo4);
+                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                            .child(choosenDay).child("dayMeals").child(mealNo4);
+
                     DatabaseReference databaseReference5 = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Diet").child(choosenDay).child("dayMeals").child(mealNo5);
+                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                            .child(choosenDay).child("dayMeals").child(mealNo5);
 
 
                     databaseReference1.setValue(mTest);
@@ -977,6 +1168,8 @@ public class AddMealsFragment extends Fragment {
                     databaseReference3.setValue(mTest3);
                     databaseReference4.setValue(mTest4);
                     databaseReference5.setValue(mTest5);
+                    getUsers();
+
 
                     Toast.makeText(getContext(),"تم حفظ الوجبة",Toast.LENGTH_LONG).show();
 
@@ -1160,7 +1353,7 @@ public class AddMealsFragment extends Fragment {
                 usersprofile.child(choosenUser);
                 userProfile(choosenUser);
 
-                selectMonth();
+                //selectMonth();
                 //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
                 // If user change the default selection
                 // First item is disable and it is used for hint
@@ -1232,89 +1425,105 @@ public class AddMealsFragment extends Fragment {
             }
         });
     }
-//    databaseReference.addValueEventListener(new ValueEventListener() {
-//        @Override
-//        public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//            arrayList.add(0,"اختر متدرب");
-//            for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
-//
-//                UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
-//                arrayList.add(dataSnapshot1.getKey());
-//                spinnerArrayAdapter.notifyDataSetChanged();
-//
-////                    Log.d("test","this is size of arr: "+ array.length);
-//
-//
-//                Log.d("test","this is uid :"+dataSnapshot1.getKey());
-//            }
-//            //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
-//
-//
-//
-//
-//        }
-//
-//        @Override
-//        public void onCancelled(DatabaseError databaseError) {
-//            Toast.makeText(AddMealsFragment.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-//        }
-//    });
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+//    @Override
+//    public void onButtonClick() {
+//        position = DietFragment.getCount();
+//        positionWeek = DietFragment.getCountWeek();
+//        if(choosenUser != null) {
+//            selectMonth();
+//            Toast.makeText(getContext(), chosenMonth +" "+ chosenWeek + " Selected", Toast.LENGTH_SHORT).show();
+//        }
+//    }
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
     private void selectMonth() {
 
-   //     toolbarAdapter toolbarAdapter = new toolbarAdapter(getChildFragmentManager(), getContext());
 
-        Bundle bundle = this.getArguments();
-
-        toolbarAdapter toolbarAdapter = new toolbarAdapter(getFragmentManager(),getContext());
-
-
-
-        //fragmentArrayList = (ArrayList<Fragment>) bundle.getParcelableArrayList("fragmentList");
-
-        fragmentArrayList = (ArrayList<Fragment>) toolbarAdapter.getFragmentList();
-
-        fragmentArrayListTitles = (ArrayList<String>) toolbarAdapter.getFragmentTitles();
-
-
-
-        for(int  i =0; i < fragmentArrayList.size(); i++) {
-
-
-            CharSequence c = toolbarAdapter.getPageTitle(i);
-
-
-            if(c.toString().equals("month 1") && toolbarAdapter.getItem(0).equals(fragmentArrayList.get(0))){
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                DatabaseReference firstMonthRef= root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 1");
+            if(position == 0) {
+                chosenMonth = "Month 1";
+                if (positionWeek == 0) {
+                    chosenWeek = "Week 1";
+                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                    firstMonthWeek1 = root.child("test").child(choosenUser).child("Diet")
+                            .child("Month 1").child("Week 1");
+                }
+                if (positionWeek == 1) {
+                    chosenWeek = "Week 2";
+                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                    firstMonthWeek2 = root.child("test").child(choosenUser).child("Diet")
+                            .child("Month 1").child("Week 2");
+                }
+                if (positionWeek == 2) {
+                    chosenWeek = "Week 3";
+                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                    firstMonthWeek3 = root.child("test").child(choosenUser).child("Diet")
+                            .child("Month 1").child("Week 3");
+                }
+                if (positionWeek == 3) {
+                    chosenWeek = "Week 4";
+                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                    firstMonthWeek4 = root.child("test").child(choosenUser).child("Diet")
+                            .child("Month 1").child("Week 4");
+                }
             }
-            if(c.toString().equals("month 2") && toolbarAdapter.getItem(1).equals(fragmentArrayList.get(1))){
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                DatabaseReference secondMonthRef= root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 2");
+            //========================================================
+                if (position == 1) {
+                    chosenMonth = "Month 2";
+                    if (positionWeek == 0) {
+                        chosenWeek = "Week 1";
+                        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                        secondMonthWeek1 = root.child("test").child(choosenUser).child("Diet")
+                                .child("Month 2").child("Week 1");
+                    }
+                    if (positionWeek == 1) {
+                        chosenWeek = "Week 2";
+                        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                        secondMonthWeek2 = root.child("test").child(choosenUser).child("Diet")
+                                .child("Month 2").child("Week 2");
+                    }
+                    if (positionWeek == 2) {
+                        chosenWeek = "Week 3";
+                        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                        secondMonthWeek3 = root.child("test").child(choosenUser).child("Diet")
+                                .child("Month 2").child("Week 3");
+                    }
+                    if (positionWeek == 3) {
+                        chosenWeek = "Week 4";
+                        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                        secondMonthWeek4 = root.child("test").child(choosenUser).child("Diet")
+                                .child("Month 2").child("Week 4");
+                    }
+                }
+            if (position == 2) {
+                chosenMonth = "Month 3";
+                if (positionWeek == 0) {
+                    chosenWeek = "Week 1";
+                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                    thirdMonthWeek1 = root.child("test").child(choosenUser).child("Diet")
+                            .child("Month 3").child("Week 1");
+                }
+                if (positionWeek == 1) {
+                    chosenWeek = "Week 2";
+                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                    thirdMonthWeek2 = root.child("test").child(choosenUser).child("Diet")
+                            .child("Month 3").child("Week 2");
+                }
+                if (positionWeek == 2) {
+                    chosenWeek = "Week 3";
+                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                    thirdMonthWeek3 = root.child("test").child(choosenUser).child("Diet")
+                            .child("Month 3").child("Week 3");
+                }
+                if (positionWeek == 3) {
+                    chosenWeek = "Week 4";
+                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                    thirdMonthWeek4 = root.child("test").child(choosenUser).child("Diet")
+                            .child("Month 3").child("Week 4");
+                }
             }
-            if(c.toString().equals("month 3") && toolbarAdapter.getItem(2).equals(fragmentArrayList.get(2))){
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                DatabaseReference thirdMonthRef= root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 3");
-            }
-        }
     }
 
 }

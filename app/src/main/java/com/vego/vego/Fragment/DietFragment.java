@@ -95,18 +95,18 @@ public class DietFragment extends Fragment {
 
         tabLayout.setupWithViewPager(viewPager);
 
-        toolbarAdapter = new toolbarAdapter(getChildFragmentManager(), getContext());
-
-
-
-        toolbarAdapter.addFragment(new FragmentHome(),"month 1");
-
-        CharSequence c = toolbarAdapter.getPageTitle(0);
-
-
-
-
-        viewPager.setAdapter(toolbarAdapter);
+//        toolbarAdapter = new toolbarAdapter(getChildFragmentManager(), getContext());
+//
+//
+//
+//        toolbarAdapter.addFragment(new FragmentHome(),"month 1");
+//
+//        CharSequence c = toolbarAdapter.getPageTitle(0);
+//
+//
+//
+//
+//        viewPager.setAdapter(toolbarAdapter);
 
     }
 
