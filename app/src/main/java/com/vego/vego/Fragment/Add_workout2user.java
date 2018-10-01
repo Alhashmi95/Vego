@@ -8,7 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,6 +46,7 @@ import com.vego.vego.Activity.SignupActivity;
 import com.vego.vego.Adapters.DaysAdapter;
 import com.vego.vego.Adapters.NewElementAdapter;
 import com.vego.vego.Adapters.NewSetAdapter;
+import com.vego.vego.Adapters.toolbarAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.Exercises;
@@ -126,6 +130,26 @@ public class Add_workout2user extends Fragment {
 
     private DatabaseReference rootUserEx;
 
+    //==============================================================
+
+    int position =0;
+    int positionWeek =0;
+
+
+    String chosenMonth= "Month 1", chosenWeek = "Week 1";
+
+
+    TabLayout tabLayout, tabLayoutWeek;
+
+    com.vego.vego.Adapters.toolbarAdapter toolbarAdapter;
+    com.vego.vego.Adapters.toolbarAdapterWeek toolbarAdapterWeek;
+
+    Button addMonth, removeMonth;
+
+    ViewPager viewPager;
+
+    int counterMonth =2;
+
 
 
 
@@ -180,6 +204,44 @@ public class Add_workout2user extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        //add tabLayout
+        tabLayout = view.findViewById(R.id.tablayout);
+
+        tabLayoutWeek = view.findViewById(R.id.tablayoutWeek);
+
+        viewPager = view.findViewById(R.id.viewpager);
+
+        addMonth = view.findViewById(R.id.btn_addMonth);
+
+        removeMonth = view.findViewById(R.id.btn_removeMonth);
+
+
+//        toolbarAdapter = new toolbarAdapter(getContext());
+
+
+
+
+        tabLayout.addTab(tabLayout.newTab().setText("month 1"));
+
+
+
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 1"));
+
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 2"));
+
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 3"));
+
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 4"));
+
+
+        addNewMonth();
+        removeMonth();
+        tabListener();
+
+
+        //==============================================================
 
 
         profileName = view.findViewById(R.id.tvProfileName);
@@ -243,10 +305,139 @@ public class Add_workout2user extends Fragment {
 
 
     }
+    private void getMonthTabs() {
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        DatabaseReference monthCountRef = rootRef.child("users").child(choosenUser).child("Exercises");
+
+        monthCountRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                counterMonth = (int) dataSnapshot.getChildrenCount();
+
+                for(int i = 1; i< counterMonth; i++){
+                    tabLayout.addTab(tabLayout.newTab().setText("month "+ String.valueOf(i+1)));
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    private void removeMonth() {
+        removeMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tabLayout.getTabCount() == 1){
+                    Toast.makeText(getContext(),
+                            "يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
+
+                }else{
+                    int index = tabLayout.getTabCount();
+                    index--;
+
+                    tabLayout.removeTabAt(index);
+
+                    counterMonth--;
+
+                }
+            }
+        });
+    }
+
+    private void addNewMonth() {
+        addMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tabLayout.addTab(tabLayout.newTab().setText("month "+String.valueOf(counterMonth)));
+                counterMonth++;
+            }
+        });
+
+    }
+    private void tabListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                position = tabLayout.getSelectedTabPosition();
+                selectMonth();
+                getExCount();
+
+
+//                if(tabLayout.getSelectedTabPosition() != 0) {
+//                    final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+//                    alert.setMessage("ستفقد جميع البيانات .. الرجاء التأكد من الضغط على زر (حفظ الوجبات) قبل المتابعة");
+//                    alert.setTitle("تنبيه");
+//
+//
+//                    alert.setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int whichButton) {
+//
+//                        }
+//
+//
+//                    });
+//                    alert.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int whichButton) {
+//                            int tabIndex = tabLayout.getSelectedTabPosition() - 1;
+//
+//                          //  tabLayout.getTabAt(tabIndex);
+//
+//                            viewPager.setCurrentItem(tabIndex);
+//
+//                            toolbarAdapter.notifyDataSetChanged();
+//
+//                        }
+//                    });
+//
+//                    alert.show();
+//                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        //================================================ tab weeks
+        tabLayoutWeek.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                positionWeek = tabLayoutWeek.getSelectedTabPosition();
+                selectMonth();
+                getExCount();
+               // getMonthTabs();
+
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
 
     private void childlistrnerForEx() {
         rootUserEx = FirebaseDatabase.getInstance().getReference().child(choosenUser)
-                .child("Exercises").child(choosenDay).child("exercise");
+                .child("Exercises").child(chosenMonth).child(chosenWeek).child(choosenDay).child("exercise");
         rootUserEx.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -319,7 +510,8 @@ public class Add_workout2user extends Fragment {
         FirebaseDatabase f = FirebaseDatabase.getInstance();
 
         DatabaseReference databaseReference = f.getReference().child("users")
-                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                .child(choosenDay).child("exercise");
 
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -402,25 +594,28 @@ public class Add_workout2user extends Fragment {
 
 
                     DatabaseReference databaseReferenceDay = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Exercises").child(choosenDay).child("day");
+                            .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                            .child(choosenDay).child("day");
 
                     DatabaseReference databaseReferenceMu = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Exercises").child(choosenDay).child("targetedmuscles");
+                            .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek).child(choosenDay).child("targetedmuscles");
 
                     databaseReferenceExCount = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Exercises").child(choosenDay).child("exercisecount");
+                            .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek).child(choosenDay).child("exercisecount");
 
 
 
                     //add meals to corresponding user and day
                     DatabaseReference databaseReference1 = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Exercises").child(choosenDay).child("exercise")
+                            .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                            .child(choosenDay).child("exercise")
                             .child(getChoosenExNumberIndex);
                     if(choosenDay.equals("0")){
                         FirebaseDatabase f = FirebaseDatabase.getInstance();
 
                         DatabaseReference databaseReference = f.getReference().child("users")
-                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("exercise");
 
                         databaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -447,7 +642,8 @@ public class Add_workout2user extends Fragment {
                         FirebaseDatabase f = FirebaseDatabase.getInstance();
 
                         DatabaseReference databaseReference = f.getReference().child("users")
-                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("exercise");
 
                         databaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -471,7 +667,8 @@ public class Add_workout2user extends Fragment {
                         FirebaseDatabase f = FirebaseDatabase.getInstance();
 
                         DatabaseReference databaseReference = f.getReference().child("users")
-                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("exercise");
 
                         databaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -495,7 +692,8 @@ public class Add_workout2user extends Fragment {
                         FirebaseDatabase f = FirebaseDatabase.getInstance();
 
                         DatabaseReference databaseReference = f.getReference().child("users")
-                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("exercise");
 
                         databaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -519,7 +717,8 @@ public class Add_workout2user extends Fragment {
                         FirebaseDatabase f = FirebaseDatabase.getInstance();
 
                         DatabaseReference databaseReference = f.getReference().child("users")
-                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("exercise");
 
                         databaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -543,7 +742,8 @@ public class Add_workout2user extends Fragment {
                         FirebaseDatabase f = FirebaseDatabase.getInstance();
 
                         DatabaseReference databaseReference = f.getReference().child("users")
-                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("exercise");
 
                         databaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -567,7 +767,8 @@ public class Add_workout2user extends Fragment {
                         FirebaseDatabase f = FirebaseDatabase.getInstance();
 
                         DatabaseReference databaseReference = f.getReference().child("users")
-                                .child(choosenUser).child("Exercises").child(choosenDay).child("exercise");
+                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("exercise");
 
                         databaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -1361,5 +1562,57 @@ public class Add_workout2user extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    private void selectMonth() {
+
+
+        if(position == 0) {
+            chosenMonth = "Month 1";
+            if (positionWeek == 0) {
+                chosenWeek = "Week 1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "Week 2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "Week 3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "Week 4";
+            }
+        }
+        if (position == 1) {
+            chosenMonth = "Month 2";
+            if (positionWeek == 0) {
+                chosenWeek = "Week 1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "Week 2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "Week 3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "Week 4";
+
+            }
+        }
+        if (position == 2) {
+            chosenMonth = "Month 3";
+            if (positionWeek == 0) {
+                chosenWeek = "Week 1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "Week 2";
+
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "Week 3";
+
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "Week 4";
+            }
+        }
     }
 }
