@@ -1,6 +1,8 @@
 package com.vego.vego.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +35,8 @@ import com.vego.vego.model.elements;
 import com.vego.vego.model.ingredients;
 import com.vego.vego.model.meal;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -49,7 +54,9 @@ public class UpdateProfileActivity extends AppCompatActivity {
     private FirebaseStorage firebaseStorage;
     private String userGoal;
     private String userActivity;
-
+    private ImageView profilePic;
+    private TextView picPicker;
+    private static int PICK_IMAGE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +71,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         spActivity = findViewById(R.id.spinner);
         spGoal = findViewById(R.id.spinner4);
         reset = findViewById(R.id.resetPass);
+        picPicker = findViewById(R.id.picPicker);
+        profilePic = findViewById(R.id.ivProfileUpdate);
 //        updateProfilePic = findViewById(R.id.ivProfileUpdate);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -413,6 +422,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
                     databasaeReferenceActive.child("users").child(firebaseAuth.getUid()).child("Profile").child("userActivity")
                             .setValue(userActivity);
+
+                    //-------------------------------------upload pic--------------------------------------------------------------
                     Toast.makeText(getApplicationContext(), "Data Updated successfully", Toast.LENGTH_SHORT).show();
 
                     UpdateProfileActivity.this.startActivity(new Intent(UpdateProfileActivity.this, BottomNav.class));
@@ -483,6 +494,18 @@ public class UpdateProfileActivity extends AppCompatActivity {
 //                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE);
 //            }
 //        });
+
+        //----------------------------------profilr pic---------------------------------------------
+        picPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();//(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, PICK_IMAGE);
+
+            }
+        });
     }
 
     @Override
@@ -494,5 +517,24 @@ public class UpdateProfileActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
 
+
+        if (resultCode == RESULT_OK) {
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                profilePic.setImageBitmap(selectedImage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(UpdateProfileActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+            }
+
+        }else {
+            Toast.makeText(UpdateProfileActivity.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
+        }
+    }
 }
