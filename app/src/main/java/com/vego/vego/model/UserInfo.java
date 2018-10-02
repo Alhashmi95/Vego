@@ -14,6 +14,7 @@ public class UserInfo {
     ArrayList<DietDay> dietDay;
     String isAdmin;
     String uid, previousWeight, adminBrief, userEmail;
+    private String image;
 
     public UserInfo() {
     }
