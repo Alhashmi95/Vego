@@ -150,7 +150,7 @@ public class TrackProgressFragmentUser extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TrackProgressFragmentUser.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -185,7 +185,7 @@ public class TrackProgressFragmentUser extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TrackProgressFragmentUser.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -209,7 +209,7 @@ public class TrackProgressFragmentUser extends Fragment {
                             .setValue(cuWeight);
 
 
-                    Toast.makeText(getContext(),"تم تحديث الوزن",Toast.LENGTH_LONG).show();
+                    Toast.makeText(TrackProgressFragmentUser.this.getContext(),"تم تحديث الوزن",Toast.LENGTH_LONG).show();
 
 
 

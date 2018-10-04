@@ -19,6 +19,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
@@ -201,6 +204,12 @@ public class ActivityInsideExercise extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                //go to the child where you want to retreive values of
+//                DatabaseReference usersRef = rootRef.child("users").child(firebaseAuth.getUid()).child("Diet")
+//                        .child(chosenMonth).child(chosenWeek);
+
                 if(exList.size()>exerciseN){
                     Intent intent = new Intent(getApplicationContext(), ActivityInsideExercise.class);
 

@@ -202,7 +202,7 @@ public class ExerciseDetailsAdapterFree extends RecyclerView.Adapter<ExerciseDet
 
 
                         Volume = Double.valueOf(exList.get(getAdapterPosition()).getWeight()) *
-                                Double.valueOf(getAdapterPosition()+1) *
+                                1 *
                                 Double.valueOf(exList.get(getAdapterPosition()).getReps());
 
                         double RM1 = Double.valueOf(exList.get(getAdapterPosition()).getWeight()) * (36 / (37

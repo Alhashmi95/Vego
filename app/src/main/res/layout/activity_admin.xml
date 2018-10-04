@@ -19,7 +19,7 @@
         android:background="#002e65"
 
         android:paddingRight="0dp"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,14 +33,14 @@
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:paddingTop="9dp"
+                android:paddingTop="20dp"
                 android:src="@drawable/logo_white" />
 
 
         </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
 
     // هذي للنافيقشون اللي تحت
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bNavAdmin"
         android:layout_width="match_parent"
@@ -48,8 +48,7 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/admin_nav"
         android:background="#333333"
-        android:scrollbars="horizontal"
-        ></android.support.design.widget.BottomNavigationView>
+        android:scrollbars="horizontal" />
 
     <FrameLayout
         android:id="@+id/fCenterAdmin"

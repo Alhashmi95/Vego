@@ -250,6 +250,8 @@ public class FragmentSupport extends Fragment {
                     root.updateChildren(map);
 
                     message = input_msg.getText().toString();
+                    String newMessage = message.replace("\n", "");
+
 
 
                     //DatabaseReference message_root = root.child(temp_key);
@@ -257,7 +259,7 @@ public class FragmentSupport extends Fragment {
                             .child(temp_key);
                     Map<String, Object> map2 = new HashMap<String, Object>();
                     map2.put("name", name);
-                    map2.put("msg", input_msg.getText().toString());
+                    map2.put("msg", newMessage);
                     map2.put("userUID", firebaseAuth.getCurrentUser().getUid());
                     map2.put("createdAt", currentTime);
                     map2.put("date", currentDate);

@@ -66,7 +66,7 @@ public class ExerciseDetailsAdapter  extends RecyclerView.Adapter<ExerciseDetail
                     exList.get(position).setWeight(holder.etWeight.getText().toString());
 
                     double Volume = Double.valueOf(exList.get(position).getWeight()) *
-                            Double.valueOf(position+1) *
+                            1 *
                             Double.valueOf(exList.get(position).getReps());
 
                     double RM1 = Double.valueOf(exList.get(position).getWeight()) * (36 / (37

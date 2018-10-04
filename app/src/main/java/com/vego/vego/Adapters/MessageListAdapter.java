@@ -214,7 +214,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                 tv.setVisibility(View.VISIBLE);
             } catch (ParseException e) {
                 e.printStackTrace();
-                tv.setVisibility(View.GONE);
+                tv.setVisibility(View.INVISIBLE);
             }
         } else {
             if (!dateAPIStr.equalsIgnoreCase(dateAPICompareStr)) {
@@ -227,10 +227,10 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                     tv.setVisibility(View.VISIBLE);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    tv.setVisibility(View.GONE);
+                    tv.setVisibility(View.INVISIBLE);
                 }
             } else {
-                tv.setVisibility(View.GONE);
+                tv.setVisibility(View.INVISIBLE);
             }
         }
     }

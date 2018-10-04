@@ -128,6 +128,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onClick(View v) {
                 progressDialog.show();
                 progressDialog.setMessage("Signing in.. please wait");
+                progressDialog.setCancelable(false);
                 signIn();
             }
         });

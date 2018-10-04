@@ -1045,6 +1045,16 @@ public class Add_workout2user extends Fragment {
                     getChoosenExNumberIndex = "7";
                 if(choosenExNumber.equals("تمرين 9"))
                     getChoosenExNumberIndex = "8";
+                if(choosenExNumber.equals("تمرين 10"))
+                    getChoosenExNumberIndex = "9";
+                if(choosenExNumber.equals("تمرين 11"))
+                    getChoosenExNumberIndex = "10";
+                if(choosenExNumber.equals("تمرين 12"))
+                    getChoosenExNumberIndex = "11";
+                if(choosenExNumber.equals("تمرين 13"))
+                    getChoosenExNumberIndex = "12";
+                if(choosenExNumber.equals("تمرين 14"))
+                    getChoosenExNumberIndex = "13";
 
 
                 // First item is disable and it is used for hint

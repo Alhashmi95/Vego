@@ -4,21 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e5e5e5"
     tools:context=".Activity.BottomNav">
 
 
-    <FrameLayout
-        android:id="@+id/fContr"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bNavigation"
-        android:layout_below="@+id/actionBar"
-        >
-
-    </FrameLayout>
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/actionBar"
+        android:id="@+id/actionBarUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -27,7 +19,7 @@
         android:background="#002e65"
 
         android:paddingRight="0dp"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -39,15 +31,13 @@
                 android:id="@+id/logo"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="91dp"
-                android:paddingTop="9dp"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="20dp"
                 android:src="@drawable/logo_white" />
 
 
         </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bNavigation"
@@ -56,10 +46,21 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/menu_nav"
         android:background="#333333"
-        android:scrollbars="horizontal"
-        app:itemBackground="@color/blackGrey"
-        ></android.support.design.widget.BottomNavigationView>
+        android:scrollbars="horizontal" />
 
+
+
+    <FrameLayout
+        android:id="@+id/fContr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bNavigation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/actionBarUser"
+        android:background="#bebcbc">
+
+    </FrameLayout>
 
 
 </RelativeLayout>

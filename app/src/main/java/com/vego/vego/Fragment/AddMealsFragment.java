@@ -19,19 +19,29 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 import com.vego.vego.Activity.AddNewMealActivity;
+import com.vego.vego.Adapters.DaysAdapter;
 import com.vego.vego.Adapters.toolbarAdapter;
 import com.vego.vego.Adapters.toolbarAdapterWeek;
 import com.vego.vego.R;
@@ -65,9 +75,8 @@ public class AddMealsFragment extends Fragment {
     ArrayList<String> arrayList;
     List<String> list;
     String choosenUser, choosenDay, choosenMeal;
-    Spinner spSelectUser, spSelectDay;
-    ArrayAdapter<String> spinnerArrayAdapter,spinnerArrayAdapter2, spinnerArrayAdapter3
-            ,spinnerArrayAdapter4;
+    Spinner spSelectUser, spSelectDay, spMealsCount, spSelectMealName;
+    ArrayAdapter<String> spinnerArrayAdapter, spinnerArrayAdapter2, spinnerArrayAdapterMealCount, spinnerArrayAdapter4;
     UserInfo userinfo;
     DatabaseReference usersprofile;
     TextView profileName;
@@ -76,8 +85,8 @@ public class AddMealsFragment extends Fragment {
     TextView profileHeight;
     TextView profileActivity;
     TextView profileGoal;
-    ArrayList<String> arrayListMeals=new ArrayList<>();
-    ArrayList<meal> arrayListMealsObject=new ArrayList<>();
+    ArrayList<String> arrayListMeals = new ArrayList<>();
+    ArrayList<meal> arrayListMealsObject = new ArrayList<>();
     DatabaseReference databaseReferenceAddMeal;
     Button addMealForUser, addNewMeal;
     ArrayList m = new ArrayList();
@@ -85,9 +94,9 @@ public class AddMealsFragment extends Fragment {
     ArrayList m3 = new ArrayList();
     ArrayList m4 = new ArrayList();
     ArrayList m5 = new ArrayList();
-    meal mTest, mTest2, mTest3,mTest4,mTest5;
+    meal mTest, mTest2, mTest3, mTest4, mTest5;
     FirebaseDatabase firebaseDatabaseMeal = FirebaseDatabase.getInstance();
-    String mealNo1,mealNo2,mealNo3,mealNo4,mealNo5;
+    String mealNo1, mealNo2, mealNo3, mealNo4, mealNo5;
     ArrayList<String> arrayList2;
 
     ProgressDialog p;
@@ -96,18 +105,18 @@ public class AddMealsFragment extends Fragment {
 
     ArrayList<String> fragmentArrayListTitles = new ArrayList<>();
 
-    int position =0;
-    int positionWeek =0;
+    int position = 0;
+    int positionWeek = 0;
 
     DietFragmentAdmin DietFragment;
 
     DatabaseReference thirdMonthRef, secondMonthRef, firstMonthRef;
 
-    DatabaseReference firstMonthWeek1,firstMonthWeek2,firstMonthWeek3,firstMonthWeek4;
-    DatabaseReference secondMonthWeek1, secondMonthWeek2,secondMonthWeek3,secondMonthWeek4;
-    DatabaseReference thirdMonthWeek1, thirdMonthWeek2,thirdMonthWeek3,thirdMonthWeek4;
+    DatabaseReference firstMonthWeek1, firstMonthWeek2, firstMonthWeek3, firstMonthWeek4;
+    DatabaseReference secondMonthWeek1, secondMonthWeek2, secondMonthWeek3, secondMonthWeek4;
+    DatabaseReference thirdMonthWeek1, thirdMonthWeek2, thirdMonthWeek3, thirdMonthWeek4;
 
-    String chosenMonth= "Month 1", chosenWeek = "Week 1";
+    String chosenMonth = "Month 1", chosenWeek = "Week 1";
 
 
     TabLayout tabLayout, tabLayoutWeek;
@@ -119,12 +128,30 @@ public class AddMealsFragment extends Fragment {
 
     ViewPager viewPager;
 
-    int counterMonth =2;
+    int counterMonth = 2;
+
+    ArrayList me = new ArrayList();
+    int mm = 1;
+    int meCount = 0;
+
+    String chosenMeNumber;
+
+    TextView cals, mealName;
+    ImageView mealImg;
+
+    ProgressBar progressBar;
+
+    String getChoosenMeNumberIndex;
+
+    String totalCals;
 
 
+    ArrayList<meal> mealsList = new ArrayList<>();
+    ArrayList<DietDay> dayMeals = new ArrayList<>();
 
+    double calSumOfMeals = 0;
 
-
+    int mealAll;
 
 
     // TODO: Rename and change types of parameters
@@ -172,9 +199,6 @@ public class AddMealsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_add_meals, container, false);
 
 
-
-
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -203,19 +227,16 @@ public class AddMealsFragment extends Fragment {
 //        toolbarAdapter = new toolbarAdapter(getContext());
 
 
-
-
         tabLayout.addTab(tabLayout.newTab().setText("month 1"));
 
 
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 1"));
 
-            tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 1"));
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 2"));
 
-            tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 2"));
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 3"));
 
-            tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 3"));
-
-            tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 4"));
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 4"));
 
 
         addNewMonth();
@@ -226,7 +247,7 @@ public class AddMealsFragment extends Fragment {
         //==============================================================
 
 
-         profileName = view.findViewById(R.id.tvProfileName);
+        profileName = view.findViewById(R.id.tvProfileName);
         profileAge = view.findViewById(R.id.tvProfileAge);
         profileWeight = view.findViewById(R.id.tvWeight);
         profileHeight = view.findViewById(R.id.tvProfileHeight);
@@ -234,16 +255,26 @@ public class AddMealsFragment extends Fragment {
         profileGoal = view.findViewById(R.id.tvprofileGoal);
         spSelectUser = view.findViewById(R.id.selectUser);
 
+        spMealsCount = view.findViewById(R.id.selectMeal);
+        spSelectMealName = view.findViewById(R.id.selectMealName);
 
-        DietFragment = ((DietFragmentAdmin)AddMealsFragment.this.getParentFragment());
+        cals = view.findViewById(R.id.textViewShortDesc);
+        mealName = view.findViewById(R.id.textViewTitle);
+        mealImg = view.findViewById(R.id.imageView);
+
+        progressBar = view.findViewById(R.id.progressBar);
+
+        progressBar.setVisibility(View.GONE);
+
+
+        DietFragment = ((DietFragmentAdmin) AddMealsFragment.this.getParentFragment());
 
 
 //        radioButtonTrue = view.findViewById(R.id.radio_true);
 //        radioButtonFalse = view.findViewById(R.id.radio_false);
 
 
-
-        addNewMeal=view.findViewById(R.id.addNewMeal);
+        addNewMeal = view.findViewById(R.id.addNewMeal);
 
         addMealForUser = view.findViewById(R.id.saveDayMeal);
 
@@ -259,9 +290,15 @@ public class AddMealsFragment extends Fragment {
 
         selectedDay();
 
+        mealNumber();
+
         getMeal();
 //
         selectedMeal();
+
+        childlistrner();
+
+        // getTotalCal();
 
 
 //        changeRole();
@@ -275,7 +312,7 @@ public class AddMealsFragment extends Fragment {
         zone1NameRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.d("test","this is day : "+ dataSnapshot.child("day").toString());
+                Log.d("test", "this is day : " + dataSnapshot.child("day").toString());
 
             }
 
@@ -286,47 +323,31 @@ public class AddMealsFragment extends Fragment {
         });
 
 
-
-
-
         //String[] usersArr = arrayList.toArray(new String[0]);
 
 
+        addNewMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), AddNewMealActivity.class));
 
 
-
-
-
-     addNewMeal.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-             startActivity(new Intent(getContext(), AddNewMealActivity.class));
-
-
-         }
-     });
-
-
-
-
-
-
-
-
-
-
+            }
+        });
 
 
     }
+
+
     private void removeMonth() {
         removeMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tabLayout.getTabCount() == 1){
+                if (tabLayout.getTabCount() == 1) {
                     Toast.makeText(getContext(),
-                            "يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
+                            "يجب ان تحتوي على عنصر واحد على الاقل", Toast.LENGTH_SHORT).show();
 
-                }else{
+                } else {
                     int index = tabLayout.getTabCount();
                     index--;
 
@@ -343,17 +364,19 @@ public class AddMealsFragment extends Fragment {
         addMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tabLayout.addTab(tabLayout.newTab().setText("month "+String.valueOf(counterMonth)));
+                tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(counterMonth)));
                 counterMonth++;
             }
         });
 
     }
+
     private void tabListener() {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 position = tabLayout.getSelectedTabPosition();
+                getMeCount();
 
 //                if(tabLayout.getSelectedTabPosition() != 0) {
 //                    final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
@@ -400,7 +423,8 @@ public class AddMealsFragment extends Fragment {
         tabLayoutWeek.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-            positionWeek = tabLayoutWeek.getSelectedTabPosition();
+                positionWeek = tabLayoutWeek.getSelectedTabPosition();
+                getMeCount();
             }
 
             @Override
@@ -416,98 +440,99 @@ public class AddMealsFragment extends Fragment {
     }
 
 
-    public ArrayList<meal> getMeal(){
+    public ArrayList<meal> getMeal() {
+        arrayListMealsObject = new ArrayList<>();
 
-        arrayListMeals.add(0,"اختر وجبة");
+        arrayListMeals.add(0, "اختر وجبة");
 //        spinnerArrayAdapter2.notifyDataSetChanged();
 
         FirebaseDatabase f = FirebaseDatabase.getInstance();
 
         DatabaseReference databaseReference = f.getReference().child("meals");
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //Note ** : ondatachange discards the value of arraylist after it finishs
 
-                for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
-                    arrayListMealsObject.add(dataSnapshot1.getValue(meal.class));
-                    arrayListMeals.add(dataSnapshot1.getValue(meal.class).getName());
-                    Log.d("test","this is meals : "+dataSnapshot1.getValue(meal.class));
+
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //Note ** : ondatachange discards the value of arraylist after it finishs
+
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        if(arrayListMealsObject.size() < mealAll)
+                        arrayListMealsObject.add(dataSnapshot1.getValue(meal.class));
+                        arrayListMeals.add(dataSnapshot1.getValue(meal.class).getName());
+                        Log.d("test", "this is meals : " + dataSnapshot1.getValue(meal.class));
 //                    spinnerArrayAdapter2.notifyDataSetChanged();
 
 
+                    }
 
 
                 }
 
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
 
 
-            }
+            });
+            Log.d("test", "this is size of arrMeal OBBBBJJJEEECCTtrtrt45454: " + arrayListMealsObject.size());
 
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-
-
-
-        });
-        Log.d("test","this is size of arrMeal OBBBBJJJEEECCTtrtrt45454: "+ arrayListMealsObject.size());
 
         return arrayListMealsObject;
     }
-    public void selectedMeal(){
+
+    public void selectedMeal() {
+        if(mealAll > arrayListMealsObject.size() || arrayListMealsObject.size() > mealAll){
+            arrayListMealsObject.clear();
+            getMeal();
+        }
         //This is first spinner (to add meal one to a specific user and day +++++++++++++++++++++++++++++++
-        spSelectUser = getView().findViewById(R.id.selectMeal);
         m = new ArrayList<>();
-        m.add(0,"اختر وجبة");
+        m.add(0, "اختر اسم الوجبة");
 
 
         // Initializing an ArrayAdapter
-        for(int i =0; i<arrayListMealsObject.size(); i++){
+        for (int i = 0; i < arrayListMealsObject.size(); i++) {
             String s = arrayListMealsObject.get(i).getName().toString();
-          //  Log.d("test","this is size of naaaaaaaaame  :   "+ arrayListMealsObject.get(i).getName());
+            //  Log.d("test","this is size of naaaaaaaaame  :   "+ arrayListMealsObject.get(i).getName());
             m.add(s);
         }
-            spinnerArrayAdapter2 = new ArrayAdapter<String>(
-                    getContext(),R.layout.support_simple_spinner_dropdown_item
-                ,m) {
+        spinnerArrayAdapter2 = new ArrayAdapter<String>(
+                getContext(), R.layout.support_simple_spinner_dropdown_item
+                , m) {
             @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
+            public boolean isEnabled(int position) {
+                if (position == 0) {
                     // Disable the first item from Spinner
                     // First item will be use for hint
                     return false;
-                }
-                else
-                {
+                } else {
                     return true;
                 }
             }
+
             @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
+                if (position == 0) {
                     // Set the hint text color gray
                     tv.setTextColor(Color.GRAY);
-                }
-                else {
+                } else {
                     tv.setTextColor(Color.BLACK);
                 }
                 return view;
             }
         };
         spinnerArrayAdapter2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spSelectUser.setAdapter(spinnerArrayAdapter2);
+        spSelectMealName.setAdapter(spinnerArrayAdapter2);
         spinnerArrayAdapter2.notifyDataSetChanged();
 
-        spSelectUser.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spSelectMealName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
@@ -516,242 +541,38 @@ public class AddMealsFragment extends Fragment {
                 firebaseDatabaseMeal = FirebaseDatabase.getInstance();
 
                 //because first element is reserved as hint
-                for(int i =0; i < m.size()-1; i++){
-                    if(choosenMeal.equals(arrayListMealsObject.get(i).getName())){
+                for (int i = 0; i < m.size() - 1; i++) {
+                    if (choosenMeal.equals(arrayListMealsObject.get(i).getName())) {
                         mTest = (arrayListMealsObject.get(i));
+
+                        //display meal details
+                        cals.setText(mTest.getCal());
+                        mealName.setText(mTest.getName());
+
+                        Picasso.get()
+                                .load(mTest.getImage())
+                                .fit()
+                                .centerCrop()
+                                .into(mealImg, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+
+                                    }
+                                });
+
+
                         // Log.d("test","this is chosen meal Object"+arrayListMealsObject.get(i).getName());
                     }
                 }
-                if(!spSelectUser.equals("اختر وجبة")){
-                    mealNo1 = "0";
-                }
 
-               // Log.d("test","check check ::  "+choosenUser + "   "+ choosenDay);
-
-
-
-
-
-
-//                    DatabaseReference databaseReferenceT = firebaseDatabaseMeal.getReference().child("meals");
-//
-//                    databaseReference.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                            for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
-//                                arrayListMealsObject.add(dataSnapshot1.getValue(meal.class));
-//                                Log.d("test","this is whole meals : "+dataSnapshot1.getValue(meal.class).toString());
-//                                spinnerArrayAdapter2.notifyDataSetChanged();
-//                                Log.d("test","this is size of arrMealObject: "+ arrayListMealsObject.size());
-//
-//
-//                            }
-//                            //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
-//
-//
-//
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//                            Toast.makeText(AddMealsFragment.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-                //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
-                // If user change the default selection
-                // First item is disable and it is used for hint
-                if(position > 0){
-                    // Notify the selected item text
-                    Toast.makeText
-                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }
-
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        //This is second spinner (to add meal one to a specific user and day +++++++++++++++++++++++++++++++
-        final Spinner spSelectUser2 = getView().findViewById(R.id.selectMeal2);
-        m2 = new ArrayList<>();
-        m2.add(0,"اختر وجبة");
-
-
-        // Initializing an ArrayAdapter
-        for(int i =0; i<arrayListMealsObject.size(); i++){
-            String s = arrayListMealsObject.get(i).getName().toString();
-            //  Log.d("test","this is size of naaaaaaaaame  :   "+ arrayListMealsObject.get(i).getName());
-            m2.add(s);
-        }
-        spinnerArrayAdapter3 = new ArrayAdapter<String>(
-                getContext(),R.layout.support_simple_spinner_dropdown_item
-                ,m2) {
-            @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                }
-                else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-        spinnerArrayAdapter3.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spSelectUser2.setAdapter(spinnerArrayAdapter3);
-        spinnerArrayAdapter3.notifyDataSetChanged();
-
-        spSelectUser2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-                String s = arrayListMeals.get(position);
-                choosenMeal = selectedItemText;
-                firebaseDatabaseMeal = FirebaseDatabase.getInstance();
-
-                //because first element is reserved as hint
-                for(int i =0; i < m.size()-1; i++){
-                    if(choosenMeal.equals(arrayListMealsObject.get(i).getName())){
-                        mTest2 = (arrayListMealsObject.get(i));
-                        // Log.d("test","this is chosen meal Object"+arrayListMealsObject.get(i).getName());
-                    }
-                }
-                if(!spSelectUser2.equals("اختر وجبة")){
-                    mealNo2 = "1";
-                }
 
                 // Log.d("test","check check ::  "+choosenUser + "   "+ choosenDay);
 
-//                    DatabaseReference databaseReferenceT = firebaseDatabaseMeal.getReference().child("meals");
-//
-//                    databaseReference.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                            for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
-//                                arrayListMealsObject.add(dataSnapshot1.getValue(meal.class));
-//                                Log.d("test","this is whole meals : "+dataSnapshot1.getValue(meal.class).toString());
-//                                spinnerArrayAdapter2.notifyDataSetChanged();
-//                                Log.d("test","this is size of arrMealObject: "+ arrayListMealsObject.size());
-//
-//
-//                            }
-//                            //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
-//
-//
-//
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//                            Toast.makeText(AddMealsFragment.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-                //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
-                // If user change the default selection
-                // First item is disable and it is used for hint
-                if(position > 0){
-                    // Notify the selected item text
-                    Toast.makeText
-                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }
-
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        //This is third spinner (to add meal one to a specific user and day +++++++++++++++++++++++++++++++
-        final Spinner spSelectUser3 = getView().findViewById(R.id.selectMeal3);
-        m2 = new ArrayList<>();
-        m2.add(0,"اختر وجبة");
-
-
-        // Initializing an ArrayAdapter
-        for(int i =0; i<arrayListMealsObject.size(); i++){
-            String s = arrayListMealsObject.get(i).getName().toString();
-            //  Log.d("test","this is size of naaaaaaaaame  :   "+ arrayListMealsObject.get(i).getName());
-            m2.add(s);
-        }
-        spinnerArrayAdapter4 = new ArrayAdapter<String>(
-                getContext(),R.layout.support_simple_spinner_dropdown_item
-                ,m2) {
-            @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                }
-                else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-        spinnerArrayAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spSelectUser3.setAdapter(spinnerArrayAdapter4);
-        spinnerArrayAdapter4.notifyDataSetChanged();
-
-        spSelectUser3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-                String s = arrayListMeals.get(position);
-                choosenMeal = selectedItemText;
-                firebaseDatabaseMeal = FirebaseDatabase.getInstance();
-
-                //because first element is reserved as hint
-                for(int i =0; i < m.size()-1; i++){
-                    if(choosenMeal.equals(arrayListMealsObject.get(i).getName())){
-                        mTest3 = (arrayListMealsObject.get(i));
-                        // Log.d("test","this is chosen meal Object"+arrayListMealsObject.get(i).getName());
-                    }
-                }
-                if(!spSelectUser3.equals("اختر وجبة")){
-                    mealNo3 = "2";
-                }
-
-                // Log.d("test","check check ::  "+choosenUser + "   "+ choosenDay);
 
 //                    DatabaseReference databaseReferenceT = firebaseDatabaseMeal.getReference().child("meals");
 //
@@ -781,7 +602,8 @@ public class AddMealsFragment extends Fragment {
                 //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
                 // If user change the default selection
                 // First item is disable and it is used for hint
-                if(position > 0){
+                if (position > 0) {
+                    progressBar.setVisibility(View.VISIBLE);
                     // Notify the selected item text
                     Toast.makeText
                             (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
@@ -795,341 +617,543 @@ public class AddMealsFragment extends Fragment {
 
             }
         });
-        //This is forth spinner (to add meal one to a specific user and day +++++++++++++++++++++++++++++++
-        final Spinner spSelectUser4 = getView().findViewById(R.id.selectMeal4);
-        m2 = new ArrayList<>();
-        m2.add(0,"اختر وجبة");
-
-
-        // Initializing an ArrayAdapter
-        for(int i =0; i<arrayListMealsObject.size(); i++){
-            String s = arrayListMealsObject.get(i).getName().toString();
-            //  Log.d("test","this is size of naaaaaaaaame  :   "+ arrayListMealsObject.get(i).getName());
-            m2.add(s);
-        }
-        spinnerArrayAdapter4 = new ArrayAdapter<String>(
-                getContext(),R.layout.support_simple_spinner_dropdown_item
-                ,m2) {
-            @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                }
-                else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-        spinnerArrayAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spSelectUser4.setAdapter(spinnerArrayAdapter4);
-        spinnerArrayAdapter4.notifyDataSetChanged();
-
-        spSelectUser4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-                String s = arrayListMeals.get(position);
-                choosenMeal = selectedItemText;
-                firebaseDatabaseMeal = FirebaseDatabase.getInstance();
-
-                //because first element is reserved as hint
-                for(int i =0; i < m.size()-1; i++){
-                    if(choosenMeal.equals(arrayListMealsObject.get(i).getName())){
-                        mTest4 = (arrayListMealsObject.get(i));
-                        // Log.d("test","this is chosen meal Object"+arrayListMealsObject.get(i).getName());
-                    }
-                }
-                if(!spSelectUser4.equals("اختر وجبة")){
-                    mealNo4 = "3";
-                }
-
-                // Log.d("test","check check ::  "+choosenUser + "   "+ choosenDay);
-
-//                    DatabaseReference databaseReferenceT = firebaseDatabaseMeal.getReference().child("meals");
-//
-//                    databaseReference.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                            for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
-//                                arrayListMealsObject.add(dataSnapshot1.getValue(meal.class));
-//                                Log.d("test","this is whole meals : "+dataSnapshot1.getValue(meal.class).toString());
-//                                spinnerArrayAdapter2.notifyDataSetChanged();
-//                                Log.d("test","this is size of arrMealObject: "+ arrayListMealsObject.size());
+//        //This is second spinner (to add meal one to a specific user and day +++++++++++++++++++++++++++++++
+//        final Spinner spSelectUser2 = getView().findViewById(R.id.selectMeal2);
+//        m2 = new ArrayList<>();
+//        m2.add(0,"اختر وجبة");
 //
 //
-//                            }
-//                            //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
+//        // Initializing an ArrayAdapter
+//        for(int i =0; i<arrayListMealsObject.size(); i++){
+//            String s = arrayListMealsObject.get(i).getName().toString();
+//            //  Log.d("test","this is size of naaaaaaaaame  :   "+ arrayListMealsObject.get(i).getName());
+//            m2.add(s);
+//        }
+//        spinnerArrayAdapter3 = new ArrayAdapter<String>(
+//                getContext(),R.layout.support_simple_spinner_dropdown_item
+//                ,m2) {
+//            @Override
+//            public boolean isEnabled(int position){
+//                if(position == 0)
+//                {
+//                    // Disable the first item from Spinner
+//                    // First item will be use for hint
+//                    return false;
+//                }
+//                else
+//                {
+//                    return true;
+//                }
+//            }
+//            @Override
+//            public View getDropDownView(int position, View convertView,
+//                                        ViewGroup parent) {
+//                View view = super.getDropDownView(position, convertView, parent);
+//                TextView tv = (TextView) view;
+//                if(position == 0){
+//                    // Set the hint text color gray
+//                    tv.setTextColor(Color.GRAY);
+//                }
+//                else {
+//                    tv.setTextColor(Color.BLACK);
+//                }
+//                return view;
+//            }
+//        };
+//        spinnerArrayAdapter3.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+//        spSelectUser2.setAdapter(spinnerArrayAdapter3);
+//        spinnerArrayAdapter3.notifyDataSetChanged();
+//
+//        spSelectUser2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                String selectedItemText = (String) parent.getItemAtPosition(position);
+//                String s = arrayListMeals.get(position);
+//                choosenMeal = selectedItemText;
+//                firebaseDatabaseMeal = FirebaseDatabase.getInstance();
+//
+//                //because first element is reserved as hint
+//                for(int i =0; i < m.size()-1; i++){
+//                    if(choosenMeal.equals(arrayListMealsObject.get(i).getName())){
+//                        mTest2 = (arrayListMealsObject.get(i));
+//                        // Log.d("test","this is chosen meal Object"+arrayListMealsObject.get(i).getName());
+//                    }
+//                }
+//                if(!spSelectUser2.equals("اختر وجبة")){
+//                    mealNo2 = "1";
+//                }
+//
+//                // Log.d("test","check check ::  "+choosenUser + "   "+ choosenDay);
+//
+////                    DatabaseReference databaseReferenceT = firebaseDatabaseMeal.getReference().child("meals");
+////
+////                    databaseReference.addValueEventListener(new ValueEventListener() {
+////                        @Override
+////                        public void onDataChange(DataSnapshot dataSnapshot) {
+////                            for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
+////                                arrayListMealsObject.add(dataSnapshot1.getValue(meal.class));
+////                                Log.d("test","this is whole meals : "+dataSnapshot1.getValue(meal.class).toString());
+////                                spinnerArrayAdapter2.notifyDataSetChanged();
+////                                Log.d("test","this is size of arrMealObject: "+ arrayListMealsObject.size());
+////
+////
+////                            }
+////                            //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
+////
+////
+////
+////
+////                        }
+////
+////                        @Override
+////                        public void onCancelled(DatabaseError databaseError) {
+////                            Toast.makeText(AddMealsFragment.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+////                        }
+////                    });
+//                //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
+//                // If user change the default selection
+//                // First item is disable and it is used for hint
+//                if(position > 0){
+//                    // Notify the selected item text
+//                    Toast.makeText
+//                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+//                            .show();
+//                }
+//            }
 //
 //
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//        //This is third spinner (to add meal one to a specific user and day +++++++++++++++++++++++++++++++
+//        final Spinner spSelectUser3 = getView().findViewById(R.id.selectMeal3);
+//        m2 = new ArrayList<>();
+//        m2.add(0,"اختر وجبة");
 //
 //
-//                        }
+//        // Initializing an ArrayAdapter
+//        for(int i =0; i<arrayListMealsObject.size(); i++){
+//            String s = arrayListMealsObject.get(i).getName().toString();
+//            //  Log.d("test","this is size of naaaaaaaaame  :   "+ arrayListMealsObject.get(i).getName());
+//            m2.add(s);
+//        }
+//        spinnerArrayAdapter4 = new ArrayAdapter<String>(
+//                getContext(),R.layout.support_simple_spinner_dropdown_item
+//                ,m2) {
+//            @Override
+//            public boolean isEnabled(int position){
+//                if(position == 0)
+//                {
+//                    // Disable the first item from Spinner
+//                    // First item will be use for hint
+//                    return false;
+//                }
+//                else
+//                {
+//                    return true;
+//                }
+//            }
+//            @Override
+//            public View getDropDownView(int position, View convertView,
+//                                        ViewGroup parent) {
+//                View view = super.getDropDownView(position, convertView, parent);
+//                TextView tv = (TextView) view;
+//                if(position == 0){
+//                    // Set the hint text color gray
+//                    tv.setTextColor(Color.GRAY);
+//                }
+//                else {
+//                    tv.setTextColor(Color.BLACK);
+//                }
+//                return view;
+//            }
+//        };
+//        spinnerArrayAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+//        spSelectUser3.setAdapter(spinnerArrayAdapter4);
+//        spinnerArrayAdapter4.notifyDataSetChanged();
 //
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//                            Toast.makeText(AddMealsFragment.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-                //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
-                // If user change the default selection
-                // First item is disable and it is used for hint
-                if(position > 0){
-                    // Notify the selected item text
-                    Toast.makeText
-                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }
-
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        //This is third spinner (to add meal one to a specific user and day +++++++++++++++++++++++++++++++
-        final Spinner spSelectUser5 = getView().findViewById(R.id.selectMeal5);
-        m2 = new ArrayList<>();
-        m2.add(0,"اختر وجبة");
-
-
-        // Initializing an ArrayAdapter
-        for(int i =0; i<arrayListMealsObject.size(); i++){
-            String s = arrayListMealsObject.get(i).getName().toString();
-            //  Log.d("test","this is size of naaaaaaaaame  :   "+ arrayListMealsObject.get(i).getName());
-            m2.add(s);
-        }
-        spinnerArrayAdapter4 = new ArrayAdapter<String>(
-                getContext(),R.layout.support_simple_spinner_dropdown_item
-                ,m2) {
-            @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                }
-                else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-        spinnerArrayAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spSelectUser5.setAdapter(spinnerArrayAdapter4);
-        spinnerArrayAdapter4.notifyDataSetChanged();
-
-        spSelectUser5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-                String s = arrayListMeals.get(position);
-                choosenMeal = selectedItemText;
-                firebaseDatabaseMeal = FirebaseDatabase.getInstance();
-
-                //because first element is reserved as hint
-                for(int i =0; i < m.size()-1; i++){
-                    if(choosenMeal.equals(arrayListMealsObject.get(i).getName())){
-                        mTest5 = (arrayListMealsObject.get(i));
-                        // Log.d("test","this is chosen meal Object"+arrayListMealsObject.get(i).getName());
-                    }
-                }
-                if(!spSelectUser5.equals("اختر وجبة")){
-                    mealNo5 = "4";
-                }
-
-                // Log.d("test","check check ::  "+choosenUser + "   "+ choosenDay);
-
-//                    DatabaseReference databaseReferenceT = firebaseDatabaseMeal.getReference().child("meals");
+//        spSelectUser3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                String selectedItemText = (String) parent.getItemAtPosition(position);
+//                String s = arrayListMeals.get(position);
+//                choosenMeal = selectedItemText;
+//                firebaseDatabaseMeal = FirebaseDatabase.getInstance();
 //
-//                    databaseReference.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                            for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
-//                                arrayListMealsObject.add(dataSnapshot1.getValue(meal.class));
-//                                Log.d("test","this is whole meals : "+dataSnapshot1.getValue(meal.class).toString());
-//                                spinnerArrayAdapter2.notifyDataSetChanged();
-//                                Log.d("test","this is size of arrMealObject: "+ arrayListMealsObject.size());
+//                //because first element is reserved as hint
+//                for(int i =0; i < m.size()-1; i++){
+//                    if(choosenMeal.equals(arrayListMealsObject.get(i).getName())){
+//                        mTest3 = (arrayListMealsObject.get(i));
+//                        // Log.d("test","this is chosen meal Object"+arrayListMealsObject.get(i).getName());
+//                    }
+//                }
+//                if(!spSelectUser3.equals("اختر وجبة")){
+//                    mealNo3 = "2";
+//                }
+//
+//                // Log.d("test","check check ::  "+choosenUser + "   "+ choosenDay);
+//
+////                    DatabaseReference databaseReferenceT = firebaseDatabaseMeal.getReference().child("meals");
+////
+////                    databaseReference.addValueEventListener(new ValueEventListener() {
+////                        @Override
+////                        public void onDataChange(DataSnapshot dataSnapshot) {
+////                            for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
+////                                arrayListMealsObject.add(dataSnapshot1.getValue(meal.class));
+////                                Log.d("test","this is whole meals : "+dataSnapshot1.getValue(meal.class).toString());
+////                                spinnerArrayAdapter2.notifyDataSetChanged();
+////                                Log.d("test","this is size of arrMealObject: "+ arrayListMealsObject.size());
+////
+////
+////                            }
+////                            //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
+////
+////
+////
+////
+////                        }
+////
+////                        @Override
+////                        public void onCancelled(DatabaseError databaseError) {
+////                            Toast.makeText(AddMealsFragment.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+////                        }
+////                    });
+//                //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
+//                // If user change the default selection
+//                // First item is disable and it is used for hint
+//                if(position > 0){
+//                    // Notify the selected item text
+//                    Toast.makeText
+//                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+//                            .show();
+//                }
+//            }
 //
 //
-//                            }
-//                            //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//        //This is forth spinner (to add meal one to a specific user and day +++++++++++++++++++++++++++++++
+//        final Spinner spSelectUser4 = getView().findViewById(R.id.selectMeal4);
+//        m2 = new ArrayList<>();
+//        m2.add(0,"اختر وجبة");
 //
 //
+//        // Initializing an ArrayAdapter
+//        for(int i =0; i<arrayListMealsObject.size(); i++){
+//            String s = arrayListMealsObject.get(i).getName().toString();
+//            //  Log.d("test","this is size of naaaaaaaaame  :   "+ arrayListMealsObject.get(i).getName());
+//            m2.add(s);
+//        }
+//        spinnerArrayAdapter4 = new ArrayAdapter<String>(
+//                getContext(),R.layout.support_simple_spinner_dropdown_item
+//                ,m2) {
+//            @Override
+//            public boolean isEnabled(int position){
+//                if(position == 0)
+//                {
+//                    // Disable the first item from Spinner
+//                    // First item will be use for hint
+//                    return false;
+//                }
+//                else
+//                {
+//                    return true;
+//                }
+//            }
+//            @Override
+//            public View getDropDownView(int position, View convertView,
+//                                        ViewGroup parent) {
+//                View view = super.getDropDownView(position, convertView, parent);
+//                TextView tv = (TextView) view;
+//                if(position == 0){
+//                    // Set the hint text color gray
+//                    tv.setTextColor(Color.GRAY);
+//                }
+//                else {
+//                    tv.setTextColor(Color.BLACK);
+//                }
+//                return view;
+//            }
+//        };
+//        spinnerArrayAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+//        spSelectUser4.setAdapter(spinnerArrayAdapter4);
+//        spinnerArrayAdapter4.notifyDataSetChanged();
+//
+//        spSelectUser4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                String selectedItemText = (String) parent.getItemAtPosition(position);
+//                String s = arrayListMeals.get(position);
+//                choosenMeal = selectedItemText;
+//                firebaseDatabaseMeal = FirebaseDatabase.getInstance();
+//
+//                //because first element is reserved as hint
+//                for(int i =0; i < m.size()-1; i++){
+//                    if(choosenMeal.equals(arrayListMealsObject.get(i).getName())){
+//                        mTest4 = (arrayListMealsObject.get(i));
+//                        // Log.d("test","this is chosen meal Object"+arrayListMealsObject.get(i).getName());
+//                    }
+//                }
+//                if(!spSelectUser4.equals("اختر وجبة")){
+//                    mealNo4 = "3";
+//                }
+//
+//                // Log.d("test","check check ::  "+choosenUser + "   "+ choosenDay);
+//
+////                    DatabaseReference databaseReferenceT = firebaseDatabaseMeal.getReference().child("meals");
+////
+////                    databaseReference.addValueEventListener(new ValueEventListener() {
+////                        @Override
+////                        public void onDataChange(DataSnapshot dataSnapshot) {
+////                            for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
+////                                arrayListMealsObject.add(dataSnapshot1.getValue(meal.class));
+////                                Log.d("test","this is whole meals : "+dataSnapshot1.getValue(meal.class).toString());
+////                                spinnerArrayAdapter2.notifyDataSetChanged();
+////                                Log.d("test","this is size of arrMealObject: "+ arrayListMealsObject.size());
+////
+////
+////                            }
+////                            //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
+////
+////
+////
+////
+////                        }
+////
+////                        @Override
+////                        public void onCancelled(DatabaseError databaseError) {
+////                            Toast.makeText(AddMealsFragment.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+////                        }
+////                    });
+//                //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
+//                // If user change the default selection
+//                // First item is disable and it is used for hint
+//                if(position > 0){
+//                    // Notify the selected item text
+//                    Toast.makeText
+//                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+//                            .show();
+//                }
+//            }
 //
 //
-//                        }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
 //
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//                            Toast.makeText(AddMealsFragment.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-                //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
-                // If user change the default selection
-                // First item is disable and it is used for hint
-                if(position > 0){
-                    // Notify the selected item text
-                    Toast.makeText
-                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }
-
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
+//            }
+//        });
+//        //This is third spinner (to add meal one to a specific user and day +++++++++++++++++++++++++++++++
+//        final Spinner spSelectUser5 = getView().findViewById(R.id.selectMeal5);
+//        m2 = new ArrayList<>();
+//        m2.add(0,"اختر وجبة");
+//
+//
+//        // Initializing an ArrayAdapter
+//        for(int i =0; i<arrayListMealsObject.size(); i++){
+//            String s = arrayListMealsObject.get(i).getName().toString();
+//            //  Log.d("test","this is size of naaaaaaaaame  :   "+ arrayListMealsObject.get(i).getName());
+//            m2.add(s);
+//        }
+//        spinnerArrayAdapter4 = new ArrayAdapter<String>(
+//                getContext(),R.layout.support_simple_spinner_dropdown_item
+//                ,m2) {
+//            @Override
+//            public boolean isEnabled(int position){
+//                if(position == 0)
+//                {
+//                    // Disable the first item from Spinner
+//                    // First item will be use for hint
+//                    return false;
+//                }
+//                else
+//                {
+//                    return true;
+//                }
+//            }
+//            @Override
+//            public View getDropDownView(int position, View convertView,
+//                                        ViewGroup parent) {
+//                View view = super.getDropDownView(position, convertView, parent);
+//                TextView tv = (TextView) view;
+//                if(position == 0){
+//                    // Set the hint text color gray
+//                    tv.setTextColor(Color.GRAY);
+//                }
+//                else {
+//                    tv.setTextColor(Color.BLACK);
+//                }
+//                return view;
+//            }
+//        };
+//        spinnerArrayAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+//        spSelectUser5.setAdapter(spinnerArrayAdapter4);
+//        spinnerArrayAdapter4.notifyDataSetChanged();
+//
+//        spSelectUser5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                String selectedItemText = (String) parent.getItemAtPosition(position);
+//                String s = arrayListMeals.get(position);
+//                choosenMeal = selectedItemText;
+//                firebaseDatabaseMeal = FirebaseDatabase.getInstance();
+//
+//                //because first element is reserved as hint
+//                for(int i =0; i < m.size()-1; i++){
+//                    if(choosenMeal.equals(arrayListMealsObject.get(i).getName())){
+//                        mTest5 = (arrayListMealsObject.get(i));
+//                        // Log.d("test","this is chosen meal Object"+arrayListMealsObject.get(i).getName());
+//                    }
+//                }
+//                if(!spSelectUser5.equals("اختر وجبة")){
+//                    mealNo5 = "4";
+//                }
+//
+//                // Log.d("test","check check ::  "+choosenUser + "   "+ choosenDay);
+//
+////                    DatabaseReference databaseReferenceT = firebaseDatabaseMeal.getReference().child("meals");
+////
+////                    databaseReference.addValueEventListener(new ValueEventListener() {
+////                        @Override
+////                        public void onDataChange(DataSnapshot dataSnapshot) {
+////                            for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ){
+////                                arrayListMealsObject.add(dataSnapshot1.getValue(meal.class));
+////                                Log.d("test","this is whole meals : "+dataSnapshot1.getValue(meal.class).toString());
+////                                spinnerArrayAdapter2.notifyDataSetChanged();
+////                                Log.d("test","this is size of arrMealObject: "+ arrayListMealsObject.size());
+////
+////
+////                            }
+////                            //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
+////
+////
+////
+////
+////                        }
+////
+////                        @Override
+////                        public void onCancelled(DatabaseError databaseError) {
+////                            Toast.makeText(AddMealsFragment.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+////                        }
+////                    });
+//                //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
+//                // If user change the default selection
+//                // First item is disable and it is used for hint
+//                if(position > 0){
+//                    // Notify the selected item text
+//                    Toast.makeText
+//                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+//                            .show();
+//                }
+//            }
+//
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
 
         addMealForUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(choosenUser != null){
+                if (choosenUser != null) {
                     selectMonth();
+                    calSumOfMeals = 0;
                 }
                 // check if there's a chosen user and a chosen day
-                if(choosenUser.equals("اختر متدرب") || choosenDay.equals("اختر يوم")){
-                    Toast.makeText(getContext(),"please choose day and user",Toast.LENGTH_SHORT).show();
-                }else {
+                if (choosenUser.equals("اختر متدرب") || choosenDay.equals("اختر يوم")) {
+                    Toast.makeText(getContext(), "please choose day and user", Toast.LENGTH_SHORT).show();
+                } else {
                     //check if all spinners were selected then add the total calories
-                    if(mTest != null && mTest2 != null && mTest3 != null && mTest4 != null && mTest5 != null) {
-                        //calculating total sum of meals
-                        double calSumOfMeals = Double.valueOf(mTest.getCal()) + Double.valueOf(mTest2.getCal())
-                                + Double.valueOf(mTest3.getCal()) + Double.valueOf(mTest4.getCal())
-                                + Double.valueOf(mTest5.getCal());
-                        //Assigning total meals cals to the tree
-                        DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("totalCals");
-                        DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("mealsCount");
+//                    if(mTest != null && mTest2 != null && mTest3 != null && mTest4 != null && mTest5 != null) {
+//                        //calculating total sum of meals
+//                        double calSumOfMeals = Double.valueOf(mTest.getCal()) + Double.valueOf(mTest2.getCal())
+//                                + Double.valueOf(mTest3.getCal()) + Double.valueOf(mTest4.getCal())
+//                                + Double.valueOf(mTest5.getCal());
+//                        //Assigning total meals cals to the tree
+//                        DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
+//                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+//                                .child(choosenDay).child("totalCals");
+//                        DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
+//                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+//                                .child(choosenDay).child("mealsCount");
+//
+//                        //set number of meals
+//                        int mealCount = Integer.valueOf(mealNo5)+1;
+//
+//                        databaseReferenceTotalCal.setValue(String.valueOf(calSumOfMeals));
+//                        databaseReferenceMealCount.setValue(String.valueOf(mealCount));
+//
+//                    }
+//                    //check if all spinners were selected then add the total calories
+//                    if(mTest != null && mTest2 != null && mTest3 != null && mTest4 != null && mTest5 ==null) {
+//                        //calculating total sum of meals
+//                        double calSumOfMeals = Double.valueOf(mTest.getCal()) + Double.valueOf(mTest2.getCal())
+//                                + Double.valueOf(mTest3.getCal()) + Double.valueOf(mTest4.getCal());
+//                        //Assigning total meals cals to the tree
+//                        DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
+//                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+//                                .child(choosenDay).child("totalCals");
+//                        DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
+//                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+//                                .child(choosenDay).child("mealsCount");
+//
+//                        //set number of meals
+//                        int mealCount = Integer.valueOf(mealNo4)+1;
+//
+//                        databaseReferenceTotalCal.setValue(String.valueOf(calSumOfMeals));
+//                        databaseReferenceMealCount.setValue(String.valueOf(mealCount));
+//
+//                    }
+//                    //check if all spinners were selected then add the total calories
+//                    if(mTest != null && mTest2 != null && mTest3 != null && mTest4 == null && mTest5 == null) {
+//                        //calculating total sum of meals
+//                        double calSumOfMeals = Double.valueOf(mTest.getCal()) + Double.valueOf(mTest2.getCal())
+//                                + Double.valueOf(mTest3.getCal());
+//                        //Assigning total meals cals to the tree
+//                        DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
+//                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+//                                .child(choosenDay).child("totalCals");
+//                        DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
+//                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+//                                .child(choosenDay).child("mealsCount");
+//
+//                        //set number of meals
+//                        int mealCount = Integer.valueOf(mealNo3)+1;
+//
+//                        databaseReferenceTotalCal.setValue(String.valueOf(calSumOfMeals));
+//                        databaseReferenceMealCount.setValue(String.valueOf(mealCount));
+//
+//                    }
+//                    //check if all spinners were selected then add the total calories
+//                    if(mTest != null && mTest2 != null && mTest3 == null && mTest4 == null && mTest5 == null) {
+//                        //calculating total sum of meals
+//                        double calSumOfMeals = Double.valueOf(mTest.getCal()) + Double.valueOf(mTest2.getCal());
+//                        //Assigning total meals cals to the tree
+//                        DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
+//                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+//                                .child(choosenDay).child("totalCals");
+//                        DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
+//                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+//                                .child(choosenDay).child("mealsCount");
+//
+//                        //set number of meals
+//                        int mealCount = Integer.valueOf(mealNo2)+1;
+//
+//                        databaseReferenceTotalCal.setValue(String.valueOf(calSumOfMeals));
+//                        databaseReferenceMealCount.setValue(String.valueOf(mealCount));
+//
+//                    }
 
-                        //set number of meals
-                        int mealCount = Integer.valueOf(mealNo5)+1;
-
-                        databaseReferenceTotalCal.setValue(String.valueOf(calSumOfMeals));
-                        databaseReferenceMealCount.setValue(String.valueOf(mealCount));
-
-                    }
-                    //check if all spinners were selected then add the total calories
-                    if(mTest != null && mTest2 != null && mTest3 != null && mTest4 != null && mTest5 ==null) {
-                        //calculating total sum of meals
-                        double calSumOfMeals = Double.valueOf(mTest.getCal()) + Double.valueOf(mTest2.getCal())
-                                + Double.valueOf(mTest3.getCal()) + Double.valueOf(mTest4.getCal());
-                        //Assigning total meals cals to the tree
-                        DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("totalCals");
-                        DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("mealsCount");
-
-                        //set number of meals
-                        int mealCount = Integer.valueOf(mealNo4)+1;
-
-                        databaseReferenceTotalCal.setValue(String.valueOf(calSumOfMeals));
-                        databaseReferenceMealCount.setValue(String.valueOf(mealCount));
-
-                    }
-                    //check if all spinners were selected then add the total calories
-                    if(mTest != null && mTest2 != null && mTest3 != null && mTest4 == null && mTest5 == null) {
-                        //calculating total sum of meals
-                        double calSumOfMeals = Double.valueOf(mTest.getCal()) + Double.valueOf(mTest2.getCal())
-                                + Double.valueOf(mTest3.getCal());
-                        //Assigning total meals cals to the tree
-                        DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("totalCals");
-                        DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("mealsCount");
-
-                        //set number of meals
-                        int mealCount = Integer.valueOf(mealNo3)+1;
-
-                        databaseReferenceTotalCal.setValue(String.valueOf(calSumOfMeals));
-                        databaseReferenceMealCount.setValue(String.valueOf(mealCount));
-
-                    }
-                    //check if all spinners were selected then add the total calories
-                    if(mTest != null && mTest2 != null && mTest3 == null && mTest4 == null && mTest5 == null) {
-                        //calculating total sum of meals
-                        double calSumOfMeals = Double.valueOf(mTest.getCal()) + Double.valueOf(mTest2.getCal());
-                        //Assigning total meals cals to the tree
-                        DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("totalCals");
-                        DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("mealsCount");
-
-                        //set number of meals
-                        int mealCount = Integer.valueOf(mealNo2)+1;
-
-                        databaseReferenceTotalCal.setValue(String.valueOf(calSumOfMeals));
-                        databaseReferenceMealCount.setValue(String.valueOf(mealCount));
-
-                    }
-                    //check if all spinners were selected then add the total calories
-                    if(mTest != null && mTest2 == null && mTest3 == null && mTest4 == null && mTest5 == null) {
-                        //calculating total sum of meals
-                        double calSumOfMeals = Double.valueOf(mTest.getCal());
-                        //Assigning total meals cals to the tree
-                        DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("totalCals");
-                        DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
-                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("mealsCount");
-
-                        //set number of meals
-                        int mealCount = Integer.valueOf(mealNo1)+1;
-
-                        databaseReferenceTotalCal.setValue(String.valueOf(calSumOfMeals));
-                        databaseReferenceMealCount.setValue(String.valueOf(mealCount));
-
-                    }
                     //check if no meals are selected
-                    if(mTest == null && mTest2 == null && mTest3 == null && mTest4 == null && mTest5 == null) {
-                        Toast.makeText(getContext(),"please select at least one meal",Toast.LENGTH_SHORT).show();
+                    if (mTest == null && mTest2 == null && mTest3 == null && mTest4 == null && mTest5 == null) {
+                        Toast.makeText(getContext(), "please select at least one meal", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -1138,43 +1162,96 @@ public class AddMealsFragment extends Fragment {
                             .child(choosenDay).child("day");
 
 
-
-
-
                     //add meals to corresponding user and day
                     DatabaseReference databaseReference1 = firebaseDatabaseMeal.getReference().child("users")
                             .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                            .child(choosenDay).child("dayMeals").child(mealNo1);
+                            .child(choosenDay).child("dayMeals").child(getChoosenMeNumberIndex);
 
-                    DatabaseReference databaseReference2 = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                            .child(choosenDay).child("dayMeals").child(mealNo2);
+//                    DatabaseReference databaseReference2 = firebaseDatabaseMeal.getReference().child("users")
+//                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+//                            .child(choosenDay).child("dayMeals").child(mealNo2);
+//
+//                    DatabaseReference databaseReference3 = firebaseDatabaseMeal.getReference().child("users")
+//                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+//                            .child(choosenDay).child("dayMeals").child(mealNo3);
+//
+//                    DatabaseReference databaseReference4 = firebaseDatabaseMeal.getReference().child("users")
+//                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+//                            .child(choosenDay).child("dayMeals").child(mealNo4);
+//
+//                    DatabaseReference databaseReference5 = firebaseDatabaseMeal.getReference().child("users")
+//                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+//                            .child(choosenDay).child("dayMeals").child(mealNo5);
 
-                    DatabaseReference databaseReference3 = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                            .child(choosenDay).child("dayMeals").child(mealNo3);
 
-                    DatabaseReference databaseReference4 = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                            .child(choosenDay).child("dayMeals").child(mealNo4);
+                    databaseReference1.setValue(mTest).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            getMeCount();
+                            DatabaseReference databaseReferenceMealCount = firebaseDatabaseMeal.getReference().child("users")
+                                    .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("mealsCount");
 
-                    DatabaseReference databaseReference5 = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
-                            .child(choosenDay).child("dayMeals").child(mealNo5);
+                            databaseReferenceMealCount.setValue(String.valueOf(meCount));
+                        }
+                    });
+//                    databaseReference2.setValue(mTest2);
+                    //check if all spinners were selected then add the total calories
+                    if (mTest != null) {
+                        //calculating total sum of meals
+                        calSumOfMeals = 0;
+                        //Assigning total meals cals to the tree
+                        final DatabaseReference databaseReferenceTotalCal = firebaseDatabaseMeal.getReference().child("users")
+                                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("totalCals");
 
 
-                    databaseReference1.setValue(mTest);
-                    databaseReference2.setValue(mTest2);
-                    databaseReference3.setValue(mTest3);
-                    databaseReference4.setValue(mTest4);
-                    databaseReference5.setValue(mTest5);
+                        //set number of meals
+//                        int mealCount = Integer.valueOf(mealNo1)+1;
+                        //go to the child where you want to retreive values of
+                        mealsList = new ArrayList<>();
+                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                        DatabaseReference usersRef = rootRef.child("users").child(choosenUser).child("Diet")
+                                .child(chosenMonth).child(chosenWeek).child(choosenDay).child("dayMeals");
+                        ValueEventListener eventListener = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                for (DataSnapshot ds2 : dataSnapshot.getChildren()) {
+                                    //dayMeals.add(ds2.getValue(DietDay.class));
+//                                ds2.child("dayMeals").getValue(meal.class);
+                                    mealsList.add(ds2.getValue(meal.class));
+                                    mealsList.size();
+                                }
+                                for (int i = 0; i < mealsList.size(); i++) {
+
+                                    calSumOfMeals = calSumOfMeals + Double.valueOf(mealsList.get(i).getCal());
+                                }
+
+                                databaseReferenceTotalCal.setValue(String.valueOf(calSumOfMeals));
+                                calSumOfMeals = 0;
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        };
+                        usersRef.addListenerForSingleValueEvent(eventListener);
+
+
+                    }
+//                    databaseReference3.setValue(mTest3);
+//                    databaseReference4.setValue(mTest4);
+//                    databaseReference5.setValue(mTest5);
                     getUsers();
 
 
-                    Toast.makeText(getContext(),"تم حفظ الوجبة",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "تم حفظ الوجبة", Toast.LENGTH_LONG).show();
+                    childlistrnerForMe();
 
 
-                    int chossenDayInt =Integer.valueOf(choosenDay)+1;
+                    int chossenDayInt = Integer.valueOf(choosenDay) + 1;
                     databaseReferenceDay.setValue(String.valueOf(chossenDayInt));
                     getUsers();
                 }
@@ -1182,19 +1259,18 @@ public class AddMealsFragment extends Fragment {
         });
     }
 
-    public void userProfile(String choosenUser){
-        Log.d("test","this is path : "+usersprofile);
+    public void userProfile(String choosenUser) {
+        Log.d("test", "this is path : " + usersprofile);
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
                 .child(choosenUser).child("Profile");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-               ;
-             //   Log.d("test", userinfo.getName());
+                ;
+                //   Log.d("test", userinfo.getName());
 
                 UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
-
 
 
                 profileName.setText(userinfo.getName());
@@ -1212,7 +1288,9 @@ public class AddMealsFragment extends Fragment {
             }
         });
     }
-    public void selectedDay(){
+
+    public void selectedDay() {
+        spMealsCount.setEnabled(false);
         String[] day = new String[]{
                 "اختر يوم",
                 "Day1",
@@ -1226,30 +1304,27 @@ public class AddMealsFragment extends Fragment {
         final Spinner spSelectDay = getView().findViewById(R.id.selectDay);
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                getContext(),R.layout.support_simple_spinner_dropdown_item,day){
+                getContext(), R.layout.support_simple_spinner_dropdown_item, day) {
             @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
+            public boolean isEnabled(int position) {
+                if (position == 0) {
                     // Disable the first item from Spinner
                     // First item will be use for hint
                     return false;
-                }
-                else
-                {
+                } else {
                     return true;
                 }
             }
+
             @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
+                if (position == 0) {
                     // Set the hint text color gray
                     tv.setTextColor(Color.GRAY);
-                }
-                else {
+                } else {
                     tv.setTextColor(Color.BLACK);
                 }
                 return view;
@@ -1264,25 +1339,30 @@ public class AddMealsFragment extends Fragment {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
                 choosenDay = selectedItemText;
                 // If user change the default selection
-                if(choosenDay.equals("Day1"))
+                if (choosenDay.equals("Day1"))
                     choosenDay = "0";
-                if(choosenDay.equals("Day2"))
+                if (choosenDay.equals("Day2"))
                     choosenDay = "1";
-                if(choosenDay.equals("Day3"))
+                if (choosenDay.equals("Day3"))
                     choosenDay = "2";
-                if(choosenDay.equals("Day4"))
+                if (choosenDay.equals("Day4"))
                     choosenDay = "3";
-                if(choosenDay.equals("Day5"))
+                if (choosenDay.equals("Day5"))
                     choosenDay = "4";
-                if(choosenDay.equals("Day6"))
+                if (choosenDay.equals("Day6"))
                     choosenDay = "5";
-                if(choosenDay.equals("Day7"))
+                if (choosenDay.equals("Day7"))
                     choosenDay = "6";
 
                 // First item is disable and it is used for hint
-                if(position > 0){
-                    selectedMeal();
+                if (position > 0) {
+                    calSumOfMeals = 0;
+                    getMeCount();
                     // Notify the selected item text
+                    // Initializing an ArrayAdapter
+                    if(!choosenDay.equals("اختر يوم")) {
+                        spMealsCount.setEnabled(true);
+                    }
                     Toast.makeText
                             (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
                             .show();
@@ -1297,26 +1377,25 @@ public class AddMealsFragment extends Fragment {
         });
 
     }
-    public void selectedUser(){
+
+    public void selectedUser() {
         Spinner spSelectUser = getView().findViewById(R.id.selectUser);
 
         // Initializing an ArrayAdapter
-        Log.d("test","frist  "+arrayList.size());
+        Log.d("test", "frist  " + arrayList.size());
         spinnerArrayAdapter = new ArrayAdapter<String>(
-                getContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
+                getContext(), R.layout.support_simple_spinner_dropdown_item, arrayList) {
             @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
+            public boolean isEnabled(int position) {
+                if (position == 0) {
                     // Disable the first item from Spinner
                     // First item will be use for hint
                     return true;
-                }
-                else
-                {
+                } else {
                     return true;
                 }
             }
+
             @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
@@ -1339,14 +1418,12 @@ public class AddMealsFragment extends Fragment {
 //        Log.d("test",""+arrayList.size());
 
 
-
-
         spSelectUser.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
                 String s = arrayList.get(position);
-                Log.d("test","thid dfjkdl : "+s);
+                Log.d("test", "thid dfjkdl : " + s);
                 choosenUser = arrayList2.get(position);
                 // choosenUser = selectedItemText;
                 usersprofile = FirebaseDatabase.getInstance().getReference();
@@ -1363,7 +1440,6 @@ public class AddMealsFragment extends Fragment {
 //                        (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
 //                        .show();
             }
-
 
 
             @Override
@@ -1387,20 +1463,19 @@ public class AddMealsFragment extends Fragment {
 //                arrayList2.add(0, "اختر متدرب");
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    String email =  dataSnapshot1.child("Profile").child("userEmail").getValue(String.class);
+                    String email = dataSnapshot1.child("Profile").child("userEmail").getValue(String.class);
 
-                    Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +  dataSnapshot1.getKey());
+                    Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" + dataSnapshot1.getKey());
 
                     Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +
                             dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
 
 
                     UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
-                   // arrayList.add(dataSnapshot1.getKey());
+                    // arrayList.add(dataSnapshot1.getKey());
 
 
-
-                    arrayList.add( dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
+                    arrayList.add(dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
                     arrayList2.add(dataSnapshot1.getKey());
                     spinnerArrayAdapter.notifyDataSetChanged();
 
@@ -1409,9 +1484,9 @@ public class AddMealsFragment extends Fragment {
 //                    Log.d("test","this is size of arr: "+ array.length);
 
 
-              //      Log.d("test", "this is uid :" + dataSnapshot1.getKey());
+                    //      Log.d("test", "this is uid :" + dataSnapshot1.getKey());
 
-                 //   Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
+                    //   Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
 
                 }
                 //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
@@ -1426,7 +1501,7 @@ public class AddMealsFragment extends Fragment {
         });
     }
 
-//    @Override
+    //    @Override
 //    public void onButtonClick() {
 //        position = DietFragment.getCount();
 //        positionWeek = DietFragment.getCountWeek();
@@ -1439,91 +1514,332 @@ public class AddMealsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
     private void selectMonth() {
 
 
-            if(position == 0) {
-                chosenMonth = "Month 1";
-                if (positionWeek == 0) {
-                    chosenWeek = "Week 1";
-                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                    firstMonthWeek1 = root.child("test").child(choosenUser).child("Diet")
-                            .child("Month 1").child("Week 1");
-                }
-                if (positionWeek == 1) {
-                    chosenWeek = "Week 2";
-                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                    firstMonthWeek2 = root.child("test").child(choosenUser).child("Diet")
-                            .child("Month 1").child("Week 2");
-                }
-                if (positionWeek == 2) {
-                    chosenWeek = "Week 3";
-                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                    firstMonthWeek3 = root.child("test").child(choosenUser).child("Diet")
-                            .child("Month 1").child("Week 3");
-                }
-                if (positionWeek == 3) {
-                    chosenWeek = "Week 4";
-                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                    firstMonthWeek4 = root.child("test").child(choosenUser).child("Diet")
-                            .child("Month 1").child("Week 4");
-                }
+        if (position == 0) {
+            chosenMonth = "Month 1";
+            if (positionWeek == 0) {
+                chosenWeek = "Week 1";
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                firstMonthWeek1 = root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 1").child("Week 1");
             }
-            //========================================================
-                if (position == 1) {
-                    chosenMonth = "Month 2";
-                    if (positionWeek == 0) {
-                        chosenWeek = "Week 1";
-                        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                        secondMonthWeek1 = root.child("test").child(choosenUser).child("Diet")
-                                .child("Month 2").child("Week 1");
-                    }
-                    if (positionWeek == 1) {
-                        chosenWeek = "Week 2";
-                        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                        secondMonthWeek2 = root.child("test").child(choosenUser).child("Diet")
-                                .child("Month 2").child("Week 2");
-                    }
-                    if (positionWeek == 2) {
-                        chosenWeek = "Week 3";
-                        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                        secondMonthWeek3 = root.child("test").child(choosenUser).child("Diet")
-                                .child("Month 2").child("Week 3");
-                    }
-                    if (positionWeek == 3) {
-                        chosenWeek = "Week 4";
-                        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                        secondMonthWeek4 = root.child("test").child(choosenUser).child("Diet")
-                                .child("Month 2").child("Week 4");
-                    }
-                }
-            if (position == 2) {
-                chosenMonth = "Month 3";
-                if (positionWeek == 0) {
-                    chosenWeek = "Week 1";
-                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                    thirdMonthWeek1 = root.child("test").child(choosenUser).child("Diet")
-                            .child("Month 3").child("Week 1");
-                }
-                if (positionWeek == 1) {
-                    chosenWeek = "Week 2";
-                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                    thirdMonthWeek2 = root.child("test").child(choosenUser).child("Diet")
-                            .child("Month 3").child("Week 2");
-                }
-                if (positionWeek == 2) {
-                    chosenWeek = "Week 3";
-                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                    thirdMonthWeek3 = root.child("test").child(choosenUser).child("Diet")
-                            .child("Month 3").child("Week 3");
-                }
-                if (positionWeek == 3) {
-                    chosenWeek = "Week 4";
-                    DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                    thirdMonthWeek4 = root.child("test").child(choosenUser).child("Diet")
-                            .child("Month 3").child("Week 4");
-                }
+            if (positionWeek == 1) {
+                chosenWeek = "Week 2";
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                firstMonthWeek2 = root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 1").child("Week 2");
             }
+            if (positionWeek == 2) {
+                chosenWeek = "Week 3";
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                firstMonthWeek3 = root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 1").child("Week 3");
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "Week 4";
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                firstMonthWeek4 = root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 1").child("Week 4");
+            }
+        }
+        //========================================================
+        if (position == 1) {
+            chosenMonth = "Month 2";
+            if (positionWeek == 0) {
+                chosenWeek = "Week 1";
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                secondMonthWeek1 = root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 2").child("Week 1");
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "Week 2";
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                secondMonthWeek2 = root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 2").child("Week 2");
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "Week 3";
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                secondMonthWeek3 = root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 2").child("Week 3");
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "Week 4";
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                secondMonthWeek4 = root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 2").child("Week 4");
+            }
+        }
+        if (position == 2) {
+            chosenMonth = "Month 3";
+            if (positionWeek == 0) {
+                chosenWeek = "Week 1";
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                thirdMonthWeek1 = root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 3").child("Week 1");
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "Week 2";
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                thirdMonthWeek2 = root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 3").child("Week 2");
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "Week 3";
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                thirdMonthWeek3 = root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 3").child("Week 3");
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "Week 4";
+                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                thirdMonthWeek4 = root.child("test").child(choosenUser).child("Diet")
+                        .child("Month 3").child("Week 4");
+            }
+        }
     }
 
+    private void getMeCount() {
+        mm = 1;
+        me.clear();
+
+        me.add(0, "اختر وجبة");
+        me.add("وجبة 1");
+
+
+        FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+        DatabaseReference databaseReference = f.getReference().child("users")
+                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                .child(choosenDay).child("dayMeals");
+
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // bigExList.add(dataSnapshot.getValue(Exercises.class));
+
+                meCount = (int) dataSnapshot.getChildrenCount();
+
+
+//                for(int i = 0; i < bigExList.size(); i++) {
+//                    t = (bigExList.get(i).getExercise());
+//                }
+                for (int i = 0; i < meCount; i++) {
+                    mm = mm + 1;
+                    me.add("وجبة " + String.valueOf(mm));
+                    spinnerArrayAdapterMealCount.notifyDataSetChanged();
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void mealNumber() {
+
+
+//            arrayListNamesEx = new ArrayList<>();
+//
+//
+//            arrayListNamesEx.clear();
+
+        me.add(0, "اختر وجبة");
+        me.add("وجبة 1");
+//                "اختر تمرين",
+//                "تمرين 1",
+//                "تمرين 2",
+//                "تمرين 3",
+//                "تمرين 4",
+//                "تمرين 5",
+//                "تمرين 6",
+//                "تمرين 7",
+//                "تمرين 8",
+//                "تمرين 9";
+        // Initializing an ArrayAdapter
+        //2 problems with the font ,, getcontext() instead of ( getActivity().getApplicationContext() )
+        //replace item_spinner with support_simple_spinner_dropdown_item
+        spinnerArrayAdapterMealCount = new ArrayAdapter<String>(
+                getContext(), R.layout.support_simple_spinner_dropdown_item, me) {
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapterMealCount.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spMealsCount.setAdapter(spinnerArrayAdapterMealCount);
+
+        spMealsCount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+                chosenMeNumber = selectedItemText;
+                // If user change the default selection
+                // If user change the default selection
+                if (chosenMeNumber.equals("وجبة 1"))
+                    getChoosenMeNumberIndex = "0";
+                if (chosenMeNumber.equals("وجبة 2"))
+                    getChoosenMeNumberIndex = "1";
+                if (chosenMeNumber.equals("وجبة 3"))
+                    getChoosenMeNumberIndex = "2";
+                if (chosenMeNumber.equals("وجبة 4"))
+                    getChoosenMeNumberIndex = "3";
+                if (chosenMeNumber.equals("وجبة 5"))
+                    getChoosenMeNumberIndex = "4";
+                if (chosenMeNumber.equals("وجبة 6"))
+                    getChoosenMeNumberIndex = "5";
+                if (chosenMeNumber.equals("وجبة 7"))
+                    getChoosenMeNumberIndex = "6";
+                if (chosenMeNumber.equals("وجبة 8"))
+                    getChoosenMeNumberIndex = "7";
+                if (chosenMeNumber.equals("وجبة 9"))
+                    getChoosenMeNumberIndex = "8";
+                if (chosenMeNumber.equals("وجبة 10"))
+                    getChoosenMeNumberIndex = "9";
+                if (chosenMeNumber.equals("وجبة 11"))
+                    getChoosenMeNumberIndex = "10";
+                if (chosenMeNumber.equals("وجبة 12"))
+                    getChoosenMeNumberIndex = "11";
+                if (chosenMeNumber.equals("وجبة 13"))
+                    getChoosenMeNumberIndex = "12";
+                if (chosenMeNumber.equals("وجبة 14"))
+                    getChoosenMeNumberIndex = "13";
+                if (chosenMeNumber.equals("وجبة 15"))
+                    getChoosenMeNumberIndex = "14";
+
+
+                // First item is disable and it is used for hint
+                if (position > 0) {
+                    // Notify the selected item text
+                    selectedMeal();
+                    Toast.makeText
+                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
+    private void childlistrnerForMe() {
+        DatabaseReference rootUserEx = FirebaseDatabase.getInstance().getReference().child(choosenUser)
+                .child("Diet").child(chosenMonth).child(chosenWeek).child(choosenDay).child("dayMeals");
+        rootUserEx.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                getMeCount();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                getMeCount();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void childlistrner() {
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("meals");
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mealAll = (int)dataSnapshot.getChildrenCount();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        root.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                getAllMealsCount();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                getAllMealsCount();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    public void getAllMealsCount(){
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("meals");
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mealAll = (int)dataSnapshot.getChildrenCount();
+                selectedMeal();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

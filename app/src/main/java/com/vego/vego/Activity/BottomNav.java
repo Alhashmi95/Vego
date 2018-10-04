@@ -12,8 +12,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -25,12 +27,14 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -71,26 +75,35 @@ public class BottomNav extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_nav);
 
+//        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(BottomNav.this,  new OnSuccessListener<InstanceIdResult>() {
+//            @Override
+//            public void onSuccess(InstanceIdResult instanceIdResult) {
+//                String newToken = instanceIdResult.getToken();
+//                Log.e("newToken",newToken);
+//
+//            }
+//        });
+
+
         closeAppwhenBackISClickedTwice();
-
-
-
 
 
         bTV = findViewById(R.id.bNavigation);
         bTV.setOnNavigationItemSelectedListener(navListener);
+
+
         //+++++++++++++++defult Fragment ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        getSupportFragmentManager().beginTransaction().replace(R.id.fContr , new TrackProgressFragmentUser()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fContr, new TrackProgressFragmentUser()).commit();
+
+        toolbar = findViewById(R.id.actionBarUser);
+//        toolbar.setTitle("Drawer Demo");
+
 
 
         firebaseAuth = FirebaseAuth.getInstance();
 
 
-
         //to add Drawer ++++++++++++++++++++++++++++++++++++++++++++++++++++
-        toolbar = findViewById(R.id.actionBar);
-        toolbar.setTitle("Drawer Demo");
-      //  toolbar.setNavigationIcon(R.drawable.icons_calendar_px_);
 
 
         //get User data +++++++++++++++++++++++++++++++++++++++++++++++
@@ -131,9 +144,7 @@ public class BottomNav extends AppCompatActivity {
                 PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("Logout");
 
 
-           //     toolbar.setNavigationIcon(R.drawable.icons_calendar_px_);
-
-
+                //     toolbar.setNavigationIcon(R.drawable.icons_calendar_px_);
 
                 Drawer result = new DrawerBuilder()
                         .withActivity(BottomNav.this)
@@ -141,8 +152,8 @@ public class BottomNav extends AppCompatActivity {
                         .withToolbar(toolbar)
                         .addDrawerItems(
                                 item1.withIcon(R.drawable.ic_home_black_24dp)
-                                ,item2.withIcon(R.drawable.profile_ic2)
-                                ,item3.withIcon(R.drawable.logout_ic)
+                                , item2.withIcon(R.drawable.profile_ic2)
+                                , item3.withIcon(R.drawable.logout_ic)
                         )
                         .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                             @Override
@@ -164,18 +175,18 @@ public class BottomNav extends AppCompatActivity {
                         })
 
                         .build();
+                toolbar.setNavigationIcon(R.drawable.ic_action_name);
 
-            //    getSupportActionBar().setIcon(R.drawable.icons_calendar_px_);
 
+                //    getSupportActionBar().setIcon(R.drawable.icons_calendar_px_);
 
 
                 //get the DrawerLayout from the Drawer
                 DrawerLayout drawerLayout = result.getDrawerLayout();
                 //do whatever you want with the Drawer. Like locking it.
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-             //   drawerLayout.setBackgroundColor(R.color.material_drawer_dark_background);
+                //   drawerLayout.setBackgroundColor(R.color.material_drawer_dark_background);
                 //or (int lockMode, int edgeGravity)
-
 
 
             }
@@ -184,13 +195,6 @@ public class BottomNav extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
-
-
-
-
-
-
     }
 
     private void closeAppwhenBackISClickedTwice() {
@@ -315,5 +319,4 @@ public class BottomNav extends AppCompatActivity {
         killToast();
         super.onPause();
     }
-
     }

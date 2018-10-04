@@ -142,12 +142,14 @@ public class FragmentAddMealDetailes extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mealName = etmealName.getText().toString();
+                //mealName = etmealName.getText().toString();
                 //declare boolean checker to see if there are null edit text
                 boolean checker = false;
                 //check if meal edit text is null
-                if (mealName.isEmpty()) {
+                if (etmealName.getText().toString().isEmpty()) {
                     etmealName.setError("please enter the name of the meal");
+                }else {
+                    mealName = etmealName.getText().toString().trim();
                 }
                 //first we check if arraylist of elements is not null
                 //check if there's any null edit text in all cardviews of meal elements3
@@ -155,7 +157,8 @@ public class FragmentAddMealDetailes extends Fragment {
                 for (int i = 0; i < newIngredientAdapter.getIngredientsArray().size(); i++) {
                     //check if there's any null edit text in all cardviews of meal elements
                     if (newIngredientAdapter.getIngredientsArray().get(i).getType().isEmpty() ||
-                            newIngredientAdapter.getIngredientsArray().get(i).getQuantity().isEmpty()) {
+                            newIngredientAdapter.getIngredientsArray().get(i).getQuantity().isEmpty()
+                            || etmealName.getText().toString().isEmpty()) {
                         Toast.makeText(getContext(), "please enter all ingr details",
                                 Toast.LENGTH_SHORT).show();
                         checker = false;

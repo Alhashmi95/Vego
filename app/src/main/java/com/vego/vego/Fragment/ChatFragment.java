@@ -181,10 +181,11 @@ public class ChatFragment extends Fragment {
                                         firebaseAuth.getCurrentUser().getUid()).child(temp_key);
 
                                 message = input_msg.getText().toString();
+                                String newMessage = message.replace("\n", "");
 
                                 Map<String, Object> map2 = new HashMap<String, Object>();
                                 map2.put("name", name);
-                                map2.put("msg", input_msg.getText().toString());
+                                map2.put("msg", newMessage);
                                 map2.put("userUID", firebaseAuth.getCurrentUser().getUid());
                                 map2.put("createdAt", currentTime);
                                 map2.put("date", currentDate);

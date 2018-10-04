@@ -74,7 +74,7 @@ public class AdminActivity extends AppCompatActivity {
 
         //to add Drawer ++++++++++++++++++++++++++++++++++++++++++++++++++++
         toolbar = findViewById(R.id.actionBar);
-        toolbar.setTitle("Drawer Demo");
+//        toolbar.setTitle("Drawer Demo");
         //  toolbar.setNavigationIcon(R.drawable.icons_calendar_px_);
 
 
@@ -149,6 +149,8 @@ public class AdminActivity extends AppCompatActivity {
                         })
 
                         .build();
+                toolbar.setNavigationIcon(R.drawable.ic_action_name);
+
 
                 //    getSupportActionBar().setIcon(R.drawable.icons_calendar_px_);
 
