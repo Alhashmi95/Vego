@@ -14,6 +14,7 @@ public class UserInfo {
     ArrayList<DietDay> dietDay;
     String isAdmin;
     String uid, previousWeight, adminBrief, userEmail;
+    private String image;
 
     public UserInfo() {
     }
@@ -144,5 +145,7 @@ public class UserInfo {
         this.userGoal = userGoal;
     }
 
+    public String getImage() { return image; }
 
+    public void setImage(String image) { this.image = image; }
 }

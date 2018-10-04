@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class exercise implements Serializable {
     private String image;
+    private String video;
     private String exername;
     private String targetedmuscle;
     private ArrayList<sets> sets;
@@ -51,4 +52,8 @@ public class exercise implements Serializable {
     public void setSets(ArrayList<sets> sets) {
         this.sets = sets;
     }
+
+    public String getVideo() { return video; }
+
+    public void setVideo(String video) { this.video = video; }
 }

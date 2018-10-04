@@ -1,8 +1,11 @@
 package com.vego.vego.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,10 +15,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,14 +31,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.UserInfo;
 import com.vego.vego.model.elements;
+import com.vego.vego.model.exercise;
 import com.vego.vego.model.ingredients;
 import com.vego.vego.model.meal;
+import com.vego.vego.model.sets;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -49,12 +61,26 @@ public class UpdateProfileActivity extends AppCompatActivity {
     private FirebaseStorage firebaseStorage;
     private String userGoal;
     private String userActivity;
+    private ImageView profilePic;
+    private ImageView previusPic;
+    private TextView picPicker;
+    private static int PICK_IMAGE = 100;
+    StorageReference picRef;
+    String picUrl;
+
+    Uri imageUri;
+    int indexofPics =0;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
+
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
 
         newUserName = findViewById(R.id.userNameUpdateTxt);
         newUserWeight = findViewById(R.id.weightTxt2);
@@ -64,6 +90,11 @@ public class UpdateProfileActivity extends AppCompatActivity {
         spActivity = findViewById(R.id.spinner);
         spGoal = findViewById(R.id.spinner4);
         reset = findViewById(R.id.resetPass);
+        picPicker = findViewById(R.id.picPicker);
+        profilePic = findViewById(R.id.ivProfileUpdate);
+        profilePic = profilePic;
+
+
 //        updateProfilePic = findViewById(R.id.ivProfileUpdate);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -374,6 +405,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 String name = newUserName.getText().toString();
                 String age = newUserAge.getText().toString();
                 String weight = newUserWeight.getText().toString();
@@ -384,6 +417,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
                     Toast.makeText(UpdateProfileActivity.this
                             , "Please enter all the details", Toast.LENGTH_SHORT).show();
                 } else {
+                    updateProfilePic();
+
                     DatabaseReference databasaeReferenceName = firebaseDatabase.getReference();
 
                     databasaeReferenceName.child("users").child(firebaseAuth.getUid()).child("Profile").child("name")
@@ -413,6 +448,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
                     databasaeReferenceActive.child("users").child(firebaseAuth.getUid()).child("Profile").child("userActivity")
                             .setValue(userActivity);
+
+                    //-------------------------------------upload pic--------------------------------------------------------------
                     Toast.makeText(getApplicationContext(), "Data Updated successfully", Toast.LENGTH_SHORT).show();
 
                     UpdateProfileActivity.this.startActivity(new Intent(UpdateProfileActivity.this, BottomNav.class));
@@ -483,16 +520,104 @@ public class UpdateProfileActivity extends AppCompatActivity {
 //                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE);
 //            }
 //        });
+
+        //----------------------------------profilr pic---------------------------------------------
+        picPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();//(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, PICK_IMAGE);
+
+            }
+        });
     }
+
+    private void updateProfilePic() {
+//        if(profilePic.getId()==previusPic.getId()){
+
+            // here we upload meal pics
+            picRef = storageReference.child("profile_pic/").child(String.valueOf(0));
+            UploadTask uploadTask = (UploadTask) picRef.putFile(imageUri);
+
+            if (uploadTask != null && uploadTask.isInProgress()) {
+                Toast.makeText(UpdateProfileActivity.this, "upload is in progress .. please wait", Toast.LENGTH_LONG).show();
+
+            }
+
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    // Continue with the task to get the download URL
+                    return picRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        picUrl = downloadUri.toString();
+                        Toast.makeText(UpdateProfileActivity.this, "upload successeded", Toast.LENGTH_SHORT).show();
+                        //  UserInfo u = new UserInfo();
+//                        saveNewEx.setVisibility(View.VISIBLE);
+//                        saveNewExForAll.setVisibility(View.VISIBLE);
+
+//                        sets[] setsArray = new sets[] {new sets("1234","", "","") };
+//
+//                        List setsList = new ArrayList<sets>(Arrays.asList(setsArray));
+
+
+                        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                        DatabaseReference d = firebaseDatabase.getReference();
+
+
+                        //upload meal to firebase
+                        d.child("users").child("Profile").child("image").setValue(picUrl);
+
+
+                        finish();
+
+
+                    }
+
+                }
+            });
+            };
+//    }
+
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+                public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
+                    switch (item.getItemId()) {
+                        case android.R.id.home:
+                            onBackPressed();
+                    }
+                    return super.onOptionsItemSelected(item);
+                }
+    @Override
+    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+
+        if (resultCode == RESULT_OK) {
+            try {
+                imageUri = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                profilePic.setImageBitmap(selectedImage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(UpdateProfileActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+            }
+
+        }else {
+            Toast.makeText(UpdateProfileActivity.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
-        return super.onOptionsItemSelected(item);
     }
-
 }
