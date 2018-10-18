@@ -21,7 +21,9 @@
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/logo_white" />
+                android:src="@drawable/logo_white"
+                />
+
         </RelativeLayout>
 
 
@@ -46,13 +48,29 @@
         android:layout_height="170dp"
         android:layout_marginLeft="55dp"
         android:layout_marginRight="55dp"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        >
 
+        <VideoView
+            android:id="@+id/videoViewNewEx"
+            android:layout_width="137dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+        />
+        <TextView
+            android:id="@+id/addVid"
+            android:layout_width="137dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            />
         <ImageView
             android:id="@+id/imageViewNewEx"
-            android:layout_width="match_parent"
+            android:layout_width="137dp"
             android:layout_height="match_parent"
-            android:background="@drawable/addpic"/>
+            android:background="@drawable/addpic"
+            android:layout_gravity="right"/>
+
+
     </android.support.v7.widget.CardView>
     <EditText
         android:id="@+id/txtExName"

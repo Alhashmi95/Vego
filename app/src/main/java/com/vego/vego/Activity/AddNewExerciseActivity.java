@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,8 +49,12 @@ public class AddNewExerciseActivity extends AppCompatActivity {
     EditText exName;
     Spinner selectMu;
     ImageView imageViewEx;
+    VideoView videoViewEx;
+    TextView addVid;
     String choosenMu, exerciseName, exUrl;
     private static int PICK_IMAGE = 123;
+    private static int PICK_VIDEO = 100;
+
     Uri imagePath;
     StorageReference exRef;
     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
@@ -72,10 +77,31 @@ public class AddNewExerciseActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else if( resultCode==RESULT_OK && requestCode==PICK_VIDEO&&data.getData()!= null){
+            Uri uri = data.getData();
+            try{
+                videoViewEx.setVideoURI(uri);
+                videoViewEx.start();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if(resultCode == RESULT_OK){
+//            Uri uri = data.getData();
+//            try{
+//                videoViewEx.setVideoURI(uri);
+//                videoViewEx.start();
+//            }catch(Exception e){
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
 
     @Override
@@ -88,11 +114,13 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         exName = findViewById(R.id.txtExName);
         selectMu = findViewById(R.id.spinnerMu);
         imageViewEx = findViewById(R.id.imageViewNewEx);
-
-
+        videoViewEx = findViewById(R.id.videoViewNewEx);
+        addVid = findViewById(R.id.addVid);
         imageViewEx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -148,7 +176,15 @@ public class AddNewExerciseActivity extends AppCompatActivity {
 
 
 
+    //----------------------------load video--------------------------------------------------------
+        addVid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(Intent.createChooser(i,"Select Video"),PICK_VIDEO);
 
+            }
+        });
 
 
     }
