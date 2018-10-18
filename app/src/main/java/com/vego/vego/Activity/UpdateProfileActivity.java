@@ -173,87 +173,87 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 "المحافظة على الوزن الحالي"
         };
 
-        ingredients[] ingredients = new ingredients[]{new ingredients("478", "cheickn")};
+//        ingredients[] ingredients = new ingredients[]{new ingredients("478", "cheickn")};
+//
+//        List mealIngrList = new ArrayList<ingredients>(Arrays.asList(ingredients));
+//
+//        elements[] elements = new elements[]{new elements("cals", "409"),
+//                new elements("carbo", "490")};
+//        List mealElementList = new ArrayList<elements>(Arrays.asList(elements));
+//
+//
+//        DayMeals[] dayMealsDay1 = new DayMeals[]{new DayMeals("meal1day1", "1",
+//                R.drawable.setting, (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList), //add get(0)
+//                new DayMeals("meal2day1", "2", R.drawable.profile, (ArrayList<ingredients>) mealIngrList,
+//                        (ArrayList<elements>) mealElementList)};
 
-        List mealIngrList = new ArrayList<ingredients>(Arrays.asList(ingredients));
+//        List dayMealsD1 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay1));
+//
+//        //////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//        DayMeals[] dayMealsDay2 = new DayMeals[]{new DayMeals("meal1day2", "22", R.drawable.setting
+//                , (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
+//
+//        };
+//
+//        List dayMealsD2 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay2));
+//
+//        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+//        DayMeals[] dayMealsDay3 = new DayMeals[]{new DayMeals("fds", "meal1day3", R.drawable.setting,
+//                (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
+//                new DayMeals("meal2day3", "333", R.drawable.home_w, (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
+//        };
+//
+//        List dayMealsD3 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay3));
+//
+//        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+//        DayMeals[] dayMealsDay4 = new DayMeals[]{new DayMeals("meal1day4", "9328", R.drawable.setting,
+//                (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
+//                new DayMeals("fdskjdfs", "928", R.drawable.home_w, (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
+//
+//        };
+//
+//        List dayMealsD4 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay4));
+//
+//        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//        DayMeals[] dayMealsDay5 = new DayMeals[]{new DayMeals("fds", "9328", R.drawable.setting
+//                , (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
+//                new DayMeals("fdskjdfs", "928", R.drawable.home_w,
+//                        (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
+//
+//        };
+//
+//        List dayMealsD5 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay5));
+//
+//        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+//        DayMeals[] dayMealsDay6 = new DayMeals[]{new DayMeals("fds", "9328", R.drawable.setting,
+//                (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
+//
+//        };
+//
+//        List dayMealsD6 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay6));
+//
+//        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//        DayMeals[] dayMealsDay7 = new DayMeals[]{new DayMeals("fds", "9328", R.drawable.setting,
+//                (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
+//                new DayMeals("fdskjdfs", "928", R.drawable.home_w, (ArrayList<ingredients>) mealIngrList,
+//                        (ArrayList<elements>) mealElementList)
+//        };
 
-        elements[] elements = new elements[]{new elements("cals", "409"),
-                new elements("carbo", "490")};
-        List mealElementList = new ArrayList<elements>(Arrays.asList(elements));
-
-
-        DayMeals[] dayMealsDay1 = new DayMeals[]{new DayMeals("meal1day1", "1",
-                R.drawable.setting, (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList), //add get(0)
-                new DayMeals("meal2day1", "2", R.drawable.profile, (ArrayList<ingredients>) mealIngrList,
-                        (ArrayList<elements>) mealElementList)};
-
-        List dayMealsD1 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay1));
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        DayMeals[] dayMealsDay2 = new DayMeals[]{new DayMeals("meal1day2", "22", R.drawable.setting
-                , (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
-
-        };
-
-        List dayMealsD2 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay2));
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        DayMeals[] dayMealsDay3 = new DayMeals[]{new DayMeals("fds", "meal1day3", R.drawable.setting,
-                (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-                new DayMeals("meal2day3", "333", R.drawable.home_w, (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
-        };
-
-        List dayMealsD3 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay3));
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        DayMeals[] dayMealsDay4 = new DayMeals[]{new DayMeals("meal1day4", "9328", R.drawable.setting,
-                (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-                new DayMeals("fdskjdfs", "928", R.drawable.home_w, (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
-
-        };
-
-        List dayMealsD4 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay4));
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        DayMeals[] dayMealsDay5 = new DayMeals[]{new DayMeals("fds", "9328", R.drawable.setting
-                , (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-                new DayMeals("fdskjdfs", "928", R.drawable.home_w,
-                        (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
-
-        };
-
-        List dayMealsD5 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay5));
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        DayMeals[] dayMealsDay6 = new DayMeals[]{new DayMeals("fds", "9328", R.drawable.setting,
-                (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
-
-        };
-
-        List dayMealsD6 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay6));
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        DayMeals[] dayMealsDay7 = new DayMeals[]{new DayMeals("fds", "9328", R.drawable.setting,
-                (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-                new DayMeals("fdskjdfs", "928", R.drawable.home_w, (ArrayList<ingredients>) mealIngrList,
-                        (ArrayList<elements>) mealElementList)
-        };
-
-        List dayMealsD7 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay7));
-
-        ///////////////////////////////////////////////////////////////////////////////
-
-        final DietDay[] dietDay = new DietDay[]{new DietDay("1", "389", "4", (ArrayList<meal>) dayMealsD1),
-                new DietDay("2", "23", "3", (ArrayList<meal>) dayMealsD2),
-                new DietDay("3", "12334", "242", (ArrayList<meal>) dayMealsD3),
-                new DietDay("4", "2443", "34", (ArrayList<meal>) dayMealsD4),
-                new DietDay("4", "253948", "31", (ArrayList<meal>) dayMealsD5),
-                new DietDay("6", "27", "33", (ArrayList<meal>) dayMealsD6),
-                new DietDay("7", "287", "34", (ArrayList<meal>) dayMealsD7),
-        };
+//        List dayMealsD7 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay7));
+//
+//        ///////////////////////////////////////////////////////////////////////////////
+//
+//        final DietDay[] dietDay = new DietDay[]{new DietDay("1", "389", "4", (ArrayList<meal>) dayMealsD1),
+//                new DietDay("2", "23", "3", (ArrayList<meal>) dayMealsD2),
+//                new DietDay("3", "12334", "242", (ArrayList<meal>) dayMealsD3),
+//                new DietDay("4", "2443", "34", (ArrayList<meal>) dayMealsD4),
+//                new DietDay("4", "253948", "31", (ArrayList<meal>) dayMealsD5),
+//                new DietDay("6", "27", "33", (ArrayList<meal>) dayMealsD6),
+//                new DietDay("7", "287", "34", (ArrayList<meal>) dayMealsD7),
+//        };
 
         //For first spinner +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

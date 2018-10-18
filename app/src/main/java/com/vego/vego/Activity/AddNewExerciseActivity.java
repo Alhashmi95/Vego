@@ -341,11 +341,12 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                 "بطن",
                 "ترابيس",
                 "تراي",
-                "ذراع",
+                "سواعد",
                 "صدر",
                 "ظهر",
                 "قدم",
                 "عضلة السمانة",
+                "كارديو",
         };
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(

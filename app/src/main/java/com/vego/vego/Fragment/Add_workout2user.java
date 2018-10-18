@@ -355,7 +355,12 @@ public class Add_workout2user extends Fragment {
         addMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tabLayout.addTab(tabLayout.newTab().setText("month "+String.valueOf(counterMonth)));
+                if(counterMonth  <=12) {
+                    tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(counterMonth)));
+                }else {
+                    Toast.makeText(getContext(),
+                            "لا يمكنك اضافة اكثر من 12 شهر",Toast.LENGTH_SHORT).show();
+                }
                 counterMonth++;
             }
         });
@@ -903,11 +908,12 @@ public class Add_workout2user extends Fragment {
                 "بطن",
                 "ترابيس",
                 "تراي",
-                "ذراع",
+                "سواعد",
                 "صدر",
                 "ظهر",
                 "قدم",
                 "عضلة السمانة",
+                "كارديو",
         };
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
@@ -1579,49 +1585,193 @@ public class Add_workout2user extends Fragment {
         if(position == 0) {
             chosenMonth = "Month 1";
             if (positionWeek == 0) {
-                chosenWeek = "Week 1";
+                chosenWeek = "0";
             }
             if (positionWeek == 1) {
-                chosenWeek = "Week 2";
+                chosenWeek = "1";
             }
             if (positionWeek == 2) {
-                chosenWeek = "Week 3";
+                chosenWeek = "2";
             }
             if (positionWeek == 3) {
-                chosenWeek = "Week 4";
+                chosenWeek = "3";
             }
         }
         if (position == 1) {
             chosenMonth = "Month 2";
             if (positionWeek == 0) {
-                chosenWeek = "Week 1";
+                chosenWeek = "0";
             }
             if (positionWeek == 1) {
-                chosenWeek = "Week 2";
+                chosenWeek = "1";
             }
             if (positionWeek == 2) {
-                chosenWeek = "Week 3";
+                chosenWeek = "2";
             }
             if (positionWeek == 3) {
-                chosenWeek = "Week 4";
+                chosenWeek = "3";
 
             }
         }
         if (position == 2) {
             chosenMonth = "Month 3";
             if (positionWeek == 0) {
-                chosenWeek = "Week 1";
+                chosenWeek = "0";
             }
             if (positionWeek == 1) {
-                chosenWeek = "Week 2";
+                chosenWeek = "1";
 
             }
             if (positionWeek == 2) {
-                chosenWeek = "Week 3";
+                chosenWeek = "2";
 
             }
             if (positionWeek == 3) {
-                chosenWeek = "Week 4";
+                chosenWeek = "3";
+            }
+        }
+        if(position == 3) {
+            chosenMonth = "Month 4";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+            }
+        }
+        if (position == 4) {
+            chosenMonth = "Month 5";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+
+            }
+        }
+        if (position == 5) {
+            chosenMonth = "Month 6";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+            }
+        }
+        if(position == 6) {
+            chosenMonth = "Month 7";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+            }
+        }
+        if (position == 7) {
+            chosenMonth = "Month 8";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+
+            }
+        }
+        if (position == 8) {
+            chosenMonth = "Month 9";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+            }
+        }
+        if(position == 9) {
+            chosenMonth = "Month 10";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+            }
+        }
+        if (position == 10) {
+            chosenMonth = "Month 11";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+
+            }
+        }
+        if (position == 11) {
+            chosenMonth = "Month 12";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
             }
         }
     }

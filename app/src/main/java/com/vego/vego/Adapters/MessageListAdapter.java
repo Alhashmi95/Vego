@@ -112,15 +112,15 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
 
         void bind(Chat message, int position) {
-            messageText.setText(message.getMessageChat());
+            messageText.setText(message.getMsg());
              // get date and assign it to text view holder
                 if(position != 0) {
-                    processDate(tvDate, message.getDateChat()
-                            , mMessageList.get(position - 1).getDateChat()
+                    processDate(tvDate, message.getDate()
+                            , mMessageList.get(position - 1).getDate()
                             , false)
                     ;
                 }else {
-                    processDate(tvDate, message.getDateChat()
+                    processDate(tvDate, message.getDate()
                             , null
                             , true)
                     ;
@@ -149,22 +149,22 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         void bind(Chat message, int position) {
             // get date and assign it to text view holder
             if(position != 0) {
-                processDate(tvDate, message.getDateChat()
-                        , mMessageList.get(position - 1).getDateChat()
+                processDate(tvDate, message.getDate()
+                        , mMessageList.get(position - 1).getDate()
                         , false)
                 ;
             }else {
-                processDate(tvDate, message.getDateChat()
+                processDate(tvDate, message.getDate()
                         , null
                         , true)
                 ;
             }
-            messageText.setText(message.getMessageChat());
+            messageText.setText(message.getMsg());
 
             // Format the stored timestamp into a readable String using method.
             timeText.setText(message.getCreatedAt());
 
-            nameText.setText(message.getnameChat());
+            nameText.setText(message.getName());
 
             // Insert the profile image from the URL into the ImageView.
             //Utils.displayRoundImageFromUrl(mContext, message.getSender().getProfileUrl(), profileImage);
@@ -183,12 +183,12 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         void bind(Chat message, int position) {
             // get date and assign it to text view holder
             if(position != 0) {
-                processDate(tvDate, message.getDateChat()
-                        , mMessageList.get(position - 1).getDateChat()
+                processDate(tvDate, message.getDate()
+                        , mMessageList.get(position - 1).getDate()
                         , false)
                 ;
             }else {
-                processDate(tvDate, message.getDateChat()
+                processDate(tvDate, message.getDate()
                         , null
                         , true)
                 ;
@@ -214,7 +214,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                 tv.setVisibility(View.VISIBLE);
             } catch (ParseException e) {
                 e.printStackTrace();
-                tv.setVisibility(View.INVISIBLE);
+                tv.setVisibility(View.GONE);
             }
         } else {
             if (!dateAPIStr.equalsIgnoreCase(dateAPICompareStr)) {
@@ -227,10 +227,10 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                     tv.setVisibility(View.VISIBLE);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    tv.setVisibility(View.INVISIBLE);
+                    tv.setVisibility(View.GONE);
                 }
             } else {
-                tv.setVisibility(View.INVISIBLE);
+                tv.setVisibility(View.GONE);
             }
         }
     }

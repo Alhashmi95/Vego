@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.vego.vego">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -22,7 +23,8 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/MyActionBar">
+        android:theme="@style/MyActionBar"
+        tools:replace="android:label">
 
         <!-- To auto-sign in using facebook -->
         <meta-data
@@ -109,6 +111,8 @@
             android:name=".Service.MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="true" />
+
+
     </application>
 
 </manifest>

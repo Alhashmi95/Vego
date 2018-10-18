@@ -26,10 +26,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.vego.vego.Activity.UpdateProfileActivity;
 import com.vego.vego.Adapters.MessageListAdapter;
 import com.vego.vego.R;
+import com.vego.vego.Request.FirebaseSendNotification;
 import com.vego.vego.model.Chat;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.UserInfo;
@@ -159,7 +161,15 @@ public class ChatFragment extends Fragment {
 
                         if(input_msg.getText().toString().isEmpty()){
 
+
                         }else {
+                            String aaa = FirebaseInstanceId.getInstance().getToken();
+                            String ddd="eHlcJFgjJcI:APA91bHoV3BmjTSkyU1mfJhD-RvGK4AnY2ovJhnKlnXqXEqAkIzTM2ICV6aoQtZo1oZyyGP90zdZTaZ9A0wm7DVlDR-jhjVApz5E7jbqp14gdXFAVtZvygRPbbLJP4Ln1EcLMptIZZyR";
+                            FirebaseSendNotification firebaseSendNotification=new FirebaseSendNotification(
+                                    getActivity(),name,input_msg.getText().toString(), ddd,
+                                    adminUid.get(0) + " : " + firebaseAuth.getUid(),"ahmad",
+                                    ddd);
+                            firebaseSendNotification.onResponse();
 
                             //getting current date and time
                             Calendar calForDate = Calendar.getInstance();

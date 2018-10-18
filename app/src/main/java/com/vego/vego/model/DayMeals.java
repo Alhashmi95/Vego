@@ -8,7 +8,7 @@ public class DayMeals implements Serializable {
     String name,cal;
 
     DietDay[] dietDays;
-    int img;
+    String image;
     ArrayList<ingredients> ingredients;
     ArrayList<elements> elements;
 
@@ -18,11 +18,11 @@ public class DayMeals implements Serializable {
 
     }
 
-    public DayMeals(String name, String cal, int img, ArrayList<ingredients> ingredients,
+    public DayMeals(String name, String cal, String image, ArrayList<ingredients> ingredients,
                     ArrayList<elements> elements) {
         this.name = name;
         this.cal = cal;
-        this.img = img;
+        this.image = image;
         this.ingredients = ingredients;
         this.elements = elements;
     }
@@ -58,15 +58,16 @@ public class DayMeals implements Serializable {
         this.ingredients = ingredients;
     }
 
-    public int getImg() {
-        return img;
+
+    public String getImage() {
+        return image;
     }
 
-    public void setImg(int img) {
-        this.img = img;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getMealName() {
+    public String getName() {
         return name;
     }
 
@@ -74,7 +75,7 @@ public class DayMeals implements Serializable {
         this.name = name;
     }
 
-    public String getMealCal() {
+    public String getCal() {
         return cal;
     }
 

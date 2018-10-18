@@ -136,6 +136,8 @@ public class TrackProgressFragmentAdmin extends Fragment {
         radioButtonTrue = view.findViewById(R.id.radio_true);
         radioButtonFalse = view.findViewById(R.id.radio_false);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
 
 
         getUsers();
@@ -274,9 +276,10 @@ public class TrackProgressFragmentAdmin extends Fragment {
                     // arrayList.add(dataSnapshot1.getKey());
 
 
-
-                    arrayList.add( dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
-                    arrayList2.add(dataSnapshot1.getKey());
+                    if(!firebaseAuth.getCurrentUser().getUid().equals(dataSnapshot1.getKey())) {
+                        arrayList.add(dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
+                        arrayList2.add(dataSnapshot1.getKey());
+                    }
                     spinnerArrayAdapter.notifyDataSetChanged();
 
                     p.dismiss();

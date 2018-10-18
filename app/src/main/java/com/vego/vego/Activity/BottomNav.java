@@ -319,4 +319,4 @@ public class BottomNav extends AppCompatActivity {
         killToast();
         super.onPause();
     }
-    }
+}

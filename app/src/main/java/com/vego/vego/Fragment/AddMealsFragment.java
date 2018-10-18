@@ -11,6 +11,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,9 +43,12 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.vego.vego.Activity.AddNewMealActivity;
 import com.vego.vego.Adapters.DaysAdapter;
+import com.vego.vego.Adapters.ElementsAdapter;
+import com.vego.vego.Adapters.IngredientsAdapter;
 import com.vego.vego.Adapters.toolbarAdapter;
 import com.vego.vego.Adapters.toolbarAdapterWeek;
 import com.vego.vego.R;
+import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.UserInfo;
 import com.vego.vego.model.meal;
@@ -153,12 +157,19 @@ public class AddMealsFragment extends Fragment {
 
     int mealAll;
 
+    private IngredientsAdapter adapterIngr;
+    private ElementsAdapter adapterDet;
+
+    DayMeals dayMealObject;
+
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private FragmentHome.OnFragmentInteractionListener mListener;
+    private RecyclerView recyclerViewIngr,recyclerViewDet;
 
     public AddMealsFragment() {
         // Required empty public constructor
@@ -265,6 +276,17 @@ public class AddMealsFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
 
         progressBar.setVisibility(View.GONE);
+
+
+        recyclerViewIngr = view.findViewById(R.id.rv_mealIngr);
+        recyclerViewDet = view.findViewById(R.id.rv_mealDet);
+
+        // هذا الكود لربط الكارد فيو
+        recyclerViewIngr.setHasFixedSize(true);
+        recyclerViewIngr.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerViewDet.setHasFixedSize(true);
+        recyclerViewDet.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
         DietFragment = ((DietFragmentAdmin) AddMealsFragment.this.getParentFragment());
@@ -564,6 +586,18 @@ public class AddMealsFragment extends Fragment {
 
                                     }
                                 });
+
+                        //display meal ingr and details
+                        recyclerViewIngr.setVisibility(View.VISIBLE);
+                        recyclerViewDet.setVisibility(View.VISIBLE);
+
+                        adapterIngr = new IngredientsAdapter(mTest.getingredients(),getContext());
+                        recyclerViewIngr.setAdapter(adapterIngr);
+                        adapterIngr.notifyDataSetChanged();
+
+                        adapterDet = new ElementsAdapter(mTest.getElements(),getContext());
+                        recyclerViewDet.setAdapter(adapterDet);
+                        adapterDet.notifyDataSetChanged();
 
 
                         // Log.d("test","this is chosen meal Object"+arrayListMealsObject.get(i).getName());
@@ -1430,6 +1464,9 @@ public class AddMealsFragment extends Fragment {
                 usersprofile.child(choosenUser);
                 userProfile(choosenUser);
 
+                //refresh meal count
+                getMeCount();
+
                 //selectMonth();
                 //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
                 // If user change the default selection
@@ -1518,86 +1555,196 @@ public class AddMealsFragment extends Fragment {
     private void selectMonth() {
 
 
-        if (position == 0) {
+        if(position == 0) {
             chosenMonth = "Month 1";
             if (positionWeek == 0) {
-                chosenWeek = "Week 1";
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                firstMonthWeek1 = root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 1").child("Week 1");
+                chosenWeek = "0";
             }
             if (positionWeek == 1) {
-                chosenWeek = "Week 2";
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                firstMonthWeek2 = root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 1").child("Week 2");
+                chosenWeek = "1";
             }
             if (positionWeek == 2) {
-                chosenWeek = "Week 3";
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                firstMonthWeek3 = root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 1").child("Week 3");
+                chosenWeek = "2";
             }
             if (positionWeek == 3) {
-                chosenWeek = "Week 4";
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                firstMonthWeek4 = root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 1").child("Week 4");
+                chosenWeek = "3";
             }
         }
-        //========================================================
         if (position == 1) {
             chosenMonth = "Month 2";
             if (positionWeek == 0) {
-                chosenWeek = "Week 1";
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                secondMonthWeek1 = root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 2").child("Week 1");
+                chosenWeek = "0";
             }
             if (positionWeek == 1) {
-                chosenWeek = "Week 2";
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                secondMonthWeek2 = root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 2").child("Week 2");
+                chosenWeek = "1";
             }
             if (positionWeek == 2) {
-                chosenWeek = "Week 3";
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                secondMonthWeek3 = root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 2").child("Week 3");
+                chosenWeek = "2";
             }
             if (positionWeek == 3) {
-                chosenWeek = "Week 4";
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                secondMonthWeek4 = root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 2").child("Week 4");
+                chosenWeek = "3";
+
             }
         }
         if (position == 2) {
             chosenMonth = "Month 3";
             if (positionWeek == 0) {
-                chosenWeek = "Week 1";
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                thirdMonthWeek1 = root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 3").child("Week 1");
+                chosenWeek = "0";
             }
             if (positionWeek == 1) {
-                chosenWeek = "Week 2";
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                thirdMonthWeek2 = root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 3").child("Week 2");
+                chosenWeek = "1";
+
             }
             if (positionWeek == 2) {
-                chosenWeek = "Week 3";
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                thirdMonthWeek3 = root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 3").child("Week 3");
+                chosenWeek = "2";
+
             }
             if (positionWeek == 3) {
-                chosenWeek = "Week 4";
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                thirdMonthWeek4 = root.child("test").child(choosenUser).child("Diet")
-                        .child("Month 3").child("Week 4");
+                chosenWeek = "3";
+            }
+        }
+        if(position == 3) {
+            chosenMonth = "Month 4";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+            }
+        }
+        if (position == 4) {
+            chosenMonth = "Month 5";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+
+            }
+        }
+        if (position == 5) {
+            chosenMonth = "Month 6";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+            }
+        }
+        if(position == 6) {
+            chosenMonth = "Month 7";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+            }
+        }
+        if (position == 7) {
+            chosenMonth = "Month 8";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+
+            }
+        }
+        if (position == 8) {
+            chosenMonth = "Month 9";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+            }
+        }
+        if(position == 9) {
+            chosenMonth = "Month 10";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+            }
+        }
+        if (position == 10) {
+            chosenMonth = "Month 11";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
+
+            }
+        }
+        if (position == 11) {
+            chosenMonth = "Month 12";
+            if (positionWeek == 0) {
+                chosenWeek = "0";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "1";
+
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "2";
+
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "3";
             }
         }
     }
@@ -1740,6 +1887,7 @@ public class AddMealsFragment extends Fragment {
                 if (position > 0) {
                     // Notify the selected item text
                     selectedMeal();
+                    retriveMealToEdit();
                     Toast.makeText
                             (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
                             .show();
@@ -1841,5 +1989,74 @@ public class AddMealsFragment extends Fragment {
 
             }
         });
+    }
+    public void retriveMealToEdit(){
+        progressBar.setVisibility(View.VISIBLE);
+
+        //reach to meal to edit
+        DatabaseReference databaseReference1 = firebaseDatabaseMeal.getReference().child("users")
+                .child(choosenUser).child("Diet").child(chosenMonth).child(chosenWeek)
+                .child(choosenDay).child("dayMeals").child(getChoosenMeNumberIndex);
+
+        databaseReference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dayMealObject = dataSnapshot.getValue(DayMeals.class);
+                if (dayMealObject != null) {
+                    recyclerViewIngr.setVisibility(View.VISIBLE);
+                    recyclerViewIngr.setVisibility(View.VISIBLE);
+
+
+                    assert dayMealObject != null;
+
+                    showIngrsAndDetails();
+
+                    mealName.setText(dayMealObject.getName());
+                    cals.setText(dayMealObject.getCal());
+                    Picasso.get()
+                            .load(dayMealObject.getImage())
+                            .fit()
+                            .centerCrop()
+                            .into(mealImg, new Callback() {
+                                @Override
+                                public void onSuccess() {
+                                    progressBar.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onError(Exception e) {
+
+                                }
+                            });
+
+
+                }else {
+                    mealName.setText("");
+                    cals.setText("");
+                    mealImg.setImageResource(R.drawable.ic_meal);
+                    recyclerViewIngr.setVisibility(View.GONE);
+                    recyclerViewDet.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    public void showIngrsAndDetails(){
+
+
+        // هذا الكود لربط الكارد فيو
+
+        adapterIngr = new IngredientsAdapter(dayMealObject.getIngredients(),getContext());
+        recyclerViewIngr.setAdapter(adapterIngr);
+        adapterIngr.notifyDataSetChanged();
+
+        adapterDet = new ElementsAdapter(dayMealObject.getElements(),getContext());
+        recyclerViewDet.setAdapter(adapterDet);
+        adapterDet.notifyDataSetChanged();
     }
 }

@@ -20,13 +20,17 @@ public class DaysAdapterExercise extends RecyclerView.Adapter<DaysAdapterExercis
     private List<Exercises> daysList;
     private Context mContext;
     public FragmentManager f_manager;
+    String month,week;
 
-
-    public DaysAdapterExercise(List<Exercises> daysList, Context mContext, FragmentManager f_manager)
+        //moving month and week values ==========1=========
+    public DaysAdapterExercise(List<Exercises> daysList, Context mContext, FragmentManager f_manager
+    ,String month, String week)
     {
         this.f_manager = f_manager;
         this.daysList = daysList;
         this.mContext = mContext;
+        this.month = month;
+        this.week = week;
     }
 
     @Override
@@ -53,6 +57,11 @@ public class DaysAdapterExercise extends RecyclerView.Adapter<DaysAdapterExercis
                 Intent intent= new Intent(mContext, ActivityWorkoutUser.class);
                 intent.putExtra("DayExercise",daysList.get(position).getExercise());
                 intent.putExtra("day",daysList.get(position).getDay());
+
+                //putExtra is all u have to do to move the values u want (remember the values will be assigined in the fragment)
+                //go to fragment and see the adapter declaration
+                intent.putExtra("month",month);
+                intent.putExtra("week",week);
               //  intent.putExtra("day",daysList.get(position).getExercise().);
 
                 v.getContext().startActivity(intent);

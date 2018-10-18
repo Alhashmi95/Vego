@@ -32,8 +32,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.vego.vego.Adapters.MessageListAdapter;
 import com.vego.vego.R;
+import com.vego.vego.Request.FirebaseSendNotification;
 import com.vego.vego.model.Chat;
 import com.vego.vego.model.UserInfo;
 
@@ -233,6 +235,13 @@ public class FragmentSupport extends Fragment {
                 if(input_msg.length()  == 0){
 
                 }else {
+                    String dd=FirebaseInstanceId.getInstance().getToken();
+                    //send notification
+                    FirebaseSendNotification firebaseSendNotification=new FirebaseSendNotification(
+                            getActivity(),name,input_msg.getText().toString(), FirebaseInstanceId.getInstance().getToken(),
+                            firebaseAuth.getCurrentUser().getUid() + " : " + choosenUser,"ahmad",
+                            FirebaseInstanceId.getInstance().getToken());
+                    firebaseSendNotification.onResponse();
 
                     //getting current date and time
                     Calendar calForDate = Calendar.getInstance();
@@ -387,16 +396,16 @@ public class FragmentSupport extends Fragment {
                 getContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
             @Override
             public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                }
-                else
-                {
+//                if(position == 0)
+//                {
+//                    // Disable the first item from Spinner
+//                    // First item will be use for hint
+//                    return false;
+//                }
+//                else
+//                {
                     return true;
-                }
+                //}
             }
             @Override
             public View getDropDownView(int position, View convertView,
@@ -438,6 +447,7 @@ public class FragmentSupport extends Fragment {
                 usersprofile = FirebaseDatabase.getInstance().getReference();
                 if (position!=0)
                 chat(choosenUser);
+                messagesArray.clear();
                 getMessages();
                 //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
                 // If user change the default selection

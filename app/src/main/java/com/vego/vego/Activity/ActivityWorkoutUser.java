@@ -35,7 +35,7 @@ public class ActivityWorkoutUser extends AppCompatActivity {
 
 
 
-
+    String month,week,day;
 
 
 
@@ -60,10 +60,13 @@ public class ActivityWorkoutUser extends AppCompatActivity {
         exListForAll = (List<exercise>) intent.getSerializableExtra("DayExercise2");
 
         //get day number from الكلاس المعضل (daysAdapter)
-        String day = intent.getStringExtra("day");
+        day = intent.getStringExtra("day");
         dayTextView.setText(" يوم " + day);
 
         mucsleName = intent.getStringExtra("mucsleName");
+
+        month = intent.getStringExtra("month");
+        week = intent.getStringExtra("week");
 
         displayExOrExforAll();
 
@@ -72,7 +75,7 @@ public class ActivityWorkoutUser extends AppCompatActivity {
         if(exListForAll == null) {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new ExerciseAdapter(exList, this);
+            adapter = new ExerciseAdapter(exList, this,month,week,day);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
@@ -97,7 +100,7 @@ public class ActivityWorkoutUser extends AppCompatActivity {
         if(exList == null) {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new ExerciseAdapter(muExList, this);
+            adapter = new ExerciseAdapter(muExList, this,month,week,day);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }

@@ -1,6 +1,8 @@
 package com.vego.vego.Fragment;
 
+import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,12 +26,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.vego.vego.Activity.BottomNav;
 import com.vego.vego.Adapters.DaysAdapter;
 import com.vego.vego.Adapters.DaysAdapterExercise;
 import com.vego.vego.Adapters.toolbarAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.Exercises;
+import com.vego.vego.model.MonthExercise;
+import com.vego.vego.model.elements;
 import com.vego.vego.model.meal;
 
 import java.util.ArrayList;
@@ -41,7 +46,7 @@ import java.util.Map;
 public class FragmentExercises extends Fragment {
     private RecyclerView recyclerView;
     private DaysAdapterExercise adapter;
-    private List<Exercises> dayExercises = new ArrayList<Exercises>();
+    private ArrayList<Exercises> dayExercises = new ArrayList<Exercises>();
     private FragmentManager fragmentManager;
 
     //==============================
@@ -53,14 +58,14 @@ public class FragmentExercises extends Fragment {
 
     TabLayout tabLayout, tabLayoutWeek;
 
-    com.vego.vego.Adapters.toolbarAdapter toolbarAdapter;
-    com.vego.vego.Adapters.toolbarAdapterWeek toolbarAdapterWeek;
-
     Button addMonth, removeMonth;
 
     ViewPager viewPager;
 
     int counterMonth =0;
+
+
+
 
     @Nullable
     @Override
@@ -118,6 +123,10 @@ public class FragmentExercises extends Fragment {
 
 
 
+        //move data to bottomNav Activity
+
+
+
     }
 
     private void getExercisesForUser() {
@@ -135,9 +144,15 @@ public class FragmentExercises extends Fragment {
                     dayExercises.add(ds.getValue(Exercises.class));
 
                 }
+//                MonthExercise test = new MonthExercise("1", dayExercises);
+//                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+//                DatabaseReference monthCountRef = rootRef.child("Ayman");
+//
+//                monthCountRef.setValue(test);
+
 
                 //Set adapter
-                adapter = new DaysAdapterExercise(dayExercises,getContext(), fragmentManager);
+                adapter = new DaysAdapterExercise(dayExercises,getContext(), fragmentManager,chosenMonth,chosenWeek);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }

@@ -23,22 +23,6 @@ public class Chat {
 
     }
 
-    public String getnameChat() {
-        return name;
-    }
-
-    public void setNameChat(String name) {
-        this.name = name;
-    }
-
-    public String getMessageChat() {
-        return msg;
-    }
-
-    public void setMessageChat(String msg) {
-        this.msg = msg;
-    }
-
     public String getUserUID() {
         return userUID;
     }
@@ -55,11 +39,27 @@ public class Chat {
         this.createdAt = createdAt;
     }
 
-    public String getDateChat() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getDate() {
         return date;
     }
 
-    public void setDateChat(String date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

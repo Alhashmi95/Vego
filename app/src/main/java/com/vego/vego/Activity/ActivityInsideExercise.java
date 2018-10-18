@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,8 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
@@ -30,6 +34,7 @@ import com.vego.vego.Adapters.ExerciseDetailsAdapter;
 import com.vego.vego.Adapters.ExerciseDetailsAdapterFree;
 import com.vego.vego.Adapters.NewSetAdapter;
 import com.vego.vego.R;
+import com.vego.vego.model.MonthExercise;
 import com.vego.vego.model.elements;
 import com.vego.vego.model.exercise;
 import com.vego.vego.model.sets;
@@ -46,7 +51,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
     TextView exNumberTextView, exNameTextView, tvTotalVolume,tvMaxRM1;
     ImageView imageViewEx;
     ProgressBar progressBar;
-    double totalVolume, sumVolume = 0;
+    double totalVolume, sumVolume = 0,totalWeight =0;
     Button calVAndR, addNewSetBtn;
     double max =0;
 
@@ -68,6 +73,11 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
     int exerciseN = 0;
     int exerciseP = 0;
+
+    String month,week,exNumber,day;
+
+    exercise volume1RmEx;
+    double sumWeight;
 
 
     @Override
@@ -106,6 +116,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
 
 
+
         //showPic();
 
 
@@ -139,7 +150,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
         //because daysAdapter has an object of DietDay which contains DayMeals array of objects
         setsList = (ArrayList<sets>) intent.getSerializableExtra("exSets");
         //get day number from الكلاس المعضل (daysAdapter)
-        String exNumber = intent.getStringExtra("exNumber");
+        exNumber = intent.getStringExtra("exNumber");
         String exName = intent.getStringExtra("exName");
         exImage = intent.getStringExtra("exImage");
         Log.d("test", "this is image   " + exImage);
@@ -195,8 +206,8 @@ public class ActivityInsideExercise extends AppCompatActivity {
             }
         }
 
-
-
+        getMonthAndWeekNum();
+        getExercises();
     }
 
     private void nextAndPreviousExercise() {
@@ -273,6 +284,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
     public void calculateVolumeAndRM1() {
         max = Double.MIN_VALUE;
         sumVolume = 0;
+        sumWeight = 0;
 
         if(adapterFree != null){
             for (int i = 0; i < adapterFree.getSetsArrayFree().size(); i++) {
@@ -318,9 +330,11 @@ public class ActivityInsideExercise extends AppCompatActivity {
                     checker = true;
                     if (!adapter.getSetsArray().get(i).getVolume().isEmpty() &&
                             !adapter.getSetsArray().get(i).getRM1().isEmpty() && checker) {
-                        //calculate total volume
+                        //calculate total volume and weight
                         totalVolume = Double.valueOf(adapter.getSetsArray().get(i).getVolume());
+                        totalWeight = Double.valueOf(adapter.getSetsArray().get(i).getWeight());
                         sumVolume = sumVolume + totalVolume;
+                        sumWeight = sumWeight + totalWeight;
 
                         //maximum of RM1 here
                         if (Double.valueOf(setsList.get(i).getRM1()) > max) {
@@ -332,8 +346,9 @@ public class ActivityInsideExercise extends AppCompatActivity {
                     checker = false;
                     sumVolume =0;
                     max = 0;
+                    sumWeight = 0;
                     Toast.makeText
-                            (this, "please enter all weights for all sets", Toast.LENGTH_SHORT).show();
+                            (this, "الرجاء ادخال الوزن و عدد مرات التكرار لكل الجلسات", Toast.LENGTH_SHORT).show();
                     break;
 
                 }
@@ -344,7 +359,10 @@ public class ActivityInsideExercise extends AppCompatActivity {
                 tvMaxRM1.setText(String.valueOf(max));
             }
         }
+        uploadVolumeAnd1RM();
     }
+
+
     private void clickToEnlarge() {
         imageViewEx.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -386,6 +404,71 @@ public class ActivityInsideExercise extends AppCompatActivity {
             }
         });
         nagDialog.show();
+    }
+    protected void getMonthAndWeekNum(){
+        Intent intent = this.getIntent();
+
+        month = intent.getStringExtra("month");
+        week = intent.getStringExtra("week");
+        day = intent.getStringExtra("day");
+
+        int dayIndex = Integer.valueOf(day)-1;
+
+        day = String.valueOf(dayIndex);
+    }
+    public void getExercises(){
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        //go to the child where you want to retreive values of
+        DatabaseReference usersRef = rootRef.child("users").child(firebaseAuth.getUid()).child("Exercises")
+                .child(month).child(week).child(day).child("exercise").child(exNumber);
+
+        usersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                volume1RmEx = dataSnapshot.getValue(exercise.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void uploadVolumeAnd1RM() {
+        ArrayList<sets> setsToUpdate = volume1RmEx.getSets();
+        setsList.size();
+        setsToUpdate.size();
+
+
+        setsToUpdate.get(setsToUpdate.size()-1).setVolume(String.valueOf(sumVolume));
+        setsToUpdate.get(setsToUpdate.size()-1).setRM1(String.valueOf(max));
+        setsToUpdate.get(setsToUpdate.size()-1).setWeight(String.valueOf(sumWeight));
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        //go to the child where you want to retreive values of
+        DatabaseReference rm1Ref = rootRef.child("users").child(firebaseAuth.getUid()).child("Exercises")
+                .child(month).child(week).child(day).child("exercise").child(exNumber)
+                .child("sets").child(String.valueOf(setsToUpdate.size()-1)).child("rm1");
+
+        DatabaseReference volumeRef = rootRef.child("users").child(firebaseAuth.getUid()).child("Exercises")
+                .child(month).child(week).child(day).child("exercise").child(exNumber)
+                .child("sets").child(String.valueOf(setsToUpdate.size()-1)).child("volume");
+
+        DatabaseReference weightRef = rootRef.child("users").child(firebaseAuth.getUid()).child("Exercises")
+                .child(month).child(week).child(day).child("exercise").child(exNumber)
+                .child("sets").child(String.valueOf(setsToUpdate.size()-1)).child("weight");
+
+        rm1Ref.setValue(String.valueOf(max));
+        volumeRef.setValue(String.valueOf(sumVolume));
+        weightRef.setValue(String.valueOf(sumWeight));
+
+
+
+
+
     }
 
 

@@ -28,15 +28,19 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     private ArrayList<exercise> exList;
     private Context mContext;
     public FragmentManager f_manager;
+    String month,week,day;
 
     ProgressBar progressBar;
 
 
 
 
-    public ExerciseAdapter(ArrayList<exercise> exList, Context mContext) {
+    public ExerciseAdapter(ArrayList<exercise> exList, Context mContext,String month, String week,String day) {
         this.exList = exList;
         this.mContext = mContext;
+        this.month = month;
+        this.week = week;
+        this.day = day;
     }
 
     @Override
@@ -150,6 +154,21 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                     .centerCrop()
                     .into(holder.muImage);
         }
+        if(mu.equals("سواعد")){
+            Picasso.get()
+                    .load(R.drawable.mu_bavk)
+                    //.placeholder(R.drawable.ic_loading)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.muImage);
+        }if(mu.equals("كارديو")){
+            Picasso.get()
+                    .load(R.drawable.mu_bavk)
+                    //.placeholder(R.drawable.ic_loading)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.muImage);
+        }
 
 
 
@@ -163,6 +182,10 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                 intent.putExtra("exImage", exList.get(position).getImage());
                 intent.putExtra("exNumber",String.valueOf(position));
                 intent.putExtra("exercise list", exList);
+
+                intent.putExtra("month",month);
+                intent.putExtra("week",week);
+                intent.putExtra("day",day);
                 v.getContext().startActivity(intent);
             }
         });

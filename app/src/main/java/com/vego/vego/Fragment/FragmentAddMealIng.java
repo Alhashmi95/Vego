@@ -111,11 +111,19 @@ public class FragmentAddMealIng extends Fragment {
 //            mealindex.setText(String.valueOf(i));
 //        }
 
-        elements ele = new elements();
-        list.add(ele);
+                elements e1 = new elements("","بروتين");
+                elements e2 = new elements("","دهون");
+                elements e3 = new elements("","كربوهيدرات");
+
+//        elements ele = new elements();
+//        list.add(ele);
+        eleList = new ArrayList<>();
 
 
         eleList = populateList();
+        eleList.add(e1);
+        eleList.add(e2);
+        eleList.add(e3);
         newElementAdapter = new NewElementAdapter(eleList, getContext());
         recyclerview.setAdapter(newElementAdapter);
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext(),
