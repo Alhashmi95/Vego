@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
-    tools:context=".Activity.DayMealsActivity">
+    tools:context=".Activity.DayMealsActivity"
+    android:layoutDirection="ltr">
 
 
 

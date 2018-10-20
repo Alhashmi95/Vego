@@ -1,272 +1,286 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.UpdateProfileActivity"
     android:background="@color/wall"
-    android:id="@+id/relativeLayout7">
+    android:id="@+id/relativeLayout7"
+    android:layoutDirection="ltr"
+    android:fillViewport="true"
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/actionBar"
+
+    >
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
 
-        android:background="#002e65"
+        >
 
-        android:paddingRight="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/relativeLayout8"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/actionBar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
 
-            <ImageView
-                android:id="@+id/logo"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:paddingTop="9dp"
-                android:src="@drawable/logo_white"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:background="#002e65"
+
+            android:paddingRight="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/relativeLayout8"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:paddingTop="9dp"
+                    android:src="@drawable/logo_white"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.Toolbar>
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.Toolbar>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout9"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_below="@+id/actionBar"
-        android:background="@color/md_white_1000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actionBar">
+        <RelativeLayout
+            android:id="@+id/relativeLayout9"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/actionBar"
+            android:background="@color/md_white_1000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/actionBar">
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/cairo_semibold"
+                android:text="الملف الشخصي"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relaSpinner2"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/custom_spinner_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
+
+
+
+            <Spinner
+                android:id="@+id/spinner4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:spinnerMode="dropdown"
+                android:layout_alignParentLeft="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relaSpinner1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/custom_spinner_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ageTxt2">
+
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:spinnerMode="dropdown"
+                android:layout_alignParentLeft="true" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/ageTxt2"
+            android:layout_width="108dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginStart="30dp"
+            android:maxLength="3"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/custom_edit_text_white"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/age"
+            android:ems="10"
+            android:gravity="right"
+            android:inputType="number"
+            android:paddingBottom="7dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8.5dp"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/heightTxt2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userNameUpdateTxt" />
+
+        <EditText
+            android:id="@+id/heightTxt2"
+            android:layout_width="108dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:maxLength="3"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/custom_edit_text_white"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/height"
+            android:ems="10"
+            android:gravity="right"
+            android:inputType="number"
+            android:paddingBottom="7dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8.5dp"
+            android:textSize="16dp"
+            app:layout_constraintStart_toEndOf="@+id/ageTxt2"
+            app:layout_constraintTop_toBottomOf="@+id/userNameUpdateTxt" />
+
+        <EditText
+            android:id="@+id/weightTxt2"
+            android:layout_width="108dp"
+            android:layout_height="45dp"
+            android:maxLength="3"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/custom_edit_text_white"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/wieght"
+            android:ems="10"
+            android:gravity="right"
+            android:inputType="number"
+            android:paddingBottom="7dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8.5dp"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/heightTxt2"
+            app:layout_constraintTop_toBottomOf="@+id/userNameUpdateTxt" />
+
+        <EditText
+            android:id="@+id/userNameUpdateTxt"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:maxLength="20"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/custom_edit_text_white"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/user"
+            android:ems="10"
+            android:gravity="right"
+            android:inputType="textPersonName"
+            android:paddingBottom="7dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8.5dp"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivProfileUpdate" />
+
+        <ImageView
+            android:id="@+id/ivProfileUpdate"
+            android:layout_width="132dp"
+            android:layout_height="129dp"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/profile_pic_large"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout9" />
 
         <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
+            android:id="@+id/picPicker"
+            android:layout_width="119dp"
+            android:layout_height="105dp"
+            android:layout_marginEnd="132dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="132dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout9" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/scifitRed"
             android:fontFamily="@font/cairo_semibold"
-            android:text="الملف الشخصي"
-            android:textSize="16sp" />
-    </RelativeLayout>
+            android:text="حفظ التغييرات"
+            android:textColor="#ffffff"
+            android:textSize="17sp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relaSpinner2" />
 
-    <RelativeLayout
-        android:id="@+id/relaSpinner2"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/custom_spinner_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@+id/relaSpinner1">
-
-
-
-        <Spinner
-            android:id="@+id/spinner4"
+        <Button
+            android:id="@+id/resetPass"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:spinnerMode="dropdown"
-            android:layout_alignParentLeft="true" />
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginTop="100dp"
+            android:backgroundTint="@color/scifitRed"
+            android:fontFamily="@font/cairo_semibold"
+            android:text="اعادة تعيين كلمة المرور"
+            android:textColor="#ffffff"
+            android:textSize="17sp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relaSpinner2" />
 
-    <RelativeLayout
-        android:id="@+id/relaSpinner1"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/custom_spinner_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ageTxt2">
+    </android.support.constraint.ConstraintLayout>
 
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:spinnerMode="dropdown"
-            android:layout_alignParentLeft="true" />
-    </RelativeLayout>
-
-    <EditText
-        android:id="@+id/ageTxt2"
-        android:layout_width="108dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginStart="30dp"
-        android:maxLength="3"
-        android:layout_marginTop="11dp"
-        android:background="@drawable/custom_edit_text_white"
-        android:drawablePadding="10dp"
-        android:drawableRight="@drawable/age"
-        android:ems="10"
-        android:gravity="right"
-        android:inputType="number"
-        android:paddingBottom="7dp"
-        android:paddingRight="10dp"
-        android:paddingTop="8.5dp"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/heightTxt2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userNameUpdateTxt" />
-
-    <EditText
-        android:id="@+id/heightTxt2"
-        android:layout_width="108dp"
-        android:layout_height="45dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:maxLength="3"
-        android:layout_marginTop="11dp"
-        android:background="@drawable/custom_edit_text_white"
-        android:drawablePadding="10dp"
-        android:drawableRight="@drawable/height"
-        android:ems="10"
-        android:gravity="right"
-        android:inputType="number"
-        android:paddingBottom="7dp"
-        android:paddingRight="10dp"
-        android:paddingTop="8.5dp"
-        android:textSize="16dp"
-        app:layout_constraintStart_toEndOf="@+id/ageTxt2"
-        app:layout_constraintTop_toBottomOf="@+id/userNameUpdateTxt" />
-
-    <EditText
-        android:id="@+id/weightTxt2"
-        android:layout_width="108dp"
-        android:layout_height="45dp"
-        android:maxLength="3"
-        android:layout_marginEnd="30dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="11dp"
-        android:background="@drawable/custom_edit_text_white"
-        android:drawablePadding="10dp"
-        android:drawableRight="@drawable/wieght"
-        android:ems="10"
-        android:gravity="right"
-        android:inputType="number"
-        android:paddingBottom="7dp"
-        android:paddingRight="10dp"
-        android:paddingTop="8.5dp"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/heightTxt2"
-        app:layout_constraintTop_toBottomOf="@+id/userNameUpdateTxt" />
-
-    <EditText
-        android:id="@+id/userNameUpdateTxt"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:maxLength="20"
-        android:layout_marginEnd="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/custom_edit_text_white"
-        android:drawablePadding="10dp"
-        android:drawableRight="@drawable/user"
-        android:ems="10"
-        android:gravity="right"
-        android:inputType="textPersonName"
-        android:paddingBottom="7dp"
-        android:paddingRight="10dp"
-        android:paddingTop="8.5dp"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivProfileUpdate" />
-
-    <ImageView
-        android:id="@+id/ivProfileUpdate"
-        android:layout_width="132dp"
-        android:layout_height="129dp"
-        android:layout_marginLeft="55dp"
-        android:layout_marginRight="55dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/profile_pic_large"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout9" />
-
-    <TextView
-        android:id="@+id/picPicker"
-        android:layout_width="119dp"
-        android:layout_height="105dp"
-        android:layout_marginEnd="132dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="132dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout9" />
-
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="27dp"
-        android:layout_marginRight="27dp"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="@color/scifitRed"
-        android:fontFamily="@font/cairo_semibold"
-        android:text="حفظ التغييرات"
-        android:textColor="#ffffff"
-        android:textSize="17sp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relaSpinner2" />
-
-    <Button
-        android:id="@+id/resetPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="27dp"
-        android:layout_marginRight="27dp"
-        android:layout_marginTop="100dp"
-        android:backgroundTint="@color/scifitRed"
-        android:fontFamily="@font/cairo_semibold"
-        android:text="اعادة تعيين كلمة المرور"
-        android:textColor="#ffffff"
-        android:textSize="17sp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relaSpinner2" />
-
-</android.support.constraint.ConstraintLayout>
+</ScrollView>
