@@ -18,6 +18,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+<<<<<<< HEAD
+    <Button
+        android:id="@+id/signupBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#cf0545"
+        android:gravity="center"
+        android:text="تسجيل مستخدم جديد"
+        android:layout_marginHorizontal="32dp"
+        android:textColor="#ffff"
+        app:layout_constraintBottom_toTopOf="@+id/signinTxt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userNameTxt"
+        app:layout_constraintVertical_bias="0.785" />
+=======
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="271dp"
@@ -29,6 +47,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo_welcome_screen" />
+>>>>>>> 86b5376d6fa35b473342d676490a9f448435c0f2
 
         <TextView
             android:id="@+id/signinTxt"

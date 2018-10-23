@@ -116,7 +116,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         }
         if(mu.equals("ترابيس")){
             Picasso.get()
-                    .load(R.drawable.mu_trapeze)
+                    .load(R.drawable.mu_trabiz)
                     //.placeholder(R.drawable.ic_loading)
                     .fit()
                     .centerCrop()
