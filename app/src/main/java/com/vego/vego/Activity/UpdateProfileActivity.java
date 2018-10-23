@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
@@ -147,7 +148,11 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 }else if(userinfo.getUserGoal().equals("المحافظة على الوزن الحالي")) {
                     spGoal.setSelection(4);
                 }
-
+                //-----------------------------Load image-------------------------------------------
+                if(userinfo.getImage()!= null){
+                Picasso.get().load(userinfo.getImage()).fit()
+                        .centerCrop().into(profilePic);
+                }
             }
 
             @Override
@@ -577,7 +582,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
 
                         //upload meal to firebase
-                        d.child("users").child("Profile").child("image").setValue(picUrl);
+                        d.child("users").child(firebaseAuth.getCurrentUser().getUid())
+                                .child("Profile").child("image").setValue(picUrl);
 
 
                         finish();
