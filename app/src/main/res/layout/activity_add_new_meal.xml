@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.MealIngrActivity"
-    android:background="@color/grey">
+    android:background="@color/grey"
+    android:layoutDirection="ltr">
 
     <io.netopen.hotbitmapgg.library.view.RingProgressBar
         android:id="@+id/progress_bar_2"
