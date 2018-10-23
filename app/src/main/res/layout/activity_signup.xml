@@ -37,13 +37,14 @@
 
     <Button
         android:id="@+id/signupBtn"
-        android:layout_width="331dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="#cf0545"
         android:gravity="center"
         android:text="تسجيل مستخدم جديد"
+        android:layout_marginHorizontal="32dp"
         android:textColor="#ffff"
         app:layout_constraintBottom_toTopOf="@+id/signinTxt"
         app:layout_constraintLeft_toLeftOf="parent"

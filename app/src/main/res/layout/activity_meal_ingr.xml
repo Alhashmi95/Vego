@@ -85,7 +85,7 @@
             <ImageView
                 android:id="@+id/mealimg"
                 android:layout_width="match_parent"
-                android:layout_height="124dp"
+                android:layout_height="match_parent"
                 android:src="@drawable/addpic" />
 
             <ProgressBar
