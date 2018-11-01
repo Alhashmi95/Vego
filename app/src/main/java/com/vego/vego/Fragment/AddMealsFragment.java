@@ -50,10 +50,14 @@ import com.vego.vego.Adapters.toolbarAdapterWeek;
 import com.vego.vego.R;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
+import com.vego.vego.model.MonthMeal;
 import com.vego.vego.model.UserInfo;
+import com.vego.vego.model.elements;
+import com.vego.vego.model.ingredients;
 import com.vego.vego.model.meal;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -120,7 +124,7 @@ public class AddMealsFragment extends Fragment {
     DatabaseReference secondMonthWeek1, secondMonthWeek2, secondMonthWeek3, secondMonthWeek4;
     DatabaseReference thirdMonthWeek1, thirdMonthWeek2, thirdMonthWeek3, thirdMonthWeek4;
 
-    String chosenMonth = "Month 1", chosenWeek = "Week 1";
+    String chosenMonth = "0", chosenWeek = "week1";
 
 
     TabLayout tabLayout, tabLayoutWeek;
@@ -162,6 +166,7 @@ public class AddMealsFragment extends Fragment {
 
     DayMeals dayMealObject;
 
+    List dietBigList;
 
 
     // TODO: Rename and change types of parameters
@@ -169,7 +174,9 @@ public class AddMealsFragment extends Fragment {
     private String mParam2;
 
     private FragmentHome.OnFragmentInteractionListener mListener;
-    private RecyclerView recyclerViewIngr,recyclerViewDet;
+    private RecyclerView recyclerViewIngr, recyclerViewDet;
+    private ArrayList<MonthMeal> monthMeals = new ArrayList<>();
+    private int monthCountIndex = 0;
 
     public AddMealsFragment() {
         // Required empty public constructor
@@ -320,6 +327,32 @@ public class AddMealsFragment extends Fragment {
 
         childlistrner();
 
+
+        //==========================Default 4 weeks meals ==============================
+        ingredients[] ingredients2 = new ingredients[]{new ingredients("", "")};
+        List mealIngrList2 = new ArrayList<ingredients>(Arrays.asList(ingredients2));
+
+        elements[] elements = new elements[]{new elements("", "")};
+        List mealElementList = new ArrayList<elements>(Arrays.asList(elements));
+
+        DayMeals[] dayMealsDay1 = new DayMeals[]{new DayMeals("", "",
+                "", (ArrayList<ingredients>) mealIngrList2, (ArrayList<elements>) mealElementList),//add get(0)
+        };
+
+        List dayMealsD1 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay1));
+
+
+        DietDay[] dietDay = new DietDay[]{new DietDay("", "", "", (ArrayList<com.vego.vego.model.meal>) dayMealsD1),
+                new DietDay("", "", "", (ArrayList<com.vego.vego.model.meal>) dayMealsD1),
+                new DietDay("", "", "", (ArrayList<com.vego.vego.model.meal>) dayMealsD1),
+                new DietDay("", "", "", (ArrayList<com.vego.vego.model.meal>) dayMealsD1),
+                new DietDay("", "", "", (ArrayList<com.vego.vego.model.meal>) dayMealsD1),
+                new DietDay("", "", "", (ArrayList<com.vego.vego.model.meal>) dayMealsD1),
+                new DietDay("", "", "", (ArrayList<com.vego.vego.model.meal>) dayMealsD1),
+        };
+        dietBigList = new ArrayList<DietDay>(Arrays.asList(dietDay));
+
+
         // getTotalCal();
 
 
@@ -360,6 +393,38 @@ public class AddMealsFragment extends Fragment {
 
     }
 
+    private void getMonthTabs() {
+        for (int i = tabLayout.getTabCount(); i > 1; i--) {
+            tabLayout.removeTabAt(i - 1);
+        }
+        for (int i = tabLayout.getTabCount(); i > 1; i--) {
+            tabLayout.removeTabAt(i - 1);
+        }
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        DatabaseReference monthCountRef = rootRef.child("users").child(choosenUser).child("Diet");
+
+        monthCountRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                counterMonth = (int) dataSnapshot.getChildrenCount();
+
+                for (int i = 1; i < counterMonth; i++) {
+                    tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(i + 1)));
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 
     private void removeMonth() {
         removeMonth.setOnClickListener(new View.OnClickListener() {
@@ -373,11 +438,27 @@ public class AddMealsFragment extends Fragment {
                     int index = tabLayout.getTabCount();
                     index--;
 
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
+                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+                    databasaeReference.child("users").child(choosenUser).child("Diet")
+                            .child(String.valueOf(index)).removeValue().addOnCompleteListener(
+                            new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    getMonthTabs();
+                                }
+                            }
+                    );
+
+
                     tabLayout.removeTabAt(index);
 
                     counterMonth--;
 
                 }
+                getUsers();
             }
         });
     }
@@ -386,8 +467,61 @@ public class AddMealsFragment extends Fragment {
         addMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(counterMonth)));
+                if (counterMonth <= 12) {
+                    tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(counterMonth)));
+//                    monthMeals = new ArrayList<>();
+//                    monthMeals.add(counterMonth-1,meal);
+
+                    //add 4 weeks by defalut
+                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
+
+//                MonthExercise test = new MonthExercise((ArrayList<Exercises>) exBigList,(ArrayList<Exercises>)
+//                        exBigList,(ArrayList<Exercises>)exBigList,(ArrayList<Exercises>)exBigList);
+//                ArrayList<MonthExercise> a = new ArrayList<>();
+//                a.add(counterMonth-1,test);
+
+                    DatabaseReference monthCount = databasaeReference.child("users").child(choosenUser)
+                            .child("Diet");
+
+                    monthCount.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            monthCountIndex = (int) dataSnapshot.getChildrenCount();
+
+                            MonthMeal meal = new MonthMeal((ArrayList<DietDay>) dietBigList, (ArrayList<DietDay>) dietBigList
+                                    , (ArrayList<DietDay>) dietBigList, (ArrayList<DietDay>) dietBigList);
+
+                            databasaeReference.child("users").child(choosenUser)
+                                    .child("Diet").child(String.valueOf(monthCountIndex)).setValue(meal)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            getMonthTabs();
+                                        }
+                                    });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+                } else {
+                    Toast.makeText(getContext(),
+                            "لا يمكنك اضافة اكثر من 12 شهر", Toast.LENGTH_SHORT).show();
+                }
+                //databasaeReference.child("users").child(firebaseAuth.getUid()).child("Exercises").setValue(a);
+
+
                 counterMonth++;
+                getUsers();
+
+
             }
         });
 
@@ -473,41 +607,40 @@ public class AddMealsFragment extends Fragment {
         DatabaseReference databaseReference = f.getReference().child("meals");
 
 
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Note ** : ondatachange discards the value of arraylist after it finishs
 
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    //Note ** : ondatachange discards the value of arraylist after it finishs
-
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                        if(arrayListMealsObject.size() < mealAll)
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    if (arrayListMealsObject.size() < mealAll)
                         arrayListMealsObject.add(dataSnapshot1.getValue(meal.class));
-                        arrayListMeals.add(dataSnapshot1.getValue(meal.class).getName());
-                        Log.d("test", "this is meals : " + dataSnapshot1.getValue(meal.class));
+                    arrayListMeals.add(dataSnapshot1.getValue(meal.class).getName());
+                    Log.d("test", "this is meals : " + dataSnapshot1.getValue(meal.class));
 //                    spinnerArrayAdapter2.notifyDataSetChanged();
 
 
-                    }
-
-
                 }
 
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
+            }
 
 
-            });
-            Log.d("test", "this is size of arrMeal OBBBBJJJEEECCTtrtrt45454: " + arrayListMealsObject.size());
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+
+        });
+        Log.d("test", "this is size of arrMeal OBBBBJJJEEECCTtrtrt45454: " + arrayListMealsObject.size());
 
 
         return arrayListMealsObject;
     }
 
     public void selectedMeal() {
-        if(mealAll > arrayListMealsObject.size() || arrayListMealsObject.size() > mealAll){
+        if (mealAll > arrayListMealsObject.size() || arrayListMealsObject.size() > mealAll) {
             arrayListMealsObject.clear();
             getMeal();
         }
@@ -591,11 +724,11 @@ public class AddMealsFragment extends Fragment {
                         recyclerViewIngr.setVisibility(View.VISIBLE);
                         recyclerViewDet.setVisibility(View.VISIBLE);
 
-                        adapterIngr = new IngredientsAdapter(mTest.getingredients(),getContext());
+                        adapterIngr = new IngredientsAdapter(mTest.getingredients(), getContext());
                         recyclerViewIngr.setAdapter(adapterIngr);
                         adapterIngr.notifyDataSetChanged();
 
-                        adapterDet = new ElementsAdapter(mTest.getElements(),getContext());
+                        adapterDet = new ElementsAdapter(mTest.getElements(), getContext());
                         recyclerViewDet.setAdapter(adapterDet);
                         adapterDet.notifyDataSetChanged();
 
@@ -1394,7 +1527,7 @@ public class AddMealsFragment extends Fragment {
                     getMeCount();
                     // Notify the selected item text
                     // Initializing an ArrayAdapter
-                    if(!choosenDay.equals("اختر يوم")) {
+                    if (!choosenDay.equals("اختر يوم")) {
                         spMealsCount.setEnabled(true);
                     }
                     Toast.makeText
@@ -1466,6 +1599,8 @@ public class AddMealsFragment extends Fragment {
 
                 //refresh meal count
                 getMeCount();
+
+                getMonthTabs();
 
                 //selectMonth();
                 //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
@@ -1552,202 +1687,6 @@ public class AddMealsFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void selectMonth() {
-
-
-        if(position == 0) {
-            chosenMonth = "Month 1";
-            if (positionWeek == 0) {
-                chosenWeek = "0";
-            }
-            if (positionWeek == 1) {
-                chosenWeek = "1";
-            }
-            if (positionWeek == 2) {
-                chosenWeek = "2";
-            }
-            if (positionWeek == 3) {
-                chosenWeek = "3";
-            }
-        }
-        if (position == 1) {
-            chosenMonth = "Month 2";
-            if (positionWeek == 0) {
-                chosenWeek = "0";
-            }
-            if (positionWeek == 1) {
-                chosenWeek = "1";
-            }
-            if (positionWeek == 2) {
-                chosenWeek = "2";
-            }
-            if (positionWeek == 3) {
-                chosenWeek = "3";
-
-            }
-        }
-        if (position == 2) {
-            chosenMonth = "Month 3";
-            if (positionWeek == 0) {
-                chosenWeek = "0";
-            }
-            if (positionWeek == 1) {
-                chosenWeek = "1";
-
-            }
-            if (positionWeek == 2) {
-                chosenWeek = "2";
-
-            }
-            if (positionWeek == 3) {
-                chosenWeek = "3";
-            }
-        }
-        if(position == 3) {
-            chosenMonth = "Month 4";
-            if (positionWeek == 0) {
-                chosenWeek = "0";
-            }
-            if (positionWeek == 1) {
-                chosenWeek = "1";
-            }
-            if (positionWeek == 2) {
-                chosenWeek = "2";
-            }
-            if (positionWeek == 3) {
-                chosenWeek = "3";
-            }
-        }
-        if (position == 4) {
-            chosenMonth = "Month 5";
-            if (positionWeek == 0) {
-                chosenWeek = "0";
-            }
-            if (positionWeek == 1) {
-                chosenWeek = "1";
-            }
-            if (positionWeek == 2) {
-                chosenWeek = "2";
-            }
-            if (positionWeek == 3) {
-                chosenWeek = "3";
-
-            }
-        }
-        if (position == 5) {
-            chosenMonth = "Month 6";
-            if (positionWeek == 0) {
-                chosenWeek = "0";
-            }
-            if (positionWeek == 1) {
-                chosenWeek = "1";
-
-            }
-            if (positionWeek == 2) {
-                chosenWeek = "2";
-
-            }
-            if (positionWeek == 3) {
-                chosenWeek = "3";
-            }
-        }
-        if(position == 6) {
-            chosenMonth = "Month 7";
-            if (positionWeek == 0) {
-                chosenWeek = "0";
-            }
-            if (positionWeek == 1) {
-                chosenWeek = "1";
-            }
-            if (positionWeek == 2) {
-                chosenWeek = "2";
-            }
-            if (positionWeek == 3) {
-                chosenWeek = "3";
-            }
-        }
-        if (position == 7) {
-            chosenMonth = "Month 8";
-            if (positionWeek == 0) {
-                chosenWeek = "0";
-            }
-            if (positionWeek == 1) {
-                chosenWeek = "1";
-            }
-            if (positionWeek == 2) {
-                chosenWeek = "2";
-            }
-            if (positionWeek == 3) {
-                chosenWeek = "3";
-
-            }
-        }
-        if (position == 8) {
-            chosenMonth = "Month 9";
-            if (positionWeek == 0) {
-                chosenWeek = "0";
-            }
-            if (positionWeek == 1) {
-                chosenWeek = "1";
-
-            }
-            if (positionWeek == 2) {
-                chosenWeek = "2";
-
-            }
-            if (positionWeek == 3) {
-                chosenWeek = "3";
-            }
-        }
-        if(position == 9) {
-            chosenMonth = "Month 10";
-            if (positionWeek == 0) {
-                chosenWeek = "0";
-            }
-            if (positionWeek == 1) {
-                chosenWeek = "1";
-            }
-            if (positionWeek == 2) {
-                chosenWeek = "2";
-            }
-            if (positionWeek == 3) {
-                chosenWeek = "3";
-            }
-        }
-        if (position == 10) {
-            chosenMonth = "Month 11";
-            if (positionWeek == 0) {
-                chosenWeek = "0";
-            }
-            if (positionWeek == 1) {
-                chosenWeek = "1";
-            }
-            if (positionWeek == 2) {
-                chosenWeek = "2";
-            }
-            if (positionWeek == 3) {
-                chosenWeek = "3";
-
-            }
-        }
-        if (position == 11) {
-            chosenMonth = "Month 12";
-            if (positionWeek == 0) {
-                chosenWeek = "0";
-            }
-            if (positionWeek == 1) {
-                chosenWeek = "1";
-
-            }
-            if (positionWeek == 2) {
-                chosenWeek = "2";
-
-            }
-            if (positionWeek == 3) {
-                chosenWeek = "3";
-            }
-        }
-    }
 
     private void getMeCount() {
         mm = 1;
@@ -1764,7 +1703,7 @@ public class AddMealsFragment extends Fragment {
                 .child(choosenDay).child("dayMeals");
 
 
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // bigExList.add(dataSnapshot.getValue(Exercises.class));
@@ -2002,7 +1941,7 @@ public class AddMealsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dayMealObject = dataSnapshot.getValue(DayMeals.class);
-                if (dayMealObject != null) {
+                if (dayMealObject != null && !dayMealObject.getImage().isEmpty()) {
                     recyclerViewIngr.setVisibility(View.VISIBLE);
                     recyclerViewIngr.setVisibility(View.VISIBLE);
 
@@ -2058,5 +1997,189 @@ public class AddMealsFragment extends Fragment {
         adapterDet = new ElementsAdapter(dayMealObject.getElements(),getContext());
         recyclerViewDet.setAdapter(adapterDet);
         adapterDet.notifyDataSetChanged();
+    }
+    private void selectMonth() {
+
+
+        if(position == 0) {
+            chosenMonth = "0";
+            if (positionWeek == 0) {
+                chosenWeek = "week1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "week2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "week3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "week4";
+            }
+        }
+        if (position == 1) {
+            chosenMonth = "1";
+            if (positionWeek == 0) {
+                chosenWeek = "week1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "week2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "week3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "week4";
+            }
+        }
+        if (position == 2) {
+            chosenMonth = "2";
+            if (positionWeek == 0) {
+                chosenWeek = "week1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "week2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "week3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "week4";
+            }
+        }
+        if(position == 3) {
+            chosenMonth = "3";
+            if (positionWeek == 0) {
+                chosenWeek = "week1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "week2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "week3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "week4";
+            }
+        }
+        if (position == 4) {
+            chosenMonth = "4";
+            if (positionWeek == 0) {
+                chosenWeek = "week1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "week2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "week3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "week4";
+            }
+        }
+        if (position == 5) {
+            chosenMonth = "5";
+            if (positionWeek == 0) {
+                chosenWeek = "week1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "week2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "week3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "week4";
+            }
+        }
+        if(position == 6) {
+            chosenMonth = "6";
+            if (positionWeek == 0) {
+                chosenWeek = "week1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "week2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "week3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "week4";
+            }
+        }
+        if (position == 7) {
+            chosenMonth = "7";
+            if (positionWeek == 0) {
+                chosenWeek = "week1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "week2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "week3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "week4";
+            }
+        }
+        if (position == 8) {
+            chosenMonth = "8";
+            if (positionWeek == 0) {
+                chosenWeek = "week1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "week2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "week3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "week4";
+            }
+        }
+        if(position == 9) {
+            chosenMonth = "9";
+            if (positionWeek == 0) {
+                chosenWeek = "week1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "week2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "week3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "week4";
+            }
+        }
+        if (position == 10) {
+            chosenMonth = "10";
+            if (positionWeek == 0) {
+                chosenWeek = "week1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "week2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "week3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "week4";
+            }
+        }
+        if (position == 11) {
+            chosenMonth = "11";
+            if (positionWeek == 0) {
+                chosenWeek = "week1";
+            }
+            if (positionWeek == 1) {
+                chosenWeek = "week2";
+            }
+            if (positionWeek == 2) {
+                chosenWeek = "week3";
+            }
+            if (positionWeek == 3) {
+                chosenWeek = "week4";
+            }
+        }
     }
 }

@@ -13,26 +13,31 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.MediaController;
-import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.vego.vego.R;
+import com.vego.vego.model.Exercises;
 
+import java.util.ArrayList;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -53,17 +58,54 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Button crashButton = new Button(this);
-        crashButton.setText("Crash!");
-        crashButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Crashlytics.getInstance().crash(); // Force a crash
-            }
-        });
 
-        addContentView(crashButton, new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
+        //=========================================
+        ArrayList<Exercises> dayExercises = new ArrayList<>();
+        //delcare firebase auth and database reference to retreive data
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        //go to the child where you want to retreive values of
+        DatabaseReference usersRef = rootRef.child("users").child("YuYUynJMJkV1w6sEfzMh0Wqvfdq2").child("Exercises")
+                .child("0").child("week1");
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    dayExercises.add(ds.getValue(Exercises.class));
+
+                }
+//                MonthExercise test = new MonthExercise(dayExercises,dayExercises,dayExercises,dayExercises);
+//                ArrayList<MonthExercise> a = new ArrayList<>();
+//                a.add(test);
+//                a.add(test);
+//                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+//                DatabaseReference monthCountRef = rootRef.child("Ayman");
+//
+//
+//                monthCountRef.setValue(test);
+//                monthCountRef.setValue(a);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        usersRef.addListenerForSingleValueEvent(valueEventListener);
+        //=========================================
+
+
+//        Button crashButton = new Button(this);
+//        crashButton.setText("Crash!");
+//        crashButton.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View view) {
+//                Crashlytics.getInstance().crash(); // Force a crash
+//            }
+//        });
+//
+//        addContentView(crashButton, new ViewGroup.LayoutParams(
+//                ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT));
 
 
         videoView = findViewById(R.id.video);

@@ -28,19 +28,21 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     private ArrayList<exercise> exList;
     private Context mContext;
     public FragmentManager f_manager;
-    String month,week,day;
+    String month,week,day,dayIndex;
 
     ProgressBar progressBar;
 
 
 
 
-    public ExerciseAdapter(ArrayList<exercise> exList, Context mContext,String month, String week,String day) {
+    public ExerciseAdapter(ArrayList<exercise> exList, Context mContext,String month, String week,String day
+                            ,String dayIndex) {
         this.exList = exList;
         this.mContext = mContext;
         this.month = month;
         this.week = week;
         this.day = day;
+        this.dayIndex = dayIndex;
     }
 
     @Override
@@ -186,6 +188,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                 intent.putExtra("month",month);
                 intent.putExtra("week",week);
                 intent.putExtra("day",day);
+                intent.putExtra("dayIndex",dayIndex);
                 v.getContext().startActivity(intent);
             }
         });
