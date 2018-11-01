@@ -39,7 +39,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        //holder.txtSets.setText(exList.get(position).g);
+        setsNo = position+1;
+        holder.txtSets.setText(String.valueOf(setsNo));
         exListTest = exListHistory.get(position);
         holder.txtReps.setText(exListTest.getReps());
         holder.textViewRM1.setText(exListTest.getRM1());

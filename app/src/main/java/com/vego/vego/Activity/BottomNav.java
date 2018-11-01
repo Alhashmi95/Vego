@@ -35,6 +35,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -75,14 +76,20 @@ public class BottomNav extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_nav);
 
-//        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(BottomNav.this,  new OnSuccessListener<InstanceIdResult>() {
-//            @Override
-//            public void onSuccess(InstanceIdResult instanceIdResult) {
-//                String newToken = instanceIdResult.getToken();
-//                Log.e("newToken",newToken);
-//
-//            }
-//        });
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(BottomNav.this,  new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String newToken = instanceIdResult.getToken();
+                Log.e("newToken",newToken);
+
+                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+                rootRef = rootRef.child("Ayman").child(FirebaseAuth.getInstance().getUid()).child("userToken");
+
+                rootRef.setValue(newToken);
+
+            }
+        });
 
 
         closeAppwhenBackISClickedTwice();

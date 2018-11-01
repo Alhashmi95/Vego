@@ -1,5 +1,6 @@
 package com.vego.vego.Activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -100,6 +101,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
     RelativeLayout rvHistory, rvHistory2;
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,10 +134,11 @@ public class ActivityInsideExercise extends AppCompatActivity {
         rvHistory2 = findViewById(R.id.rv_history2);
 
         spaceNavigationView.initWithSaveInstanceState(savedInstanceState);
-        spaceNavigationView.addSpaceItem(new SpaceItem("لتمرين السابق",R.color.transparent));
+        spaceNavigationView.addSpaceItem(new SpaceItem("التمرين السابق",R.color.transparent));
         spaceNavigationView.addSpaceItem(new SpaceItem("التمرين التالي", R.color.transparent));
         spaceNavigationView.shouldShowFullBadgeText(true);
         spaceNavigationView.setCentreButtonIconColorFilterEnabled(false);
+
 
 
                 setsArrayList = populateList();
@@ -384,7 +387,6 @@ public class ActivityInsideExercise extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                 //go to the child where you want to retreive values of
 //                DatabaseReference usersRef = rootRef.child("users").child(firebaseAuth.getUid()).child("Diet")
 //                        .child(chosenMonth).child(chosenWeek);
@@ -615,45 +617,63 @@ public class ActivityInsideExercise extends AppCompatActivity {
         if(volume1RmEx != null && checker) {
             ArrayList<sets> setsToUpdate = volume1RmEx.getSets();
 
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+            for(int i = 0; i < setsToUpdate.size(); i++){
+                setsToUpdate.get(i).setVolume(adapter.getSetsArray().get(i).getVolume());
+                setsToUpdate.get(i).setRM1(adapter.getSetsArray().get(i).getRM1());
+                setsToUpdate.get(i).setWeight(adapter.getSetsArray().get(i).getWeight());
+
+                DatabaseReference rm1Ref = rootRef.child("users").child(firebaseAuth.getUid()).child("Exercises")
+                        .child(month).child(week).child(day).child("exercise").child(exNumber)
+                        .child("sets").child(String.valueOf(i));
+
+                rm1Ref.setValue(setsToUpdate.get(i));
+
+
+            }
+            getSetsHistory();
+            Toast.makeText(ActivityInsideExercise.this, "تم التحديث", Toast.LENGTH_SHORT).show();
+
             setsList.size();
             setsToUpdate.size();
 
-
-            setsToUpdate.get(setsToUpdate.size() - 1).setVolume(String.valueOf(sumVolume));
-            setsToUpdate.get(setsToUpdate.size() - 1).setRM1(String.valueOf(max));
-            setsToUpdate.get(setsToUpdate.size() - 1).setWeight(String.valueOf(sumWeight));
-
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-            //go to the child where you want to retreive values of
-            DatabaseReference rm1Ref = rootRef.child("users").child(firebaseAuth.getUid()).child("Exercises")
-                    .child(month).child(week).child(day).child("exercise").child(exNumber)
-                    .child("sets").child(String.valueOf(setsToUpdate.size() - 1)).child("rm1");
-
-            DatabaseReference volumeRef = rootRef.child("users").child(firebaseAuth.getUid()).child("Exercises")
-                    .child(month).child(week).child(day).child("exercise").child(exNumber)
-                    .child("sets").child(String.valueOf(setsToUpdate.size() - 1)).child("volume");
-
-            DatabaseReference weightRef = rootRef.child("users").child(firebaseAuth.getUid()).child("Exercises")
-                    .child(month).child(week).child(day).child("exercise").child(exNumber)
-                    .child("sets").child(String.valueOf(setsToUpdate.size() - 1)).child("weight");
-
-            rm1Ref.setValue(String.valueOf(max));
-            volumeRef.setValue(String.valueOf(sumVolume));
-            weightRef.setValue(String.valueOf(sumWeight)).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    getSetsHistory();
-                    Toast.makeText(ActivityInsideExercise.this, "تم التحديث", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
-        }
+//
+//            setsToUpdate.get(setsToUpdate.size() - 1).setVolume(String.valueOf(sumVolume));
+//            setsToUpdate.get(setsToUpdate.size() - 1).setRM1(String.valueOf(max));
+//            setsToUpdate.get(setsToUpdate.size() - 1).setWeight(String.valueOf(sumWeight));
+//
+//            firebaseAuth = FirebaseAuth.getInstance();
+//            rootRef = FirebaseDatabase.getInstance().getReference();
+//            //go to the child where you want to retreive values of
+//            DatabaseReference rm1Ref = rootRef.child("users").child(firebaseAuth.getUid()).child("Exercises")
+//                    .child(month).child(week).child(day).child("exercise").child(exNumber)
+//                    .child("sets").child(String.valueOf(setsToUpdate.size() - 1)).child("rm1");
+//
+//            DatabaseReference volumeRef = rootRef.child("users").child(firebaseAuth.getUid()).child("Exercises")
+//                    .child(month).child(week).child(day).child("exercise").child(exNumber)
+//                    .child("sets").child(String.valueOf(setsToUpdate.size() - 1)).child("volume");
+//
+//            DatabaseReference weightRef = rootRef.child("users").child(firebaseAuth.getUid()).child("Exercises")
+//                    .child(month).child(week).child(day).child("exercise").child(exNumber)
+//                    .child("sets").child(String.valueOf(setsToUpdate.size() - 1)).child("weight");
+//
+//            rm1Ref.setValue(String.valueOf(max));
+//            volumeRef.setValue(String.valueOf(sumVolume));
+//            weightRef.setValue(String.valueOf(sumWeight)).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Void> task) {
+//                    getSetsHistory();
+//                    Toast.makeText(ActivityInsideExercise.this, "تم التحديث", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//
+//
+       }
 
     }
     private void getSetsHistory(){
-        setsHistory = new ArrayList<>();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         //go to the child where you want to retreive values of
@@ -664,6 +684,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
         setsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                setsHistory = new ArrayList<>();
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     setsHistory.add(ds.getValue(sets.class));
 
