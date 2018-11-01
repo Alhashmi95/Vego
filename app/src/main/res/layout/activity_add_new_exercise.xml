@@ -50,22 +50,22 @@
         android:layout_marginRight="55dp"
         android:layout_marginTop="30dp"
         >
-
-        <VideoView
-            android:id="@+id/videoViewNewEx"
-            android:layout_width="137dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            />
         <TextView
             android:id="@+id/addVid"
-            android:layout_width="137dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="left"
             />
+        <VideoView
+            android:id="@+id/videoViewNewEx"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            />
+
         <ImageView
             android:id="@+id/imageViewNewEx"
-            android:layout_width="137dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/addpic"
             android:layout_gravity="right"/>

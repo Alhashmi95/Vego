@@ -1,6 +1,8 @@
 package com.vego.vego.Activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -61,7 +63,8 @@ public class AddNewExerciseActivity extends AppCompatActivity {
     int indexofImages =0;
     int indexofImagesForAll =0;
     ProgressDialog p;
-
+    AlertDialog alertDialog1;
+    CharSequence[] values = {"Picture","Video"};
 
 
 
@@ -71,6 +74,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         if(requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getData() != null){
             imagePath = data.getData();
             try {
+                videoViewEx.setBackgroundResource(android.R.color.transparent);
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imagePath);
                 imageViewEx.setImageBitmap(bitmap);
             } catch (IOException e) {
@@ -79,6 +83,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         }else if( resultCode==RESULT_OK && requestCode==PICK_VIDEO&&data.getData()!= null){
             Uri uri = data.getData();
             try{
+                imageViewEx.setImageResource(android.R.color.transparent);
                 videoViewEx.setVideoURI(uri);
                 videoViewEx.start();
             }catch(Exception e){
@@ -103,21 +108,47 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         videoViewEx = findViewById(R.id.videoViewNewEx);
         addVid = findViewById(R.id.addVid);
 
-        imageViewEx.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE);
-            }
-        });
-        //----------------------------load video--------------------------------------------------------
+//        imageViewEx.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE);
+//            }
+//        });
+        //----------------------------load video or image--------------------------------------------------------
         addVid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(Intent.createChooser(i,"Select Video"),PICK_VIDEO);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(AddNewExerciseActivity.this);
+
+                builder.setTitle("chose media");
+
+                builder.setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int item) {
+
+                        switch(item)
+                        {
+                            case 0:
+                                Intent intent = new Intent();
+                                intent.setType("image/*");
+                                intent.setAction(Intent.ACTION_GET_CONTENT);
+                                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE);
+                                break;
+                            case 1:
+                                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+                               startActivityForResult(Intent.createChooser(i,"Select Video"),PICK_VIDEO);
+                                break;
+
+                        }
+                        alertDialog1.dismiss();
+                    }
+                });
+                alertDialog1 = builder.create();
+                alertDialog1.show();
+
 
             }
         });
