@@ -27,7 +27,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -48,15 +50,20 @@ import com.vego.vego.Adapters.NewElementAdapter;
 import com.vego.vego.Adapters.NewSetAdapter;
 import com.vego.vego.Adapters.toolbarAdapter;
 import com.vego.vego.R;
+import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.Exercises;
+import com.vego.vego.model.MonthExercise;
+import com.vego.vego.model.MonthMeal;
 import com.vego.vego.model.UserInfo;
 import com.vego.vego.model.elements;
 import com.vego.vego.model.exercise;
+import com.vego.vego.model.ingredients;
 import com.vego.vego.model.meal;
 import com.vego.vego.model.sets;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -136,7 +143,7 @@ public class Add_workout2user extends Fragment {
     int positionWeek =0;
 
 
-    String chosenMonth= "Month 1", chosenWeek = "Week 1";
+    String chosenMonth= "0", chosenWeek = "week1";
 
 
     TabLayout tabLayout, tabLayoutWeek;
@@ -150,7 +157,17 @@ public class Add_workout2user extends Fragment {
 
     int counterMonth =2;
 
+    List dietBigList;
 
+    ArrayList<exercise> exerList = new ArrayList<>();
+
+    Exercises[] workoutDay;
+
+    List exBigList;
+
+
+
+    ArrayList<MonthExercise> monthEx = new ArrayList<>();
 
 
 
@@ -241,6 +258,7 @@ public class Add_workout2user extends Fragment {
         tabListener();
 
 
+
         //==============================================================
 
 
@@ -304,8 +322,41 @@ public class Add_workout2user extends Fragment {
 
 
 
+        //===================================== Defalut for Exercises
+
+        sets[] setsArray = new sets[] {new sets("","", "","")};
+
+        List setsList = new ArrayList<sets>(Arrays.asList(setsArray));
+
+        exercise t = new exercise("","","");
+        t.setSets((ArrayList<sets>) setsList);
+
+        exerList.add(t);
+
+        workoutDay = new Exercises[] {new Exercises("","", "",
+                (ArrayList<exercise>) exerList),
+                new Exercises("","", "", (ArrayList<exercise>) exerList),
+                new Exercises("","", "", (ArrayList<exercise>) exerList),
+                new Exercises("","", "", (ArrayList<exercise>) exerList),
+                new Exercises("","", "", (ArrayList<exercise>) exerList),
+                new Exercises("","", "", (ArrayList<exercise>) exerList),
+                new Exercises("","", "", (ArrayList<exercise>) exerList),
+
+        };
+
+        exBigList = new ArrayList<Exercises>(Arrays.asList(workoutDay));
+
+
+
+
+
+
+
     }
     private void getMonthTabs() {
+        for(int  i = tabLayout.getTabCount(); i > 1; i--){
+            tabLayout.removeTabAt(i-1);
+        }
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         DatabaseReference monthCountRef = rootRef.child("users").child(choosenUser).child("Exercises");
@@ -344,24 +395,78 @@ public class Add_workout2user extends Fragment {
 
                     tabLayout.removeTabAt(index);
 
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
+                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+                    databasaeReference.child("users").child(choosenUser).child("Exercises")
+                            .child(String.valueOf(index)).removeValue().addOnCompleteListener(
+                            new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    getMonthTabs();
+                                }
+                            }
+                    );
+
+
+
                     counterMonth--;
 
                 }
+                getUsers();
             }
         });
     }
 
     private void addNewMonth() {
+        counterMonth = tabLayout.getTabCount();
         addMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(counterMonth  <=12) {
-                    tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(counterMonth)));
+                    //tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(counterMonth)));
+
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databasaeReference = firebaseDatabase.getReference();
+
+
+                    DatabaseReference monthCount = databasaeReference.child("users").child(choosenUser)
+                            .child("Exercises");
+
+                    monthCount.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            int monthCountIndex = (int)dataSnapshot.getChildrenCount();
+
+                            MonthExercise ex = new MonthExercise((ArrayList<Exercises>) exBigList,(ArrayList<Exercises>)
+                                    exBigList,(ArrayList<Exercises>)exBigList,(ArrayList<Exercises>)exBigList);
+
+                            databasaeReference.child("users").child(choosenUser)
+                                    .child("Exercises").child(String.valueOf(monthCountIndex)).setValue(ex)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    getMonthTabs();
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }else {
                     Toast.makeText(getContext(),
                             "لا يمكنك اضافة اكثر من 12 شهر",Toast.LENGTH_SHORT).show();
                 }
+                //databasaeReference.child("users").child(firebaseAuth.getUid()).child("Exercises").setValue(a);
+
+
                 counterMonth++;
+                getUsers();
+
             }
         });
 
@@ -1435,6 +1540,9 @@ public class Add_workout2user extends Fragment {
                 usersprofile = FirebaseDatabase.getInstance().getReference();
                 usersprofile.child(choosenUser);
                 userProfile(choosenUser);
+
+                getMonthTabs();
+
                 //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
                 // If user change the default selection
                 // First item is disable and it is used for hint
@@ -1583,195 +1691,183 @@ public class Add_workout2user extends Fragment {
 
 
         if(position == 0) {
-            chosenMonth = "Month 1";
+            chosenMonth = "0";
             if (positionWeek == 0) {
-                chosenWeek = "0";
+                chosenWeek = "week1";
             }
             if (positionWeek == 1) {
-                chosenWeek = "1";
+                chosenWeek = "week2";
             }
             if (positionWeek == 2) {
-                chosenWeek = "2";
+                chosenWeek = "week3";
             }
             if (positionWeek == 3) {
-                chosenWeek = "3";
+                chosenWeek = "week4";
             }
         }
         if (position == 1) {
-            chosenMonth = "Month 2";
+            chosenMonth = "1";
             if (positionWeek == 0) {
-                chosenWeek = "0";
+                chosenWeek = "week1";
             }
             if (positionWeek == 1) {
-                chosenWeek = "1";
+                chosenWeek = "week2";
             }
             if (positionWeek == 2) {
-                chosenWeek = "2";
+                chosenWeek = "week3";
             }
             if (positionWeek == 3) {
-                chosenWeek = "3";
-
+                chosenWeek = "week4";
             }
         }
         if (position == 2) {
-            chosenMonth = "Month 3";
+            chosenMonth = "2";
             if (positionWeek == 0) {
-                chosenWeek = "0";
+                chosenWeek = "week1";
             }
             if (positionWeek == 1) {
-                chosenWeek = "1";
-
+                chosenWeek = "week2";
             }
             if (positionWeek == 2) {
-                chosenWeek = "2";
-
+                chosenWeek = "week3";
             }
             if (positionWeek == 3) {
-                chosenWeek = "3";
+                chosenWeek = "week4";
             }
         }
         if(position == 3) {
-            chosenMonth = "Month 4";
+            chosenMonth = "3";
             if (positionWeek == 0) {
-                chosenWeek = "0";
+                chosenWeek = "week1";
             }
             if (positionWeek == 1) {
-                chosenWeek = "1";
+                chosenWeek = "week2";
             }
             if (positionWeek == 2) {
-                chosenWeek = "2";
+                chosenWeek = "week3";
             }
             if (positionWeek == 3) {
-                chosenWeek = "3";
+                chosenWeek = "week4";
             }
         }
         if (position == 4) {
-            chosenMonth = "Month 5";
+            chosenMonth = "4";
             if (positionWeek == 0) {
-                chosenWeek = "0";
+                chosenWeek = "week1";
             }
             if (positionWeek == 1) {
-                chosenWeek = "1";
+                chosenWeek = "week2";
             }
             if (positionWeek == 2) {
-                chosenWeek = "2";
+                chosenWeek = "week3";
             }
             if (positionWeek == 3) {
-                chosenWeek = "3";
-
+                chosenWeek = "week4";
             }
         }
         if (position == 5) {
-            chosenMonth = "Month 6";
+            chosenMonth = "5";
             if (positionWeek == 0) {
-                chosenWeek = "0";
+                chosenWeek = "week1";
             }
             if (positionWeek == 1) {
-                chosenWeek = "1";
-
+                chosenWeek = "week2";
             }
             if (positionWeek == 2) {
-                chosenWeek = "2";
-
+                chosenWeek = "week3";
             }
             if (positionWeek == 3) {
-                chosenWeek = "3";
+                chosenWeek = "week4";
             }
         }
         if(position == 6) {
-            chosenMonth = "Month 7";
+            chosenMonth = "6";
             if (positionWeek == 0) {
-                chosenWeek = "0";
+                chosenWeek = "week1";
             }
             if (positionWeek == 1) {
-                chosenWeek = "1";
+                chosenWeek = "week2";
             }
             if (positionWeek == 2) {
-                chosenWeek = "2";
+                chosenWeek = "week3";
             }
             if (positionWeek == 3) {
-                chosenWeek = "3";
+                chosenWeek = "week4";
             }
         }
         if (position == 7) {
-            chosenMonth = "Month 8";
+            chosenMonth = "7";
             if (positionWeek == 0) {
-                chosenWeek = "0";
+                chosenWeek = "week1";
             }
             if (positionWeek == 1) {
-                chosenWeek = "1";
+                chosenWeek = "week2";
             }
             if (positionWeek == 2) {
-                chosenWeek = "2";
+                chosenWeek = "week3";
             }
             if (positionWeek == 3) {
-                chosenWeek = "3";
-
+                chosenWeek = "week4";
             }
         }
         if (position == 8) {
-            chosenMonth = "Month 9";
+            chosenMonth = "8";
             if (positionWeek == 0) {
-                chosenWeek = "0";
+                chosenWeek = "week1";
             }
             if (positionWeek == 1) {
-                chosenWeek = "1";
-
+                chosenWeek = "week2";
             }
             if (positionWeek == 2) {
-                chosenWeek = "2";
-
+                chosenWeek = "week3";
             }
             if (positionWeek == 3) {
-                chosenWeek = "3";
+                chosenWeek = "week4";
             }
         }
         if(position == 9) {
-            chosenMonth = "Month 10";
+            chosenMonth = "9";
             if (positionWeek == 0) {
-                chosenWeek = "0";
+                chosenWeek = "week1";
             }
             if (positionWeek == 1) {
-                chosenWeek = "1";
+                chosenWeek = "week2";
             }
             if (positionWeek == 2) {
-                chosenWeek = "2";
+                chosenWeek = "week3";
             }
             if (positionWeek == 3) {
-                chosenWeek = "3";
+                chosenWeek = "week4";
             }
         }
         if (position == 10) {
-            chosenMonth = "Month 11";
+            chosenMonth = "10";
             if (positionWeek == 0) {
-                chosenWeek = "0";
+                chosenWeek = "week1";
             }
             if (positionWeek == 1) {
-                chosenWeek = "1";
+                chosenWeek = "week2";
             }
             if (positionWeek == 2) {
-                chosenWeek = "2";
+                chosenWeek = "week3";
             }
             if (positionWeek == 3) {
-                chosenWeek = "3";
-
+                chosenWeek = "week4";
             }
         }
         if (position == 11) {
-            chosenMonth = "Month 12";
+            chosenMonth = "11";
             if (positionWeek == 0) {
-                chosenWeek = "0";
+                chosenWeek = "week1";
             }
             if (positionWeek == 1) {
-                chosenWeek = "1";
-
+                chosenWeek = "week2";
             }
             if (positionWeek == 2) {
-                chosenWeek = "2";
-
+                chosenWeek = "week3";
             }
             if (positionWeek == 3) {
-                chosenWeek = "3";
+                chosenWeek = "week4";
             }
         }
     }

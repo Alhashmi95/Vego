@@ -35,7 +35,7 @@ public class ActivityWorkoutUser extends AppCompatActivity {
 
 
 
-    String month,week,day;
+    String month,week,day,dayIndex;
 
 
 
@@ -67,6 +67,7 @@ public class ActivityWorkoutUser extends AppCompatActivity {
 
         month = intent.getStringExtra("month");
         week = intent.getStringExtra("week");
+        dayIndex = intent.getStringExtra("dayIndex");
 
         displayExOrExforAll();
 
@@ -75,7 +76,7 @@ public class ActivityWorkoutUser extends AppCompatActivity {
         if(exListForAll == null) {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new ExerciseAdapter(exList, this,month,week,day);
+            adapter = new ExerciseAdapter(exList, this,month,week,day,dayIndex);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
@@ -100,7 +101,7 @@ public class ActivityWorkoutUser extends AppCompatActivity {
         if(exList == null) {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new ExerciseAdapter(muExList, this,month,week,day);
+            adapter = new ExerciseAdapter(muExList, this,month,week,day,dayIndex);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }

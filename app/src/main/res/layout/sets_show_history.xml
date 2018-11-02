@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/grey"
-    android:layoutDirection="ltr">
+    android:background="@color/grey">
 
 
 
@@ -107,22 +106,23 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.428" />
 
-            <EditText
+            <TextView
                 android:id="@+id/txtWeight"
-                android:layout_width="51dp"
+                android:layout_width="62dp"
                 android:layout_height="wrap_content"
-                android:maxLength="3"
                 android:layout_marginBottom="4dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginStart="12dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginRight="17dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginVertical="4dp"
                 android:background="@drawable/custom_table_text"
                 android:ems="10"
-                android:inputType="number"
                 android:gravity="center"
+                android:inputType="number"
+                android:textSize="18dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txtRM1"
+                app:layout_constraintEnd_toStartOf="@+id/txtRM1"
+                app:layout_constraintStart_toEndOf="@+id/textViewVolume"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.428" />
         </android.support.constraint.ConstraintLayout>

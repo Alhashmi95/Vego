@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vego.vego.Activity.DayMealsActivity;
 import com.vego.vego.R;
@@ -59,7 +60,12 @@ import java.util.List;
 
                     intent.putExtra("DayMeals",daysList.get(position).getDayMeals());
                     intent.putExtra("day",daysList.get(position).getDay());
-                    v.getContext().startActivity(intent);
+                    if(dayList.getDay().isEmpty()){
+                        Toast.makeText(mContext,
+                                "الرجاء الانتظار لحين وضع الجدول الغذائي الخاص بك",Toast.LENGTH_SHORT).show();
+                    }else {
+                        v.getContext().startActivity(intent);
+                    }
                 }
             });
         }
