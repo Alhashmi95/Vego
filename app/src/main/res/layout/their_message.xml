@@ -5,7 +5,8 @@ android:layout_height="wrap_content"
 android:paddingVertical="10dp"
 android:paddingLeft="15dp"
 android:paddingRight="60dp"
-android:clipToPadding="false">
+android:clipToPadding="false"
+    android:layoutDirection="ltr">
 
 <View
     android:id="@+id/avatar"
