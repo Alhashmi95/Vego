@@ -3,48 +3,27 @@ package com.vego.vego.model;
 import java.util.ArrayList;
 
 public class Chat {
-    String name;
+    String sendername;
     String msg;
-    String userUID;
-    String createdAt;
+    String senderId;
     String date;
+    String tokenSender;
+    String tokenReceiver;
 
 
     public Chat() {
 
     }
 
-    public Chat(String name,String msg,String userUID, String createdAt, String date) {
-        this.name = name;
+    public Chat(String sendername,String msg,String senderId, String date,String tokenReceiver
+                ,String tokenSender) {
+        this.sendername = sendername;
         this.msg = msg;
-        this.userUID = userUID;
-        this.createdAt = createdAt;
+        this.senderId = senderId;
         this.date = date;
+        this.tokenSender = tokenSender;
+        this.tokenReceiver = tokenReceiver;
 
-    }
-
-    public String getUserUID() {
-        return userUID;
-    }
-
-    public void setUserUID(String userUID) {
-        this.userUID = userUID;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getMsg() {
@@ -61,5 +40,39 @@ public class Chat {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+
+
+    public String getSendername() {
+        return sendername;
+    }
+
+    public void setSendername(String sendername) {
+        this.sendername = sendername;
+    }
+
+    public String getTokenReceiver() {
+        return tokenReceiver;
+    }
+
+    public void setTokenReceiver(String tokenReceiver) {
+        this.tokenReceiver = tokenReceiver;
+    }
+
+    public String getTokenSender() {
+        return tokenSender;
+    }
+
+    public void setTokenSender(String tokenSender) {
+        this.tokenSender = tokenSender;
     }
 }

@@ -46,6 +46,7 @@
                 android:layout_marginStart="56dp"
                 android:ems="10"
                 android:inputType="number"
+                android:gravity="center"
                 android:layout_marginLeft="56dp"
                 android:background="@drawable/custom_table_text"
                 android:layout_alignParentLeft="true"

@@ -66,22 +66,24 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         final exercise exListTest = exList.get(position);
         holder.txtName.setText(exListTest.getExername());
         holder.txtMu.setText(exListTest.getTargetedmuscle());
-        Picasso.get()
-                .load(exListTest.getImage())
-                //.placeholder(R.drawable.ic_loading)
-                .fit()
-                .centerCrop()
-                .into(holder.exImage, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        holder.progressBar.setVisibility(View.GONE);
-                    }
+        if(!exListTest.getImage().isEmpty()) {
+            Picasso.get()
+                    .load(exListTest.getImage())
+                    //.placeholder(R.drawable.ic_loading)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.exImage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            holder.progressBar.setVisibility(View.GONE);
+                        }
 
-                    @Override
-                    public void onError(Exception e) {
+                        @Override
+                        public void onError(Exception e) {
 
-                    }
-                });
+                        }
+                    });
+        }
         String mu = exListTest.getTargetedmuscle();
 
         if(mu.equals("صدر")){
@@ -184,6 +186,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                 intent.putExtra("exImage", exList.get(position).getImage());
                 intent.putExtra("exNumber",String.valueOf(position));
                 intent.putExtra("exercise list", exList);
+                intent.putExtra("exercise Object",exList.get(position));
 
                 intent.putExtra("month",month);
                 intent.putExtra("week",week);

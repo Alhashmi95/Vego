@@ -145,6 +145,8 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/welcome_screen" />
 
+
+
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="wrap_content"
@@ -463,6 +465,15 @@
         >
 
     </com.luseen.spacenavigation.SpaceNavigationView>
+
+    <VideoView
+        android:id="@+id/video"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </RelativeLayout>

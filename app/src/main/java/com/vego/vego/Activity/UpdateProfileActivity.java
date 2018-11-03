@@ -143,7 +143,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
                     spGoal.setSelection(1);
                 }else if(userinfo.getUserGoal().equals("انقاص الوزن")){
                     spGoal.setSelection(2);
-                }else if(userinfo.getUserGoal().equalsIgnoreCase("زيادة عضلات")) {
+                }else if(userinfo.getUserGoal().equalsIgnoreCase("خسارة الدهون والمحافظة على العضلات")) {
                     spGoal.setSelection(3);
                 }else if(userinfo.getUserGoal().equals("المحافظة على الوزن الحالي")) {
                     spGoal.setSelection(4);

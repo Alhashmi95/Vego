@@ -11,10 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.iconics.utils.Utils;
 import com.sendbird.android.SendBird;
+import com.sendbird.android.User;
+import com.squareup.picasso.Picasso;
 import com.vego.vego.R;
 import com.vego.vego.model.Chat;
+import com.vego.vego.model.UserInfo;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -47,7 +55,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         Chat message = (Chat) mMessageList.get(position);
 
-        if (message.getUserUID().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+        if (message.getSenderId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -101,6 +109,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
     private class SentMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText, tvDate;
+        String date,datePrev,time;
 
         SentMessageHolder(View itemView) {
             super(itemView);
@@ -113,27 +122,61 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
         void bind(Chat message, int position) {
             messageText.setText(message.getMsg());
+
+            //set date to default pattern
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy",Locale.ENGLISH);
+            try {
+                Date dw = dateFormat.parse(message.getDate());
+                date = dateFormat.format(dw);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            //here we get the whole pattern then extract what we need (which is in this case TIME)
+                    try {
+                        Date dw = new SimpleDateFormat("MMM d, yyyy HH:mm:ss",Locale.ENGLISH)
+                                .parse(message.getDate());
+                        time = new SimpleDateFormat("hh:mm a",Locale.ENGLISH).format(dw);
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
              // get date and assign it to text view holder
                 if(position != 0) {
-                    processDate(tvDate, message.getDate()
-                            , mMessageList.get(position - 1).getDate()
+                    //for previous message
+                    SimpleDateFormat dateFormatPrev = new SimpleDateFormat("MMM d, yyyy",Locale.ENGLISH);
+                    try {
+                        Date dw = dateFormatPrev.parse(mMessageList.get(position-1).getDate());
+                        datePrev = dateFormatPrev.format(dw);
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    processDate(tvDate, date
+                            , datePrev
                             , false)
                     ;
                 }else {
-                    processDate(tvDate, message.getDate()
+                    processDate(tvDate, date
                             , null
                             , true)
                     ;
                 }
 
             // Format the stored timestamp into a readable String using method.
-            timeText.setText(message.getCreatedAt());
+            timeText.setText(time);
         }
     }
 
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText, nameText, tvDate;
         ImageView profileImage;
+        UserInfo userInfo;
+
+        String date,datePrev,time;
+
 
         ReceivedMessageHolder(View itemView) {
             super(itemView);
@@ -143,18 +186,50 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             nameText = (TextView) itemView.findViewById(R.id.text_message_name);
             tvDate = (TextView) itemView.findViewById(R.id.tv_date);
 
-            //profileImage = (ImageView) itemView.findViewById(R.id.image_message_profile);
+            profileImage = (ImageView) itemView.findViewById(R.id.avatar);
         }
 
         void bind(Chat message, int position) {
             // get date and assign it to text view holder
+
+            //set date to default pattern
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy",Locale.ENGLISH);
+            try {
+                Date dw = dateFormat.parse(message.getDate());
+                date = dateFormat.format(dw);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            //here we get the whole pattern then extract what we need (which is in this case TIME)
+            try {
+                Date dw = new SimpleDateFormat("MMM d, yyyy HH:mm:ss",Locale.ENGLISH)
+                        .parse(message.getDate());
+                time = new SimpleDateFormat("hh:mm a",Locale.ENGLISH).format(dw);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
             if(position != 0) {
-                processDate(tvDate, message.getDate()
-                        , mMessageList.get(position - 1).getDate()
+                //for previous message
+                SimpleDateFormat dateFormatPrev = new SimpleDateFormat("MMM d, yyyy",Locale.ENGLISH);
+                try {
+                    Date dw = dateFormatPrev.parse(mMessageList.get(position-1).getDate());
+                    datePrev = dateFormatPrev.format(dw);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+                processDate(tvDate, date
+                        , datePrev
                         , false)
                 ;
             }else {
-                processDate(tvDate, message.getDate()
+                processDate(tvDate, date
                         , null
                         , true)
                 ;
@@ -162,17 +237,42 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             messageText.setText(message.getMsg());
 
             // Format the stored timestamp into a readable String using method.
-            timeText.setText(message.getCreatedAt());
+            timeText.setText(time);
 
-            nameText.setText(message.getName());
+            nameText.setText(message.getSendername());
 
-            // Insert the profile image from the URL into the ImageView.
-            //Utils.displayRoundImageFromUrl(mContext, message.getSender().getProfileUrl(), profileImage);
+            //get the pic url from firebase
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+            DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
+                    .child(message.getSenderId()).child("Profile");
+
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    userInfo = dataSnapshot.getValue(UserInfo.class);
+
+                    // Insert the profile image from the URL into the ImageView.
+                    Picasso.get()
+                            .load(userInfo.getImage())
+                            .fit()
+                            .centerCrop()
+                            .into(profileImage);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
     }
 
     private class DateShowHolder extends RecyclerView.ViewHolder {
         TextView tvDate;
+        String date,datePrev,time;
+
 
         DateShowHolder(View itemView) {
             super(itemView);
@@ -182,13 +282,34 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
         void bind(Chat message, int position) {
             // get date and assign it to text view holder
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy",Locale.ENGLISH);
+            try {
+                Date dw = dateFormat.parse(message.getDate());
+                date = dateFormat.format(dw);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
             if(position != 0) {
-                processDate(tvDate, message.getDate()
-                        , mMessageList.get(position - 1).getDate()
+                //for previous message
+                SimpleDateFormat dateFormatPrev = new SimpleDateFormat("MMM d, yyyy",Locale.ENGLISH);
+                try {
+                    Date dw = dateFormatPrev.parse(mMessageList.get(position-1).getDate());
+                    datePrev = dateFormatPrev.format(dw);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                processDate(tvDate, date
+                        , datePrev
                         , false)
                 ;
             }else {
-                processDate(tvDate, message.getDate()
+                processDate(tvDate, date
                         , null
                         , true)
                 ;

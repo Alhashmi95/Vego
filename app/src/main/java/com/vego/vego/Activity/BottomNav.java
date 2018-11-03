@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -18,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
@@ -45,6 +48,9 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
+import com.squareup.picasso.Picasso;
 import com.vego.vego.Fragment.ChatFragment;
 import com.vego.vego.Fragment.DietFragment;
 import com.vego.vego.Fragment.FragmentExercises;
@@ -66,6 +72,8 @@ public class BottomNav extends AppCompatActivity {
     //step 1 (on back twice exit)
     private boolean backPressedToExitOnce = false;
     private Toast toast = null;
+
+    AccountHeader headerResult;
 
 
 
@@ -122,28 +130,73 @@ public class BottomNav extends AppCompatActivity {
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("ResourceAsColor")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 userInfo = dataSnapshot.getValue(UserInfo.class);
 
                 // Create the AccountHeader
-                AccountHeader headerResult = new AccountHeaderBuilder()
-                        .withActivity(BottomNav.this)
-                        .withHeaderBackground(R.drawable.header)
-                        .addProfiles(
-                                new ProfileDrawerItem().withName(userInfo.getName())
-                                        .withEmail(firebaseAuth.getCurrentUser().getEmail())
-                                        .withIcon(getResources().getDrawable(R.drawable.profile_pic_large))
-                        )
-                        .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                            @Override
-                            public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                                return false;
-                            }
-                        })
-                        .build();
+                if(userInfo.getImage() != null) {
+                    //initialize and create the image loader logic
+                    DrawerImageLoader.init(new AbstractDrawerImageLoader() {
+                        @Override
+                        public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+                            Picasso.get().load(userInfo.getImage()).placeholder(placeholder).into(imageView);
+                        }
+
+                        @Override
+                        public void cancel(ImageView imageView) {
+                            Picasso.get().cancelRequest(imageView);
+                        }
+
+    /*
+    @Override
+    public Drawable placeholder(Context ctx) {
+        return super.placeholder(ctx);
+    }
+
+    @Override
+    public Drawable placeholder(Context ctx, String tag) {
+        return super.placeholder(ctx, tag);
+    }
+    */
+                    });
+
+                    headerResult = new AccountHeaderBuilder()
+                            .withActivity(BottomNav.this)
+                            .withHeaderBackground(R.drawable.header)
+                            .addProfiles(
+                                    new ProfileDrawerItem().withName(userInfo.getName())
+                                            .withEmail(firebaseAuth.getCurrentUser().getEmail())
+                                            .withIcon(Uri.parse(userInfo.getImage()))
+
+                            )
+                            .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                                @Override
+                                public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                                    return false;
+                                }
+                            })
+                            .build();
+                }else {
+                    headerResult = new AccountHeaderBuilder()
+                            .withActivity(BottomNav.this)
+                            .withHeaderBackground(R.drawable.header)
+                            .addProfiles(
+                                    new ProfileDrawerItem().withName(userInfo.getName())
+                                            .withEmail(firebaseAuth.getCurrentUser().getEmail())
+                                            .withIcon(R.drawable.profile_pic_large)
+
+                            )
+                            .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                                @Override
+                                public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                                    return false;
+                                }
+                            })
+                            .build();
+                }
+
                 //create the drawer and remember the `Drawer` result object
                 //if you want to update the items at a later time it is recommended to keep it in a variable
                 PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Home");

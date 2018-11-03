@@ -82,7 +82,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="180dp" />
 
-    <VideoView android:id="@+id/video"
+    <VideoView
+        android:id="@+id/video"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

@@ -54,7 +54,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
 
         //binding the data with the viewholder views
         holder.textViewTitle.setText(dayMeals.getName());
-        holder.textViewShortDesc.setText(dayMeals.getCal());
+        holder.textViewShortDesc.setText(dayMeals.getCal() + " سعرة");
         Picasso.get()
                 .load(dayMeals.getImage())
 //                .placeholder(R.drawable.progress)

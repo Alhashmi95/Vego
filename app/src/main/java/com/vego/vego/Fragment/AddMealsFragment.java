@@ -397,14 +397,11 @@ public class AddMealsFragment extends Fragment {
         for (int i = tabLayout.getTabCount(); i > 1; i--) {
             tabLayout.removeTabAt(i - 1);
         }
-        for (int i = tabLayout.getTabCount(); i > 1; i--) {
-            tabLayout.removeTabAt(i - 1);
-        }
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         DatabaseReference monthCountRef = rootRef.child("users").child(choosenUser).child("Diet");
 
-        monthCountRef.addValueEventListener(new ValueEventListener() {
+        monthCountRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 counterMonth = (int) dataSnapshot.getChildrenCount();
@@ -438,6 +435,8 @@ public class AddMealsFragment extends Fragment {
                     int index = tabLayout.getTabCount();
                     index--;
 
+                    tabLayout.removeTabAt(index);
+
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     DatabaseReference databasaeReference = firebaseDatabase.getReference();
                     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -453,8 +452,6 @@ public class AddMealsFragment extends Fragment {
                     );
 
 
-                    tabLayout.removeTabAt(index);
-
                     counterMonth--;
 
                 }
@@ -464,24 +461,19 @@ public class AddMealsFragment extends Fragment {
     }
 
     private void addNewMonth() {
+        counterMonth = tabLayout.getTabCount();
         addMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (counterMonth <= 12) {
-                    tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(counterMonth)));
-//                    monthMeals = new ArrayList<>();
-//                    monthMeals.add(counterMonth-1,meal);
+                    //tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(counterMonth)));
+
 
                     //add 4 weeks by defalut
-                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     DatabaseReference databasaeReference = firebaseDatabase.getReference();
 
-//                MonthExercise test = new MonthExercise((ArrayList<Exercises>) exBigList,(ArrayList<Exercises>)
-//                        exBigList,(ArrayList<Exercises>)exBigList,(ArrayList<Exercises>)exBigList);
-//                ArrayList<MonthExercise> a = new ArrayList<>();
-//                a.add(counterMonth-1,test);
 
                     DatabaseReference monthCount = databasaeReference.child("users").child(choosenUser)
                             .child("Diet");
@@ -1237,6 +1229,9 @@ public class AddMealsFragment extends Fragment {
                 if (choosenUser.equals("اختر متدرب") || choosenDay.equals("اختر يوم")) {
                     Toast.makeText(getContext(), "please choose day and user", Toast.LENGTH_SHORT).show();
                 } else {
+                    p.show();
+                    p.setMessage("جاري الحفظ ..");
+                    p.setCancelable(false);
                     //check if all spinners were selected then add the total calories
 //                    if(mTest != null && mTest2 != null && mTest3 != null && mTest4 != null && mTest5 != null) {
 //                        //calculating total sum of meals
@@ -1415,6 +1410,7 @@ public class AddMealsFragment extends Fragment {
 
 
                     Toast.makeText(getContext(), "تم حفظ الوجبة", Toast.LENGTH_LONG).show();
+                    p.dismiss();
                     childlistrnerForMe();
 
 
@@ -1986,6 +1982,8 @@ public class AddMealsFragment extends Fragment {
 
     }
     public void showIngrsAndDetails(){
+        recyclerViewIngr.setVisibility(View.VISIBLE);
+        recyclerViewDet.setVisibility(View.VISIBLE);
 
 
         // هذا الكود لربط الكارد فيو

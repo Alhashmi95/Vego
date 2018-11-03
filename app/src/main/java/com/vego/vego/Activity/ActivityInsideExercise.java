@@ -2,25 +2,32 @@ package com.vego.vego.Activity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -101,6 +108,18 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
     RelativeLayout rvHistory, rvHistory2;
 
+
+
+    ProgressDialog bar;
+    String path="https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
+    MediaController ctlr;
+    VideoView videoView;
+
+    boolean showingFirst = true;
+
+    exercise e;
+
+
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +151,9 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
         rvHistory = findViewById(R.id.rv_history);
         rvHistory2 = findViewById(R.id.rv_history2);
+
+        videoView = findViewById(R.id.video);
+
 
         spaceNavigationView.initWithSaveInstanceState(savedInstanceState);
         spaceNavigationView.addSpaceItem(new SpaceItem("التمرين السابق",R.color.transparent));
@@ -180,6 +202,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
                         intent.putExtra("exSets", exList.get(exerciseP).getSets());
                         intent.putExtra("exName", exList.get(exerciseP).getExername());
                         intent.putExtra("exImage", exList.get(exerciseP).getImage());
+                        intent.putExtra("exVideo", exList.get(exerciseP).getVideo());
                         intent.putExtra("exNumber", String.valueOf(exerciseP));
                         intent.putExtra("exercise list", exList);
                         intent.putExtra("dayIndex", dayIndex);
@@ -199,8 +222,11 @@ public class ActivityInsideExercise extends AppCompatActivity {
                         intent.putExtra("exSets", exList.get(exerciseN).getSets());
                         intent.putExtra("exName", exList.get(exerciseN).getExername());
                         intent.putExtra("exImage", exList.get(exerciseN).getImage());
+                        intent.putExtra("exVideo", exList.get(exerciseN).getVideo());
+
                         intent.putExtra("exNumber",String.valueOf(exerciseN));
                         intent.putExtra("exercise list", exList);
+
                         intent.putExtra("dayIndex",dayIndex);
                         intent.putExtra("month",month);
                         intent.putExtra("week",week);
@@ -223,8 +249,11 @@ public class ActivityInsideExercise extends AppCompatActivity {
                         intent.putExtra("exSets", exList.get(exerciseP).getSets());
                         intent.putExtra("exName", exList.get(exerciseP).getExername());
                         intent.putExtra("exImage", exList.get(exerciseP).getImage());
+                        intent.putExtra("exVideo", exList.get(exerciseP).getVideo());
+
                         intent.putExtra("exNumber", String.valueOf(exerciseP));
                         intent.putExtra("exercise list", exList);
+
                         intent.putExtra("dayIndex", dayIndex);
                         intent.putExtra("month", month);
                         intent.putExtra("week", week);
@@ -241,8 +270,11 @@ public class ActivityInsideExercise extends AppCompatActivity {
                         intent.putExtra("exSets", exList.get(exerciseN).getSets());
                         intent.putExtra("exName", exList.get(exerciseN).getExername());
                         intent.putExtra("exImage", exList.get(exerciseN).getImage());
+                        intent.putExtra("exVideo", exList.get(exerciseN).getVideo());
+
                         intent.putExtra("exNumber",String.valueOf(exerciseN));
                         intent.putExtra("exercise list", exList);
+
                         intent.putExtra("dayIndex",dayIndex);
                         intent.putExtra("month",month);
                         intent.putExtra("week",week);
@@ -314,6 +346,9 @@ public class ActivityInsideExercise extends AppCompatActivity {
         exerciseN = Integer.parseInt(exNumber) + 1;
         exerciseP = Integer.valueOf(exNumber) - 1;
 
+        e = (exercise) intent.getSerializableExtra("exercise Object");
+
+
         exNumberTextView.setText(" التمرين " + String.valueOf(exerciseN));
         exNameTextView.setText(exName);
 
@@ -323,20 +358,60 @@ public class ActivityInsideExercise extends AppCompatActivity {
 //                .fit()
 //                .centerCrop()
 //                .into(imageViewEx);
+        if(!exImage.isEmpty()) {
+            videoView.setVisibility(View.GONE);
+            Ion.with(this)
+                    .load(exImage)
+                    .progressBar(progressBar)
+                    .withBitmap()
+                    // .placeholder(R.drawable.ic_loading)
+                    .intoImageView(imageViewEx)
+                    .setCallback(new FutureCallback<ImageView>() {
+                        @Override
+                        public void onCompleted(Exception e, ImageView result) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+        }else {
+            imageViewEx.setVisibility(View.GONE);
 
-        Ion.with(this)
-                .load(exImage)
-                .progressBar(progressBar)
-                .withBitmap()
-                // .placeholder(R.drawable.ic_loading)
-                .intoImageView(imageViewEx)
-        .setCallback(new FutureCallback<ImageView>() {
-            @Override
-            public void onCompleted(Exception e, ImageView result) {
-                progressBar.setVisibility(View.GONE);
+
+
+            path = intent.getStringExtra("exVideo");
+
+//            //small window video
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
+            params.width =  (int) (300*metrics.density);
+            params.height = (int) (250*metrics.density);
+            params.leftMargin = 200;
+            params.rightMargin = 200;
+            params.bottomMargin = 1500;
+            params.topMargin = 100;
+
+            //media player
+            getWindow().setFormat(PixelFormat.TRANSLUCENT);
+            bar=new ProgressDialog(ActivityInsideExercise.this);
+            bar.setTitle("Connecting server");
+            bar.setMessage("Please Wait... ");
+            bar.setCancelable(false);
+            bar.show();
+            if(bar.isShowing()) {
+                Uri uri = Uri.parse(path);
+                videoView.setVideoURI(uri);
+                videoView.start();
+                ctlr = new MediaController(this);
+                ctlr.setMediaPlayer(videoView);
+                videoView.setMediaController(ctlr);
+                videoView.requestFocus();
             }
-        });
+            bar.dismiss();
 
+            //videoView.setLayoutParams(params);
+
+            videoViewEnlarge();
+        }
 
         for(int i =0; i < setsList.size(); i++){
             addNewSetBtn.setVisibility(View.VISIBLE);
@@ -714,6 +789,54 @@ public class ActivityInsideExercise extends AppCompatActivity {
         });
 
 
+    }
+    @SuppressLint("ClickableViewAccessibility")
+    private void videoViewEnlarge() {
+        videoView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(showingFirst == true){
+                    //full screen video
+                    DisplayMetrics metrics = new DisplayMetrics(); getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                    android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
+                    params.width =  metrics.widthPixels;
+                    params.height = metrics.heightPixels;
+                    params.leftMargin = 0;
+                    params.leftMargin = 0;
+                    params.rightMargin = 0;
+                    params.bottomMargin = 0;
+                    params.topMargin = 0;
+
+                    videoView.setLayoutParams(params);
+
+                    //change to true so we do full screen again
+                    showingFirst = false;
+
+                }else{
+                    //small window video
+                    DisplayMetrics metrics = new DisplayMetrics();
+                    getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                    android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
+                    params.width =  (int) (300*metrics.density);
+                    params.height = (int) (250*metrics.density);
+                    params.leftMargin = 200;
+                    params.rightMargin = 200;
+                    params.bottomMargin = 1500;
+                    params.topMargin = 100;
+
+                    videoView.setLayoutParams(params);
+
+
+
+
+                    //changeto false so we can toggle back fullscreen
+                    showingFirst = true;
+
+                }
+
+                return false;
+            }
+        });
     }
 
 

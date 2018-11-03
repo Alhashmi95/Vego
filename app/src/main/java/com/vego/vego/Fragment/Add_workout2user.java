@@ -1,11 +1,13 @@
 package com.vego.vego.Fragment;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -39,6 +41,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.vego.vego.Activity.ActivityInsideExercise;
 import com.vego.vego.Activity.AddNewExerciseActivity;
@@ -169,6 +172,8 @@ public class Add_workout2user extends Fragment {
 
     ArrayList<MonthExercise> monthEx = new ArrayList<>();
 
+    ProgressDialog p;
+
 
 
 
@@ -178,6 +183,7 @@ public class Add_workout2user extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private exercise exObject;
 
     public Add_workout2user() {
         // Required empty public constructor
@@ -288,6 +294,8 @@ public class Add_workout2user extends Fragment {
 
         progressBar.setVisibility(View.GONE);
 
+        p = new ProgressDialog(getContext());
+
         childlistrner();
 
 
@@ -361,7 +369,7 @@ public class Add_workout2user extends Fragment {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         DatabaseReference monthCountRef = rootRef.child("users").child(choosenUser).child("Exercises");
 
-        monthCountRef.addValueEventListener(new ValueEventListener() {
+        monthCountRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 counterMonth = (int) dataSnapshot.getChildrenCount();
@@ -687,6 +695,9 @@ public class Add_workout2user extends Fragment {
         saveExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                p.show();
+                p.setMessage("جاري الحفظ ..");
+                p.setCancelable(false);
 //                for (int i = 0; i < newSetAdapter.getSetsArray().size(); i++) {
 //                    //check if there's any null edit text in all cardviews of meal elements
 //                    if (newSetAdapter.getSetsArray().get(i).getReps().equals("")) {
@@ -930,6 +941,7 @@ public class Add_workout2user extends Fragment {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(getContext(),"تم اضافة التمرين",Toast.LENGTH_SHORT).show();
+                                p.dismiss();
 
                                 getUsers();
                                 childlistrnerForEx();
@@ -1170,6 +1182,7 @@ public class Add_workout2user extends Fragment {
 
                 // First item is disable and it is used for hint
                 if(position > 0){
+                    retriveExtoEdit();
                     // Notify the selected item text
                     Toast.makeText
                             (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
@@ -1871,4 +1884,69 @@ public class Add_workout2user extends Fragment {
             }
         }
     }
+    private void retriveExtoEdit(){
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        //reach to meal to edit
+        DatabaseReference databaseReference1 = firebaseDatabaseMeal.getReference().child("users")
+                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                .child(choosenDay).child("exercise").child(getChoosenExNumberIndex);
+
+        databaseReference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                exObject = dataSnapshot.getValue(exercise.class);
+                if (exObject != null && !exObject.getImage().isEmpty()) {
+//                    recyclerViewIngr.setVisibility(View.VISIBLE);
+//                    recyclerViewIngr.setVisibility(View.VISIBLE);
+
+
+
+                    showExDetails();
+
+                    textViewExName.setText(exObject.getExername());
+                    Picasso.get()
+                            .load(exObject.getImage())
+                            .fit()
+                            .centerCrop()
+                            .into(imageViewEx, new Callback() {
+                                @Override
+                                public void onSuccess() {
+                                    progressBar.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onError(Exception e) {
+
+                                }
+                            });
+
+
+                }else {
+                    saveExercise.setVisibility(View.INVISIBLE);
+                    textViewExName.setText("");
+                    imageViewEx.setImageResource(R.drawable.welcome_screen);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    newSetAdapter = new NewSetAdapter(setsArrayList, getContext());
+                    recyclerView.setAdapter(newSetAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        
+    }
+    private void showExDetails(){
+        saveExercise.setVisibility(View.VISIBLE);
+
+
+        newSetAdapter = new NewSetAdapter(exObject.getSets(), getContext());
+        recyclerView.setAdapter(newSetAdapter);
+        newSetAdapter.notifyDataSetChanged();
+    }
+
 }

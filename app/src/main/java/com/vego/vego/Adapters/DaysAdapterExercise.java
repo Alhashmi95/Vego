@@ -95,6 +95,8 @@ public class DaysAdapterExercise extends RecyclerView.Adapter<DaysAdapterExercis
             txtMuscl = itemView.findViewById(R.id.txtCals);
             txtCount = itemView.findViewById(R.id.txtCount);
 
+            txtMuscl.setVisibility(View.GONE);
+
             context = itemView.getContext();
 
 

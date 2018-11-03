@@ -40,9 +40,11 @@ import com.vego.vego.model.Chat;
 import com.vego.vego.model.UserInfo;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -154,7 +156,7 @@ public class FragmentSupport extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        root = FirebaseDatabase.getInstance().getReference().child("MainChatRoom");
+        root = FirebaseDatabase.getInstance().getReference().child("chat");
 
 
 
@@ -173,6 +175,12 @@ public class FragmentSupport extends Fragment {
         mMessageAdapter.notifyDataSetChanged();
 
 
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference d = firebaseDatabase.getReference().child("Ayman");
+
+//        d.setValue(c);
+
+
 
 
 
@@ -188,7 +196,7 @@ public class FragmentSupport extends Fragment {
     private void getMessages() {
         String s = firebaseAuth.getCurrentUser().getUid();
         //حدد اي من الادمنز تنعرض رسايله
-        root.child(firebaseAuth.getCurrentUser().getUid() + " : " + choosenUser)
+        root.child(choosenUser).child("Masseges")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -214,7 +222,6 @@ public class FragmentSupport extends Fragment {
 
 
         firebaseAuth = FirebaseAuth.getInstance();
-        root = FirebaseDatabase.getInstance().getReference().child("MainChatRoom");
 
         //add the id of sender and reciver
 //        root.child(firebaseAuth.getUid()+" : "+ choosenUser).child("adminID").setValue(firebaseAuth.getUid());
@@ -250,8 +257,19 @@ public class FragmentSupport extends Fragment {
 
 
                     Calendar calForTime = Calendar.getInstance();
-                    SimpleDateFormat currentTimeFormat = new SimpleDateFormat("hh:mm a",Locale.ENGLISH);
+                    SimpleDateFormat currentTimeFormat = new SimpleDateFormat("MMM d, yyyy HH:mm:ss",Locale.ENGLISH);
                     currentTime = currentTimeFormat.format(calForTime.getTime());
+
+//                    SimpleDateFormat d = new SimpleDateFormat("hh:mm a",Locale.ENGLISH);
+//                    try {
+//                        Date dw = d.parse(currentTime);
+//                        currentTime = d.format(dw);
+//
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
+
+
 
 
                     Map<String, Object> map = new HashMap<String, Object>();
@@ -262,16 +280,18 @@ public class FragmentSupport extends Fragment {
                     String newMessage = message.replace("\n", "");
 
 
+                    String aaa = FirebaseInstanceId.getInstance().getToken();
 
                     //DatabaseReference message_root = root.child(temp_key);
-                    DatabaseReference message_root = root.child(firebaseAuth.getUid() + " : " + choosenUser)
-                            .child(temp_key);
+                    DatabaseReference message_root = root.child(choosenUser).child("Masseges").child(temp_key);
                     Map<String, Object> map2 = new HashMap<String, Object>();
-                    map2.put("name", name);
+                    map2.put("sendername", name);
                     map2.put("msg", newMessage);
-                    map2.put("userUID", firebaseAuth.getCurrentUser().getUid());
-                    map2.put("createdAt", currentTime);
-                    map2.put("date", currentDate);
+                    map2.put("senderId", firebaseAuth.getCurrentUser().getUid());
+                   // map2.put("createdAt", currentTime);
+                    map2.put("date", currentTime);
+                    map2.put("tokenSender",aaa);
+                    map2.put("tokenReceiver","");
 
 
                     message_root.updateChildren(map2);
@@ -281,7 +301,8 @@ public class FragmentSupport extends Fragment {
         });
 
 
-        root.addChildEventListener(new ChildEventListener() {
+        root.child(choosenUser).child("Masseges")
+                .addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(final DataSnapshot dataSnapshot, String s) {
                 Add_Chat(dataSnapshot);
@@ -448,6 +469,7 @@ public class FragmentSupport extends Fragment {
                 if (position!=0)
                 chat(choosenUser);
                 messagesArray.clear();
+                mMessageAdapter.notifyDataSetChanged();
                 getMessages();
                 //Log.d("test","this is details " +usersprofile.child(choosenUser).child("profile"));
                 // If user change the default selection
@@ -478,7 +500,7 @@ public class FragmentSupport extends Fragment {
 
         // if (input_msg.length() > 0) {
         //check if there's a new message =====================================
-        root.child(firebaseAuth.getCurrentUser().getUid() + " : " + choosenUser)
+        root.child(choosenUser).child("Masseges")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -549,7 +571,7 @@ public class FragmentSupport extends Fragment {
 //                            });
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference()
-                .child("MainChatRoom").child(firebaseAuth.getCurrentUser().getUid() + " : " + choosenUser);
+                .child("chat").child(choosenUser).child("Masseges");
 
         Query lastQuery = db.orderByKey().limitToLast(1);
 

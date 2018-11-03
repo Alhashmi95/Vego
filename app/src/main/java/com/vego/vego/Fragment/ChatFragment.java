@@ -108,7 +108,7 @@ public class ChatFragment extends Fragment {
         mMessageAdapter.notifyDataSetChanged();
 
 
-        root = FirebaseDatabase.getInstance().getReference().child("MainChatRoom");
+        root = FirebaseDatabase.getInstance().getReference().child("chat");
 
 
 
@@ -126,7 +126,7 @@ public class ChatFragment extends Fragment {
 
 
 
-        root = FirebaseDatabase.getInstance().getReference().child("MainChatRoom");
+        //root = FirebaseDatabase.getInstance().getReference().child("MainChatRoom");
 
 //        listView_chat = view.findViewById(R.id.listView_chat);
         input_msg = view.findViewById(R.id.et_chatbox);
@@ -178,8 +178,9 @@ public class ChatFragment extends Fragment {
                             currentDate = currentDateFormat2.format(calForDate.getTime());
 
                             Calendar calForTime = Calendar.getInstance();
-                            SimpleDateFormat currentTimeFormat = new SimpleDateFormat("hh:mm a",Locale.ENGLISH);
+                            SimpleDateFormat currentTimeFormat = new SimpleDateFormat("MMM d, yyyy HH:mm:ss",Locale.ENGLISH);
                             currentTime = currentTimeFormat.format(calForTime.getTime());
+
 
                             Map<String, Object> map = new HashMap<String, Object>();
                             temp_key = root.push().getKey();
@@ -187,18 +188,21 @@ public class ChatFragment extends Fragment {
 
 
                             for (int i = 0; i < adminUid.size(); i++) {
-                                DatabaseReference message_root = root.child(adminUid.get(i) + " : " +
-                                        firebaseAuth.getCurrentUser().getUid()).child(temp_key);
+                                DatabaseReference message_root = root.child(firebaseAuth.getCurrentUser()
+                                        .getUid()).child("Masseges").child(temp_key);
 
                                 message = input_msg.getText().toString();
                                 String newMessage = message.replace("\n", "");
 
                                 Map<String, Object> map2 = new HashMap<String, Object>();
-                                map2.put("name", name);
+                                map2.put("sendername", name);
                                 map2.put("msg", newMessage);
-                                map2.put("userUID", firebaseAuth.getCurrentUser().getUid());
-                                map2.put("createdAt", currentTime);
-                                map2.put("date", currentDate);
+                                map2.put("senderId", firebaseAuth.getCurrentUser().getUid());
+                                // map2.put("createdAt", currentTime);
+                                map2.put("date", currentTime);
+                                map2.put("tokenSender",aaa);
+                                map2.put("tokenReceiver","");
+
 
 
                                 message_root.updateChildren(map2);
@@ -244,7 +248,8 @@ public class ChatFragment extends Fragment {
 
 
 
-                root.addChildEventListener(new ChildEventListener() {
+                root.child(firebaseAuth.getCurrentUser().getUid()).child("Masseges")
+                        .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         Add_Chat(dataSnapshot);
@@ -287,7 +292,8 @@ public class ChatFragment extends Fragment {
             private void Add_Chat(final DataSnapshot dataSnapshot) {
                    // if (input_msg.length() > 0) {
                 //check if there's a new message =====================================
-                root.child(adminUid.get(0) + " : " + firebaseAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                root.child(firebaseAuth.getCurrentUser().getUid()).child("Masseges")
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         j = (int) dataSnapshot.getChildrenCount();
@@ -357,8 +363,7 @@ public class ChatFragment extends Fragment {
 //                            });
 
                         DatabaseReference db = FirebaseDatabase.getInstance().getReference()
-                                .child("MainChatRoom").child(adminUid.get(0) + " : " + firebaseAuth
-                                        .getCurrentUser().getUid());
+                                .child("chat").child(firebaseAuth.getCurrentUser().getUid()).child("Masseges");
 
                         Query lastQuery = db.orderByKey().limitToLast(1);
 
@@ -504,7 +509,8 @@ public class ChatFragment extends Fragment {
                     }
                 }
                 //حدد اي من الادمنز تنعرض رسايله
-                root.child(adminUid.get(0) + " : " + firebaseAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                root.child(firebaseAuth.getCurrentUser().getUid()).child("Masseges")
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         j = (int) dataSnapshot.getChildrenCount();
