@@ -5,7 +5,8 @@
     android:paddingVertical="10dp"
     android:paddingRight="15dp"
     android:paddingLeft="60dp"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    android:layoutDirection="ltr">
 
     <TextView
         android:layout_marginTop="55dp"

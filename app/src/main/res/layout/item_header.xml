@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:id="@+id/relativeExpandable"
-    android:padding="15dp">
+    android:padding="15dp"
+    android:layoutDirection="ltr">
 
     <LinearLayout
         android:id="@+id/lnr_1"

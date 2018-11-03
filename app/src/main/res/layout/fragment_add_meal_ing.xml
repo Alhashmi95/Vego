@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".Fragment.FragmentAddMealIng">
+    tools:context=".Fragment.FragmentAddMealIng"
+    android:layoutDirection="ltr">
 
     <!-- TODO: Update blank fragment layout -->
 
