@@ -171,6 +171,21 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
+printHashKey(MainActivity.this);
+    }
+    public void printHashKey(Context pContext) {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String hashKey = new String(Base64.encode(md.digest(), 0));
+                Log.e("KEYHASH2", "printHashKey() Hash Key: " + hashKey);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("KEYHASH23", "printHashKey()", e);
+        } catch (Exception e) {
+            Log.e("KEYHASH24", "printHashKey()", e);
+        }
     }
 }

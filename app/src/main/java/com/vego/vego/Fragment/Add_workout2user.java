@@ -398,6 +398,8 @@ public class Add_workout2user extends Fragment {
                             "يجب ان تحتوي على عنصر واحد على الاقل",Toast.LENGTH_SHORT).show();
 
                 }else{
+                    removeMonth.setEnabled(false);
+
                     int index = tabLayout.getTabCount();
                     index--;
 
@@ -413,6 +415,7 @@ public class Add_workout2user extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     getMonthTabs();
+                                    removeMonth.setEnabled(true);
                                 }
                             }
                     );
@@ -432,7 +435,8 @@ public class Add_workout2user extends Fragment {
         addMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(counterMonth  <=12) {
+                if(counterMonth  <=11) {
+                    addMonth.setEnabled(false);
                     //tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(counterMonth)));
 
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -456,6 +460,7 @@ public class Add_workout2user extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     getMonthTabs();
+                                    addMonth.setEnabled(true);
                                 }
                             });
                         }
@@ -1613,10 +1618,11 @@ public class Add_workout2user extends Fragment {
                     // arrayList.add(dataSnapshot1.getKey());
 
 
-
-                    arrayList.add( dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
-                    arrayList2.add(dataSnapshot1.getKey());
-                    spinnerArrayAdapter.notifyDataSetChanged();
+                    if(!FirebaseAuth.getInstance().getCurrentUser().getUid().equals(dataSnapshot1.getKey())) {
+                        arrayList.add(dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
+                        arrayList2.add(dataSnapshot1.getKey());
+                        spinnerArrayAdapter.notifyDataSetChanged();
+                    }
 
 //                    Log.d("test","this is size of arr: "+ array.length);
 
@@ -1943,10 +1949,12 @@ public class Add_workout2user extends Fragment {
     private void showExDetails(){
         saveExercise.setVisibility(View.VISIBLE);
 
+        if (getActivity()!=null) {
 
-        newSetAdapter = new NewSetAdapter(exObject.getSets(), getContext());
-        recyclerView.setAdapter(newSetAdapter);
-        newSetAdapter.notifyDataSetChanged();
+            newSetAdapter = new NewSetAdapter(exObject.getSets(), this.getContext());
+            recyclerView.setAdapter(newSetAdapter);
+            newSetAdapter.notifyDataSetChanged();
+        }
     }
 
 }

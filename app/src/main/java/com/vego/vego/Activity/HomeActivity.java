@@ -108,41 +108,12 @@ public class HomeActivity extends AppCompatActivity {
 //                ViewGroup.LayoutParams.WRAP_CONTENT));
 
 
-        videoView = findViewById(R.id.video);
+        //videoView = findViewById(R.id.video);
 
+
+        //-------------------------------------------commented
         //small window video
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
-        params.width =  (int) (300*metrics.density);
-        params.height = (int) (250*metrics.density);
-        params.leftMargin = 200;
-        params.rightMargin = 200;
-        params.bottomMargin = 1500;
-        params.topMargin = 100;
-
-        //media player
-        getWindow().setFormat(PixelFormat.TRANSLUCENT);
-        bar=new ProgressDialog(HomeActivity.this);
-        bar.setTitle("Connecting server");
-        bar.setMessage("Please Wait... ");
-        bar.setCancelable(false);
-        bar.show();
-        if(bar.isShowing()) {
-            Uri uri = Uri.parse(path);
-            videoView.setVideoURI(uri);
-            videoView.start();
-            ctlr = new MediaController(this);
-            ctlr.setMediaPlayer(videoView);
-            videoView.setMediaController(ctlr);
-            videoView.requestFocus();
-        }
-        bar.dismiss();
-
-        videoView.setLayoutParams(params);
-
-        videoViewEnlarge();
-
+//       //--------------------------------------------------------------------------
 
 
         //webView = findViewById(R.id.mWebView);

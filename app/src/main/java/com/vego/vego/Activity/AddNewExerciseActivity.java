@@ -64,7 +64,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
     int indexofImagesForAll =0;
     ProgressDialog p;
     AlertDialog alertDialog1;
-    CharSequence[] values = {"Picture","Video"};
+    CharSequence[] values = {"صورة"};
 
 
 
@@ -74,21 +74,22 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         if(requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getData() != null){
             imagePath = data.getData();
             try {
-                videoViewEx.setBackgroundResource(android.R.color.transparent);
+                //---------------------------------------------commented
+         //       videoViewEx.setBackgroundResource(android.R.color.transparent);
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imagePath);
                 imageViewEx.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else if( resultCode==RESULT_OK && requestCode==PICK_VIDEO&&data.getData()!= null){
-            videoPath= data.getData();
-            try{
-                imageViewEx.setImageResource(android.R.color.transparent);
-                videoViewEx.setVideoURI(videoPath);
-                videoViewEx.start();
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+//        }else if( resultCode==RESULT_OK && requestCode==PICK_VIDEO&&data.getData()!= null){
+//            videoPath= data.getData();
+//            try{
+//                imageViewEx.setImageResource(android.R.color.transparent);
+//                videoViewEx.setVideoURI(videoPath);
+//                videoViewEx.start();
+//            }catch(Exception e){
+//                e.printStackTrace();
+//            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -105,8 +106,10 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         exName = findViewById(R.id.txtExName);
         selectMu = findViewById(R.id.spinnerMu);
         imageViewEx = findViewById(R.id.imageViewNewEx);
-        videoViewEx = findViewById(R.id.videoViewNewEx);
-        addVid = findViewById(R.id.addVid);
+
+        imageViewEx.setImageResource(R.drawable.addpic);
+       // videoViewEx = findViewById(R.id.videoViewNewEx);
+//        addVid = findViewById(R.id.addVid);
 
 //        imageViewEx.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -118,12 +121,12 @@ public class AddNewExerciseActivity extends AppCompatActivity {
 //            }
 //        });
         //----------------------------load video or image--------------------------------------------------------
-        addVid.setOnClickListener(new View.OnClickListener() {
+        imageViewEx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(AddNewExerciseActivity.this);
 
-                builder.setTitle("chose media");
+                builder.setTitle("Choose Media");
 
                 builder.setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
 
@@ -135,12 +138,12 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                                 Intent intent = new Intent();
                                 intent.setType("image/*");
                                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE);
+                                startActivityForResult(Intent.createChooser(intent, "اختر صورة للتمرين"), PICK_IMAGE);
                                 break;
-                            case 1:
-                                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-                               startActivityForResult(Intent.createChooser(i,"Select Video"),PICK_VIDEO);
-                                break;
+//                            case 1:
+//                                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+//                               startActivityForResult(Intent.createChooser(i,"Select Video"),PICK_VIDEO);
+//                                break;
 
                         }
                         alertDialog1.dismiss();
@@ -210,14 +213,14 @@ public class AddNewExerciseActivity extends AppCompatActivity {
             @Override
             public void onClick(final View v) {
                 if (exName.getText().toString().isEmpty() || selectMu.equals("اختر عضلة") || imagePath == null) {
-                    Toast.makeText(AddNewExerciseActivity.this, "please enter all details including image",
+                    Toast.makeText(AddNewExerciseActivity.this, "الرجاء ادخال جميع التفاصيل بما في ذلك صورة التمرين",
                             Toast.LENGTH_LONG).show();
                 } else {
                     exerciseName = exName.getText().toString();
 
-                    p = new ProgressDialog(v.getContext());
-                    p.setTitle("Uploading");
-                    p.setMessage("Uploading data...");
+                    p = new ProgressDialog(AddNewExerciseActivity.this);
+                    p.setTitle("رفع التمرين");
+                    p.setMessage("جاري الرفع...");
                     p.show();
                     p.setCanceledOnTouchOutside(false);
                     saveNewEx.setVisibility(View.INVISIBLE);
@@ -229,7 +232,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
 
                     UploadTask uploadTask = (UploadTask) exRef.putFile(imagePath);
                     if (uploadTask != null && uploadTask.isInProgress()) {
-                        Toast.makeText(AddNewExerciseActivity.this, "upload is in progress .. please wait", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddNewExerciseActivity.this, "جاري الرفع الرجاء الانتظار..", Toast.LENGTH_LONG).show();
 
                     }
 
@@ -249,7 +252,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Uri downloadUri = task.getResult();
                                 exUrl = downloadUri.toString();
-                                Toast.makeText(AddNewExerciseActivity.this, "upload successeded", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddNewExerciseActivity.this, "تم رفع تمرين عام", Toast.LENGTH_SHORT).show();
                                 exercise e = new exercise();
                                 saveNewEx.setVisibility(View.VISIBLE);
                                 saveNewExForAll.setVisibility(View.VISIBLE);
@@ -282,94 +285,97 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                                 // v.getContext().startActivity(intent);
                             } else {
                                 // Handle failures
-                                Toast.makeText(AddNewExerciseActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddNewExerciseActivity.this, "فشل الرفع", Toast.LENGTH_SHORT).show();
 
                             }
                         }
                     });
                 }
-                if (imagePath == null) {
-                    if (exName.getText().toString().isEmpty() || selectMu.equals("اختر عضلة") || videoPath == null) {
-                        Toast.makeText(AddNewExerciseActivity.this, "please enter all details including video",
-                                Toast.LENGTH_LONG).show();
-                    } else {
-                        exerciseName = exName.getText().toString();
 
-                        p = new ProgressDialog(v.getContext());
-                        p.setTitle("Uploading");
-                        p.setMessage("Uploading data...");
-                        p.show();
-                        p.setCanceledOnTouchOutside(false);
-                        saveNewEx.setVisibility(View.INVISIBLE);
-                        saveNewExForAll.setVisibility(View.INVISIBLE);
-
-
-                        // here we upload meal pics
-                        exRef = storageReference.child("exercises/").child(String.valueOf(indexofImages));
-
-                        UploadTask uploadTask = (UploadTask) exRef.putFile(videoPath);
-                        if (uploadTask != null && uploadTask.isInProgress()) {
-                            Toast.makeText(AddNewExerciseActivity.this, "upload is in progress .. please wait", Toast.LENGTH_LONG).show();
-
-                        }
-
-                        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                            @Override
-                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                                if (!task.isSuccessful()) {
-                                    throw task.getException();
-                                }
-
-                                // Continue with the task to get the download URL
-                                return exRef.getDownloadUrl();
-                            }
-                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Uri> task) {
-                                if (task.isSuccessful()) {
-                                    Uri downloadUri = task.getResult();
-                                    exUrl = downloadUri.toString();
-                                    Toast.makeText(AddNewExerciseActivity.this, "upload successeded", Toast.LENGTH_SHORT).show();
-                                    exercise e = new exercise();
-                                    saveNewEx.setVisibility(View.VISIBLE);
-                                    saveNewExForAll.setVisibility(View.VISIBLE);
-
-                                    sets[] setsArray = new sets[]{new sets("1234", "", "", "")};
-
-                                    List setsList = new ArrayList<sets>(Arrays.asList(setsArray));
-
-
-                                    e.setExername(exerciseName);
-                                    e.setTargetedmuscle(choosenMu);
-                                    e.setImage("");
-                                    e.setVideo(exUrl);
-                                    e.setSets((ArrayList<sets>) setsList);
-
-                                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                                    DatabaseReference d = firebaseDatabase.getReference();
-
-
-                                    //upload meal to firebase
-                                    d.child("exerciesForALL").child(String.valueOf(indexofImagesForAll)).setValue(e);
-
-
-                                    finish();
-//                                Intent intent= new Intent(AddNewExerciseActivity.this,
-//                                        AdminActivity.class);
-//                                intent.putExtra("image",exUrl);
-//                                intent.putExtra("name",exerciseName);
-//                                intent.putExtra("choosenMu",choosenMu);
-//                                intent.putExtra("index",String.valueOf(indexofImages));
-                                    // v.getContext().startActivity(intent);
-                                } else {
-                                    // Handle failures
-                                    Toast.makeText(AddNewExerciseActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
-
-                                }
-                            }
-                        });
-                    }
-                }
+                //-------------------------------------commented
+//                if (imagePath == null) {
+//                    if (exName.getText().toString().isEmpty() || selectMu.equals("اختر عضلة") || videoPath == null) {
+//                        Toast.makeText(AddNewExerciseActivity.this, "please enter all details including video",
+//                                Toast.LENGTH_LONG).show();
+//                    } else {
+//                        exerciseName = exName.getText().toString();
+//
+//                        p = new ProgressDialog(v.getContext());
+//                        p.setTitle("Uploading");
+//                        p.setMessage("Uploading data...");
+//                        p.show();
+//                        p.setCanceledOnTouchOutside(false);
+//                        saveNewEx.setVisibility(View.INVISIBLE);
+//                        saveNewExForAll.setVisibility(View.INVISIBLE);
+//
+//
+//                        // here we upload meal pics
+//                        exRef = storageReference.child("exercises/").child(String.valueOf(indexofImages));
+//
+//                        UploadTask uploadTask = (UploadTask) exRef.putFile(videoPath);
+//                        if (uploadTask != null && uploadTask.isInProgress()) {
+//                            Toast.makeText(AddNewExerciseActivity.this, "upload is in progress .. please wait", Toast.LENGTH_LONG).show();
+//
+//                        }
+//
+//                        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+//                            @Override
+//                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+//                                if (!task.isSuccessful()) {
+//                                    throw task.getException();
+//                                }
+//
+//                                // Continue with the task to get the download URL
+//                                return exRef.getDownloadUrl();
+//                            }
+//                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Uri> task) {
+//                                if (task.isSuccessful()) {
+//                                    Uri downloadUri = task.getResult();
+//                                    exUrl = downloadUri.toString();
+//                                    Toast.makeText(AddNewExerciseActivity.this, "تم رفع تمرين عام", Toast.LENGTH_SHORT).show();
+//                                    exercise e = new exercise();
+//                                    saveNewEx.setVisibility(View.VISIBLE);
+//                                    saveNewExForAll.setVisibility(View.VISIBLE);
+//
+//                                    sets[] setsArray = new sets[]{new sets("1234", "", "", "")};
+//
+//                                    List setsList = new ArrayList<sets>(Arrays.asList(setsArray));
+//
+//
+//                                    e.setExername(exerciseName);
+//                                    e.setTargetedmuscle(choosenMu);
+//                                    e.setImage("");
+//                                    e.setVideo(exUrl);
+//                                    e.setSets((ArrayList<sets>) setsList);
+//
+//                                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+//                                    DatabaseReference d = firebaseDatabase.getReference();
+//
+//
+//                                    //upload meal to firebase
+//                                    d.child("exerciesForALL").child(String.valueOf(indexofImagesForAll)).setValue(e);
+//
+//
+//                                    finish();
+////                                Intent intent= new Intent(AddNewExerciseActivity.this,
+////                                        AdminActivity.class);
+////                                intent.putExtra("image",exUrl);
+////                                intent.putExtra("name",exerciseName);
+////                                intent.putExtra("choosenMu",choosenMu);
+////                                intent.putExtra("index",String.valueOf(indexofImages));
+//                                    // v.getContext().startActivity(intent);
+//                                } else {
+//                                    // Handle failures
+//                                    Toast.makeText(AddNewExerciseActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+//
+//                                }
+//                            }
+//                        });
+//                    }
+//                }
+                //----------------------------------------------------------------------------
             }
         });
 
@@ -380,14 +386,14 @@ public class AddNewExerciseActivity extends AppCompatActivity {
             @Override
             public void onClick(final View v) {
                 if (exName.getText().toString().isEmpty() || selectMu.equals("اختر عضلة") || imagePath == null) {
-                    Toast.makeText(AddNewExerciseActivity.this, "please enter all details including image",
+                    Toast.makeText(AddNewExerciseActivity.this, "الرجاء ادخال جميع التفاصيل بما في ذلك صورة التمرين",
                             Toast.LENGTH_LONG).show();
                 }else {
                     exerciseName = exName.getText().toString();
 
                     p = new ProgressDialog(v.getContext());
-                    p.setTitle("Uploading");
-                    p.setMessage("Uploading data...");
+                    p.setTitle("رفع التمرين");
+                    p.setMessage("جاري الرفع...");
                     p.show();
                     p.setCanceledOnTouchOutside(false);
                     saveNewEx.setVisibility(View.INVISIBLE);
@@ -398,7 +404,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                     UploadTask uploadTask = (UploadTask) exRef.putFile(imagePath);
 
                     if (uploadTask != null && uploadTask.isInProgress()) {
-                        Toast.makeText(AddNewExerciseActivity.this, "upload is in progress .. please wait", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddNewExerciseActivity.this, "جاري الرفع الرجاء الانتظار..", Toast.LENGTH_LONG).show();
 
                     }
 
@@ -418,7 +424,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Uri downloadUri = task.getResult();
                                 exUrl = downloadUri.toString();
-                                Toast.makeText(AddNewExerciseActivity.this, "upload successeded", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddNewExerciseActivity.this, "تم الرفع", Toast.LENGTH_SHORT).show();
                                 exercise e = new exercise();
 
                                 saveNewEx.setVisibility(View.VISIBLE);
@@ -453,7 +459,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                           //      v.getContext().startActivity(intent);
                             } else {
                                 // Handle failures
-                                Toast.makeText(AddNewExerciseActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddNewExerciseActivity.this, "فشل الرفع", Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -525,7 +531,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                 if (position > 0) {
                     // Notify the selected item text
                     Toast.makeText
-                            (AddNewExerciseActivity.this, "Selected : " + selectedItemText,
+                            (AddNewExerciseActivity.this, "تم اختيار عضلة : " + selectedItemText,
                                     Toast.LENGTH_SHORT).show();
                 }
             }

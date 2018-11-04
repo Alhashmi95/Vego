@@ -432,6 +432,7 @@ public class AddMealsFragment extends Fragment {
                             "يجب ان تحتوي على عنصر واحد على الاقل", Toast.LENGTH_SHORT).show();
 
                 } else {
+                    removeMonth.setEnabled(false);
                     int index = tabLayout.getTabCount();
                     index--;
 
@@ -447,6 +448,7 @@ public class AddMealsFragment extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     getMonthTabs();
+                                    removeMonth.setEnabled(true);
                                 }
                             }
                     );
@@ -466,6 +468,7 @@ public class AddMealsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (counterMonth <= 12) {
+                    addMonth.setEnabled(false);
                     //tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(counterMonth)));
 
 
@@ -492,6 +495,7 @@ public class AddMealsFragment extends Fragment {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             getMonthTabs();
+                                            addMonth.setEnabled(true);
                                         }
                                     });
                         }
@@ -1642,10 +1646,11 @@ public class AddMealsFragment extends Fragment {
                     UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
                     // arrayList.add(dataSnapshot1.getKey());
 
-
-                    arrayList.add(dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
-                    arrayList2.add(dataSnapshot1.getKey());
-                    spinnerArrayAdapter.notifyDataSetChanged();
+                    if(!FirebaseAuth.getInstance().getCurrentUser().getUid().equals(dataSnapshot1.getKey())) {
+                        arrayList.add(dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
+                        arrayList2.add(dataSnapshot1.getKey());
+                        spinnerArrayAdapter.notifyDataSetChanged();
+                    }
 
                     p.dismiss();
 

@@ -5,7 +5,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.vego.vego"
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -42,7 +42,7 @@ dependencies {
     implementation 'com.android.support:support-annotations:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     //for email and password authintication
-    implementation 'com.google.firebase:firebase-auth:16.0.4'
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
     //sign in with google
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     //add spinner lib
@@ -73,9 +73,11 @@ dependencies {
     implementation 'com.sendbird.sdk:sendbird-android-sdk:3.0.54'
     //progressbar precentage
     implementation 'com.github.HotBitmapGG:RingProgressBar:V1.2.3'
-    implementation 'com.facebook.android:facebook-login:4.36.1'
 
-    implementation 'com.thoughtbot:expandablecheckrecyclerview:1.4'
+    implementation 'com.facebook.android:facebook-android-sdk:4.38.1'
+    implementation 'com.facebook.android:facebook-login:4.38.1'
+
+    //implementation 'com.thoughtbot:expandablecheckrecyclerview:1.2'
 
     // Add dependency
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'

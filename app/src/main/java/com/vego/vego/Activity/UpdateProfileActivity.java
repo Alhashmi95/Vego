@@ -420,9 +420,11 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 if (name.isEmpty() || height.isEmpty() || age.isEmpty() || weight.isEmpty()
                         || userActivity.equals("مستوى النشاط") || userGoal.equals("هدفك من التطبيق")) {
                     Toast.makeText(UpdateProfileActivity.this
-                            , "Please enter all the details", Toast.LENGTH_SHORT).show();
+                            , "الرجاء ادخل جميع التفاصيل", Toast.LENGTH_SHORT).show();
                 } else {
-                    updateProfilePic();
+                    //--------------------------------------------commented
+                    //updateProfilePic();
+                    //----------------------------------------------------
 
                     DatabaseReference databasaeReferenceName = firebaseDatabase.getReference();
 
@@ -527,16 +529,16 @@ public class UpdateProfileActivity extends AppCompatActivity {
 //        });
 
         //----------------------------------profilr pic---------------------------------------------
-        picPicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();//(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, PICK_IMAGE);
-
-            }
-        });
+//        picPicker.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();//(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                startActivityForResult(intent, PICK_IMAGE);
+//
+//            }
+//        });
     }
 
     private void updateProfilePic() {
@@ -593,18 +595,18 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
                 }
             });
-            };
+            }
 //    }
 
 
     @Override
-                public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-                    switch (item.getItemId()) {
-                        case android.R.id.home:
-                            onBackPressed();
-                    }
-                    return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                }
+                return super.onOptionsItemSelected(item);
                 }
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {

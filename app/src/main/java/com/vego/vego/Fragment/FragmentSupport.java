@@ -383,10 +383,11 @@ public class FragmentSupport extends Fragment {
                             UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
                             // arrayList.add(dataSnapshot1.getKey());
 
-
-                            arrayList.add( dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
-                            arrayList2.add(dataSnapshot1.getKey());
-                            spinnerArrayAdapter.notifyDataSetChanged();
+                            if(!firebaseAuth.getCurrentUser().getUid().equals(dataSnapshot1.getKey())) {
+                                arrayList.add(dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
+                                arrayList2.add(dataSnapshot1.getKey());
+                                spinnerArrayAdapter.notifyDataSetChanged();
+                            }
 
 
 //                    Log.d("test","this is size of arr: "+ array.length);

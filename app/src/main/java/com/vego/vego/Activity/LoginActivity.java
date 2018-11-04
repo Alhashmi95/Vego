@@ -21,6 +21,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -47,6 +49,7 @@ import com.vego.vego.R;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
@@ -78,6 +81,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
 
         setupUIViews();
 
@@ -171,13 +179,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         mCallbackManager = CallbackManager.Factory.create();
 
         LoginButton mFacebookSignInButton = (LoginButton) findViewById(R.id.facebook_button);
-        mFacebookSignInButton.setReadPermissions("email", "public_profile", "user_birthday", "user_friends");
+        mFacebookSignInButton.setReadPermissions("email");
 
         mFacebookSignInButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                progressDialog.setMessage("Signing in please wait...");
                 progressDialog.show();
-                progressDialog.setMessage("Signing in.. please wait");
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 firebaseAuthWithFacebook(loginResult.getAccessToken());
             }
@@ -192,13 +200,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 Log.d(TAG, "facebook:onError", error);
             }
         });
+
     }
     private void firebaseAuthWithFacebook(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         final AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
@@ -210,6 +219,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         } else {
                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override

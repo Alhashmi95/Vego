@@ -35,17 +35,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.spyhunter99.supertooltips.ToolTip;
 import com.spyhunter99.supertooltips.ToolTipManager;
 import com.squareup.picasso.Picasso;
-import com.thoughtbot.expandablerecyclerview.listeners.GroupExpandCollapseListener;
-import com.thoughtbot.expandablerecyclerview.listeners.OnGroupClickListener;
-import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import com.vego.vego.Activity.MainActivity;
-import com.vego.vego.Adapters.ExpandableAdapter;
+//import com.vego.vego.Adapters.ExpandableAdapter;
 import com.vego.vego.Adapters.ExpandableRecyclerAdapter;
 import com.vego.vego.Adapters.PeopleAdapter;
 import com.vego.vego.R;
 import com.vego.vego.model.Artist;
 import com.vego.vego.model.Exercises;
-import com.vego.vego.model.Genere;
+//import com.vego.vego.model.Genere;
 import com.vego.vego.model.MonthExercise;
 import com.vego.vego.model.UserInfo;
 
@@ -85,8 +82,8 @@ public class TrackProgressFragmentUser extends Fragment {
 
     //variables
     private RecyclerView mRecyclerView;
-    private ExpandableAdapter mAdapter;
-    private ArrayList<Genere> genres;
+//    private ExpandableAdapter mAdapter;
+//    private ArrayList<Genere> genres;
     ArrayList<Artist> artists = new ArrayList<>();
     ArrayList<Artist> weeks = new ArrayList<>();
 
@@ -307,7 +304,7 @@ public class TrackProgressFragmentUser extends Fragment {
 
     @SuppressLint("DefaultLocale")
     public void getGenres() {
-        genres = new ArrayList<>();
+//        genres = new ArrayList<>();
         artists = new ArrayList<>();
         artists.add(new Artist("الاسبوع 1","kgfj"));
         artists.add(new Artist("الاسبوع 2","kfj"));
@@ -326,9 +323,9 @@ public class TrackProgressFragmentUser extends Fragment {
 
 //            parentObject = new ArrayList<>();
             if(weeks.isEmpty()) {
-                genres.add(new Genere(String.format("الشهر #%d", i + 1), artists));
+  //              genres.add(new Genere(String.format("الشهر #%d", i + 1), artists));
             }else {
-                genres.add(new Genere(String.format("الشهر #%d", i + 1), weeks));
+//                genres.add(new Genere(String.format("الشهر #%d", i + 1), weeks));
             }
 
 
@@ -633,14 +630,14 @@ public class TrackProgressFragmentUser extends Fragment {
         monthCountRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-                for (int i = 0; i < genres.size(); i++) {
-                    if (position == 0)
-                        counterWeek = (int) dataSnapshot.child("Month 1").getChildrenCount();
-                    if (position == 1)
-                        counterWeek = (int) dataSnapshot.child("Month 2").getChildrenCount();
-                    if (position ==2)
-                        counterWeek = (int) dataSnapshot.child("Month 3").getChildrenCount();
-                }
+//                for (int i = 0; i < genres.size(); i++) {
+//                    if (position == 0)
+//                        counterWeek = (int) dataSnapshot.child("Month 1").getChildrenCount();
+//                    if (position == 1)
+//                        counterWeek = (int) dataSnapshot.child("Month 2").getChildrenCount();
+//                    if (position ==2)
+//                        counterWeek = (int) dataSnapshot.child("Month 3").getChildrenCount();
+//                }
 //                    for (int j = 0; j < counterWeek; j++) {
 //
 //                        items.add(new PeopleAdapter.PeopleListItem("9348", String.format("الاسبوع #%d", j + 1)));
@@ -654,13 +651,13 @@ public class TrackProgressFragmentUser extends Fragment {
 //                }
                 //genres.add(new Genere(String.format("الشهر #%d",1),artists));
                 //mAdapter.notifyDataSetChanged();
-                genres = new ArrayList<>();
+  //              genres = new ArrayList<>();
                 for(int i=0;i< counterMonth;i++)
                 {
 //            parentObject = new ArrayList<>();
-                    genres.add(new Genere(String.format("الشهر #%d",i+1),weeks));
+//                    genres.add(new Genere(String.format("الشهر #%d",i+1),weeks));
                 }
-                genres.size();
+            //    genres.size();
                 artists.size();
 //                ExpandableAdapter e =new ExpandableAdapter(genres);
 //                mRecyclerView.setAdapter(e);

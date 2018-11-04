@@ -154,6 +154,10 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
         videoView = findViewById(R.id.video);
 
+        recyclerViewHistory.setHasFixedSize(true);
+        recyclerViewHistory.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
+                LinearLayoutManager.VERTICAL, false));
+
 
         spaceNavigationView.initWithSaveInstanceState(savedInstanceState);
         spaceNavigationView.addSpaceItem(new SpaceItem("التمرين السابق",R.color.transparent));
@@ -710,9 +714,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
             }
             getSetsHistory();
             Toast.makeText(ActivityInsideExercise.this, "تم التحديث", Toast.LENGTH_SHORT).show();
-
             setsList.size();
-            setsToUpdate.size();
 
 //
 //            setsToUpdate.get(setsToUpdate.size() - 1).setVolume(String.valueOf(sumVolume));
@@ -772,14 +774,11 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
                 }else {
                     historyText.setVisibility(View.GONE);
-                    historyAdapter = new HistoryAdapter(setsHistory, getApplicationContext());
+                    recyclerViewHistory.setVisibility(View.VISIBLE);
+                    historyAdapter = new HistoryAdapter(setsHistory, ActivityInsideExercise.this);
                     recyclerViewHistory.setAdapter(historyAdapter);
-                    recyclerViewHistory.setHasFixedSize(true);
-                    recyclerViewHistory.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
-                            LinearLayoutManager.VERTICAL, false));
                     historyAdapter.notifyDataSetChanged();
                 }
-
             }
 
             @Override
