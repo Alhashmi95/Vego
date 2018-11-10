@@ -48,6 +48,7 @@ import com.vego.vego.Adapters.IngredientsAdapter;
 import com.vego.vego.Adapters.toolbarAdapter;
 import com.vego.vego.Adapters.toolbarAdapterWeek;
 import com.vego.vego.R;
+import com.vego.vego.Storage.UserSharedPreferences;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.MonthMeal;
@@ -61,11 +62,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import static android.content.ContentValues.TAG;
 
 
-/**j
+/**
+ * j
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link AddMealsFragment.OnFragmentInteractionListener} interface
@@ -467,7 +470,7 @@ public class AddMealsFragment extends Fragment {
         addMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (counterMonth <= 12) {
+                if (counterMonth <= 3) {
                     addMonth.setEnabled(false);
                     //tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(counterMonth)));
 
@@ -509,7 +512,7 @@ public class AddMealsFragment extends Fragment {
 
                 } else {
                     Toast.makeText(getContext(),
-                            "لا يمكنك اضافة اكثر من 12 شهر", Toast.LENGTH_SHORT).show();
+                            "لا يمكنك اضافة اكثر من 4 أشهر", Toast.LENGTH_SHORT).show();
                 }
                 //databasaeReference.child("users").child(firebaseAuth.getUid()).child("Exercises").setValue(a);
 
@@ -1592,6 +1595,7 @@ public class AddMealsFragment extends Fragment {
                 String s = arrayList.get(position);
                 Log.d("test", "thid dfjkdl : " + s);
                 choosenUser = arrayList2.get(position);
+                UserSharedPreferences.storeChosenUser(getContext(), choosenUser);
                 // choosenUser = selectedItemText;
                 usersprofile = FirebaseDatabase.getInstance().getReference();
                 usersprofile.child(choosenUser);
@@ -1627,7 +1631,7 @@ public class AddMealsFragment extends Fragment {
         arrayList = new ArrayList<>();
         arrayList2 = new ArrayList<>();
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -1646,7 +1650,7 @@ public class AddMealsFragment extends Fragment {
                     UserInfo userinfo = dataSnapshot.getValue(UserInfo.class);
                     // arrayList.add(dataSnapshot1.getKey());
 
-                    if(!FirebaseAuth.getInstance().getCurrentUser().getUid().equals(dataSnapshot1.getKey())) {
+                    if (!FirebaseAuth.getInstance().getCurrentUser().getUid().equals(dataSnapshot1.getKey())) {
                         arrayList.add(dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
                         arrayList2.add(dataSnapshot1.getKey());
                         spinnerArrayAdapter.notifyDataSetChanged();
@@ -1661,6 +1665,12 @@ public class AddMealsFragment extends Fragment {
 
                     //   Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
 
+                }
+                choosenUser = UserSharedPreferences.fetchChosenUser(Objects.requireNonNull(getContext()));
+                for (int i = 0; i < arrayList2.size(); i++) {
+                    if (choosenUser.equals(arrayList2.get(i))) {
+                        spSelectUser.setSelection(i);
+                    }
                 }
                 //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
 
@@ -1878,7 +1888,7 @@ public class AddMealsFragment extends Fragment {
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mealAll = (int)dataSnapshot.getChildrenCount();
+                mealAll = (int) dataSnapshot.getChildrenCount();
             }
 
             @Override
@@ -1915,12 +1925,13 @@ public class AddMealsFragment extends Fragment {
         });
 
     }
-    public void getAllMealsCount(){
+
+    public void getAllMealsCount() {
         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("meals");
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mealAll = (int)dataSnapshot.getChildrenCount();
+                mealAll = (int) dataSnapshot.getChildrenCount();
                 selectedMeal();
             }
 
@@ -1930,7 +1941,8 @@ public class AddMealsFragment extends Fragment {
             }
         });
     }
-    public void retriveMealToEdit(){
+
+    public void retriveMealToEdit() {
         progressBar.setVisibility(View.VISIBLE);
 
         //reach to meal to edit
@@ -1970,7 +1982,7 @@ public class AddMealsFragment extends Fragment {
                             });
 
 
-                }else {
+                } else {
                     mealName.setText("");
                     cals.setText("");
                     mealImg.setImageResource(R.drawable.ic_meal);
@@ -1986,25 +1998,27 @@ public class AddMealsFragment extends Fragment {
         });
 
     }
-    public void showIngrsAndDetails(){
+
+    public void showIngrsAndDetails() {
         recyclerViewIngr.setVisibility(View.VISIBLE);
         recyclerViewDet.setVisibility(View.VISIBLE);
 
 
         // هذا الكود لربط الكارد فيو
 
-        adapterIngr = new IngredientsAdapter(dayMealObject.getIngredients(),getContext());
+        adapterIngr = new IngredientsAdapter(dayMealObject.getIngredients(), getContext());
         recyclerViewIngr.setAdapter(adapterIngr);
         adapterIngr.notifyDataSetChanged();
 
-        adapterDet = new ElementsAdapter(dayMealObject.getElements(),getContext());
+        adapterDet = new ElementsAdapter(dayMealObject.getElements(), getContext());
         recyclerViewDet.setAdapter(adapterDet);
         adapterDet.notifyDataSetChanged();
     }
+
     private void selectMonth() {
 
 
-        if(position == 0) {
+        if (position == 0) {
             chosenMonth = "0";
             if (positionWeek == 0) {
                 chosenWeek = "week1";
@@ -2049,7 +2063,7 @@ public class AddMealsFragment extends Fragment {
                 chosenWeek = "week4";
             }
         }
-        if(position == 3) {
+        if (position == 3) {
             chosenMonth = "3";
             if (positionWeek == 0) {
                 chosenWeek = "week1";
@@ -2094,7 +2108,7 @@ public class AddMealsFragment extends Fragment {
                 chosenWeek = "week4";
             }
         }
-        if(position == 6) {
+        if (position == 6) {
             chosenMonth = "6";
             if (positionWeek == 0) {
                 chosenWeek = "week1";
@@ -2139,7 +2153,7 @@ public class AddMealsFragment extends Fragment {
                 chosenWeek = "week4";
             }
         }
-        if(position == 9) {
+        if (position == 9) {
             chosenMonth = "9";
             if (positionWeek == 0) {
                 chosenWeek = "week1";

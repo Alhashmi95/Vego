@@ -160,7 +160,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         }
         if(mu.equals("سواعد")){
             Picasso.get()
-                    .load(R.drawable.mu_bavk)
+                    .load(R.drawable.mu_swa3d)
                     //.placeholder(R.drawable.ic_loading)
                     .fit()
                     .centerCrop()

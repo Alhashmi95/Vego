@@ -53,6 +53,7 @@ import com.vego.vego.Adapters.NewElementAdapter;
 import com.vego.vego.Adapters.NewSetAdapter;
 import com.vego.vego.Adapters.toolbarAdapter;
 import com.vego.vego.R;
+import com.vego.vego.Storage.UserSharedPreferences;
 import com.vego.vego.model.DayMeals;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.Exercises;
@@ -68,6 +69,7 @@ import com.vego.vego.model.sets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -330,6 +332,10 @@ public class Add_workout2user extends Fragment {
 
 
 
+
+
+
+
         //===================================== Defalut for Exercises
 
         sets[] setsArray = new sets[] {new sets("","", "","")};
@@ -435,7 +441,7 @@ public class Add_workout2user extends Fragment {
         addMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(counterMonth  <=11) {
+                if(counterMonth  <=3) {
                     addMonth.setEnabled(false);
                     //tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(counterMonth)));
 
@@ -472,7 +478,8 @@ public class Add_workout2user extends Fragment {
                     });
                 }else {
                     Toast.makeText(getContext(),
-                            "لا يمكنك اضافة اكثر من 12 شهر",Toast.LENGTH_SHORT).show();
+                            "لا يمكنك اضافة اكثر من 4 " +
+                                    "أشهر",Toast.LENGTH_SHORT).show();
                 }
                 //databasaeReference.child("users").child(firebaseAuth.getUid()).child("Exercises").setValue(a);
 
@@ -1495,6 +1502,7 @@ public class Add_workout2user extends Fragment {
                     //------------------------------------------------------------------
                     //get exercise count after we choose a day
                     getExCount();
+                    spSelectEx.setSelection(0);
                 }
             }
 
@@ -1542,6 +1550,8 @@ public class Add_workout2user extends Fragment {
         spSelectUser.setAdapter(spinnerArrayAdapter);
         spinnerArrayAdapter.notifyDataSetChanged();
 
+
+
 //        Log.d("test",""+arrayList.size());
 
 
@@ -1554,6 +1564,7 @@ public class Add_workout2user extends Fragment {
                 String s = arrayList.get(position);
                 Log.d("test","thid dfjkdl : "+s);
                 choosenUser = arrayList2.get(position);
+                UserSharedPreferences.storeChosenUser(getContext(),choosenUser);
                 // choosenUser = selectedItemText;
                 usersprofile = FirebaseDatabase.getInstance().getReference();
                 usersprofile.child(choosenUser);
@@ -1595,7 +1606,7 @@ public class Add_workout2user extends Fragment {
         arrayList = new ArrayList<>();
         arrayList2 = new ArrayList<>();
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -1623,6 +1634,10 @@ public class Add_workout2user extends Fragment {
                         arrayList2.add(dataSnapshot1.getKey());
                         spinnerArrayAdapter.notifyDataSetChanged();
                     }
+                    //get chosenUser from shared preferences
+
+
+
 
 //                    Log.d("test","this is size of arr: "+ array.length);
 
@@ -1631,6 +1646,12 @@ public class Add_workout2user extends Fragment {
 
                     Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
 
+                }
+                choosenUser = UserSharedPreferences.fetchChosenUser(Objects.requireNonNull(getContext()));
+                for(int i =0; i < arrayList2.size(); i++){
+                    if(choosenUser.equals(arrayList2.get(i))){
+                        spSelectUser.setSelection(i);
+                    }
                 }
                 //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
 

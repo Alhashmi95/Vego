@@ -5,31 +5,31 @@
     <item
         android:id="@+id/trackProgress"
         android:icon="@drawable/ic_update_black_24dp"
-        android:title="المتابعة" />
+        android:title="" />
 
 
 
     <item
         android:id="@+id/wallet"
         android:icon="@drawable/toolbar_diet"
-        android:title="البرنامج الغذائي"/>
+        android:title=""/>
 
 
 
     <item
         android:id="@+id/setting"
         android:icon="@drawable/toolbar_workout"
-        android:title="التمارين"/>
+        android:title=""/>
 
     <item
         android:id="@+id/ExerciseForAll"
         android:icon="@drawable/forall3"
-        android:title="تمارين عامة"/>
+        android:title=""/>
 
     <item
         android:id="@+id/language"
         android:icon="@drawable/toolbar_support"
-        android:title="الدعم"/>
+        android:title=""/>
 
 
 

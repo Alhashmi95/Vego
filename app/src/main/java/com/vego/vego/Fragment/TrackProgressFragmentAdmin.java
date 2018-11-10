@@ -32,10 +32,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vego.vego.R;
+import com.vego.vego.Storage.UserSharedPreferences;
 import com.vego.vego.model.UserInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,7 +57,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
     boolean role;
 
     ArrayList<String> arrayList, arrayList2;
-    String choosenUser,choosenUser2, brief;
+    String choosenUser, choosenUser2, brief;
     Spinner spSelectUser, spSelectDay;
     ArrayAdapter<String> spinnerArrayAdapter;
     ProgressDialog p;
@@ -64,7 +66,6 @@ public class TrackProgressFragmentAdmin extends Fragment {
     String masterPassEnter = "";
 
     boolean checker = false;
-
 
 
     private FirebaseAuth firebaseAuth;
@@ -117,6 +118,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_track_progress_fragment_admin, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -139,13 +141,13 @@ public class TrackProgressFragmentAdmin extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
 
 
-
         getUsers();
         selectedUser();
 
 
     }
-    public void uploadBrief(){
+
+    public void uploadBrief() {
         updateWeights.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,34 +166,33 @@ public class TrackProgressFragmentAdmin extends Fragment {
                         }
                     });
                 } else {
-                        Toast.makeText(TrackProgressFragmentAdmin.this.getContext(), "Please Enter A Long brief ,,",
-                                Toast.LENGTH_LONG).show();
-                    }
-
+                    Toast.makeText(TrackProgressFragmentAdmin.this.getContext(), "Please Enter A Long brief ,,",
+                            Toast.LENGTH_LONG).show();
                 }
+
+            }
         });
 
     }
-    public void selectedUser(){
-        Spinner spSelectUser = getView().findViewById(R.id.selectUser);
+
+    public void selectedUser() {
+        spSelectUser = getView().findViewById(R.id.selectUser);
 
         // Initializing an ArrayAdapter
-        Log.d("test","frist  "+arrayList.size());
+        Log.d("test", "frist  " + arrayList.size());
         spinnerArrayAdapter = new ArrayAdapter<String>(
-                getContext(),R.layout.support_simple_spinner_dropdown_item,arrayList){
+                getContext(), R.layout.support_simple_spinner_dropdown_item, arrayList) {
             @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
+            public boolean isEnabled(int position) {
+                if (position == 0) {
                     // Disable the first item from Spinner
                     // First item will be use for hint
                     return true;
-                }
-                else
-                {
+                } else {
                     return true;
                 }
             }
+
             @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
@@ -214,16 +215,15 @@ public class TrackProgressFragmentAdmin extends Fragment {
 //        Log.d("test",""+arrayList.size());
 
 
-
-
         spSelectUser.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
                 String s = arrayList.get(position);
-                Log.d("test","thid dfjkdl : "+s);
+                Log.d("test", "thid dfjkdl : " + s);
                 choosenUser = arrayList2.get(position);
                 choosenUser2 = arrayList.get(position);
+                UserSharedPreferences.storeChosenUser(getContext(), choosenUser);
                 getWeights();
                 changeRole();
                 uploadBrief();
@@ -240,7 +240,6 @@ public class TrackProgressFragmentAdmin extends Fragment {
                         (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
                         .show();
             }
-
 
 
             @Override
@@ -264,9 +263,9 @@ public class TrackProgressFragmentAdmin extends Fragment {
 //                arrayList2.add(0, "اختر متدرب");
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    String email =  dataSnapshot1.child("Profile").child("userEmail").getValue(String.class);
+                    String email = dataSnapshot1.child("Profile").child("userEmail").getValue(String.class);
 
-                    Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +  dataSnapshot1.getKey());
+                    Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" + dataSnapshot1.getKey());
 
                     Log.d("test", "this is DATAAADDDD&&&OOOOMMM :" +
                             dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
@@ -276,7 +275,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
                     // arrayList.add(dataSnapshot1.getKey());
 
 
-                    if(!firebaseAuth.getCurrentUser().getUid().equals(dataSnapshot1.getKey())) {
+                    if (!firebaseAuth.getCurrentUser().getUid().equals(dataSnapshot1.getKey())) {
                         arrayList.add(dataSnapshot1.child("Profile").child("userEmail").getValue(String.class));
                         arrayList2.add(dataSnapshot1.getKey());
                     }
@@ -292,6 +291,12 @@ public class TrackProgressFragmentAdmin extends Fragment {
                     //   Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
 
                 }
+                choosenUser = UserSharedPreferences.fetchChosenUser(Objects.requireNonNull(getContext()));
+                for (int i = 0; i < arrayList2.size(); i++) {
+                    if (choosenUser.equals(arrayList2.get(i))) {
+                        spSelectUser.setSelection(i);
+                    }
+                }
                 //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
 
 
@@ -304,7 +309,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
         });
     }
 
-   public void changeRole(){
+    public void changeRole() {
         radioButtonTrue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -335,10 +340,9 @@ public class TrackProgressFragmentAdmin extends Fragment {
                             DatabaseReference databasaeReference = firebaseDatabase.getReference();
 
 
-
                             databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
                                     .setValue(String.valueOf(role));
-                        }else {
+                        } else {
                             Toast.makeText(getContext(), "كلمة المرور غير صحيحة", Toast.LENGTH_LONG).show();
                             radioButtonTrue.setChecked(false);
                         }
@@ -356,9 +360,8 @@ public class TrackProgressFragmentAdmin extends Fragment {
 
                 alert.show();
 
-                    }
-                });
-
+            }
+        });
 
 
         radioButtonFalse.setOnClickListener(new View.OnClickListener() {
@@ -391,10 +394,9 @@ public class TrackProgressFragmentAdmin extends Fragment {
                             DatabaseReference databasaeReference = firebaseDatabase.getReference();
 
 
-
                             databasaeReference.child("users").child(choosenUser).child("Profile").child("isAdmin")
                                     .setValue(String.valueOf(role));
-                        }else {
+                        } else {
                             Toast.makeText(getContext(), "كلمة المرور غير صحيحة", Toast.LENGTH_LONG).show();
                             radioButtonFalse.setChecked(false);
                         }
@@ -416,15 +418,14 @@ public class TrackProgressFragmentAdmin extends Fragment {
         });
 
 
+    }
 
-   }
-    public void getWeights(){
+    public void getWeights() {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         DatabaseReference databaseReference2 = firebaseDatabase.getReference().child("users")
                 .child(choosenUser).child("Profile");
-
 
 
         databaseReference2.addValueEventListener(new ValueEventListener() {
@@ -435,7 +436,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
 
 
                 currentWeight.setText(userinfo.getWeight());
-             //   perfectWeight.setText(userinfo.getAdminBrief());
+                //   perfectWeight.setText(userinfo.getAdminBrief());
                 previousWeight.setText(userinfo.getPreviousWeight());
 
             }

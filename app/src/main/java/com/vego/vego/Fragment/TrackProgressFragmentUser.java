@@ -331,11 +331,11 @@ public class TrackProgressFragmentUser extends Fragment {
 
         }
         adapter = new PeopleAdapter(getContext());
-        adapter.setMode(ExpandableRecyclerAdapter.MODE_ACCORDION);
+        //adapter.setMode(ExpandableRecyclerAdapter.MODE_ACCORDION);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);
 
-        adapter.setItems(items);
+        //adapter.setItems(items);
         adapter.notifyDataSetChanged();
 
         adapter.setOnItemClickListener(new ExpandableRecyclerAdapter.OnItemClickListener() {
@@ -344,7 +344,7 @@ public class TrackProgressFragmentUser extends Fragment {
                 tooltips.closeTooltipImmediately();
                 position = pos;
                 getWeeks();
-                getmonthData();
+                //getmonthData();
             }
         });
 

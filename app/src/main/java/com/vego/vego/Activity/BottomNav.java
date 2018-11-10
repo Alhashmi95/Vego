@@ -11,8 +11,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -74,6 +77,8 @@ public class BottomNav extends AppCompatActivity {
     private Toast toast = null;
 
     AccountHeader headerResult;
+
+
 
 
 
@@ -199,9 +204,9 @@ public class BottomNav extends AppCompatActivity {
 
                 //create the drawer and remember the `Drawer` result object
                 //if you want to update the items at a later time it is recommended to keep it in a variable
-                PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Home");
-                PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("Profile");
-                PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("Logout");
+                PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("الصفحة الرئيسية");
+                PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("الملف الشخصي");
+                PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("تسجيل الخروج");
 
 
                 //     toolbar.setNavigationIcon(R.drawable.icons_calendar_px_);
@@ -283,7 +288,7 @@ public class BottomNav extends AppCompatActivity {
                     f = new FragmentWallet();
                     break;
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fContr , f).commit()  ;
+            replaceFragment(f, null, true, true);
             return true;}
     };
 
@@ -300,7 +305,7 @@ public class BottomNav extends AppCompatActivity {
                     @Override
                     public void onResult(Status status) {
                         // ...
-                        Toast.makeText(getApplicationContext(),"Logged Out",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"تم تسجيل الخروج",Toast.LENGTH_SHORT).show();
                         Intent i=new Intent(getApplicationContext(),HomeActivity.class);
                         startActivity(i);
                     }
@@ -332,7 +337,7 @@ public class BottomNav extends AppCompatActivity {
             super.onBackPressed();
         } else {
             this.backPressedToExitOnce = true;
-            showToast("Press again to exit");
+            showToast("اضغط مرة اخرى لإغلاق التطبيق");
             new Handler().postDelayed(new Runnable() {
 
                 @Override
@@ -378,5 +383,37 @@ public class BottomNav extends AppCompatActivity {
     protected void onPause() {
         killToast();
         super.onPause();
+    }
+    /**
+     * replace or add fragment to the container
+     *
+     * @param fragment pass android.support.v4.app.Fragment
+     * @param bundle pass your extra bundle if any
+     * @param popBackStack if true it will clear back stack
+     * @param findInStack if true it will load old fragment if found
+     */
+    public void replaceFragment(Fragment fragment, @Nullable Bundle bundle, boolean popBackStack, boolean findInStack) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        String tag = fragment.getClass().getName();
+        Fragment parentFragment;
+        if (findInStack && fm.findFragmentByTag(tag) != null) {
+            parentFragment = fm.findFragmentByTag(tag);
+        } else {
+            parentFragment = fragment;
+        }
+        // if user passes the @bundle in not null, then can be added to the fragment
+        if (bundle != null)
+            parentFragment.setArguments(bundle);
+        else parentFragment.setArguments(null);
+        // this is for the very first fragment not to be added into the back stack.
+        if (popBackStack) {
+            fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        } else {
+            ft.addToBackStack(parentFragment.getClass().getName() + "");
+        }
+        ft.replace(R.id.fContr, parentFragment, tag);
+        ft.commit();
+        fm.executePendingTransactions();
     }
 }
