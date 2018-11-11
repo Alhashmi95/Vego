@@ -65,7 +65,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="178dp"
-        android:layout_marginHorizontal="25dp"
         android:layout_marginVertical="20dp"
         android:background="@drawable/custom_edit_text_white">
 
@@ -131,10 +130,12 @@
 
         <TextView
             android:id="@+id/textView21"
-            android:layout_width="79dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/imageView7"
             android:layout_alignBottom="@+id/tvPreviousWeight"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="0dp"
+            android:layout_toLeftOf="@+id/imageView7"
             android:text="الوزن السابق"
             android:textColor="@color/blackGrey" />
 
@@ -143,6 +144,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tvCurrentWeight"
+            android:layout_marginRight="10dp"
+
             android:layout_toLeftOf="@+id/imageView6"
             android:text="الوزن الحالي"
             android:textColor="@color/blackGrey" />
@@ -151,11 +154,15 @@
             android:id="@+id/imageView6"
             android:layout_width="50dp"
             android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/imageView7"
+            android:layout_alignLeft="@+id/imageView7"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="35dp"
             android:layout_marginBottom="30dp"
-            app:srcCompat="@drawable/balance"
-            android:layout_alignLeft="@+id/imageView7" />
+            app:srcCompat="@drawable/balance" />
 
         <ImageView
             android:id="@+id/imageView7"
@@ -163,7 +170,7 @@
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="65dp"
+            android:layout_marginEnd="25dp"
             android:layout_marginTop="30dp"
             app:srcCompat="@drawable/balance"
             android:layout_alignParentRight="true"
