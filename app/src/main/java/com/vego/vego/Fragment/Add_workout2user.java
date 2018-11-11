@@ -298,6 +298,10 @@ public class Add_workout2user extends Fragment {
 
         p = new ProgressDialog(getContext());
 
+        p.setTitle("تحميل");
+        p.setMessage("يرجى الانتظار");
+        p.show();
+
         childlistrner();
 
 
@@ -327,6 +331,9 @@ public class Add_workout2user extends Fragment {
         selectMu();
         getCountImages();
         saveExerciseToUser();
+
+        addNewSet.setVisibility(View.INVISIBLE);
+
 
 
 
@@ -689,9 +696,9 @@ public class Add_workout2user extends Fragment {
 
 
                 profileName.setText(userinfo.getName());
-                profileAge.setText(userinfo.getAge());
-                profileWeight.setText(userinfo.getWeight());
-                profileHeight.setText(userinfo.getHeight());
+                profileAge.setText(userinfo.getAge()+" سنة");
+                profileWeight.setText(userinfo.getWeight()+" كغ");
+                profileHeight.setText(userinfo.getHeight()+" سم");
                 profileActivity.setText(userinfo.getUserActivity());
                 profileGoal.setText(userinfo.getUserGoal());
             }
@@ -719,244 +726,244 @@ public class Add_workout2user extends Fragment {
 //                }
 
                 // check if there's a chosen user and a chosen day
-                if(choosenUser.equals("اختر متدرب") || choosenDay.equals("اختر يوم") ||
-                        choosenMu.equals("اختر عضلة") || (choosenExNumber.equals("اختر تمرين"))
-                        || choosenEx.equals("اختر اسم التمرين")){
-                    Toast.makeText(getContext(),"please choose all spinners",Toast.LENGTH_SHORT).show();
-                }else {
+                if(exObject == null) {
+                    if (choosenUser.equals("اختر متدرب") || choosenDay.equals("اختر يوم") ||
+                            choosenMu.equals("اختر عضلة") || (choosenExNumber.equals("اختر تمرين"))
+                            || choosenEx.equals("اختر اسم التمرين")) {
+                        Toast.makeText(getContext(), "الرجاء تحديد جميع التفاصيل من القوائم في الأعلى", Toast.LENGTH_SHORT).show();
+                        p.dismiss();
+                    } else {
 
 
-                    DatabaseReference databaseReferenceDay = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
-                            .child(choosenDay).child("day");
-
-                    DatabaseReference databaseReferenceMu = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek).child(choosenDay).child("targetedmuscles");
-
-                    databaseReferenceExCount = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek).child(choosenDay).child("exercisecount");
-
-
-
-                    //add meals to corresponding user and day
-                    DatabaseReference databaseReference1 = firebaseDatabaseMeal.getReference().child("users")
-                            .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
-                            .child(choosenDay).child("exercise")
-                            .child(getChoosenExNumberIndex);
-                    if(choosenDay.equals("0")){
-                        FirebaseDatabase f = FirebaseDatabase.getInstance();
-
-                        DatabaseReference databaseReference = f.getReference().child("users")
+                        DatabaseReference databaseReferenceDay = firebaseDatabaseMeal.getReference().child("users")
                                 .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("exercise");
+                                .child(choosenDay).child("day");
 
-                        databaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                //Note ** : ondatachange discards the value of arraylist after it finishs
-                                indexOfExDay1 = (int) dataSnapshot.getChildrenCount();
+                        DatabaseReference databaseReferenceMu = firebaseDatabaseMeal.getReference().child("users")
+                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek).child(choosenDay).child("targetedmuscles");
 
-                                Log.d("test","CCCCOOOUUNNNTT : "+indexOfExDay1);
-
-                            }
+                        databaseReferenceExCount = firebaseDatabaseMeal.getReference().child("users")
+                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek).child(choosenDay).child("exercisecount");
 
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-
-
-                        });
-
-                       // exCounterD1 = exCounterD1 +1;
-                    }
-                    if(choosenDay.equals("1")){
-                        FirebaseDatabase f = FirebaseDatabase.getInstance();
-
-                        DatabaseReference databaseReference = f.getReference().child("users")
+                        //add meals to corresponding user and day
+                        DatabaseReference databaseReference1 = firebaseDatabaseMeal.getReference().child("users")
                                 .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("exercise");
+                                .child(choosenDay).child("exercise")
+                                .child(getChoosenExNumberIndex);
+                        if (choosenDay.equals("0")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
 
-                        databaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                //Note ** : ondatachange discards the value of arraylist after it finishs
-                                indexOfExDay2 = (int) dataSnapshot.getChildrenCount();
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
 
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay1 = (int) dataSnapshot.getChildrenCount();
 
-                            }
+                                    Log.d("test", "CCCCOOOUUNNNTT : " + indexOfExDay1);
 
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-
-
-                        });
-                    }
-                    if(choosenDay.equals("2")){
-                        FirebaseDatabase f = FirebaseDatabase.getInstance();
-
-                        DatabaseReference databaseReference = f.getReference().child("users")
-                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("exercise");
-
-                        databaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                //Note ** : ondatachange discards the value of arraylist after it finishs
-                                indexOfExDay3 = (int) dataSnapshot.getChildrenCount();
+                                }
 
 
-                            }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
 
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            });
 
-                            }
+                            // exCounterD1 = exCounterD1 +1;
+                        }
+                        if (choosenDay.equals("1")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
 
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
 
-                        });
-                    }
-                    if(choosenDay.equals("3")){
-                        FirebaseDatabase f = FirebaseDatabase.getInstance();
-
-                        DatabaseReference databaseReference = f.getReference().child("users")
-                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("exercise");
-
-                        databaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                //Note ** : ondatachange discards the value of arraylist after it finishs
-                                indexOfExDay4 = (int) dataSnapshot.getChildrenCount();
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay2 = (int) dataSnapshot.getChildrenCount();
 
 
-                            }
+                                }
 
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            }
-
-
-                        });
-                    }
-                    if(choosenDay.equals("4")){
-                        FirebaseDatabase f = FirebaseDatabase.getInstance();
-
-                        DatabaseReference databaseReference = f.getReference().child("users")
-                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("exercise");
-
-                        databaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                //Note ** : ondatachange discards the value of arraylist after it finishs
-                                indexOfExDay5 = (int) dataSnapshot.getChildrenCount();
+                                }
 
 
-                            }
+                            });
+                        }
+                        if (choosenDay.equals("2")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay3 = (int) dataSnapshot.getChildrenCount();
 
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
+                                }
 
 
-                        });
-                    }
-                    if(choosenDay.equals("5")){
-                        FirebaseDatabase f = FirebaseDatabase.getInstance();
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        DatabaseReference databaseReference = f.getReference().child("users")
-                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("exercise");
-
-                        databaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                //Note ** : ondatachange discards the value of arraylist after it finishs
-                                indexOfExDay6 = (int) dataSnapshot.getChildrenCount();
+                                }
 
 
-                            }
+                            });
+                        }
+                        if (choosenDay.equals("3")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay4 = (int) dataSnapshot.getChildrenCount();
 
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
+                                }
 
 
-                        });
-                    }
-                    if(choosenDay.equals("6")){
-                        FirebaseDatabase f = FirebaseDatabase.getInstance();
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        DatabaseReference databaseReference = f.getReference().child("users")
-                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
-                                .child(choosenDay).child("exercise");
-
-                        databaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                //Note ** : ondatachange discards the value of arraylist after it finishs
-                                indexOfExDay7 = (int) dataSnapshot.getChildrenCount();
+                                }
 
 
-                            }
+                            });
+                        }
+                        if (choosenDay.equals("4")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay5 = (int) dataSnapshot.getChildrenCount();
 
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
+                                }
 
 
-                        });
-                    }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
 
 
-                    int chossenDayInt =Integer.valueOf(choosenDay)+1;
-                    databaseReferenceDay.setValue(String.valueOf(chossenDayInt));
+                            });
+                        }
+                        if (choosenDay.equals("5")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay6 = (int) dataSnapshot.getChildrenCount();
 
 
-                 //   databaseReferenceExCount.setValue(String.valueOf(exCounterD1));
+                                }
 
 
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
 
 
+                            });
+                        }
+                        if (choosenDay.equals("6")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
 
-                    for(int i = 0; i < setsArrayList.size(); i++){
-                        if(newSetAdapter.getSetsArray().get(i).getReps().isEmpty()){
-                            Toast.makeText(getContext(),"الرجاء تحديد جميع التكرارات",Toast.LENGTH_SHORT).show();
-                            checker = false;
-                        }else {
-                            checker = true;
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay7 = (int) dataSnapshot.getChildrenCount();
+
+
+                                }
+
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+
+
+                            });
                         }
 
-                    }
-                    if(checker){
-                        eTest.setSets(setsArrayList);
+
+                        int chossenDayInt = Integer.valueOf(choosenDay) + 1;
+                        databaseReferenceDay.setValue(String.valueOf(chossenDayInt));
 
 
+                        //   databaseReferenceExCount.setValue(String.valueOf(exCounterD1));
 
-                        databaseReferenceMu.setValue(eTest.getTargetedmuscle());
 
-                        databaseReference1.setValue(eTest).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getContext(),"تم اضافة التمرين",Toast.LENGTH_SHORT).show();
+                        for (int i = 0; i < setsArrayList.size(); i++) {
+                            if (newSetAdapter.getSetsArray().get(i).getReps().isEmpty()) {
+                                Toast.makeText(getContext(), "الرجاء تحديد جميع التكرارات", Toast.LENGTH_SHORT).show();
                                 p.dismiss();
+                                checker = false;
+                            } else {
+                                checker = true;
+                            }
 
-                                getUsers();
-                                childlistrnerForEx();
+                        }
+                        if (checker) {
+                            eTest.setSets(setsArrayList);
+ //                           exObject.setSets(setsArrayList);
+
+
+                            databaseReferenceMu.setValue(eTest.getTargetedmuscle());
+
+
+                            databaseReference1.setValue(eTest).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getContext(), "تم اضافة التمرين", Toast.LENGTH_SHORT).show();
+                                    p.dismiss();
+
+                                    //getUsers();
+                                    childlistrnerForEx();
 
 
 //                                spSelectDay.setSelection(0);
@@ -964,57 +971,346 @@ public class Add_workout2user extends Fragment {
 //                                spSelectMu.setSelection(0);
 
 
-                                if(choosenDay.equals("0")) {
-                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay1));
-                                }
-                                if(choosenDay.equals("1")) {
-                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay2));
-                                }
-                                if(choosenDay.equals("2")) {
-                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay3));
-                                }
-                                if(choosenDay.equals("3")) {
-                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay4));
-                                }
-                                if(choosenDay.equals("4")) {
-                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay5));
-                                }
-                                if(choosenDay.equals("5")) {
-                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay6));
-                                }
-                                if(choosenDay.equals("6")) {
-                                    databaseReferenceExCount.setValue(String.valueOf(indexOfExDay7));
-                                }
+                                    if (choosenDay.equals("0")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay1));
+                                    }
+                                    if (choosenDay.equals("1")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay2));
+                                    }
+                                    if (choosenDay.equals("2")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay3));
+                                    }
+                                    if (choosenDay.equals("3")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay4));
+                                    }
+                                    if (choosenDay.equals("4")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay5));
+                                    }
+                                    if (choosenDay.equals("5")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay6));
+                                    }
+                                    if (choosenDay.equals("6")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay7));
+                                    }
 
 
-                                //add if statment
+                                    //add if statment
 
 
 //                                tt = tt + 1;
 //                                ex.add("تمرين "+String.valueOf(tt));
 
-                             //   getExCount();
+                                    //   getExCount();
 
 
-
-           //                     spinnerArrayAdapter.notifyDataSetChanged();
+                                    //                     spinnerArrayAdapter.notifyDataSetChanged();
 
 //                            Intent intent= new Intent(getContext(), AdminActivity.class);
 //
 //                            getContext().startActivity(intent);
-                            }
-                        });
-                        getUsers();
-                        childlistrnerForEx();
-                        getExCount();
+                                }
+                            });
+                            //getUsers();
+                            childlistrnerForEx();
+                            getExCount();
+
+
+                        }
 
 
                     }
+                }else {
+                    if (choosenUser.equals("اختر متدرب") || choosenDay.equals("اختر يوم") ||
+                             (choosenExNumber.equals("اختر تمرين"))) {
+                        Toast.makeText(getContext(), "الرجاء تحديد اليوم ورقم التمرين", Toast.LENGTH_SHORT).show();
+                        p.dismiss();
+                    } else {
 
 
+                        DatabaseReference databaseReferenceDay = firebaseDatabaseMeal.getReference().child("users")
+                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("day");
+
+                        DatabaseReference databaseReferenceMu = firebaseDatabaseMeal.getReference().child("users")
+                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek).child(choosenDay).child("targetedmuscles");
+
+                        databaseReferenceExCount = firebaseDatabaseMeal.getReference().child("users")
+                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek).child(choosenDay).child("exercisecount");
 
 
+                        //add meals to corresponding user and day
+                        DatabaseReference databaseReference1 = firebaseDatabaseMeal.getReference().child("users")
+                                .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                .child(choosenDay).child("exercise")
+                                .child(getChoosenExNumberIndex);
+                        if (choosenDay.equals("0")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
 
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay1 = (int) dataSnapshot.getChildrenCount();
+
+                                    Log.d("test", "CCCCOOOUUNNNTT : " + indexOfExDay1);
+
+                                }
+
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+
+
+                            });
+
+                            // exCounterD1 = exCounterD1 +1;
+                        }
+                        if (choosenDay.equals("1")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay2 = (int) dataSnapshot.getChildrenCount();
+
+
+                                }
+
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+
+
+                            });
+                        }
+                        if (choosenDay.equals("2")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay3 = (int) dataSnapshot.getChildrenCount();
+
+
+                                }
+
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+
+
+                            });
+                        }
+                        if (choosenDay.equals("3")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay4 = (int) dataSnapshot.getChildrenCount();
+
+
+                                }
+
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+
+
+                            });
+                        }
+                        if (choosenDay.equals("4")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay5 = (int) dataSnapshot.getChildrenCount();
+
+
+                                }
+
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+
+
+                            });
+                        }
+                        if (choosenDay.equals("5")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay6 = (int) dataSnapshot.getChildrenCount();
+
+
+                                }
+
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+
+
+                            });
+                        }
+                        if (choosenDay.equals("6")) {
+                            FirebaseDatabase f = FirebaseDatabase.getInstance();
+
+                            DatabaseReference databaseReference = f.getReference().child("users")
+                                    .child(choosenUser).child("Exercises").child(chosenMonth).child(chosenWeek)
+                                    .child(choosenDay).child("exercise");
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //Note ** : ondatachange discards the value of arraylist after it finishs
+                                    indexOfExDay7 = (int) dataSnapshot.getChildrenCount();
+
+
+                                }
+
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+
+
+                            });
+                        }
+
+
+                        int chossenDayInt = Integer.valueOf(choosenDay) + 1;
+                        databaseReferenceDay.setValue(String.valueOf(chossenDayInt));
+
+
+                        //   databaseReferenceExCount.setValue(String.valueOf(exCounterD1));
+
+
+                        for (int i = 0; i < setsArrayList.size(); i++) {
+                            if (newSetAdapter.getSetsArray().get(i).getReps().isEmpty()) {
+                                Toast.makeText(getContext(), "الرجاء تحديد جميع التكرارات", Toast.LENGTH_SHORT).show();
+                                p.dismiss();
+                                checker = false;
+                            } else {
+                                checker = true;
+                            }
+
+                        }
+                        if (checker) {
+                            eTest.setSets(setsArrayList);
+                            exObject.setSets(setsArrayList);
+
+
+                            databaseReferenceMu.setValue(eTest.getTargetedmuscle());
+
+
+                            databaseReference1.setValue(eTest).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getContext(), "تم اضافة التمرين", Toast.LENGTH_SHORT).show();
+                                    p.dismiss();
+
+                                    //getUsers();
+                                    childlistrnerForEx();
+
+
+//                                spSelectDay.setSelection(0);
+//                                spSelectEx.setSelection(0);
+//                                spSelectMu.setSelection(0);
+
+
+                                    if (choosenDay.equals("0")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay1));
+                                    }
+                                    if (choosenDay.equals("1")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay2));
+                                    }
+                                    if (choosenDay.equals("2")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay3));
+                                    }
+                                    if (choosenDay.equals("3")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay4));
+                                    }
+                                    if (choosenDay.equals("4")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay5));
+                                    }
+                                    if (choosenDay.equals("5")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay6));
+                                    }
+                                    if (choosenDay.equals("6")) {
+                                        databaseReferenceExCount.setValue(String.valueOf(indexOfExDay7));
+                                    }
+
+
+                                    //add if statment
+
+
+//                                tt = tt + 1;
+//                                ex.add("تمرين "+String.valueOf(tt));
+
+                                    //   getExCount();
+
+
+                                    //                     spinnerArrayAdapter.notifyDataSetChanged();
+
+//                            Intent intent= new Intent(getContext(), AdminActivity.class);
+//
+//                            getContext().startActivity(intent);
+                                }
+                            });
+                            //getUsers();
+                            childlistrnerForEx();
+                            getExCount();
+
+
+                        }
+
+
+                    }
 
                 }
 //                eTest.setSets(setsArrayList);
@@ -1085,6 +1381,8 @@ public class Add_workout2user extends Fragment {
 
                 arrayListNamesEx = new ArrayList<>();
 
+                addNewSet.setVisibility(View.INVISIBLE);
+
 
 
 
@@ -1110,6 +1408,7 @@ public class Add_workout2user extends Fragment {
     public void exerciseNumber(){
         ex.add(0,"اختر تمرين");
         ex.add("تمرين 1");
+
 //                "اختر تمرين",
 //                "تمرين 1",
 //                "تمرين 2",
@@ -1161,6 +1460,10 @@ public class Add_workout2user extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
                 choosenExNumber = selectedItemText;
+
+
+
+
                 // If user change the default selection
                 if(choosenExNumber.equals("تمرين 1"))
                     getChoosenExNumberIndex = "0";
@@ -1199,6 +1502,8 @@ public class Add_workout2user extends Fragment {
                     Toast.makeText
                             (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
                             .show();
+
+
                 }
             }
 
@@ -1365,6 +1670,8 @@ public class Add_workout2user extends Fragment {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String selectedItemText = (String) parent.getItemAtPosition(position);
                     choosenEx = selectedItemText;
+
+                    addNewSet.setVisibility(View.VISIBLE);
                     //because first element is reserved as hint
                     for (int i = 0; i < arrayListObjectEx.size(); i++) {
                         Log.d("test","this is chosen EXXXXX Object"+arrayListObjectEx.get(i).getExername());
@@ -1647,6 +1954,7 @@ public class Add_workout2user extends Fragment {
                     Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
 
                 }
+                p.dismiss();
                 choosenUser = UserSharedPreferences.fetchChosenUser(Objects.requireNonNull(getContext()));
                 for(int i =0; i < arrayList2.size(); i++){
                     if(choosenUser.equals(arrayList2.get(i))){
@@ -1923,11 +2231,15 @@ public class Add_workout2user extends Fragment {
         databaseReference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                setsArrayList.clear();
                 exObject = dataSnapshot.getValue(exercise.class);
                 if (exObject != null && !exObject.getImage().isEmpty()) {
 //                    recyclerViewIngr.setVisibility(View.VISIBLE);
 //                    recyclerViewIngr.setVisibility(View.VISIBLE);
 
+                    addNewSet.setVisibility(View.VISIBLE);
+
+                    setsArrayList.addAll(exObject.getSets());
 
 
                     showExDetails();
@@ -1972,9 +2284,13 @@ public class Add_workout2user extends Fragment {
 
         if (getActivity()!=null) {
 
-            newSetAdapter = new NewSetAdapter(exObject.getSets(), this.getContext());
+            newSetAdapter = new NewSetAdapter(setsArrayList, this.getContext());
             recyclerView.setAdapter(newSetAdapter);
             newSetAdapter.notifyDataSetChanged();
+
+            //exObject.setSets(null);
+            eTest = exObject;
+
         }
     }
 

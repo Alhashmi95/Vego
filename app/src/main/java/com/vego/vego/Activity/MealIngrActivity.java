@@ -94,7 +94,7 @@ public class MealIngrActivity extends AppCompatActivity implements FragmentMealI
                 v.getContext().startActivity(intent);
                 finish();}
                 else {
-                    Toast.makeText(getBaseContext(),"هذه اخر وجبة",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MealIngrActivity.this,"هذه اخر وجبة",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -113,7 +113,7 @@ public class MealIngrActivity extends AppCompatActivity implements FragmentMealI
                     v.getContext().startActivity(intent);
                     finish();}
                 else {
-                    Toast.makeText(getBaseContext(),"هذه اول وجبة",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MealIngrActivity.this,"هذه اول وجبة",Toast.LENGTH_SHORT).show();
                 }
             }
         });

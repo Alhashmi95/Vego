@@ -311,8 +311,8 @@ public class AddMealsFragment extends Fragment {
         addMealForUser = view.findViewById(R.id.saveDayMeal);
 
         p = new ProgressDialog(getContext());
-        p.setTitle("Loading");
-        p.setMessage("Fetching data...");
+        p.setTitle("تحميل");
+        p.setMessage("يرجى الانتظار");
         p.show();
 
 
@@ -597,6 +597,7 @@ public class AddMealsFragment extends Fragment {
 
     public ArrayList<meal> getMeal() {
         arrayListMealsObject = new ArrayList<>();
+        arrayListMeals = new ArrayList<>();
 
         arrayListMeals.add(0, "اختر وجبة");
 //        spinnerArrayAdapter2.notifyDataSetChanged();
@@ -612,12 +613,12 @@ public class AddMealsFragment extends Fragment {
                 //Note ** : ondatachange discards the value of arraylist after it finishs
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    if (arrayListMealsObject.size() < mealAll)
+                    if (arrayListMealsObject.size() < mealAll) {
                         arrayListMealsObject.add(dataSnapshot1.getValue(meal.class));
-                    arrayListMeals.add(dataSnapshot1.getValue(meal.class).getName());
-                    Log.d("test", "this is meals : " + dataSnapshot1.getValue(meal.class));
+                        arrayListMeals.add(dataSnapshot1.getValue(meal.class).getName());
+                        Log.d("test", "this is meals : " + dataSnapshot1.getValue(meal.class));
 //                    spinnerArrayAdapter2.notifyDataSetChanged();
-
+                    }
 
                 }
 
@@ -1234,7 +1235,7 @@ public class AddMealsFragment extends Fragment {
                 }
                 // check if there's a chosen user and a chosen day
                 if (choosenUser.equals("اختر متدرب") || choosenDay.equals("اختر يوم")) {
-                    Toast.makeText(getContext(), "please choose day and user", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "الرجاء اختيار المتدرب و اليوم", Toast.LENGTH_SHORT).show();
                 } else {
                     p.show();
                     p.setMessage("جاري الحفظ ..");
@@ -1444,9 +1445,9 @@ public class AddMealsFragment extends Fragment {
 
 
                 profileName.setText(userinfo.getName());
-                profileAge.setText(userinfo.getAge());
-                profileWeight.setText(userinfo.getWeight());
-                profileHeight.setText(userinfo.getHeight());
+                profileAge.setText(userinfo.getAge()+" سنة");
+                profileWeight.setText(userinfo.getWeight()+" كغ");
+                profileHeight.setText(userinfo.getHeight()+" سم");
                 profileActivity.setText(userinfo.getUserActivity());
                 profileGoal.setText(userinfo.getUserGoal());
             }
@@ -1656,7 +1657,7 @@ public class AddMealsFragment extends Fragment {
                         spinnerArrayAdapter.notifyDataSetChanged();
                     }
 
-                    p.dismiss();
+
 
 //                    Log.d("test","this is size of arr: "+ array.length);
 
@@ -1666,6 +1667,7 @@ public class AddMealsFragment extends Fragment {
                     //   Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
 
                 }
+                p.dismiss();
                 choosenUser = UserSharedPreferences.fetchChosenUser(Objects.requireNonNull(getContext()));
                 for (int i = 0; i < arrayList2.size(); i++) {
                     if (choosenUser.equals(arrayList2.get(i))) {

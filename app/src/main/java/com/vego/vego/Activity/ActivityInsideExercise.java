@@ -215,7 +215,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(getBaseContext(), "هذا اول تمرين", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityInsideExercise.this, "هذا اول تمرين", Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     Log.d("onItemReselected ", "" + itemIndex + " " + itemName);
@@ -238,7 +238,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
                         finish();
                     }
                     else {
-                        Toast.makeText(getBaseContext(),"هذا اخر تمرين",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityInsideExercise.this,"هذا اخر تمرين",Toast.LENGTH_SHORT).show();
                     }
                 }
             }

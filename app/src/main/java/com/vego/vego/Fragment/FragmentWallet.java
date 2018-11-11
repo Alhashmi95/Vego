@@ -1,7 +1,6 @@
 package com.vego.vego.Fragment;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,20 +18,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.vego.vego.Adapters.DaysAdapterExercise;
-import com.vego.vego.Adapters.RecyclerViewAdapter;
+import com.vego.vego.Adapters.MusclesAdapter;
 import com.vego.vego.R;
-import com.vego.vego.model.Exercises;
 import com.vego.vego.model.Mucsle;
 import com.vego.vego.model.exercise;
-import com.vego.vego.model.sets;
 
 import java.util.ArrayList;
 
 public class FragmentWallet extends Fragment {
     ArrayList<exercise> ex2List = new ArrayList<>();
     RecyclerView myrv;
-    RecyclerViewAdapter myAdapter;
+    MusclesAdapter myAdapter;
     ArrayList<Mucsle> MuList = new ArrayList<>();
     String mucsleName;
 
@@ -145,7 +141,7 @@ public class FragmentWallet extends Fragment {
 
 
                 //Set adapter
-                myAdapter = new RecyclerViewAdapter(FragmentWallet.this.getContext(),MuList);
+                myAdapter = new MusclesAdapter(FragmentWallet.this.getContext(),MuList);
                 myrv.setAdapter(myAdapter);
                 myAdapter.notifyDataSetChanged();
 

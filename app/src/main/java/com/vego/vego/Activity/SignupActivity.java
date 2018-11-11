@@ -49,7 +49,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(validate()){
 
-                    progressDialog.setMessage("Registering ... please wait");
+                    progressDialog.setMessage("جاري التسجيل ... برجى الانتظار");
                     progressDialog.show();
 
 
@@ -61,12 +61,12 @@ public class SignupActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(SignupActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupActivity.this, "تم التسجيل بنجاح", Toast.LENGTH_SHORT).show();
                                 progressDialog.hide();
                                 startActivity(new Intent(SignupActivity.this, UserDetails.class));
 
                             }else {
-                                Toast.makeText(SignupActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupActivity.this, "فشل التسجيل .. الرجاء المحاولة مرة أخرى", Toast.LENGTH_SHORT).show();
                                 progressDialog.hide();
 
                             }
@@ -98,17 +98,15 @@ public class SignupActivity extends AppCompatActivity {
 
 
         if(confirm.isEmpty() || password.isEmpty() || email.isEmpty()){
-            Toast.makeText(this, "Please enter all the details", Toast.LENGTH_SHORT).show();
-            userEmail.setError("enter your email");
-            userPassword.setError("enter your password");
+            //Toast.makeText(this, "الرجاء ادخال البريد الالكتروني وكلمة السر", Toast.LENGTH_SHORT).show();
+            userEmail.setError("الرجاء ادخال البريد الالكتروني");
+            userPassword.setError("الرجاء ادخال كلمة مرور");
         }else{
             if(userPassword.getText().toString().equals(confirmPassword.getText().toString())) {
                 result = true;
             }
             else{
-
-                Toast.makeText(this, "password doesnt match", Toast.LENGTH_SHORT).show();
-                confirmPassword.setError("password doesnt match");
+                confirmPassword.setError("تأكد من ادخال كلمة السر بشكل صحيح");
 
             }
         }

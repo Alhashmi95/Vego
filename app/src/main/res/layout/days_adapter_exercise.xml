@@ -27,9 +27,10 @@
                 android:layout_width="32dp"
                 android:layout_height="39dp"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/txtCals"
+                android:layout_toRightOf="@+id/txtCount"
+                android:layout_marginLeft="5dp"
                 app:srcCompat="@drawable/workoutcount"
-                android:layout_toLeftOf="@+id/txtCals" />
+                 />
 
             <!--<ImageView-->
                 <!--android:id="@+id/calsIcon"-->

@@ -13,18 +13,16 @@ import android.widget.TextView;
 import com.vego.vego.Activity.ActivityWorkoutUser;
 import com.vego.vego.R;
 import com.vego.vego.model.Mucsle;
-import com.vego.vego.model.exercise;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class MusclesAdapter extends RecyclerView.Adapter<MusclesAdapter.MyViewHolder> {
 
     private Context mContext ;
     private List<Mucsle> mData ;
 
 
-    public RecyclerViewAdapter(Context mContext, List<Mucsle> mData) {
+    public MusclesAdapter(Context mContext, List<Mucsle> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }

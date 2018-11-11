@@ -3,21 +3,13 @@ package com.vego.vego.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
 
 import com.vego.vego.Adapters.ExerciseAdapter;
-import com.vego.vego.Adapters.MealsAdapter;
-import com.vego.vego.Adapters.RecyclerViewAdapter;
-import com.vego.vego.Fragment.FragmentAddMealDetailes;
-import com.vego.vego.Fragment.FragmentWallet;
 import com.vego.vego.R;
-import com.vego.vego.model.Mucsle;
 import com.vego.vego.model.exercise;
-import com.vego.vego.model.meal;
 
 import java.util.ArrayList;
 import java.util.List;

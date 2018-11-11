@@ -124,8 +124,8 @@ public class TrackProgressFragmentAdmin extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         p = new ProgressDialog(getContext());
-        p.setTitle("Loading");
-        p.setMessage("Fetching data...");
+        p.setTitle("تحميل");
+        p.setMessage("يرجى الانتظار");
         p.show();
 
         currentWeight = view.findViewById(R.id.tvCurrentWeight);
@@ -255,7 +255,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
         arrayList = new ArrayList<>();
         arrayList2 = new ArrayList<>();
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

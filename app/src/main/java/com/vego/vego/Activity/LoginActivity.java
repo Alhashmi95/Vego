@@ -135,7 +135,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onClick(View v) {
                 progressDialog.show();
-                progressDialog.setMessage("Signing in.. please wait");
+                progressDialog.setMessage("جاري تسجيل الدخول ... يرجى الانتظار");
                 progressDialog.setCancelable(false);
                 signIn();
             }
@@ -184,7 +184,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         mFacebookSignInButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                progressDialog.setMessage("Signing in please wait...");
+                progressDialog.setMessage("جاري تسجيل الدخول ... يرجى الانتظار");
                 progressDialog.show();
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 firebaseAuthWithFacebook(loginResult.getAccessToken());
@@ -401,7 +401,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
         if(!username.isEmpty() && !password.isEmpty()) {
-            progressDialog.setMessage("Please wait...");
+            progressDialog.setMessage("يرجى الانتظار ...");
             progressDialog.show();
             firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -454,11 +454,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         });
 
 
-                        Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, "تم تسج", Toast.LENGTH_SHORT).show();
                      //   startActivity(new Intent(LoginActivity.this, UserDetails.class));
                     } else {
                         progressDialog.hide();
-                        Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "الرجاء التأكد من البيانات المدخلة", Toast.LENGTH_SHORT).show();
 
                     }
                 }

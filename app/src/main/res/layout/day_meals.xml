@@ -24,61 +24,62 @@
 
             <ImageView
                 android:id="@+id/calsCount"
-                android:layout_width="29dp"
-                android:layout_height="32dp"
-                android:layout_alignParentStart="true"
+                android:layout_width="35dp"
+                android:layout_height="40dp"
+                android:layout_toLeftOf="@+id/txtCals"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="113dp"
-                app:srcCompat="@drawable/icons_meal_px" />
+                app:srcCompat="@drawable/icons_meal_px"
+                android:layout_marginRight="3dp"
+                android:layout_toStartOf="@+id/txtCals" />
 
             <ImageView
                 android:id="@+id/calsIcon"
-                android:layout_width="31dp"
-                android:layout_height="30dp"
-                android:layout_alignParentEnd="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="116dp"
+                android:layout_toLeftOf="@+id/txtDay"
+                android:layout_marginRight="3dp"
                 app:srcCompat="@drawable/calories" />
 
             <TextView
                 android:id="@+id/txtCount"
-                android:layout_width="95dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="-107dp"
-                android:layout_toStartOf="@+id/calsCount"
+                android:layout_toLeftOf="@+id/calsCount"
                 android:text="عدد الوجبات"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="3dp"
                 android:textColor="#161616" />
 
             <TextView
                 android:id="@+id/txtCals"
-                android:layout_width="86dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="149dp"
                 android:text="السعرات"
+                android:layout_toLeftOf="@+id/calsIcon"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="3dp"
                 android:textColor="#161616" />
 
             <ImageView
                 android:id="@+id/dayIcon"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
+                android:layout_width="35dp"
+                android:layout_height="38dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="5dp"
                 app:srcCompat="@drawable/icons_calendar_px_"
                 tools:ignore="RtlCompat" />
 
             <TextView
                 android:id="@+id/txtDay"
-                android:layout_width="56dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/dayIcon"
                 android:text="يوم 1"
                 android:textColor="#161616"
-                android:layout_marginRight="4dp"
+                android:layout_marginRight="3dp"
                 android:layout_toLeftOf="@+id/dayIcon" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
