@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tablayout"
-                android:background="@color/md_light_green_100"
+                android:background="@color/md_white_1000"
                 app:tabGravity="fill"
                 app:tabMode="fixed"
                 app:tabIndicatorColor="@color/blackGrey"
@@ -68,6 +68,7 @@
                 android:layout_alignParentTop="true"
                 android:fontFamily="@font/cairo"
                 android:text="-"
+                android:backgroundTint=""
                 android:layout_alignParentLeft="true" />
 
         </RelativeLayout>
@@ -76,6 +77,7 @@
             android:id="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="35dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:background="@color/md_white_1000"
             app:layout_constraintBottom_toTopOf="@+id/spinnerUser"
