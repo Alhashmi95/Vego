@@ -68,7 +68,6 @@
                 android:layout_alignParentTop="true"
                 android:fontFamily="@font/cairo"
                 android:text="-"
-                android:backgroundTint=""
                 android:layout_alignParentLeft="true" />
 
         </RelativeLayout>
