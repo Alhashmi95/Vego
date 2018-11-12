@@ -308,6 +308,7 @@ public class AddNewMealActivity extends AppCompatActivity implements FragmentAdd
                     }else {
 
                     etTotalCal.setError("الرجاء ادخال مجموع السعرات الحرارية");
+                    if(imagePath == null)
                     Toast.makeText(AddNewMealActivity.this, "الرجاء تحديد صورة للوجبة", Toast.LENGTH_SHORT).show();
                 }
 //                    d.child("meals").child("element").setValue(hashMap);
