@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,21 +8,32 @@
     android:background="@color/grey"
     android:layoutDirection="ltr">
 
-    <io.netopen.hotbitmapgg.library.view.RingProgressBar
-        android:id="@+id/progress_bar_2"
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="175dp"
-        app:max="100"
-        app:ringColor="@android:color/darker_gray"
-        app:ringProgressColor="@color/colorPrimary"
-        app:ringWidth="3dp"
-        app:style="STROKE"
-        app:textColor="@color/colorPrimary"
-        app:textIsShow="true"
-        app:textSize="16sp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+
+
+
+    <!--<io.netopen.hotbitmapgg.library.view.RingProgressBar-->
+        <!--android:id="@+id/progress_bar_2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginBottom="175dp"-->
+        <!--app:max="100"-->
+        <!--app:ringColor="@android:color/darker_gray"-->
+        <!--app:ringProgressColor="@color/colorPrimary"-->
+        <!--app:ringWidth="3dp"-->
+        <!--app:style="STROKE"-->
+        <!--app:textColor="@color/colorPrimary"-->
+        <!--app:textIsShow="true"-->
+        <!--app:textSize="16sp" />-->
 
     // هذي اللي تسوي البار اللي فوق
 
@@ -57,20 +68,43 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbarid"
+        <RelativeLayout
+            android:id="@+id/relative"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/actionBar"
+            android:background="@color/md_white_1000"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/cairo_semibold"
+                android:text="تفاصيل الوجبة"
+                android:textColor="@color/blackGrey"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/rl_mealcv"
         android:layout_width="match_parent"
-        android:layout_height="173dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_marginHorizontal="35dp"
+        android:layout_height="152dp"
         android:layout_below="@+id/actionBar"
-        android:background="@color/grey"
-        android:elevation="0dp"
-        android:gravity="center">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
 
         <android.support.v7.widget.CardView
-            android:layout_width="306dp"
-            android:layout_height="152dp">
+            android:id="@+id/cv_mealImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
 
             <ImageView
                 android:id="@+id/mealImg"
@@ -80,44 +114,213 @@
 
         </android.support.v7.widget.CardView>
 
-    </android.support.design.widget.AppBarLayout>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tablayout_id"
+    </RelativeLayout>
+
+
+
+
+    <EditText
+        android:id="@+id/mealName"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/custom_edit_text_white"
+        android:ems="10"
+        android:gravity="center"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="35dp"
+        android:hint="اسم الوجبة"
+        android:layout_below="@+id/rl_mealcv"
+        android:inputType="textPersonName" />
+
+    <RelativeLayout
+        android:id="@+id/rl_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="227dp"
-        android:background="@color/blackGrey"
-        app:tabGravity="fill"
-        app:tabSelectedTextColor="@color/md_white_1000"
-        app:tabIndicatorColor="#0f0f0f"
-        app:tabMode="fixed"
-        app:tabTextColor="#a39e9e"
-        android:layout_alignParentLeft="true" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager_id"
-        android:layout_width="match_parent"
-        android:layout_height="406dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tablayout_id"
-        android:background="@color/grey"
-        android:layout_alignParentLeft="true"></android.support.v4.view.ViewPager>
-
-    <Button
-        android:id="@+id/saveMealBtn"
-        android:layout_width="match_parent"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/table_diet"
+        android:layout_below="@+id/mealName"
+        android:textDirection="rtl">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/cairo_semibold"
+            android:gravity="center"
+            android:text="القيم الغذائية"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_show2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/blackGrey"
-        android:textColor="@color/md_white_1000"
-        android:text="احفظ الوجبة" />
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="2dp"
+        android:layout_below="@+id/rl_show"
+        android:background="@drawable/table_diet_under">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="75dp"
+            android:layout_marginRight="75dp"
+            android:layout_marginTop="5dp"
+            android:text="النوع"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/totalcals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="72dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="5dp"
+            android:text="الكمية  (جم)"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/rl_show2"
+        android:layout_above="@+id/addNewTypeBtn"
+        android:background="@color/grey">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/table_diet_under"
+            android:id="@+id/relativeLayout3">
+
+            <TextView
+                android:id="@+id/textView90"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="52dp"
+                android:layout_marginRight="52dp"
+                android:gravity="center"
+                android:text="العناصر الغذائية"
+                android:textColor="#ffffff"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/totalcal"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp"
+                android:text="الكمية  (جم)"
+                android:textColor="#ffffff"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/addNewTypeBtn"
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:layout_alignTop="@+id/addMoreMeals2"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_toLeftOf="@+id/addMoreMeals2"
+                android:layout_toStartOf="@+id/addMoreMeals2"
+                android:layout_weight="1"
+                android:backgroundTint="@color/scifitRed"
+                android:text="اضف عنصر غذائي"
+
+                android:textColor="@color/md_white_1000" />
+
+            <Button
+                android:id="@+id/addNewIngBtn"
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="25dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/scifitBlue"
+                android:text="اضف نوع"
+                android:textColor="@color/md_white_1000" />
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+        <!--<android.support.design.widget.TabLayout-->
+        <!--android:id="@+id/tablayout_id"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginTop="227dp"-->
+        <!--android:background="@color/blackGrey"-->
+        <!--app:tabGravity="fill"-->
+        <!--app:tabSelectedTextColor="@color/md_white_1000"-->
+        <!--app:tabIndicatorColor="#0f0f0f"-->
+        <!--app:tabMode="fixed"-->
+        <!--app:tabTextColor="#a39e9e"-->
+        <!--android:layout_alignParentLeft="true" />-->
+
+    <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/viewpager_id"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="406dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_below="@+id/tablayout_id"-->
+        <!--android:background="@color/grey"-->
+        <!--android:layout_alignParentLeft="true"></android.support.v4.view.ViewPager>-->
+
+
 
     <EditText
         android:id="@+id/etTotalCal"
@@ -126,12 +329,26 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="52dp"
         android:ems="10"
         android:gravity="center"
         android:hint="ادخل مجموع السعرات هنا"
         android:inputType="number" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/saveMealBtn"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/blackGrey"
+            android:textColor="@color/md_white_1000"
+            android:text="احفظ الوجبة" />
+
+    </LinearLayout>
+
+
+</ScrollView>

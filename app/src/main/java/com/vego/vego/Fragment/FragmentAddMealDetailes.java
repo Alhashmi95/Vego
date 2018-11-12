@@ -178,15 +178,15 @@ public class FragmentAddMealDetailes extends Fragment {
         });
     }
 
-    public double totalcal() {
-        double sum = 0;
-        for (int i = 0; i < newElementAdapter.getElementssArray().size(); i++) {
-            double totalCals = Double.valueOf(newElementAdapter.getElementssArray().get(i).getAmount());
-            sum = sum + totalCals;
-
-        }
-        return sum;
-    }
+//    public double totalcal() {
+//        double sum = 0;
+//        for (int i = 0; i < newElementAdapter.getElementssArray().size(); i++) {
+//            double totalCals = Double.valueOf(newElementAdapter.getElementssArray().get(i).getAmount());
+//            sum = sum + totalCals;
+//
+//        }
+//        return sum;
+//    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
