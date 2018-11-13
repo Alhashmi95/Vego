@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".Fragment.FragmentSupportList">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="15dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_profilePicSupport"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:src="@drawable/profile_pic_large"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAlignment="textStart"
+                    android:text="klfdgjjgfdil"
+                    android:gravity="start"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/tv_lastMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/tv_display_time"
+                    android:textAlignment="textEnd"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="klfdgjjgfdil"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="start"
+                    android:textSize="16dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/tv_display_time"
+                     />
+
+
+                <TextView
+                    android:id="@+id/tv_display_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:text="kll;klk"
+                    android:textSize="14dp"
+                    android:textColor="@color/blackGrey"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginHorizontal="20dp" />
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_userEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:text="klfdgjjgfdil"
+                android:gravity="start"
+                android:textSize="18dp"
+                 />
+
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,17 +1,14 @@
-package com.vego.vego.Fragment;
+package com.vego.vego.Activity;
 
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,7 +20,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -34,18 +30,19 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.vego.vego.Adapters.MessageListAdapter;
+import com.vego.vego.Adapters.UsersAdapter;
+import com.vego.vego.Fragment.FragmentSupport;
 import com.vego.vego.R;
 import com.vego.vego.Request.FirebaseSendNotification;
 import com.vego.vego.Storage.UserSharedPreferences;
 import com.vego.vego.model.Chat;
 import com.vego.vego.model.UserInfo;
+import com.vego.vego.response.ResponseFcmToken;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -53,20 +50,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+public class InsideChatActivity extends AppCompatActivity {
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FragmentSupport.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FragmentSupport#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FragmentSupport extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private DatabaseReference root;
     private String temp_key;
     private Button btn_send_msg;
@@ -97,81 +82,43 @@ public class FragmentSupport extends Fragment {
 
     int j = 0;
 
-    ArrayList<String> usersUID = new ArrayList<>();
-
-    ArrayList<String> adminUid = new ArrayList<>();
-
-    ArrayList<UserInfo> userInfos = new ArrayList<>();
-
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
-    public FragmentSupport() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentSupport.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentSupport newInstance(String param1, String param2) {
-        FragmentSupport fragment = new FragmentSupport();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    UserInfo u;
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        //Retrieve the value
-//        value = getArguments().getString("userUID");
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.bubbleschatadmin, container, false);
-
-
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
+        setContentView(R.layout.bubbleschatadmin);
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        input_msg = findViewById(R.id.et_chatbox);
+        btn_send_msg = findViewById(R.id.button_chatbox_send);
+
 
         root = FirebaseDatabase.getInstance().getReference().child("chat");
 
 
-        getUsers();
-        selectedUser();
+//        getUsers();
+//        selectedUser();
+
+        Intent i = getIntent();
+
+        u = (UserInfo) i.getSerializableExtra("userList");
+
+        messagesArray.clear();
+        //      mMessageAdapter.notifyDataSetChanged();
+        getMessages();
+
+
+        chat(u.getUid());
+
+
 
 
         //bubbles
-        mMessageRecycler = (RecyclerView) view.findViewById(R.id.reyclerview_message_list);
+        mMessageRecycler = findViewById(R.id.reyclerview_message_list);
 
-        mMessageAdapter = new MessageListAdapter(getContext(), messagesArray);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mMessageAdapter = new MessageListAdapter(InsideChatActivity.this, messagesArray);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         mMessageRecycler.setLayoutManager(layoutManager);
         mMessageRecycler.setAdapter(mMessageAdapter);
@@ -184,8 +131,6 @@ public class FragmentSupport extends Fragment {
 //        d.setValue(c);
 
 
-        input_msg = view.findViewById(R.id.et_chatbox);
-        btn_send_msg = view.findViewById(R.id.button_chatbox_send);
 
 
     }
@@ -193,7 +138,7 @@ public class FragmentSupport extends Fragment {
     private void getMessages() {
         String s = firebaseAuth.getCurrentUser().getUid();
         //حدد اي من الادمنز تنعرض رسايله
-        root.child(choosenUser).child("Masseges")
+        root.child(u.getUid()).child("Masseges")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -229,7 +174,7 @@ public class FragmentSupport extends Fragment {
 
         getNames();
 
-        arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, list_chat);
+        arrayAdapter = new ArrayAdapter<String>(InsideChatActivity.this, android.R.layout.simple_list_item_1, list_chat);
         //listView_chat.setAdapter(arrayAdapter);
 
         btn_send_msg.setOnClickListener(new View.OnClickListener() {
@@ -241,11 +186,15 @@ public class FragmentSupport extends Fragment {
                 } else {
                     String dd = FirebaseInstanceId.getInstance().getToken();
                     //send notification
-                    FirebaseSendNotification firebaseSendNotification = new FirebaseSendNotification(
-                            getActivity(), name, input_msg.getText().toString(), FirebaseInstanceId
-                            .getInstance().getToken(), choosenUser, "ahmad",
-                            FirebaseInstanceId.getInstance().getToken());
-                    firebaseSendNotification.onResponse();
+//                    FirebaseSendNotification firebaseSendNotification = new FirebaseSendNotification(
+//                            InsideChatActivity.this, "YYYEEESS", input_msg.getText().toString(), "ewnFQ8UseXE:APA91bHUE1qeA3T5O0oVqiLkGrRlLlbfgvln7D7Q3WBdtlrSzDXm0fuXVMWvYJNQ_rW4aXL-fnyBwHS94LqkrHR_kAfnieGsOiUCbicBhQ4_qt0eJytPrc7vRze5FrCyGws5FRLhDzdkeDJmoX2iLdtEI1A7_zDedA",
+//                            u.getUid(), "ahmad",
+//                            FirebaseInstanceId.getInstance().getToken());
+//                    firebaseSendNotification.onResponse();
+
+
+                    sendNotification("YYYEEESS", input_msg.getText().toString(), "ewnFQ8UseXE:APA91bHUE1qeA3T5O0oVqiLkGrRlLlbfgvln7D7Q3WBdtlrSzDXm0fuXVMWvYJNQ_rW4aXL-fnyBwHS94LqkrHR_kAfnieGsOiUCbicBhQ4_qt0eJytPrc7vRze5FrCyGws5FRLhDzdkeDJmoX2iLdtEI1A7_zDedA",
+                            u.getUid(), name, FirebaseInstanceId.getInstance().getToken());
 
                     //getting current date and time
                     Calendar calForDate = Calendar.getInstance();
@@ -278,15 +227,15 @@ public class FragmentSupport extends Fragment {
                     String aaa = FirebaseInstanceId.getInstance().getToken();
 
                     //DatabaseReference message_root = root.child(temp_key);
-                    DatabaseReference message_root = root.child(choosenUser).child("Masseges").child(temp_key);
+                    DatabaseReference message_root = root.child(u.getUid()).child("Masseges").child(temp_key);
                     Map<String, Object> map2 = new HashMap<String, Object>();
                     map2.put("sendername", name);
                     map2.put("msg", newMessage);
                     map2.put("senderId", firebaseAuth.getCurrentUser().getUid());
                     // map2.put("createdAt", currentTime);
                     map2.put("date", currentTime);
-                    map2.put("tokenSender", aaa);
-                    map2.put("tokenReceiver", "");
+                    map2.put("tokenSender", FirebaseInstanceId.getInstance().getToken());
+                    map2.put("tokenReceiver", "ewnFQ8UseXE:APA91bHUE1qeA3T5O0oVqiLkGrRlLlbfgvln7D7Q3WBdtlrSzDXm0fuXVMWvYJNQ_rW4aXL-fnyBwHS94LqkrHR_kAfnieGsOiUCbicBhQ4_qt0eJytPrc7vRze5FrCyGws5FRLhDzdkeDJmoX2iLdtEI1A7_zDedA");
 
 
                     message_root.updateChildren(map2);
@@ -296,7 +245,7 @@ public class FragmentSupport extends Fragment {
         });
 
 
-        root.child(choosenUser).child("Masseges")
+        root.child(u.getUid()).child("Masseges")
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(final DataSnapshot dataSnapshot, String s) {
@@ -395,29 +344,29 @@ public class FragmentSupport extends Fragment {
                 }
                 //  UserInfo userinfo = dataSnapshot.getValue(dataSnapshot.getKey());
 
-                choosenUser = UserSharedPreferences.fetchChosenUser(Objects.requireNonNull(getContext()));
-                for (int i = 0; i < arrayList2.size(); i++) {
-                    if (choosenUser.equals(arrayList2.get(i))) {
-                        spSelectUser.setSelection(i);
-                    }
-                }
+//                u.getUid() = UserSharedPreferences.fetchChosenUser(Objects.requireNonNull(InsideChatActivity.this));
+//                for (int i = 0; i < arrayList2.size(); i++) {
+//                    if (choosenUser.equals(arrayList2.get(i))) {
+//                        spSelectUser.setSelection(i);
+//                    }
+//                }
             }
 
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(FragmentSupport.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(InsideChatActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public String selectedUser() {
-        spSelectUser = getView().findViewById(R.id.spinner);
+        spSelectUser = findViewById(R.id.spinner);
 
         // Initializing an ArrayAdapter
         Log.d("test", "frist  " + arrayList.size());
         spinnerArrayAdapter = new ArrayAdapter<String>(
-                getContext(), R.layout.support_simple_spinner_dropdown_item, arrayList) {
+                InsideChatActivity.this, R.layout.support_simple_spinner_dropdown_item, arrayList) {
             @Override
             public boolean isEnabled(int position) {
 //                if(position == 0)
@@ -461,7 +410,7 @@ public class FragmentSupport extends Fragment {
                 String s = arrayList.get(position);
                 Log.d("test", "thid dfjkdl : " + s);
                 choosenUser = arrayList2.get(position);
-                UserSharedPreferences.storeChosenUser(getContext(), choosenUser);
+                UserSharedPreferences.storeChosenUser(InsideChatActivity.this, choosenUser);
 
 //                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
 //                        "mailto",choosenUser, null));
@@ -471,7 +420,7 @@ public class FragmentSupport extends Fragment {
 
                 usersprofile = FirebaseDatabase.getInstance().getReference();
                 if (position != 0)
-                    chat(choosenUser);
+
                 messagesArray.clear();
                 mMessageAdapter.notifyDataSetChanged();
                 getMessages();
@@ -482,7 +431,7 @@ public class FragmentSupport extends Fragment {
                     // Notify the selected item text
                     //clear arraylist of chat to load new one
                     Toast.makeText
-                            (getActivity().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            (InsideChatActivity.this, "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -503,7 +452,7 @@ public class FragmentSupport extends Fragment {
     private void Add_Chat(final DataSnapshot dataSnapshot) {
         // if (input_msg.length() > 0) {
         //check if there's a new message =====================================
-        root.child(choosenUser).child("Masseges")
+        root.child(u.getUid()).child("Masseges")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -516,65 +465,17 @@ public class FragmentSupport extends Fragment {
                     }
                 });
 
-        Iterator i = dataSnapshot.getChildren().iterator();
-        //  input_msg.setText("");
-        Chat c = new Chat();
-
-//                        c.setMessageChat(message);
-//                        c.setCreatedAt(currentTime);
-//                        c.setUserUID(firebaseAuth.getCurrentUser().getUid());
 
         //messagesArray.add(c);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         mMessageRecycler.setLayoutManager(layoutManager);
 
         mMessageAdapter.notifyDataSetChanged();
 
-//                        //==================================================================
-//                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference();
-//                        DatabaseReference ref2, ref3, ref4;
-//                        ref2 = ref1.child("users");
-//
-//
-//                        ref2.addValueEventListener(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                                // Result will be holded Here
-//                                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-//                                    //Loop 1 to go through all the child nodes of users to get uid (key)
-//                                    usersUID.add(dsp.getKey());
-//                                    for (DataSnapshot dspProfile : dsp.getChildren()) {
-//                                        //loop 2 to go through all the child nodes of Profile node
-//
-//                                        if (dspProfile.getKey().equals("Profile"))
-//                                            userInfos.add(dspProfile.getValue(UserInfo.class));
-//                                    }
-//
-//
-//                                }
-//                                for (int i = 0; i < userInfos.size(); i++) {
-//                                    String t = userInfos.get(i).getUid();
-//                                    String v = usersUID.get(i);
-//                                    if (userInfos.get(i).getUid().equals(usersUID.get(i))) {
-//                                        isAdmin = userInfos.get(i).getAdmin();
-//                                    }
-//                                    if (isAdmin.equals("true")) {
-//                                        userUid = usersUID.get(i);
-//                                        adminUid.add(userUid);
-//                                    }
-//                                }
-//                            }
-//                                @Override
-//                                public void onCancelled(DatabaseError databaseError) {
-//                                    //handle databaseError
-//                                }
-//                            });
-
         DatabaseReference db = FirebaseDatabase.getInstance().getReference()
-                .child("chat").child(choosenUser).child("Masseges");
+                .child("chat").child(u.getUid()).child("Masseges");
 
         Query lastQuery = db.orderByKey().limitToLast(1);
 
@@ -609,7 +510,7 @@ public class FragmentSupport extends Fragment {
                 //   messagesArray.add(c2);
 
 
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                LinearLayoutManager layoutManager = new LinearLayoutManager(InsideChatActivity.this);
                 layoutManager.setStackFromEnd(true);
                 mMessageRecycler.setLayoutManager(layoutManager);
 
@@ -621,72 +522,6 @@ public class FragmentSupport extends Fragment {
                 //Handle possible errors.
             }
         });
-
-
-        //اي رسايل نظهر؟ يعني حقت ايت ادمن
-//                    if (dataSnapshot.getKey().equals(adminUid.get(0) + " : " + firebaseAuth.getUid())) {
-//                        String tt = adminUid.get(0);
-//                        root.child(adminUid.get(0) + " : " + firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
-//                                int j = (int) dataSnapshot2.getChildrenCount();
-//                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                                    c.setNameChat((String) (ds.child("name").getValue(String.class)));
-//                                    c.setMessageChat((String) (ds.child("msg")).getValue(String.class));
-//
-//                                    Chat testChat = ds.getValue(Chat.class);
-//
-//                                    messagesArray.add(testChat);
-//
-//                                    mMessageAdapter = new MessageListAdapter(getContext(), messagesArray);
-//                                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//                                    layoutManager.setStackFromEnd(true);
-//                                    mMessageRecycler.setLayoutManager(layoutManager);
-//                                    mMessageRecycler.setAdapter(mMessageAdapter);
-//
-//
-//                                    mMessageAdapter.notifyDataSetChanged();
-//
-//
-////                    @Override
-////                    public void onCancelled(@NonNull DatabaseError databaseError) {
-////
-////                    }
-////                });
-//
-//
-////                                list_chat.add(c.getnameChat() + " : " + c.getMessageChat());
-////                                arrayAdapter.notifyDataSetChanged();
-////                                listView_chat.setSelection(list_chat.size());
-//                                }
-//                                checker = false;
-//
-//
-//                                if (messagesArray.size() > j) {
-//                                    messagesArray.clear();
-//                                }
-//                                if (messagesArray.size() == 0) {
-//                                    Add_Chat(dataSnapshot);
-//                                }
-//
-//
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                            }
-//                        });
-        //    }
-        //    }
-    }
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
 
@@ -700,52 +535,31 @@ public class FragmentSupport extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-
-    private ArrayList<String> getAllAdminsUid() {
-        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref2, ref3, ref4;
-        ref2 = ref1.child("users");
 
 
-        ref2.addValueEventListener(new ValueEventListener() {
+    private void sendNotification(
+            String title, String message, String deviceId,
+            String channelID,
+            String senderName,
+            String senderFCMToken
+    ) {
+
+
+        FirebaseSendNotification fsn = new FirebaseSendNotification(
+                InsideChatActivity.this, title, message, deviceId,
+                channelID, senderName, senderFCMToken
+        );
+
+        fsn.setResponseFcmToken(new ResponseFcmToken() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void isSuccessfulSendNotification() {
 
-                // Result will be holded Here
-                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    //Loop 1 to go through all the child nodes of users to get uid (key)
-                    usersUID.add(dsp.getKey());
-                    for (DataSnapshot dspProfile : dsp.getChildren()) {
-                        //loop 2 to go through all the child nodes of Profile node
-
-                        if (dspProfile.getKey().equals("Profile"))
-                            userInfos.add(dspProfile.getValue(UserInfo.class));
-                    }
-
-
-                }
-                for (int i = 0; i < userInfos.size(); i++) {
-                    String t = userInfos.get(i).getUid();
-                    String v = usersUID.get(i);
-                    if (userInfos.get(i).getUid().equals(usersUID.get(i))) {
-                        isAdmin = userInfos.get(i).getAdmin();
-                    }
-                    if (isAdmin.equals("true")) {
-                        userUid = usersUID.get(i);
-                        adminUid.add(userUid);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //handle databaseError
             }
         });
-        return adminUid;
+        fsn.onResponse();
+
+
+
     }
 }
+

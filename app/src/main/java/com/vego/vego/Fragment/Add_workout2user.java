@@ -1951,7 +1951,6 @@ public class Add_workout2user extends Fragment {
 
                     //      Log.d("test", "this is uid :" + dataSnapshot1.getKey());
 
-                    Log.d("test", "this is emails FFGFGGGF :" + userinfo.getEmail());
 
                 }
                 p.dismiss();

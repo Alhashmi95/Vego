@@ -405,7 +405,7 @@ Exercises[] workoutDay;
         hashMap.put("uid",userInfo.getUid());
         hashMap.put("previousWeight",userInfo.getPreviousWeight());
         hashMap.put("adminBrief",userInfo.getAdminBrief());
-        hashMap.put("userEmail",userInfo.getEmail());
+        hashMap.put("userEmail",userInfo.getUserEmail());
 
 
         HashMap<String,String> hashMap2=new HashMap<>();

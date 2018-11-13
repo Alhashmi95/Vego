@@ -24,7 +24,7 @@ public class UserSharedPreferences {
         SharedPreferences.Editor editor = context.getSharedPreferences("user", MODE_PRIVATE).edit();
         editor.putString("userUID", user.getUid());
         editor.putString("userName", user.getName());
-        editor.putString("userEmail", user.getEmail());
+        editor.putString("userEmail", user.getUserEmail());
         editor.putString("isAdmin", user.getAdmin());
         editor.apply();
         Log.v(TAG, "successful store user!");
@@ -44,7 +44,7 @@ public class UserSharedPreferences {
         user.setIsAdmin(isAdmin);
         user.setUid(uid);
         user.setName(name);
-        user.setEmail(email);
+        user.setUserEmail(email);
         return user;
     }
     public static void storeChosenUser(Context context, String user) {

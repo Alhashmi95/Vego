@@ -45,6 +45,7 @@ import com.vego.vego.Fragment.Add_workout2user;
 import com.vego.vego.Fragment.DietFragmentAdmin;
 import com.vego.vego.Fragment.FragmentAddWorkout;
 import com.vego.vego.Fragment.FragmentSupport;
+import com.vego.vego.Fragment.FragmentSupportList;
 import com.vego.vego.Fragment.TrackProgressFragmentAdmin;
 import com.vego.vego.R;
 import com.vego.vego.model.UserInfo;
@@ -248,7 +249,7 @@ public class AdminActivity extends AppCompatActivity {
                     f = new AddMealsFragment();
                     break;
                 case R.id.support:
-                    f = new FragmentSupport();
+                    f = new FragmentSupportList();
                     break;
                 case R.id.trackProgress:
                     f = new TrackProgressFragmentAdmin();

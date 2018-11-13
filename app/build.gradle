@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'io.fabric'
 
 android {
@@ -32,7 +33,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.android.support:support-vector-drawable:26.1.0'
     implementation 'com.android.support:support-v4:26.1.0'
-    implementation 'com.google.firebase:firebase-messaging:17.3.3'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -48,9 +49,9 @@ dependencies {
     //add spinner lib
     implementation 'com.jaredrummler:material-spinner:1.2.5'
     //for accessing fire base read/write
-    implementation 'com.google.firebase:firebase-database:16.0.3'
+    implementation 'com.google.firebase:firebase-database:16.0.4'
     //to see .....
-    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-core:16.0.5'
     //add this for drawer
     implementation('com.mikepenz:materialdrawer:5.3.3@aar') {
         transitive = true
@@ -59,7 +60,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
     //add firebase storage to store imgs, vids, audios ...etc
-    implementation 'com.google.firebase:firebase-storage:16.0.3'
+    implementation 'com.google.firebase:firebase-storage:16.0.4'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'com.android.support:design:26.1.0'
     //spinner
@@ -80,7 +81,7 @@ dependencies {
     //implementation 'com.thoughtbot:expandablecheckrecyclerview:1.2'
 
     // Add dependency
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.6'
 
     //for adding request
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
@@ -96,6 +97,11 @@ dependencies {
 
     //navigation bottom awesome
     implementation 'com.github.armcha:Space-Navigation-View:1.6.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.googlecode.json-simple:json-simple:1.1'
 
 
 
@@ -104,3 +110,6 @@ dependencies {
 
 // add this line for firebase connection
 apply plugin: 'com.google.gms.google-services'
+repositories {
+    mavenCentral()
+}

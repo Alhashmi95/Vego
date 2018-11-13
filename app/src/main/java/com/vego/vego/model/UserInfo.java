@@ -1,10 +1,13 @@
 package com.vego.vego.model;
 
+import android.os.Parcelable;
+
 import com.vego.vego.model.DietDay;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserInfo {
+public class UserInfo implements Serializable {
     public String name;
     public String weight;
     public String height;
@@ -13,7 +16,7 @@ public class UserInfo {
     String userGoal;
     ArrayList<DietDay> dietDay;
     String isAdmin;
-    String uid, previousWeight, adminBrief, userEmail;
+    private String uid, previousWeight, adminBrief, userEmail;
     private String image;
 
     public UserInfo() {
@@ -40,11 +43,11 @@ public class UserInfo {
         this.userEmail = userEmail;
     }
 
-    public String getEmail() {
+    public String getUserEmail() {
         return userEmail;
     }
 
-    public void setEmail(String userEmail) {
+    public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
 

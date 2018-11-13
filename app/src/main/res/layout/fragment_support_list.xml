@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.FragmentSupportList">
+
+
+    <RelativeLayout
+        android:id="@+id/relative2"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/md_white_1000"
+        >
+
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:fontFamily="@font/cairo_semibold"
+          android:gravity="center"
+          android:text="الدعم"
+          android:textColor="@color/blackGrey"
+          android:textSize="16sp" />
+    </RelativeLayout>
+
+
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/rv_support"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/relative2">
+
+  </android.support.v7.widget.RecyclerView>
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/relative"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:background="@color/md_white_1000"-->
+        <!--android:layout_marginTop="15dp">-->
+
+
+      <!--<TextView-->
+          <!--android:id="@+id/mealNo"-->
+          <!--android:layout_width="match_parent"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:fontFamily="@font/cairo_semibold"-->
+          <!--android:gravity="center"-->
+          <!--android:text="متدربين لم تبدأ دردشة معهم"-->
+          <!--android:textColor="@color/blackGrey"-->
+          <!--android:textSize="16sp" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rv_support2"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+    <!--</android.support.v7.widget.RecyclerView>-->
+
+
+
+
+</RelativeLayout>
