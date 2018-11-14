@@ -281,7 +281,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="190dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginEnd="40dp"
+                android:layout_marginEnd="25dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
                 android:layout_marginStart="25dp"
@@ -294,27 +294,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <!--android:id="@+id/btnAddnewSet"-->
+
+
             <Button
                 android:id="@+id/btnAddnewSet"
-                android:layout_width="35dp"
-                android:layout_height="62dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="8dp"
-                android:gravity="center_horizontal"
-                android:text="+"
-                android:textSize="25dp"
-                app:layout_constraintBottom_toBottomOf="@id/relativeLayout4"
+                android:backgroundTint="@color/md_white_1000"
+                android:text="إضافة جلسة"
+                android:textColor="@color/scifitBlue"
+                app:layout_constraintBottom_toTopOf="@id/btnCalVolumeAndRM1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.4" />
-
-
+                app:layout_constraintTop_toBottomOf="@+id/recyclerInsideWorkout"
+                app:layout_constraintVertical_bias="1.0" />
             <Button
                 android:id="@+id/btnCalVolumeAndRM1"
                 android:layout_width="match_parent"
