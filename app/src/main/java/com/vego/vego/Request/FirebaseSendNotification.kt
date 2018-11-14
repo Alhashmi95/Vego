@@ -68,7 +68,7 @@ class FirebaseSendNotification(val activity: Activity,
 
         fun onResponse() {
 
-            val serverKey = "AAAARF_r6uI:APA91bFF8DZ1mn2fz034P4QjqTiCVwYmR1jS89p_aMrQuNzeMah_5Bp4J8oajGsj6jEXMnVKOuY3FsekPte7sxH9k1KiZlUveut3SZ-UWLtWf1v6sePkgTFDkxDpFMtxNS9xf7V4McJHquW4BK-XrHIFXgbtM2VbZw"
+            val serverKey = "key=AAAARF_r6uI:APA91bFF8DZ1mn2fz034P4QjqTiCVwYmR1jS89p_aMrQuNzeMah_5Bp4J8oajGsj6jEXMnVKOuY3FsekPte7sxH9k1KiZlUveut3SZ-UWLtWf1v6sePkgTFDkxDpFMtxNS9xf7V4McJHquW4BK-XrHIFXgbtM2VbZw"
 
             val call = this.firebaseAPI!!.sendNotifi(
                     authorization =serverKey, body = this.setUpBody())

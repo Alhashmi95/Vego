@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.vego.vego.Adapters.ExerciseAdapter;
@@ -17,7 +18,7 @@ import java.util.List;
 public class ActivityWorkoutUser extends AppCompatActivity {
     private ExerciseAdapter adapter;
     RecyclerView recyclerView;
-    TextView dayTextView;
+    TextView dayTextView, noFreeEx;
     String mucsleName;
 
     ArrayList<exercise> muExList = new ArrayList<>();
@@ -26,9 +27,7 @@ public class ActivityWorkoutUser extends AppCompatActivity {
     List<exercise> exListForAll = new ArrayList<>();
 
 
-
-    String month,week,day,dayIndex;
-
+    String month, week, day, dayIndex;
 
 
     @Override
@@ -36,6 +35,8 @@ public class ActivityWorkoutUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_user);
 
+        noFreeEx = findViewById(R.id.tv_noFreeEx);
+        noFreeEx.setVisibility(View.GONE);
 
         recyclerView = findViewById(R.id.exRecycler);
         dayTextView = findViewById(R.id.daytv2);
@@ -43,6 +44,7 @@ public class ActivityWorkoutUser extends AppCompatActivity {
 
 
     }
+
     private void getValuesfromAdapter() {
         Intent intent = this.getIntent();
         //here we receive array of objects from daysAdapter
@@ -64,38 +66,43 @@ public class ActivityWorkoutUser extends AppCompatActivity {
         displayExOrExforAll();
 
     }
+
     private void displayExOrExforAll() {
-        if(exListForAll == null) {
+        if (exListForAll == null) {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new ExerciseAdapter(exList, this,month,week,day,dayIndex);
+            adapter = new ExerciseAdapter(exList, this, month, week, day, dayIndex);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
-        if(exListForAll != null){
+        if (exListForAll != null) {
             dayTextView.setText(" التمارين ");
 
-            for(int i =0 ; i<exListForAll.size(); i++) {
-            if (mucsleName.equals(exListForAll.get(i).getTargetedmuscle())) {
+            for (int i = 0; i < exListForAll.size(); i++) {
+                if (mucsleName.equals(exListForAll.get(i).getTargetedmuscle())) {
 
-                exercise e = exListForAll.get(i);
+                    exercise e = exListForAll.get(i);
 
-                //save the name of selected mu from 3 lines adapter
-                String selectedMu = exListForAll.get(i).getTargetedmuscle();
+                    //save the name of selected mu from 3 lines adapter
+                    String selectedMu = exListForAll.get(i).getTargetedmuscle();
 
-                muExList.add(e);
+                    muExList.add(e);
 
 
+                }
             }
         }
-        }
         //if we clicked on ExforAll mucsles exList will be empty
-        if(exList == null) {
+        if (exList == null) {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new ExerciseAdapter(muExList, this,month,week,day,dayIndex);
+            adapter = new ExerciseAdapter(muExList, this, month, week, day, dayIndex);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+
+            if (muExList.size() == 0) {
+                noFreeEx.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

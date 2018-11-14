@@ -28,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
+import com.vego.vego.Activity.InsideChatActivity;
 import com.vego.vego.Activity.UpdateProfileActivity;
 import com.vego.vego.Adapters.MessageListAdapter;
 import com.vego.vego.R;
@@ -35,6 +36,7 @@ import com.vego.vego.Request.FirebaseSendNotification;
 import com.vego.vego.model.Chat;
 import com.vego.vego.model.DietDay;
 import com.vego.vego.model.UserInfo;
+import com.vego.vego.response.ResponseFcmToken;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -45,6 +47,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,7 +55,7 @@ import java.util.Map;
  * to handle interaction events.
  * create an instance of this fragment.
  */
-public class ChatFragment extends Fragment {
+public class ChatFragment extends Fragment implements ResponseFcmToken {
     private DatabaseReference root;
     private String temp_key;
     private Button btn_send_msg;
@@ -80,6 +83,7 @@ public class ChatFragment extends Fragment {
     boolean checker = false;
 
     int j=0;
+    private String receiverToken;
 
 
     public ChatFragment() {
@@ -163,13 +167,6 @@ public class ChatFragment extends Fragment {
 
 
                         }else {
-                            String aaa = FirebaseInstanceId.getInstance().getToken();
-                            String ddd="eHlcJFgjJcI:APA91bHoV3BmjTSkyU1mfJhD-RvGK4AnY2ovJhnKlnXqXEqAkIzTM2ICV6aoQtZo1oZyyGP90zdZTaZ9A0wm7DVlDR-jhjVApz5E7jbqp14gdXFAVtZvygRPbbLJP4Ln1EcLMptIZZyR";
-                            FirebaseSendNotification firebaseSendNotification=new FirebaseSendNotification(
-                                    getActivity(),name,input_msg.getText().toString(), ddd,
-                                    adminUid.get(0) + " : " + firebaseAuth.getUid(),"ahmad",
-                                    ddd);
-                            firebaseSendNotification.onResponse();
 
                             //getting current date and time
                             Calendar calForDate = Calendar.getInstance();
@@ -187,7 +184,7 @@ public class ChatFragment extends Fragment {
                             root.updateChildren(map);
 
 
-                            for (int i = 0; i < adminUid.size(); i++) {
+                            //for (int i = 0; i < adminUid.size(); i++) {
                                 DatabaseReference message_root = root.child(firebaseAuth.getCurrentUser()
                                         .getUid()).child("Masseges").child(temp_key);
 
@@ -200,13 +197,37 @@ public class ChatFragment extends Fragment {
                                 map2.put("senderId", firebaseAuth.getCurrentUser().getUid());
                                 // map2.put("createdAt", currentTime);
                                 map2.put("date", currentTime);
-                                map2.put("tokenSender",aaa);
-                                map2.put("tokenReceiver","");
+                                map2.put("tokenSender",FirebaseInstanceId.getInstance().getToken());
 
 
 
-                                message_root.updateChildren(map2);
-                            }
+                            //}
+
+                            DatabaseReference tokenRef = firebaseDatabase.getReference().child("Ayman")
+                                    .child(adminUid.get(0)).child("userToken");
+
+                            tokenRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.getValue() != null) {
+                                        receiverToken = dataSnapshot.getValue().toString();
+
+                                        map2.put("tokenReceiver",receiverToken);
+                                        message_root.updateChildren(map2);
+
+
+                                        sendNotification("لديك رسالة جديدة من " + name, newMessage,
+                                                receiverToken, firebaseAuth.getUid(), name, FirebaseInstanceId.getInstance().getToken());
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+
                             input_msg.setText("");
                         }
 
@@ -539,5 +560,29 @@ public class ChatFragment extends Fragment {
             }
         });
         return adminUid;
+    }
+
+    private void sendNotification(
+            String title, String message, String deviceId,
+            String channelID,
+            String senderName,
+            String senderFCMToken
+    ) {
+
+
+        FirebaseSendNotification fsn = new FirebaseSendNotification(
+                Objects.requireNonNull(getActivity()), title, message, deviceId,
+                channelID, senderName, senderFCMToken
+        );
+        fsn.setResponseFcmToken(this);
+        fsn.onResponse();
+
+
+
+    }
+
+    @Override
+    public void isSuccessfulSendNotification() {
+
     }
 }

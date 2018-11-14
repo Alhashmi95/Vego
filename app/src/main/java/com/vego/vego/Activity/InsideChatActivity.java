@@ -50,7 +50,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-public class InsideChatActivity extends AppCompatActivity {
+public class InsideChatActivity extends AppCompatActivity implements ResponseFcmToken {
 
     private DatabaseReference root;
     private String temp_key;
@@ -79,6 +79,8 @@ public class InsideChatActivity extends AppCompatActivity {
 
     private RecyclerView mMessageRecycler;
     private MessageListAdapter mMessageAdapter;
+
+    String receiverToken;
 
     int j = 0;
 
@@ -184,18 +186,6 @@ public class InsideChatActivity extends AppCompatActivity {
                 if (input_msg.length() == 0) {
 
                 } else {
-                    String dd = FirebaseInstanceId.getInstance().getToken();
-                    //send notification
-//                    FirebaseSendNotification firebaseSendNotification = new FirebaseSendNotification(
-//                            InsideChatActivity.this, "YYYEEESS", input_msg.getText().toString(), "ewnFQ8UseXE:APA91bHUE1qeA3T5O0oVqiLkGrRlLlbfgvln7D7Q3WBdtlrSzDXm0fuXVMWvYJNQ_rW4aXL-fnyBwHS94LqkrHR_kAfnieGsOiUCbicBhQ4_qt0eJytPrc7vRze5FrCyGws5FRLhDzdkeDJmoX2iLdtEI1A7_zDedA",
-//                            u.getUid(), "ahmad",
-//                            FirebaseInstanceId.getInstance().getToken());
-//                    firebaseSendNotification.onResponse();
-
-
-                    sendNotification("YYYEEESS", input_msg.getText().toString(), "ewnFQ8UseXE:APA91bHUE1qeA3T5O0oVqiLkGrRlLlbfgvln7D7Q3WBdtlrSzDXm0fuXVMWvYJNQ_rW4aXL-fnyBwHS94LqkrHR_kAfnieGsOiUCbicBhQ4_qt0eJytPrc7vRze5FrCyGws5FRLhDzdkeDJmoX2iLdtEI1A7_zDedA",
-                            u.getUid(), name, FirebaseInstanceId.getInstance().getToken());
-
                     //getting current date and time
                     Calendar calForDate = Calendar.getInstance();
                     DateFormat currentDateFormat2 = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH);
@@ -235,10 +225,35 @@ public class InsideChatActivity extends AppCompatActivity {
                     // map2.put("createdAt", currentTime);
                     map2.put("date", currentTime);
                     map2.put("tokenSender", FirebaseInstanceId.getInstance().getToken());
-                    map2.put("tokenReceiver", "ewnFQ8UseXE:APA91bHUE1qeA3T5O0oVqiLkGrRlLlbfgvln7D7Q3WBdtlrSzDXm0fuXVMWvYJNQ_rW4aXL-fnyBwHS94LqkrHR_kAfnieGsOiUCbicBhQ4_qt0eJytPrc7vRze5FrCyGws5FRLhDzdkeDJmoX2iLdtEI1A7_zDedA");
 
 
-                    message_root.updateChildren(map2);
+                    DatabaseReference tokenRef = firebaseDatabase.getReference().child("Ayman")
+                            .child(u.getUid()).child("userToken");
+
+                    tokenRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() != null) {
+                                receiverToken = dataSnapshot.getValue().toString();
+
+                                sendNotification("لديك رسالة جديدة من " + name, newMessage,
+                                        receiverToken, u.getUid(), name, FirebaseInstanceId.getInstance().getToken());
+
+                                map2.put("tokenReceiver", receiverToken);
+                                message_root.updateChildren(map2);
+
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+
+
                 }
                 input_msg.setText("");
             }
@@ -549,16 +564,15 @@ public class InsideChatActivity extends AppCompatActivity {
                 InsideChatActivity.this, title, message, deviceId,
                 channelID, senderName, senderFCMToken
         );
-
-        fsn.setResponseFcmToken(new ResponseFcmToken() {
-            @Override
-            public void isSuccessfulSendNotification() {
-
-            }
-        });
+        fsn.setResponseFcmToken(this);
         fsn.onResponse();
 
 
+
+    }
+
+    @Override
+    public void isSuccessfulSendNotification() {
 
     }
 }

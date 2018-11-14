@@ -18,8 +18,8 @@ import java.util.List;
 
 public class MusclesAdapter extends RecyclerView.Adapter<MusclesAdapter.MyViewHolder> {
 
-    private Context mContext ;
-    private List<Mucsle> mData ;
+    private Context mContext;
+    private List<Mucsle> mData;
 
 
     public MusclesAdapter(Context mContext, List<Mucsle> mData) {
@@ -30,34 +30,32 @@ public class MusclesAdapter extends RecyclerView.Adapter<MusclesAdapter.MyViewHo
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view ;
+        View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.card_view_mu_name,parent,false);
+        view = mInflater.inflate(R.layout.card_view_mu_name, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
-
+    public void onBindViewHolder(MyViewHolder holder, int position) {
 
 
         holder.tv_book_title.setText(mData.get(position).getMucsleName());
         holder.img_book_thumbnail.setImageResource(mData.get(position).getMucsleImage());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(v.getContext(),ActivityWorkoutUser.class);
+                Intent intent = new Intent(v.getContext(), ActivityWorkoutUser.class);
 
                 // passing data to the book activity
-                intent.putExtra("DayExercise2",mData.get(position).getExerciseArrayList());
-                intent.putExtra("mucsleName",mData.get(position).getMucsleName());
+                intent.putExtra("DayExercise2", mData.get(position).getExerciseArrayList());
+                intent.putExtra("mucsleName", mData.get(position).getMucsleName());
                 // start the activity
                 v.getContext().startActivity(intent);
 
             }
         });
-
 
 
     }
@@ -67,19 +65,19 @@ public class MusclesAdapter extends RecyclerView.Adapter<MusclesAdapter.MyViewHo
         return mData.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_book_title;
         ImageView img_book_thumbnail;
-        CardView cardView ;
+        CardView cardView;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            tv_book_title = (TextView) itemView.findViewById(R.id.book_title_id) ;
+            tv_book_title = (TextView) itemView.findViewById(R.id.book_title_id);
             img_book_thumbnail = (ImageView) itemView.findViewById(R.id.book_img_id);
-            cardView = (CardView) itemView.findViewById(R.id.cardview_id);
+            cardView = (CardView) itemView.findViewById(R.id.cv_Mu);
 
 
         }

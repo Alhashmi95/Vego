@@ -71,5 +71,13 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/relativeLayout6"/>
 
+    <TextView
+        android:id="@+id/tv_noFreeEx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="لا يوجد تمارين مرتبطة بهذه العضلة"
+        android:layout_centerInParent="true"/>
+
 
 </RelativeLayout>

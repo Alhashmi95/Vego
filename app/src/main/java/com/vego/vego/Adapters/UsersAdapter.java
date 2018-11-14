@@ -62,7 +62,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
 
         //getting the product of the specified position
 
-        final Chat c = chat.get(position);
+        Chat c = chat.get(position);
 
 
         if(!c.getMsg().equals("") && c.getMsg() != null){
@@ -84,6 +84,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
                 e.printStackTrace();
             }
             time = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(dw);
+
+
         }else{
             holder.textViewTime.setVisibility(View.GONE);
         }
