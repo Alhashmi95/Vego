@@ -9,6 +9,7 @@ import android.graphics.PixelFormat;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -65,12 +66,12 @@ public class ActivityInsideExercise extends AppCompatActivity {
     private ExerciseDetailsAdapter adapter;
     private ExerciseDetailsAdapterFree adapterFree;
     RecyclerView recyclerView;
-    TextView exNumberTextView, exNameTextView, tvTotalVolume,tvMaxRM1;
+    TextView exNumberTextView, exNameTextView, tvTotalVolume, tvMaxRM1;
     ImageView imageViewEx;
     ProgressBar progressBar;
-    double totalVolume, sumVolume = 0,totalWeight =0;
+    double totalVolume, sumVolume = 0, totalWeight = 0;
     Button calVAndR, addNewSetBtn;
-    double max =0;
+    double max = 0;
 
     ArrayList<sets> setsList = new ArrayList<>();
 
@@ -86,12 +87,12 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
     boolean checkerForRemove;
 
-    Button btnNext,btnPrevious ;
+    Button btnNext, btnPrevious;
 
     int exerciseN = 0;
     int exerciseP = 0;
 
-    String month,week,exNumber,day,dayIndex;
+    String month, week, exNumber, day, dayIndex;
 
     exercise volume1RmEx;
     double sumWeight;
@@ -106,12 +107,12 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
     SpaceNavigationView spaceNavigationView;
 
-    RelativeLayout rvHistory, rvHistory2;
-
+    RelativeLayout rvHistory;
+    ConstraintLayout rvHistory2;
 
 
     ProgressDialog bar;
-    String path="https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
+    String path = "https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
     MediaController ctlr;
     VideoView videoView;
 
@@ -136,7 +137,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         addNewSetBtn = findViewById(R.id.btnAddnewSet);
 
-        btnNext=findViewById(R.id.btnNext);
+        btnNext = findViewById(R.id.btnNext);
         btnPrevious = findViewById(R.id.btnPreviousMeal);
 
 
@@ -160,15 +161,13 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
 
         spaceNavigationView.initWithSaveInstanceState(savedInstanceState);
-        spaceNavigationView.addSpaceItem(new SpaceItem("التمرين السابق",R.color.transparent));
+        spaceNavigationView.addSpaceItem(new SpaceItem("التمرين السابق", R.color.transparent));
         spaceNavigationView.addSpaceItem(new SpaceItem("التمرين التالي", R.color.transparent));
         spaceNavigationView.shouldShowFullBadgeText(true);
         spaceNavigationView.setCentreButtonIconColorFilterEnabled(false);
 
 
-
-                setsArrayList = populateList();
-
+        setsArrayList = populateList();
 
 
         clickToEnlarge();
@@ -217,10 +216,10 @@ public class ActivityInsideExercise extends AppCompatActivity {
                     } else {
                         Toast.makeText(ActivityInsideExercise.this, "هذا اول تمرين", Toast.LENGTH_SHORT).show();
                     }
-                }else {
+                } else {
                     Log.d("onItemReselected ", "" + itemIndex + " " + itemName);
 
-                    if(exList.size()>exerciseN){
+                    if (exList.size() > exerciseN) {
                         Intent intent = new Intent(getApplicationContext(), ActivityInsideExercise.class);
 
                         intent.putExtra("exSets", exList.get(exerciseN).getSets());
@@ -228,17 +227,16 @@ public class ActivityInsideExercise extends AppCompatActivity {
                         intent.putExtra("exImage", exList.get(exerciseN).getImage());
                         intent.putExtra("exVideo", exList.get(exerciseN).getVideo());
 
-                        intent.putExtra("exNumber",String.valueOf(exerciseN));
+                        intent.putExtra("exNumber", String.valueOf(exerciseN));
                         intent.putExtra("exercise list", exList);
 
-                        intent.putExtra("dayIndex",dayIndex);
-                        intent.putExtra("month",month);
-                        intent.putExtra("week",week);
+                        intent.putExtra("dayIndex", dayIndex);
+                        intent.putExtra("month", month);
+                        intent.putExtra("week", week);
                         startActivity(intent);
                         finish();
-                    }
-                    else {
-                        Toast.makeText(ActivityInsideExercise.this,"هذا اخر تمرين",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ActivityInsideExercise.this, "هذا اخر تمرين", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -266,9 +264,9 @@ public class ActivityInsideExercise extends AppCompatActivity {
                     } else {
                         Toast.makeText(getBaseContext(), "هذا اول تمرين", Toast.LENGTH_SHORT).show();
                     }
-                }else {
+                } else {
                     Log.d("onItemReselected ", "" + itemIndex + " " + itemName);
-                    if(exList.size()>exerciseN){
+                    if (exList.size() > exerciseN) {
                         Intent intent = new Intent(getApplicationContext(), ActivityInsideExercise.class);
 
                         intent.putExtra("exSets", exList.get(exerciseN).getSets());
@@ -276,17 +274,16 @@ public class ActivityInsideExercise extends AppCompatActivity {
                         intent.putExtra("exImage", exList.get(exerciseN).getImage());
                         intent.putExtra("exVideo", exList.get(exerciseN).getVideo());
 
-                        intent.putExtra("exNumber",String.valueOf(exerciseN));
+                        intent.putExtra("exNumber", String.valueOf(exerciseN));
                         intent.putExtra("exercise list", exList);
 
-                        intent.putExtra("dayIndex",dayIndex);
-                        intent.putExtra("month",month);
-                        intent.putExtra("week",week);
+                        intent.putExtra("dayIndex", dayIndex);
+                        intent.putExtra("month", month);
+                        intent.putExtra("week", week);
                         startActivity(intent);
                         finish();
-                    }
-                    else {
-                        Toast.makeText(getBaseContext(),"هذا اخر تمرين",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getBaseContext(), "هذا اخر تمرين", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -307,14 +304,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
 //        });
 
 
-
-
-
         //showPic();
-
-
-
-
 
 
 //        calVAndR.setOnClickListener(new View.OnClickListener() {
@@ -332,8 +322,6 @@ public class ActivityInsideExercise extends AppCompatActivity {
 //                }
 //           }
 //        });
-
-
 
 
         Intent intent = this.getIntent();
@@ -362,7 +350,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
 //                .fit()
 //                .centerCrop()
 //                .into(imageViewEx);
-        if(!exImage.isEmpty()) {
+        if (!exImage.isEmpty()) {
             videoView.setVisibility(View.GONE);
             Ion.with(this)
                     .load(exImage)
@@ -376,9 +364,8 @@ public class ActivityInsideExercise extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                         }
                     });
-        }else {
+        } else {
             imageViewEx.setVisibility(View.GONE);
-
 
 
             path = intent.getStringExtra("exVideo");
@@ -387,8 +374,8 @@ public class ActivityInsideExercise extends AppCompatActivity {
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
             android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
-            params.width =  (int) (300*metrics.density);
-            params.height = (int) (250*metrics.density);
+            params.width = (int) (300 * metrics.density);
+            params.height = (int) (250 * metrics.density);
             params.leftMargin = 200;
             params.rightMargin = 200;
             params.bottomMargin = 1500;
@@ -396,12 +383,12 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
             //media player
             getWindow().setFormat(PixelFormat.TRANSLUCENT);
-            bar=new ProgressDialog(ActivityInsideExercise.this);
+            bar = new ProgressDialog(ActivityInsideExercise.this);
             bar.setTitle("Connecting server");
             bar.setMessage("Please Wait... ");
             bar.setCancelable(false);
             bar.show();
-            if(bar.isShowing()) {
+            if (bar.isShowing()) {
                 Uri uri = Uri.parse(path);
                 videoView.setVideoURI(uri);
                 videoView.start();
@@ -417,9 +404,9 @@ public class ActivityInsideExercise extends AppCompatActivity {
             videoViewEnlarge();
         }
 
-        for(int i =0; i < setsList.size(); i++){
+        for (int i = 0; i < setsList.size(); i++) {
             addNewSetBtn.setVisibility(View.VISIBLE);
-            if(setsList.get(i).getReps().equals("1234")){
+            if (setsList.get(i).getReps().equals("1234")) {
                 //hide keyboard focus
                 getWindow().setSoftInputMode(WindowManager.
                         LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -437,7 +424,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
                 rvHistory.setVisibility(View.GONE);
                 rvHistory2.setVisibility(View.GONE);
 
-            }else {
+            } else {
                 addNewSetBtn.setVisibility(View.INVISIBLE);
                 //calVAndR.setVisibility(View.VISIBLE);
                 setsList.get(i).setWeight("");
@@ -470,21 +457,21 @@ public class ActivityInsideExercise extends AppCompatActivity {
 //                DatabaseReference usersRef = rootRef.child("users").child(firebaseAuth.getUid()).child("Diet")
 //                        .child(chosenMonth).child(chosenWeek);
 
-                if(exList.size()>exerciseN){
+                if (exList.size() > exerciseN) {
                     Intent intent = new Intent(getApplicationContext(), ActivityInsideExercise.class);
 
                     intent.putExtra("exSets", exList.get(exerciseN).getSets());
                     intent.putExtra("exName", exList.get(exerciseN).getExername());
                     intent.putExtra("exImage", exList.get(exerciseN).getImage());
-                    intent.putExtra("exNumber",String.valueOf(exerciseN));
+                    intent.putExtra("exNumber", String.valueOf(exerciseN));
                     intent.putExtra("exercise list", exList);
-                    intent.putExtra("dayIndex",dayIndex);
-                    intent.putExtra("month",month);
-                    intent.putExtra("week",week);
+                    intent.putExtra("dayIndex", dayIndex);
+                    intent.putExtra("month", month);
+                    intent.putExtra("week", week);
                     v.getContext().startActivity(intent);
-                    finish();}
-                else {
-                    Toast.makeText(getBaseContext(),"هذا اخر تمرين",Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(getBaseContext(), "هذا اخر تمرين", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -492,21 +479,21 @@ public class ActivityInsideExercise extends AppCompatActivity {
         btnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(exList.size() > exerciseP && exerciseP >= 0){
+                if (exList.size() > exerciseP && exerciseP >= 0) {
                     Intent intent = new Intent(getApplicationContext(), ActivityInsideExercise.class);
 
                     intent.putExtra("exSets", exList.get(exerciseP).getSets());
                     intent.putExtra("exName", exList.get(exerciseP).getExername());
                     intent.putExtra("exImage", exList.get(exerciseP).getImage());
-                    intent.putExtra("exNumber",String.valueOf(exerciseP));
+                    intent.putExtra("exNumber", String.valueOf(exerciseP));
                     intent.putExtra("exercise list", exList);
-                    intent.putExtra("dayIndex",dayIndex);
-                    intent.putExtra("month",month);
-                    intent.putExtra("week",week);
+                    intent.putExtra("dayIndex", dayIndex);
+                    intent.putExtra("month", month);
+                    intent.putExtra("week", week);
                     v.getContext().startActivity(intent);
-                    finish();}
-                else {
-                    Toast.makeText(getBaseContext(),"هذا اول تمرين",Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(getBaseContext(), "هذا اول تمرين", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -534,24 +521,21 @@ public class ActivityInsideExercise extends AppCompatActivity {
     }
 
 
-
-
     public void calculateVolumeAndRM1() {
         max = Double.MIN_VALUE;
         sumVolume = 0;
         sumWeight = 0;
 
-        if(adapterFree != null){
+        if (adapterFree != null) {
             for (int i = 0; i < adapterFree.getSetsArrayFree().size(); i++) {
-                if(adapterFree.getSetsArrayFree().get(i).getWeight() == null){
+                if (adapterFree.getSetsArrayFree().get(i).getWeight() == null) {
                     checker = false;
                     Toast.makeText
                             (this, "الرجاء ادخال الوزن و عدد مرات التكرار لكل الجلسات", Toast.LENGTH_SHORT).show();
                     break;
-                }
-                else if (!adapterFree.getSetsArrayFree().get(i).getWeight().isEmpty()) {
-                    if(!adapterFree.getSetsArrayFree().get(i).getReps().isEmpty())
-                    checker = true;
+                } else if (!adapterFree.getSetsArrayFree().get(i).getWeight().isEmpty()) {
+                    if (!adapterFree.getSetsArrayFree().get(i).getReps().isEmpty())
+                        checker = true;
                     if (!adapterFree.getSetsArrayFree().get(i).getVolume().isEmpty() &&
                             !adapterFree.getSetsArrayFree().get(i).getRM1().isEmpty() && checker) {
                         //calculate total volume
@@ -566,7 +550,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
                 } else {
                     checker = false;
-                    sumVolume =0;
+                    sumVolume = 0;
                     max = 0;
                     Toast.makeText
                             (this, "الرجاء ادخال الوزن وعدد مرات التكرار", Toast.LENGTH_SHORT).show();
@@ -575,7 +559,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
                 }
             }
         }
-        if(checker) {
+        if (checker) {
             tvTotalVolume.setText(String.valueOf(sumVolume));
             tvMaxRM1.setText(String.valueOf(max));
         }
@@ -599,7 +583,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
                 } else {
                     checker = false;
-                    sumVolume =0;
+                    sumVolume = 0;
                     max = 0;
                     sumWeight = 0;
                     Toast.makeText
@@ -609,7 +593,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
                 }
             }
 
-            if(checker) {
+            if (checker) {
                 tvTotalVolume.setText(String.valueOf(sumVolume));
                 tvMaxRM1.setText(String.valueOf(max));
             }
@@ -626,11 +610,12 @@ public class ActivityInsideExercise extends AppCompatActivity {
             }
         });
     }
+
     private void showPic() {
         final Dialog nagDialog = new Dialog(ActivityInsideExercise.this
-                ,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+                , android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         nagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-       // nagDialog.setCancelable(false);
+        // nagDialog.setCancelable(false);
         nagDialog.setCanceledOnTouchOutside(true);
         nagDialog.setContentView(R.layout.preview_image);
         Button btnClose = nagDialog.findViewById(R.id.btnIvClose);
@@ -660,7 +645,8 @@ public class ActivityInsideExercise extends AppCompatActivity {
         });
         nagDialog.show();
     }
-    protected void getMonthAndWeekNum(){
+
+    protected void getMonthAndWeekNum() {
         Intent intent = this.getIntent();
 
         month = intent.getStringExtra("month");
@@ -669,10 +655,10 @@ public class ActivityInsideExercise extends AppCompatActivity {
         dayIndex = intent.getStringExtra("dayIndex");
 
 
-
         day = String.valueOf(dayIndex);
     }
-    public void getExercises(){
+
+    public void getExercises() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         //go to the child where you want to retreive values of
@@ -693,13 +679,13 @@ public class ActivityInsideExercise extends AppCompatActivity {
     }
 
     private void uploadVolumeAnd1RM() {
-        if(volume1RmEx != null && checker) {
+        if (volume1RmEx != null && checker) {
             ArrayList<sets> setsToUpdate = volume1RmEx.getSets();
 
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
-            for(int i = 0; i < setsToUpdate.size(); i++){
+            for (int i = 0; i < setsToUpdate.size(); i++) {
                 setsToUpdate.get(i).setVolume(adapter.getSetsArray().get(i).getVolume());
                 setsToUpdate.get(i).setRM1(adapter.getSetsArray().get(i).getRM1());
                 setsToUpdate.get(i).setWeight(adapter.getSetsArray().get(i).getWeight());
@@ -747,10 +733,11 @@ public class ActivityInsideExercise extends AppCompatActivity {
 //            });
 //
 //
-       }
+        }
 
     }
-    private void getSetsHistory(){
+
+    private void getSetsHistory() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         //go to the child where you want to retreive values of
@@ -762,17 +749,17 @@ public class ActivityInsideExercise extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 setsHistory = new ArrayList<>();
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     setsHistory.add(ds.getValue(sets.class));
 
 
                 }
-                if(setsHistory.get(0).getVolume().isEmpty() && setsHistory.get(0).getWeight().isEmpty()
-                        && setsHistory.get(0).getRM1().isEmpty()){
+                if (setsHistory.get(0).getVolume().isEmpty() && setsHistory.get(0).getWeight().isEmpty()
+                        && setsHistory.get(0).getRM1().isEmpty()) {
                     historyText.setVisibility(View.VISIBLE);
                     recyclerViewHistory.setVisibility(View.GONE);
 
-                }else {
+                } else {
                     historyText.setVisibility(View.GONE);
                     recyclerViewHistory.setVisibility(View.VISIBLE);
                     historyAdapter = new HistoryAdapter(setsHistory, ActivityInsideExercise.this);
@@ -789,16 +776,18 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
 
     }
+
     @SuppressLint("ClickableViewAccessibility")
     private void videoViewEnlarge() {
         videoView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(showingFirst == true){
+                if (showingFirst == true) {
                     //full screen video
-                    DisplayMetrics metrics = new DisplayMetrics(); getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                    DisplayMetrics metrics = new DisplayMetrics();
+                    getWindowManager().getDefaultDisplay().getMetrics(metrics);
                     android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
-                    params.width =  metrics.widthPixels;
+                    params.width = metrics.widthPixels;
                     params.height = metrics.heightPixels;
                     params.leftMargin = 0;
                     params.leftMargin = 0;
@@ -811,21 +800,19 @@ public class ActivityInsideExercise extends AppCompatActivity {
                     //change to true so we do full screen again
                     showingFirst = false;
 
-                }else{
+                } else {
                     //small window video
                     DisplayMetrics metrics = new DisplayMetrics();
                     getWindowManager().getDefaultDisplay().getMetrics(metrics);
                     android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
-                    params.width =  (int) (300*metrics.density);
-                    params.height = (int) (250*metrics.density);
+                    params.width = (int) (300 * metrics.density);
+                    params.height = (int) (250 * metrics.density);
                     params.leftMargin = 200;
                     params.rightMargin = 200;
                     params.bottomMargin = 1500;
                     params.topMargin = 100;
 
                     videoView.setLayoutParams(params);
-
-
 
 
                     //changeto false so we can toggle back fullscreen

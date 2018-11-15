@@ -149,17 +149,17 @@ public class FragmentHome extends Fragment {
 
 
 
-        tabLayout.addTab(tabLayout.newTab().setText("month 1"));
+        tabLayout.addTab(tabLayout.newTab().setText("الشهر 1"));
 
 
 
-        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 1"));
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("الاسبوع 1"));
 
-        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 2"));
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("الاسبوع 2"));
 
-        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 3"));
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("الاسبوع 3"));
 
-        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 4"));
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("الاسبوع 4"));
 
         getMonthTabs();
         tabListener();
@@ -207,7 +207,7 @@ public class FragmentHome extends Fragment {
                 counterMonth = (int) dataSnapshot.getChildrenCount();
 
                 for(int i = 1; i< counterMonth; i++){
-                    tabLayout.addTab(tabLayout.newTab().setText("month "+ String.valueOf(i+1)));
+                    tabLayout.addTab(tabLayout.newTab().setText("الشهر "+ String.valueOf(i+1)));
 
                 }
 

@@ -464,8 +464,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 }
             });
         }else {
-            passwordTxt.setError("please enter your password");
-            emailTxt.setError("please enter your email");
+            passwordTxt.setError("الرجاء ادخال كلمة المرور");
+            emailTxt.setError("الرجاء ادخال البريد الالكتروني");
         }
     }
 

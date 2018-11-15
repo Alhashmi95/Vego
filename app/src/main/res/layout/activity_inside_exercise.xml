@@ -22,13 +22,9 @@
                 android:id="@+id/actionBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:background="#002e65"
-
                 android:gravity="top"
-                android:paddingRight="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -42,14 +38,10 @@
                         android:id="@+id/logo"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginLeft="135dp"
-                        android:layout_marginStart="135dp"
-                        android:paddingTop="9dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:src="@drawable/logo_white" />
-
 
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
@@ -146,7 +138,6 @@
                     android:src="@drawable/welcome_screen" />
 
 
-
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="wrap_content"
@@ -190,9 +181,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="22dp"
                     android:layout_marginLeft="18dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="22dp"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="4dp"
                     android:text="الجلسات"
@@ -279,15 +270,13 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerInsideWorkout"
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="25dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/btnCalVolumeAndRM1"
+                app:layout_constraintBottom_toTopOf="@+id/addNewTypeBtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -310,22 +299,23 @@
                 android:backgroundTint="@color/md_white_1000"
                 android:text="إضافة جلسة"
                 android:textColor="@color/scifitBlue"
-                app:layout_constraintBottom_toTopOf="@id/btnCalVolumeAndRM1"
+                app:layout_constraintBottom_toTopOf="@id/rv_history"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerInsideWorkout"
                 app:layout_constraintVertical_bias="1.0" />
+
             <Button
                 android:id="@+id/btnCalVolumeAndRM1"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="8dp"
+                android:visibility="invisible"
                 android:layout_marginEnd="25dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="212dp"
                 android:backgroundTint="@color/scifitBlue"
                 android:text="Calculate Total Volume and RM1"
                 android:textColor="@color/md_white_1000"
@@ -333,7 +323,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerInsideWorkout"
                 app:layout_constraintVertical_bias="1.0" />
 
             <RelativeLayout
@@ -355,78 +345,109 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:text="في التمرين السابق"
                     android:textColor="@color/md_white_1000" />
 
 
             </RelativeLayout>
 
-            <RelativeLayout
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/rv_history2"
                 android:layout_width="match_parent"
-                android:layout_height="26dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="45dp"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginVertical="5dp"
                 android:background="@drawable/table_background"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_history">
 
                 <TextView
-                    android:id="@+id/tv_setHistory"
+                    android:id="@+id/txtSetsShow2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="عدد الجلسات"
-                    android:textColor="@color/md_white_1000" />
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="22dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="4dp"
+                    android:text="الجلسات"
+                    android:textColor="@color/md_white_1000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txtRepsShow22"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_repsHistory"
+                    android:id="@+id/tvTotalVolume2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="109dp"
-                    android:layout_marginRight="109dp"
-                    android:text="التكرار"
-                    android:textColor="@color/md_white_1000" />
-
-
-                <TextView
-                    android:id="@+id/tv_weightHistory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="الوزن"
-                    android:textColor="@color/md_white_1000" />
-
-
-                <TextView
-                    android:id="@+id/tv_1rmHistory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="113dp"
-                    android:layout_marginStart="113dp"
-                    android:text="1RM"
-                    android:textColor="@color/md_white_1000" />
-
-                <TextView
-                    android:id="@+id/tv_volumeHistory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="34dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="34dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="4dp"
                     android:text="Volume"
-                    android:textColor="@color/md_white_1000" />
+                    android:textColor="@color/md_white_1000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txtMaxRm12"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/txtMaxRm12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="104dp"
+                    android:layout_marginStart="104dp"
+                    android:layout_marginTop="4dp"
+                    android:text="1RM"
+                    android:textColor="@color/md_white_1000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txtRepsShow33"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </RelativeLayout>
+                <TextView
+                    android:id="@+id/txtRepsShow33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="4dp"
+                    android:text="الوزن"
+                    android:textColor="@color/md_white_1000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txtRepsShow22"
+                    app:layout_constraintStart_toEndOf="@+id/txtMaxRm12"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtRepsShow22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="4dp"
+                    android:text="التكرار"
+                    android:textColor="@color/md_white_1000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txtSetsShow2"
+                    app:layout_constraintStart_toEndOf="@+id/txtRepsShow33"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_insideWorkoutHistory"
@@ -443,8 +464,8 @@
                 android:id="@+id/tv_History"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="لم تقم بهذا التمرين من قبل"
                 android:paddingBottom="70dp"
+                android:text="لم تقم بهذا التمرين من قبل"
                 android:textAlignment="center"
                 app:layout_constraintTop_toBottomOf="@+id/rv_history2" />
 
@@ -460,21 +481,20 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        app:centre_button_icon="@drawable/ic_calculator"
-        app:inactive_centre_button_icon_color="@color/md_white_1000"
         app:active_centre_button_icon_color="@color/md_white_1000"
-        >
+        app:centre_button_icon="@drawable/ic_calculator"
+        app:inactive_centre_button_icon_color="@color/md_white_1000">
 
     </com.luseen.spacenavigation.SpaceNavigationView>
 
     <VideoView
-        android:id="@+id/video"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    android:id="@+id/video"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
 
 
 </RelativeLayout>

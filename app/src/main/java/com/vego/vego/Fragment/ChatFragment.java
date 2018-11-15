@@ -1,5 +1,6 @@
 package com.vego.vego.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -85,6 +86,8 @@ public class ChatFragment extends Fragment implements ResponseFcmToken {
     int j=0;
     private String receiverToken;
 
+    ProgressDialog p;
+
 
     public ChatFragment() {
         // Required empty public constructor
@@ -113,6 +116,11 @@ public class ChatFragment extends Fragment implements ResponseFcmToken {
 
 
         root = FirebaseDatabase.getInstance().getReference().child("chat");
+
+        p = new ProgressDialog(getContext());
+        p.setMessage("جاري التحميل");
+        p.show();
+        p.setCancelable(false);
 
 
 
@@ -425,6 +433,7 @@ public class ChatFragment extends Fragment implements ResponseFcmToken {
                                 mMessageRecycler.setLayoutManager(layoutManager);
 
                                 mMessageAdapter.notifyDataSetChanged();
+                                p.dismiss();
                             }
 
                             @Override

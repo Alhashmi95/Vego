@@ -210,6 +210,7 @@
             android:layout_width="match_parent"
             android:layout_marginHorizontal="23dp"
             android:layout_below="@id/btnUpdateWeight"
+            android:visibility="gone"
             android:layout_height="400dp">
 
             <android.support.v7.widget.RecyclerView

@@ -27,7 +27,8 @@
                 android:background="@color/scifitBlue"
                 app:tabGravity="center"
                 app:tabIndicatorColor="@color/md_white_1000"
-                app:tabTextColor="@color/scifitBlue"
+                app:tabTextColor="@color/md_white_1000"
+                app:tabSelectedTextColor="@color/md_white_1000"
                 app:tabMode="scrollable" />
 
             <android.support.design.widget.TabLayout

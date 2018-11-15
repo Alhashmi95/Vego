@@ -73,6 +73,7 @@ public class FragmentSupportList extends Fragment {
         p = new ProgressDialog(getContext());
         p.setMessage("جاري التحميل... ");
         p.show();
+        p.setCancelable(false);
 
 
 

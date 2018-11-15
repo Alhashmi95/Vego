@@ -54,8 +54,8 @@ public class FragmentWallet extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         p = new ProgressDialog(getContext());
-        p.setTitle("Loading");
-        p.setMessage("Fetching data...");
+        p.setTitle("تحميل");
+        p.setMessage("جاري التحميل ...");
         p.show();
 
 

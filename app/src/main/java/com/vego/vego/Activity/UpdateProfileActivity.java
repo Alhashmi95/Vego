@@ -95,6 +95,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         profilePic = findViewById(R.id.ivProfileUpdate);
         profilePic = profilePic;
 
+        newUserName.requestFocus();
+
 
 //        updateProfilePic = findViewById(R.id.ivProfileUpdate);
 
@@ -134,7 +136,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
                     spActivity.setSelection(2);
                 }else if(userinfo.getUserActivity().equals("منخفض")) {
                     spActivity.setSelection(3);
-                } else if(userinfo.getUserActivity().equals("خامل")) {
+                } else if(userinfo.getUserActivity().equals("منخفض جداً")) {
                     spActivity.setSelection(4);
                 }
 
@@ -168,13 +170,13 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 "مرتفع",
                 "متوسط",
                 "منخفض",
-                "خامل"
+                "منخفض جداً"
         };
         String[] goal = new String[]{
                 "هدفك من التطبيق",
                 "زيادة الوزن",
                 "انقاص الوزن",
-                "زيادة عضلات",
+                "خسارة الدهون والمحافظة على العضلات",
                 "المحافظة على الوزن الحالي"
         };
 

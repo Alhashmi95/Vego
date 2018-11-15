@@ -41,54 +41,57 @@
                 android:layout_height="170dp"
                 android:scaleType="centerCrop" />
 
-            <ImageView
-                android:id="@+id/ivtargtedMu"
-                android:layout_width="59dp"
-                android:layout_height="54dp"
-                android:scaleType="fitStart"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivtargtedMu"
+                    android:layout_width="59dp"
+                    android:layout_height="54dp"
+                    android:scaleType="fitStart"/>
+
+                <TextView
+                    android:id="@+id/txtMu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="العضلات المستهدفة"
+                    android:layout_below="@+id/ivtargtedMu"
+                    />
+            </RelativeLayout>
+
 
             <ImageView
+                android:id="@+id/dumbl"
                 android:layout_width="26dp"
                 android:layout_height="27dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="24dp"
-                android:paddingBottom="3dp"
+                android:layout_toEndOf="@+id/txtNameExercise"
                 android:src="@drawable/workoutcount"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="24dp" />
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/txtNameExercise" />
 
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="27dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="130dp"
-                android:paddingBottom="3dp"
-                android:src="@drawable/mouscle"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="130dp" />
+            <!--<ImageView-->
+                <!--android:id="@+id/ic_c"-->
+                <!--android:layout_width="26dp"-->
+                <!--android:layout_height="27dp"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_toRightOf="@+id/txtMu"-->
+                <!--android:paddingBottom="3dp"-->
+                <!--android:src="@drawable/mouscle"-->
+                <!--android:visibility="invisible"-->
+                <!--android:layout_toEndOf="@+id/txtMu" />-->
 
-            <TextView
-                android:id="@+id/txtMu"
-                android:layout_width="120dp"
-                android:layout_height="30dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:gravity="right"
-                android:text="العضلات المستهدفة"
-                android:layout_alignParentLeft="true" />
 
             <TextView
                 android:id="@+id/txtNameExercise"
-                android:layout_width="142dp"
-                android:layout_height="29dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="58dp"
-                android:layout_marginRight="58dp"
+                android:layout_centerHorizontal="true"
                 android:gravity="right"
                 android:text="إسم التمرين" />
 

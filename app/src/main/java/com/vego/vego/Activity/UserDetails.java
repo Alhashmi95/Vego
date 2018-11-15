@@ -205,6 +205,7 @@ Exercises[] workoutDay;
        // workoutList= new ArrayList<Exercises>(Arrays.asList(workoutDay));
 
         setupUIViews();
+        userNameTxt.requestFocus();
 
         ///////////////////////////////////////////////////////////////////////////////////
 
@@ -224,7 +225,7 @@ Exercises[] workoutDay;
                 "مرتفع",
                 "متوسط",
                 "منخفض",
-                "خامل"
+                "منخفض جداً"
         };
         String[] goal = new String[]{
                 "هدفك من التطبيق",
@@ -461,7 +462,10 @@ Exercises[] workoutDay;
 
         if(name.isEmpty() || height.isEmpty() || age.isEmpty() || weight.isEmpty()
                 || userActivity.equals("مستوى النشاط") || userGoal.equals("هدفك من التطبيق")){
-            Toast.makeText(this, "Please enter all the details", Toast.LENGTH_SHORT).show();
+            if(name.isEmpty()){
+                userNameTxt.setError("الرجاء ادخال اسم");
+            }
+            Toast.makeText(this, "الرجاء ادخال كافة التفاصيل", Toast.LENGTH_SHORT).show();
         }else{
             result = true;
         }
@@ -473,7 +477,7 @@ Exercises[] workoutDay;
         if(validate()){
             //upload data to firebase
             uploadUserData();
-            Toast.makeText(this, "Data Registered successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "تم التسجيل بنجاح", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, BottomNav.class));
         }
     }

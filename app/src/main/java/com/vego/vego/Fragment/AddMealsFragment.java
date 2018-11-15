@@ -248,16 +248,16 @@ public class AddMealsFragment extends Fragment {
 //        toolbarAdapter = new toolbarAdapter(getContext());
 
 
-        tabLayout.addTab(tabLayout.newTab().setText("month 1"));
+        tabLayout.addTab(tabLayout.newTab().setText("الشهر 1"));
 
 
-        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 1"));
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("الاسبوع 1"));
 
-        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 2"));
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("الاسبوع 2"));
 
-        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 3"));
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("الاسبوع 3"));
 
-        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("week 4"));
+        tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText("الاسبوع 4"));
 
 
         addNewMonth();
@@ -361,25 +361,25 @@ public class AddMealsFragment extends Fragment {
 
 //        changeRole();
 
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
-        DatabaseReference uidRef = usersRef.child("ZU7wS37XJUU6oeueYlciKWxx5X23");
-        DatabaseReference zone1Ref = uidRef.child("Diet");
-        DatabaseReference zone1NameRef = zone1Ref.child("0");
-        DatabaseReference zone2dayRef = zone1NameRef.child("day");
-
-        zone1NameRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("test", "this is day : " + dataSnapshot.child("day").toString());
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
-            }
-        });
-
+//        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+//        DatabaseReference uidRef = usersRef.child("ZU7wS37XJUU6oeueYlciKWxx5X23");
+//        DatabaseReference zone1Ref = uidRef.child("Diet");
+//        DatabaseReference zone1NameRef = zone1Ref.child("0");
+//        DatabaseReference zone2dayRef = zone1NameRef.child("day");
+//
+//        zone1NameRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Log.d("test", "this is day : " + dataSnapshot.child("day").toString());
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.w(TAG, "onCancelled", databaseError.toException());
+//            }
+//        });
+//
 
         //String[] usersArr = arrayList.toArray(new String[0]);
 
@@ -410,7 +410,7 @@ public class AddMealsFragment extends Fragment {
                 counterMonth = (int) dataSnapshot.getChildrenCount();
 
                 for (int i = 1; i < counterMonth; i++) {
-                    tabLayout.addTab(tabLayout.newTab().setText("month " + String.valueOf(i + 1)));
+                    tabLayout.addTab(tabLayout.newTab().setText("الشهر  " + String.valueOf(i + 1)));
 
                 }
 
@@ -1414,7 +1414,7 @@ public class AddMealsFragment extends Fragment {
 //                    databaseReference3.setValue(mTest3);
 //                    databaseReference4.setValue(mTest4);
 //                    databaseReference5.setValue(mTest5);
-                    getUsers();
+                   // getUsers();
 
 
                     Toast.makeText(getContext(), "تم حفظ الوجبة", Toast.LENGTH_LONG).show();
@@ -1424,7 +1424,7 @@ public class AddMealsFragment extends Fragment {
 
                     int chossenDayInt = Integer.valueOf(choosenDay) + 1;
                     databaseReferenceDay.setValue(String.valueOf(chossenDayInt));
-                    getUsers();
+                 //   getUsers();
                 }
             }
         });
