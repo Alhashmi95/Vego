@@ -22,6 +22,7 @@ import com.vego.vego.model.sets;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ExerciseDetailsAdapter  extends RecyclerView.Adapter<ExerciseDetailsAdapter.ViewHolder> {
 
@@ -73,7 +74,7 @@ public class ExerciseDetailsAdapter  extends RecyclerView.Adapter<ExerciseDetail
                             - Double.valueOf(exList.get(position).getReps())));
 
 
-                    holder.textViewRM1.setText(String.format("%.1f", RM1));
+                    holder.textViewRM1.setText(String.format(Locale.ENGLISH,"%.1f", RM1));
                     holder.textViewVolume.setText(String.valueOf(Volume));
 
 

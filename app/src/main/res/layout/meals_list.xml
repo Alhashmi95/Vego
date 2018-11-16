@@ -40,53 +40,52 @@
                 android:scaleType="centerCrop" />
 
             <ImageView
+                android:id="@+id/ic_Meal"
                 android:layout_width="26dp"
                 android:layout_height="27dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="53dp"
+                android:layout_marginEnd="30dp"
                 android:paddingBottom="3dp"
                 android:src="@drawable/icons_meal_px"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="53dp" />
+                android:layout_marginRight="30dp" />
 
             <ImageView
                 android:id="@+id/calIC"
                 android:layout_width="26dp"
                 android:layout_height="27dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="116dp"
                 android:paddingBottom="3dp"
-                android:layout_toRightOf="@id/textViewShortDesc"
                 android:src="@drawable/calories"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="116dp"
-                android:layout_toEndOf="@id/textViewShortDesc" />
+                android:layout_toLeftOf="@+id/textViewTitle"
+                android:layout_toStartOf="@+id/textViewTitle" />
 
             <TextView
                 android:id="@+id/textViewShortDesc"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="35dp"
-                android:gravity="center_vertical"
+                android:gravity="right"
+                android:ellipsize="end"
+                android:layout_marginRight="5dp"
+                android:maxLines="1"
                 android:text="Card Title"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="35dp" />
+                android:layout_toLeftOf="@+id/calIC"
+                android:layout_toStartOf="@+id/calIC" />
 
             <TextView
                 android:id="@+id/textViewTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="29dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="87dp"
-                android:gravity="center_vertical"
+                android:gravity="right"
                 android:text="Card Title"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="87dp" />
+                android:layout_marginRight="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_toLeftOf="@+id/ic_Meal"
+                android:layout_toStartOf="@+id/ic_Meal" />
 
 
         </RelativeLayout>

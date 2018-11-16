@@ -120,6 +120,9 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
     exercise e;
 
+    ConstraintLayout cFree;
+    ConstraintLayout cUsual;
+
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -154,6 +157,11 @@ public class ActivityInsideExercise extends AppCompatActivity {
         rvHistory2 = findViewById(R.id.rv_history2);
 
         videoView = findViewById(R.id.video);
+
+        cFree = findViewById(R.id.relativeLayout4);
+        cUsual = findViewById(R.id.relativeLayout4free);
+        cFree.setVisibility(View.INVISIBLE);
+        cUsual.setVisibility(View.VISIBLE);
 
         recyclerViewHistory.setHasFixedSize(true);
         recyclerViewHistory.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
@@ -406,6 +414,8 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
         for (int i = 0; i < setsList.size(); i++) {
             addNewSetBtn.setVisibility(View.VISIBLE);
+            cFree.setVisibility(View.VISIBLE);
+            cUsual.setVisibility(View.INVISIBLE);
             if (setsList.get(i).getReps().equals("1234")) {
                 //hide keyboard focus
                 getWindow().setSoftInputMode(WindowManager.
@@ -426,6 +436,8 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
             } else {
                 addNewSetBtn.setVisibility(View.INVISIBLE);
+                cFree.setVisibility(View.INVISIBLE);
+                cUsual.setVisibility(View.VISIBLE);
                 //calVAndR.setVisibility(View.VISIBLE);
                 setsList.get(i).setWeight("");
                 setsList.get(i).setRM1("");
