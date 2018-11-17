@@ -66,7 +66,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
     private ExerciseDetailsAdapter adapter;
     private ExerciseDetailsAdapterFree adapterFree;
     RecyclerView recyclerView;
-    TextView exNumberTextView, exNameTextView, tvTotalVolume, tvMaxRM1;
+    TextView exNumberTextView, exNameTextView, tvTotalVolume,tvTotalVolumeFree,tvMaxRm1Free, tvMaxRM1;
     ImageView imageViewEx;
     ProgressBar progressBar;
     double totalVolume, sumVolume = 0, totalWeight = 0;
@@ -158,10 +158,13 @@ public class ActivityInsideExercise extends AppCompatActivity {
 
         videoView = findViewById(R.id.video);
 
-        cFree = findViewById(R.id.relativeLayout4);
-        cUsual = findViewById(R.id.relativeLayout4free);
+        cUsual = findViewById(R.id.relativeLayout4);
+        cFree = findViewById(R.id.relativeLayout4Free);
         cFree.setVisibility(View.INVISIBLE);
         cUsual.setVisibility(View.VISIBLE);
+
+        tvTotalVolumeFree = findViewById(R.id.tvTotalVolumeFree);
+        tvMaxRm1Free = findViewById(R.id.txtMaxRm1Free);
 
         recyclerViewHistory.setHasFixedSize(true);
         recyclerViewHistory.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
@@ -572,8 +575,8 @@ public class ActivityInsideExercise extends AppCompatActivity {
             }
         }
         if (checker) {
-            tvTotalVolume.setText(String.valueOf(sumVolume));
-            tvMaxRM1.setText(String.valueOf(max));
+            tvTotalVolumeFree.setText(String.valueOf(sumVolume));
+            tvMaxRm1Free.setText(String.valueOf(max));
         }
         if (adapterFree == null) {
             for (int i = 0; i < adapter.getSetsArray().size(); i++) {

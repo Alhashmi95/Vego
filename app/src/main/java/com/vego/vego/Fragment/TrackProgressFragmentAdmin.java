@@ -354,7 +354,8 @@ public class TrackProgressFragmentAdmin extends Fragment {
                 });
                 alert.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-
+                    radioButtonTrue.setChecked(false);
+                    radioButtonFalse.setChecked(false);
                     }
                 });
 
@@ -408,7 +409,8 @@ public class TrackProgressFragmentAdmin extends Fragment {
                 });
                 alert.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-
+                        radioButtonTrue.setChecked(false);
+                        radioButtonFalse.setChecked(false);
                     }
                 });
 

@@ -31,6 +31,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MessageListAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
@@ -172,7 +174,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText, nameText, tvDate;
-        ImageView profileImage;
+        CircleImageView profileImage;
         UserInfo userInfo;
 
         String date,datePrev,time;
@@ -186,7 +188,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             nameText = (TextView) itemView.findViewById(R.id.text_message_name);
             tvDate = (TextView) itemView.findViewById(R.id.tv_date);
 
-            profileImage = (ImageView) itemView.findViewById(R.id.avatar);
+            profileImage = itemView.findViewById(R.id.avatar);
         }
 
         void bind(Chat message, int position) {
@@ -253,12 +255,15 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                     userInfo = dataSnapshot.getValue(UserInfo.class);
 
                     // Insert the profile image from the URL into the ImageView.
-                    Picasso.get()
-                            .load(userInfo.getImage())
-                            .fit()
-                            .centerCrop()
-                            .into(profileImage);
-
+                    assert userInfo != null;
+                    if(userInfo.getImage() != null) {
+                        Picasso.get()
+                                .load(userInfo.getImage())
+                                .fit()
+                                .into(profileImage);
+                    }else {
+                        profileImage.setImageResource(R.drawable.profile_pic_large);
+                    }
                 }
 
                 @Override

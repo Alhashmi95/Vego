@@ -72,66 +72,6 @@ public class UserDetails extends AppCompatActivity {
 
     List dayMealsD1 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay1));
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//    DayMeals[] dayMealsDay2 = new DayMeals[] {new DayMeals("meal1day2","22",""
-//    ,(ArrayList<ingredients>) mealIngrList3, (ArrayList<elements>) mealElementList)
-//
-//    };
-//
-//    List dayMealsD2 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay2));
-//
-//    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-//    DayMeals[] dayMealsDay3 = new DayMeals[] {new DayMeals("fds","meal1day3","",
-//            (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-//            new DayMeals("meal2day3","333","",(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
-//    };
-//
-//    List dayMealsD3 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay3));
-//
-//    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-//    DayMeals[] dayMealsDay4 = new DayMeals[] {new DayMeals("meal1day4","9328","",
-//            (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-//            new DayMeals("fdskjdfs","928","",(ArrayList<ingredients>) mealIngrList2, (ArrayList<elements>) mealElementList)
-//
-//    };
-//
-//    List dayMealsD4 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay4));
-//
-//    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//    DayMeals[] dayMealsDay5 = new DayMeals[] {new DayMeals("fds","9328",""
-//            ,(ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-//            new DayMeals("fdskjdfs","928","",
-//                    (ArrayList<ingredients>) mealIngrList3, (ArrayList<elements>) mealElementList)
-//
-//    };
-//
-//    List dayMealsD5 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay5));
-//
-//    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-//    DayMeals[] dayMealsDay6 = new DayMeals[] {new DayMeals("fds","9328","",
-//            (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList)
-//
-//    };
-//
-//    List dayMealsD6 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay6));
-//
-//    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//    DayMeals[] dayMealsDay7 = new DayMeals[] {new DayMeals("fds","9328","",
-//            (ArrayList<ingredients>) mealIngrList, (ArrayList<elements>) mealElementList),
-//            new DayMeals("fdskjdfs","928","",(ArrayList<ingredients>) mealIngrList,
-//                    (ArrayList<elements>) mealElementList)
-//    };
-//
-//    List dayMealsD7 = new ArrayList<DayMeals>(Arrays.asList(dayMealsDay7));
-//
-//    //////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//
-//
-////
 
 
 
@@ -148,27 +88,18 @@ public class UserDetails extends AppCompatActivity {
     List setsList = new ArrayList<sets>(Arrays.asList(setsArray));
 
 
-//            new exercise("1","389", (ArrayList<sets>) setsList,""),
-//            new exercise("fkdlj","صدر", (ArrayList<sets>) setsList,""),
-//            new exercise("klfjf","بطن", (ArrayList<sets>) setsList,""),
-//            new exercise("fdjkh","راس", (ArrayList<sets>) setsList,""),
-
-//    };
-//
-//    List exList = new ArrayList<exercise>(Arrays.asList(exArray));
-//
-//
-//
     ArrayList dietList ;
 Exercises[] workoutDay;
     List exBigList;
     List dietBigList;
 //
-//    ArrayList workoutList;
+    String isAdmin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
+        Intent i = getIntent();
+        isAdmin = i.getStringExtra("isAdmin");
 
             DietDay[] dietDay = new DietDay[] {new DietDay("","", "",(ArrayList<com.vego.vego.model.meal>) dayMealsD1),
                     new DietDay("","", "",(ArrayList<com.vego.vego.model.meal>) dayMealsD1),
@@ -478,7 +409,9 @@ Exercises[] workoutDay;
             //upload data to firebase
             uploadUserData();
             Toast.makeText(this, "تم التسجيل بنجاح", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, BottomNav.class));
+            Intent i = new Intent(this, SliderActivity.class);
+            i.putExtra("isAdmin",String.valueOf(false));
+            startActivity(i);
         }
     }
 

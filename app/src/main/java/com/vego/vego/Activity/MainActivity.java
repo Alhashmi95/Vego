@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseUser currentUser;
 
+    String isAdmin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,12 +94,14 @@ public class MainActivity extends AppCompatActivity {
                             mUser.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    isAdmin = dataSnapshot.getValue(String.class);
                                     if (checker) {
                                         if (dataSnapshot.getValue().toString().equals("true")) {
                                             new Handler().postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    Intent homeIntent = new Intent(MainActivity.this, AdminActivity.class);
+                                                    Intent homeIntent = new Intent(MainActivity.this, SliderActivity.class);
+                                                    homeIntent.putExtra("isAdmin",isAdmin);
                                                     startActivity(homeIntent);
                                                     finish();
                                                 }
@@ -106,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
                                             new Handler().postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    Intent homeIntent = new Intent(MainActivity.this, BottomNav.class);
+                                                    Intent homeIntent = new Intent(MainActivity.this, SliderActivity.class);
+                                                    homeIntent.putExtra("isAdmin",isAdmin);
                                                     startActivity(homeIntent);
                                                     finish();
                                                 }

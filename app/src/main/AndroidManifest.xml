@@ -114,7 +114,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service
             android:name=".model.MyFirebaseInstanceIdService"
             android:exported="false">
@@ -123,7 +122,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Activity.InsideChatActivity"></activity>
+        <activity android:name=".Activity.InsideChatActivity" />
+        <activity android:name=".Activity.SliderActivity"></activity>
     </application>
 
 </manifest>

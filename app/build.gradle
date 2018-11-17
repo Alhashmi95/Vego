@@ -68,7 +68,7 @@ dependencies {
     //add picasso to download images from url's
     implementation 'com.squareup.picasso:picasso:2.71828'
     //to make gif moves
-    implementation 'com.koushikdutta.ion:ion:2.+'
+    implementation 'com.koushikdutta.ion:ion:2.2.1'
     implementation 'com.firebaseui:firebase-ui-database:1.2.0'
     //facebook login
     implementation 'com.sendbird.sdk:sendbird-android-sdk:3.0.54'
@@ -103,9 +103,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.googlecode.json-simple:json-simple:1.1'
 
-
-
-
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
 }
 
 // add this line for firebase connection

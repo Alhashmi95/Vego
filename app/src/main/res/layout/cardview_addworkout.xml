@@ -43,13 +43,29 @@
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <!--<TextView-->
+                    <!--android:id="@+id/textView100"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="العضلة المستهدفة"/>-->
+                <ImageView
+                    android:id="@+id/ic_c"
+                    android:layout_width="26dp"
+                    android:layout_height="27dp"
+                    android:paddingBottom="3dp"
+                    android:src="@drawable/mouscle"
+                    android:layout_centerHorizontal="true"
+                    />
 
                 <ImageView
                     android:id="@+id/ivtargtedMu"
                     android:layout_width="59dp"
                     android:layout_height="54dp"
-                    android:scaleType="fitStart"/>
+                    android:scaleType="fitStart"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/txtMu"
@@ -59,7 +75,7 @@
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
                     android:text="العضلات المستهدفة"
-                    android:layout_below="@+id/ivtargtedMu"
+                    android:layout_below="@+id/ic_c"
                     />
             </RelativeLayout>
 
@@ -79,11 +95,10 @@
                 <!--android:layout_width="26dp"-->
                 <!--android:layout_height="27dp"-->
                 <!--android:layout_alignParentBottom="true"-->
-                <!--android:layout_toRightOf="@+id/txtMu"-->
                 <!--android:paddingBottom="3dp"-->
                 <!--android:src="@drawable/mouscle"-->
                 <!--android:visibility="invisible"-->
-                <!--android:layout_toEndOf="@+id/txtMu" />-->
+                 <!--/>-->
 
 
             <TextView
