@@ -83,7 +83,7 @@ public class BottomNav extends AppCompatActivity {
 
 
 
-
+    DatabaseReference databaseReference;
 
     BottomNavigationView bTV = null;
     @Override
@@ -132,8 +132,8 @@ public class BottomNav extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        final DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
-                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).child("Profile");
+        databaseReference = firebaseDatabase.getReference().child("users")
+                .child(firebaseAuth.getCurrentUser().getUid()).child("Profile");
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {

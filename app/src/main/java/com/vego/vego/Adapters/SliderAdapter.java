@@ -114,7 +114,7 @@ public class SliderAdapter extends PagerAdapter {
         if (isAdmin.equals("false")) {
             Ion.with(mContext)
                     .load(slide_images[position])
-                    .progress(new ProgressCallback() {
+                    .progressHandler(new ProgressCallback() {
                         @Override
                         public void onProgress(long downloaded, long total) {
                             int mProgress = (int) (downloaded * 100 / total);
