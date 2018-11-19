@@ -36,31 +36,31 @@ public class SliderActivity extends AppCompatActivity {
         Intent intent = getIntent();
         isAdmin = intent.getStringExtra("isAdmin");
 
-//        //check if first run
-//        SharedPreferences settings=getSharedPreferences("prefs",0);
-//        boolean firstRun=settings.getBoolean("firstRun",false);
-//        if(firstRun==false)//if running for first time
-//        //Splash will load for first time
-//        {
-//            SharedPreferences.Editor editor=settings.edit();
-//            editor.putBoolean("firstRun",true);
-//            editor.apply();
-////            Intent i=new Intent(SliderActivity.this,Splash.class);
-////            startActivity(i);
-////            finish();
-//        }
-//        else
-//        {
-//            if (isAdmin.equals("false")) {
-//                Intent i = new Intent(SliderActivity.this,BottomNav.class);
-//                startActivity(i);
-//                finish();
-//            }else if (isAdmin.equals("true")) {
-//                Intent i = new Intent(SliderActivity.this,AdminActivity.class);
-//                startActivity(i);
-//                finish();
-//            }
-//        }
+        //check if first run
+        SharedPreferences settings=getSharedPreferences("prefs",0);
+        boolean firstRun=settings.getBoolean("firstRun",false);
+        if(firstRun==false)//if running for first time
+        //Splash will load for first time
+        {
+            SharedPreferences.Editor editor=settings.edit();
+            editor.putBoolean("firstRun",true);
+            editor.apply();
+//            Intent i=new Intent(SliderActivity.this,Splash.class);
+//            startActivity(i);
+//            finish();
+        }
+        else
+        {
+            if (isAdmin.equals("false")) {
+                Intent i = new Intent(SliderActivity.this,BottomNav.class);
+                startActivity(i);
+                finish();
+            }else if (isAdmin.equals("true")) {
+                Intent i = new Intent(SliderActivity.this,AdminActivity.class);
+                startActivity(i);
+                finish();
+            }
+        }
 
         viewPager = findViewById(R.id.sliderViewPager);
         linearLayout = findViewById(R.id.dots);
@@ -147,7 +147,7 @@ public class SliderActivity extends AppCompatActivity {
                 btnPrev.setEnabled(false);
                 btnPrev.setVisibility(View.INVISIBLE);
 
-                btnNext.setText("Next");
+                btnNext.setText("التالي");
                 btnPrev.setText("");
             } else if (position == dots.length - 1) {
                 btnNext.setEnabled(false);
@@ -157,14 +157,16 @@ public class SliderActivity extends AppCompatActivity {
                 //btnNext.setText("Finish");
                 btnNext.setVisibility(View.INVISIBLE);
                 btnFinish.setVisibility(View.VISIBLE);
-                btnPrev.setText("Back");
+                btnPrev.setText("السابق");
             } else {
                 btnNext.setEnabled(true);
                 btnPrev.setEnabled(true);
                 btnPrev.setVisibility(View.VISIBLE);
+                btnFinish.setVisibility(View.INVISIBLE);
+                btnNext.setVisibility(View.VISIBLE);
 
-                btnNext.setText("Next");
-                btnPrev.setText("Back");
+                btnNext.setText("التالي");
+                btnPrev.setText("السابق");
             }
 
         }

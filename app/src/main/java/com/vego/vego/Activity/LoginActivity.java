@@ -186,6 +186,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onSuccess(LoginResult loginResult) {
                 progressDialog.setMessage("جاري تسجيل الدخول ... يرجى الانتظار");
                 progressDialog.show();
+                progressDialog.setCancelable(false);
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 firebaseAuthWithFacebook(loginResult.getAccessToken());
             }
@@ -403,6 +404,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if(!username.isEmpty() && !password.isEmpty()) {
             progressDialog.setMessage("يرجى الانتظار ...");
             progressDialog.show();
+            progressDialog.setCancelable(false);
             firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {

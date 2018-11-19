@@ -71,7 +71,6 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                     .load(exListTest.getImage())
                     //.placeholder(R.drawable.ic_loading)
                     .fit()
-                    .centerCrop()
                     .into(holder.exImage, new Callback() {
                         @Override
                         public void onSuccess() {

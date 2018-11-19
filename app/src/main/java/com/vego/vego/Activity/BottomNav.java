@@ -63,6 +63,8 @@ import com.vego.vego.Fragment.TrackProgressFragmentUser;
 import com.vego.vego.R;
 import com.vego.vego.model.UserInfo;
 
+import java.util.Objects;
+
 public class BottomNav extends AppCompatActivity {
     android.support.v7.widget.Toolbar toolbar;
     FirebaseAuth firebaseAuth;
@@ -97,7 +99,7 @@ public class BottomNav extends AppCompatActivity {
 
                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
-                rootRef = rootRef.child("Ayman").child(FirebaseAuth.getInstance().getUid()).child("userToken");
+                rootRef = rootRef.child("Ayman").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).child("userToken");
 
                 rootRef.setValue(newToken);
 
@@ -131,7 +133,7 @@ public class BottomNav extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         final DatabaseReference databaseReference = firebaseDatabase.getReference().child("users")
-                .child(firebaseAuth.getUid()).child("Profile");
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).child("Profile");
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {

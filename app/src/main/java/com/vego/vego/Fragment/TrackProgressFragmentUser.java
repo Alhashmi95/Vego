@@ -216,8 +216,8 @@ public class TrackProgressFragmentUser extends Fragment {
         updateWeights = view.findViewById(R.id.btnUpdateWeight);
 
         p = new ProgressDialog(getContext());
-        p.setTitle("Loading");
-        p.setMessage("Fetching data...");
+        p.setTitle("تحميل");
+        p.setMessage(" جاري التحميل...");
         p.show();
 
 

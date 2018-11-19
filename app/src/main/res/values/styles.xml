@@ -20,6 +20,9 @@
 
     </style>
 
+    <style name="WhiteAccent">
+        <item name="colorAccent">@color/md_white_1000</item> <!-- Whatever color you want-->
+    </style>
 
 
 </resources>
