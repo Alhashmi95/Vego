@@ -49,8 +49,9 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/admin_nav"
         android:background="#333333"
+        app:itemIconTint="@color/grey"
         android:scrollbars="horizontal"
-        app/>
+        />
 
     <FrameLayout
         android:id="@+id/fCenterAdmin"
