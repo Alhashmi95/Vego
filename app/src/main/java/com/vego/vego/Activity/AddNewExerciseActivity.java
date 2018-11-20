@@ -107,7 +107,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         selectMu = findViewById(R.id.spinnerMu);
         imageViewEx = findViewById(R.id.imageViewNewEx);
 
-        imageViewEx.setImageResource(R.drawable.addpic);
+        imageViewEx.setImageResource(R.drawable.addpic2);
        // videoViewEx = findViewById(R.id.videoViewNewEx);
 //        addVid = findViewById(R.id.addVid);
 
