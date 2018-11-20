@@ -19,6 +19,7 @@
         app:tabSelectedTextColor="@color/md_white_1000"
         app:tabIndicatorColor="@color/md_white_1000"
         app:tabTextColor="@color/md_white_1000"
+        android:layoutDirection="rtl"
         />
 
     <android.support.design.widget.TabLayout
@@ -30,7 +31,8 @@
         app:tabGravity="fill"
         app:tabMode="fixed"
         app:tabIndicatorColor="@color/blackGrey"
-        app:tabTextColor="@color/scifitBlue" />
+        app:tabTextColor="@color/scifitBlue"
+        android:layoutDirection="rtl"/>
 
 
     <RelativeLayout

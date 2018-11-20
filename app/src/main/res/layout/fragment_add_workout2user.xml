@@ -29,7 +29,8 @@
                 app:tabIndicatorColor="@color/md_white_1000"
                 app:tabTextColor="@color/md_white_1000"
                 app:tabSelectedTextColor="@color/md_white_1000"
-                app:tabMode="scrollable" />
+                app:tabMode="scrollable"
+                android:layoutDirection="rtl"/>
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tablayoutWeek"
@@ -40,7 +41,8 @@
                 app:tabGravity="fill"
                 app:tabMode="fixed"
                 app:tabIndicatorColor="@color/blackGrey"
-                app:tabTextColor="@color/scifitBlue" />
+                app:tabTextColor="@color/scifitBlue"
+                android:layoutDirection="rtl"/>
 
             <Button
                 android:id="@+id/btn_addMonth"
