@@ -307,13 +307,28 @@ public class ChatFragment extends Fragment implements ResponseFcmToken {
 
                     }
                 });
+                root.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(!dataSnapshot.child(firebaseAuth.getCurrentUser().getUid()).exists()){
+                            p.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+
 
 
             private String chat_msg, chat_user_name;
