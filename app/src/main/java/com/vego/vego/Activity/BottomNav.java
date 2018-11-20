@@ -136,13 +136,14 @@ public class BottomNav extends AppCompatActivity {
                 .child(firebaseAuth.getCurrentUser().getUid()).child("Profile");
 
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 userInfo = dataSnapshot.getValue(UserInfo.class);
 
                 // Create the AccountHeader
+                assert userInfo != null;
                 if(userInfo.getImage() != null) {
                     //initialize and create the image loader logic
                     DrawerImageLoader.init(new AbstractDrawerImageLoader() {

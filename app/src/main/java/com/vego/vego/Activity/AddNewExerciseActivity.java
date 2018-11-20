@@ -228,7 +228,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
 
 
                     // here we upload meal pics
-                    exRef = storageReference.child("exercises/").child(String.valueOf(indexofImages));
+                    exRef = storageReference.child("exercises/").child(String.valueOf(indexofImagesForAll));
 
                     UploadTask uploadTask = (UploadTask) exRef.putFile(imagePath);
                     if (uploadTask != null && uploadTask.isInProgress()) {

@@ -375,6 +375,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             } else {
                 // Google Sign In failed
                 Log.e(TAG, "Google Sign In failed.");
+                progressDialog.dismiss();
             }
         }
     }
