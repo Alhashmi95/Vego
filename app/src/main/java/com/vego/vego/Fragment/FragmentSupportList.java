@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,7 +34,7 @@ import java.util.ArrayList;
  * {@link FragmentSupportList.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class FragmentSupportList extends Fragment {
+public class FragmentSupportList extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private FirebaseDatabase firebaseDatabase;
     ArrayList<UserInfo> userinfo;
@@ -44,10 +46,13 @@ public class FragmentSupportList extends Fragment {
     ArrayList<UserInfo> userList = new ArrayList<>();
     ProgressDialog p;
 
+    SwipeRefreshLayout swipeLayout;
+
 
 
     private OnFragmentInteractionListener mListener;
     private ArrayList<UserInfo> uid = new ArrayList<>();
+    boolean checker = false;
 
     public FragmentSupportList() {
         // Required empty public constructor
@@ -75,19 +80,42 @@ public class FragmentSupportList extends Fragment {
         p.show();
         p.setCancelable(false);
 
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
+        swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
 
 
     }
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        getUsers();
+//    }
+
     public void getUsers() {
         userinfo = new ArrayList<>();
+        userList.clear();
+        userinfo.clear();
+
+        if(checker) {
+            p = new ProgressDialog(getContext());
+            p.setMessage("جاري التحميل... ");
+            p.show();
+        }
+
+
         firebaseDatabase = FirebaseDatabase.getInstance();
 
 
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("users");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 // Result will be holded Here
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
@@ -194,6 +222,34 @@ public class FragmentSupportList extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
+    @Override
+    public void onRefresh() {
+        // Reload current fragment
+        Fragment frg = null;
+        String tag = FragmentSupportList.this.getTag();
+        assert getFragmentManager() != null;
+        frg = getFragmentManager().findFragmentByTag(tag);
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(frg);
+        ft.attach(frg);
+        ft.commit();
+
+    }
+
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        // Reload current fragment
+//        Fragment frg = null;
+//        String tag = FragmentSupportList.this.getTag();
+//        assert getFragmentManager() != null;
+//        frg = getFragmentManager().findFragmentByTag(tag);
+//        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+//        ft.detach(frg);
+//        ft.attach(frg);
+//        ft.commit();
+//    }
 
     /**
      * This interface must be implemented by activities that contain this
