@@ -18,7 +18,8 @@
         app:tabIndicatorColor="@color/md_white_1000"
         app:tabTextColor="@color/md_white_1000"
         app:tabSelectedTextColor="@color/md_white_1000"
-        app:tabMode="scrollable" />
+        app:tabMode="scrollable"
+        android:layoutDirection="rtl"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayoutWeek"
@@ -29,7 +30,8 @@
         app:tabGravity="fill"
         app:tabMode="fixed"
         app:tabIndicatorColor="@color/blackGrey"
-        app:tabTextColor="@color/scifitBlue" />
+        app:tabTextColor="@color/scifitBlue"
+        android:layoutDirection="rtl"/>
 
     <Button
         android:id="@+id/btn_addMonth"
@@ -145,7 +147,7 @@
                     android:gravity="right"
                     android:text="الهدف الرياضي"
                     android:textColor="@color/blackGrey"
-                    android:textSize="11sp"
+                    android:textSize="11dp"
                     app:layout_constraintEnd_toStartOf="@+id/imageView9"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -160,7 +162,7 @@
                     android:layout_marginTop="16dp"
                     android:text="عالي"
                     android:textColor="@color/blackGrey"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView13"
                     app:layout_constraintTop_toBottomOf="@+id/tvprofileGoal" />
@@ -168,7 +170,7 @@
                 <TextView
                     android:id="@+id/tvProfileAge"
 
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
                     android:layout_height="30dp"
                     android:layout_below="@+id/tvWeight"
                     android:layout_centerHorizontal="true"
@@ -178,13 +180,13 @@
                     android:gravity="center"
                     android:text="23 سنة"
                     android:textColor="@color/blackGrey"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     app:layout_constraintEnd_toStartOf="@+id/imageView12"
                     app:layout_constraintTop_toBottomOf="@+id/tvProfileName" />
 
                 <TextView
                     android:id="@+id/tvProfileHeight"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:layout_above="@+id/tvProfileAge"
                     android:layout_centerHorizontal="true"
@@ -194,14 +196,14 @@
                     android:gravity="center"
                     android:text="190 سم"
                     android:textColor="@color/blackGrey"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     app:layout_constraintEnd_toStartOf="@+id/imageView11"
                     app:layout_constraintTop_toBottomOf="@+id/tvProfileName" />
 
                 <TextView
                     android:id="@+id/tvWeight"
 
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
                     android:layout_height="30dp"
                     android:layout_alignLeft="@+id/tvprofileGoal"
                     android:layout_alignStart="@+id/tvprofileGoal"
@@ -212,7 +214,7 @@
                     android:gravity="center"
                     android:text="72 كغ"
                     android:textColor="@color/blackGrey"
-                    android:textSize="13sp"
+                    android:textSize="13dp"
                     app:layout_constraintEnd_toStartOf="@+id/imageView10"
                     app:layout_constraintTop_toBottomOf="@+id/tvProfileName" />
 
@@ -228,7 +230,7 @@
                     android:gravity="right"
                     android:text="إسم المتدرب"
                     android:textColor="@color/blackGrey"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintEnd_toStartOf="@+id/imageView8"
                     app:layout_constraintTop_toTopOf="parent" />
 
