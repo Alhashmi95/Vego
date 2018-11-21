@@ -314,6 +314,7 @@ public class AddMealsFragment extends Fragment {
         p.setTitle("تحميل");
         p.setMessage("يرجى الانتظار");
         p.show();
+        p.setCancelable(false);
 
 
         getUsers();
