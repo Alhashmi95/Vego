@@ -49,7 +49,7 @@ dependencies {
     //add spinner lib
     implementation 'com.jaredrummler:material-spinner:1.2.5'
     //for accessing fire base read/write
-    implementation 'com.google.firebase:firebase-database:16.0.4'
+    implementation 'com.google.firebase:firebase-database:16.0.5'
     //to see .....
     implementation 'com.google.firebase:firebase-core:16.0.5'
     //add this for drawer
@@ -60,7 +60,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
     //add firebase storage to store imgs, vids, audios ...etc
-    implementation 'com.google.firebase:firebase-storage:16.0.4'
+    implementation 'com.google.firebase:firebase-storage:16.0.5'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'com.android.support:design:26.1.0'
     //spinner
@@ -102,6 +102,8 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.googlecode.json-simple:json-simple:1.1'
+
+
 
 //    implementation 'com.github.bumptech.glide:glide:4.4.0'
 //    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'

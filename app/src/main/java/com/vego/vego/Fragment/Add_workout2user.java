@@ -16,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.spyhunter99.supertooltips.ToolTip;
+import com.spyhunter99.supertooltips.ToolTipManager;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.vego.vego.Activity.ActivityInsideExercise;
@@ -186,6 +189,8 @@ public class Add_workout2user extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private exercise exObject;
+    private ToolTipManager tooltips;
+    private ViewGroup rootLayout;
 
     public Add_workout2user() {
         // Required empty public constructor
@@ -295,6 +300,10 @@ public class Add_workout2user extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
 
         progressBar.setVisibility(View.GONE);
+
+        //rootLayout = view.findViewById(R.id.root);
+
+        tooltips = new ToolTipManager(getActivity());
 
         p = new ProgressDialog(getContext());
 
@@ -702,6 +711,23 @@ public class Add_workout2user extends Fragment {
                 profileHeight.setText(userinfo.getHeight()+" سم");
                 profileActivity.setText(userinfo.getUserActivity());
                 profileGoal.setText(userinfo.getUserGoal());
+
+                if(userinfo.getUserGoal().equals("خسارة الدهون والمحافظة على العضلات")){
+                    profileGoal.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            ToolTip toolTip = new ToolTip()
+                                    .withText("خسارة الدهون والمحافظة على العضلات")
+                                    .withColor(Color.GRAY) //or whatever you want
+                                    .withAnimationType(ToolTip.AnimationType.FROM_MASTER_VIEW)
+                                    .withTextColor(Color.WHITE)
+                                    .withPosition(ToolTip.Position.LEFT)
+                                    .withShadow();
+                            tooltips.showToolTip(toolTip, spSelectUser);
+                            return true;
+                        }
+                    });
+                }
             }
 
             @Override

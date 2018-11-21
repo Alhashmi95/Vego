@@ -39,6 +39,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import com.spyhunter99.supertooltips.ToolTip;
+import com.spyhunter99.supertooltips.ToolTipManager;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.vego.vego.Activity.AddNewMealActivity;
@@ -181,6 +183,12 @@ public class AddMealsFragment extends Fragment {
     private ArrayList<MonthMeal> monthMeals = new ArrayList<>();
     private int monthCountIndex = 0;
 
+    ViewGroup root;
+    private View view;
+
+    ToolTipManager tooltips;
+
+
     public AddMealsFragment() {
         // Required empty public constructor
     }
@@ -217,7 +225,8 @@ public class AddMealsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_meals, container, false);
+        view = inflater.inflate(R.layout.fragment_add_meals, container, false);
+        return view;
 
 
     }
@@ -290,6 +299,11 @@ public class AddMealsFragment extends Fragment {
 
         recyclerViewIngr = view.findViewById(R.id.rv_mealIngr);
         recyclerViewDet = view.findViewById(R.id.rv_mealDet);
+
+        root = view.findViewById(R.id.root);
+
+        tooltips = new ToolTipManager(getActivity());
+
 
         // هذا الكود لربط الكارد فيو
         recyclerViewIngr.setHasFixedSize(true);
@@ -1451,6 +1465,23 @@ public class AddMealsFragment extends Fragment {
                 profileHeight.setText(userinfo.getHeight()+" سم");
                 profileActivity.setText(userinfo.getUserActivity());
                 profileGoal.setText(userinfo.getUserGoal());
+
+                if(userinfo.getUserGoal().equals("خسارة الدهون والمحافظة على العضلات")){
+                    profileGoal.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            ToolTip toolTip = new ToolTip()
+                                    .withText("خسارة الدهون والمحافظة على العضلات")
+                                    .withColor(Color.GRAY) //or whatever you want
+                                    .withAnimationType(ToolTip.AnimationType.FROM_MASTER_VIEW)
+                                    .withTextColor(Color.WHITE)
+                                    .withPosition(ToolTip.Position.LEFT)
+                                    .withShadow();
+                            tooltips.showToolTip(toolTip, spSelectUser);
+                            return true;
+                        }
+                    });
+                }
             }
 
             @Override
@@ -2201,5 +2232,10 @@ public class AddMealsFragment extends Fragment {
                 chosenWeek = "week4";
             }
         }
+    }
+    public void onDestroy() {
+        super.onDestroy();
+        tooltips.onDestroy();
+        tooltips = null;
     }
 }

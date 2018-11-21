@@ -127,6 +127,7 @@ public class TrackProgressFragmentAdmin extends Fragment {
         p.setTitle("تحميل");
         p.setMessage("يرجى الانتظار");
         p.show();
+        p.setCancelable(false);
 
         currentWeight = view.findViewById(R.id.tvCurrentWeight);
         previousWeight = view.findViewById(R.id.tvPreviousWeight);
