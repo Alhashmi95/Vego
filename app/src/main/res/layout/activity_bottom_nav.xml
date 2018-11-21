@@ -47,7 +47,8 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/menu_nav"
         android:background="#333333"
-        android:scrollbars="horizontal" />
+        android:scrollbars="horizontal"
+        app:itemIconTint="@color/grey"/>
 
 
 
