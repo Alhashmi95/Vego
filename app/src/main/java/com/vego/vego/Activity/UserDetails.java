@@ -324,7 +324,7 @@ Exercises[] workoutDay;
         DatabaseReference databasaeReference = firebaseDatabase.getReference();
         UserInfo userInfo = new UserInfo(name, weight, height, age, userActivity, userGoal,
                 (ArrayList<DietDay>) dietList,"false",firebaseAuth.getUid()," "
-                ,"الرجاء الانتظار لحين وضع برنامج حمية من قبل المدرب...",firebaseAuth.getCurrentUser().getEmail());
+                ,"الرجاء التواصل مع المدرب عن طريق خانة الدعم حتى يتم وضع جدول غذائي وجدول تمارين خاص بك",firebaseAuth.getCurrentUser().getEmail());
 
         HashMap<String,String> hashMap=new HashMap<>();
         hashMap.put("age",userInfo.age);

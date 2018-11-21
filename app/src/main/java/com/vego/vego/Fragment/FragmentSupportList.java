@@ -238,8 +238,8 @@ public class FragmentSupportList extends Fragment implements SwipeRefreshLayout.
     }
 
 //    @Override
-//    public void onPause() {
-//        super.onPause();
+//    public void onResume() {
+//        super.onResume();
 //        // Reload current fragment
 //        Fragment frg = null;
 //        String tag = FragmentSupportList.this.getTag();
