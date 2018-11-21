@@ -302,8 +302,6 @@ public class AddMealsFragment extends Fragment {
 
         root = view.findViewById(R.id.root);
 
-        tooltips = new ToolTipManager(getActivity());
-
 
         // هذا الكود لربط الكارد فيو
         recyclerViewIngr.setHasFixedSize(true);
@@ -1429,7 +1427,7 @@ public class AddMealsFragment extends Fragment {
 //                    databaseReference3.setValue(mTest3);
 //                    databaseReference4.setValue(mTest4);
 //                    databaseReference5.setValue(mTest5);
-                   // getUsers();
+                    // getUsers();
 
 
                     Toast.makeText(getContext(), "تم حفظ الوجبة", Toast.LENGTH_LONG).show();
@@ -1439,7 +1437,7 @@ public class AddMealsFragment extends Fragment {
 
                     int chossenDayInt = Integer.valueOf(choosenDay) + 1;
                     databaseReferenceDay.setValue(String.valueOf(chossenDayInt));
-                 //   getUsers();
+                    //   getUsers();
                 }
             }
         });
@@ -1460,28 +1458,33 @@ public class AddMealsFragment extends Fragment {
 
 
                 profileName.setText(userinfo.getName());
-                profileAge.setText(userinfo.getAge()+" سنة");
-                profileWeight.setText(userinfo.getWeight()+" كغ");
-                profileHeight.setText(userinfo.getHeight()+" سم");
+                profileAge.setText(userinfo.getAge() + " سنة");
+                profileWeight.setText(userinfo.getWeight() + " كغ");
+                profileHeight.setText(userinfo.getHeight() + " سم");
                 profileActivity.setText(userinfo.getUserActivity());
                 profileGoal.setText(userinfo.getUserGoal());
 
-                if(userinfo.getUserGoal().equals("خسارة الدهون والمحافظة على العضلات")){
-                    profileGoal.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
+                tooltips = new ToolTipManager(getActivity());
+                profileGoal.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if (userinfo.getUserGoal().equals("خسارة الدهون والمحافظة على العضلات") ||
+                                userinfo.getUserGoal().equals("المحافظة على الوزن الحالي")) {
                             ToolTip toolTip = new ToolTip()
-                                    .withText("خسارة الدهون والمحافظة على العضلات")
+                                    .withText(userinfo.getUserGoal())
                                     .withColor(Color.GRAY) //or whatever you want
                                     .withAnimationType(ToolTip.AnimationType.FROM_MASTER_VIEW)
                                     .withTextColor(Color.WHITE)
                                     .withPosition(ToolTip.Position.LEFT)
                                     .withShadow();
                             tooltips.showToolTip(toolTip, spSelectUser);
-                            return true;
                         }
-                    });
-                }
+                        return true;
+                    }
+                });
+
+//                    tooltips.closeActiveTooltip();
+
             }
 
             @Override
@@ -1688,7 +1691,6 @@ public class AddMealsFragment extends Fragment {
                         arrayList2.add(dataSnapshot1.getKey());
                         spinnerArrayAdapter.notifyDataSetChanged();
                     }
-
 
 
 //                    Log.d("test","this is size of arr: "+ array.length);
@@ -2233,6 +2235,7 @@ public class AddMealsFragment extends Fragment {
             }
         }
     }
+
     public void onDestroy() {
         super.onDestroy();
         tooltips.onDestroy();

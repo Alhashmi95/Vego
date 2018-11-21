@@ -712,22 +712,24 @@ public class Add_workout2user extends Fragment {
                 profileActivity.setText(userinfo.getUserActivity());
                 profileGoal.setText(userinfo.getUserGoal());
 
-                if(userinfo.getUserGoal().equals("خسارة الدهون والمحافظة على العضلات")){
-                    profileGoal.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
+                tooltips = new ToolTipManager(getActivity());
+                profileGoal.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if (userinfo.getUserGoal().equals("خسارة الدهون والمحافظة على العضلات") ||
+                                userinfo.getUserGoal().equals("المحافظة على الوزن الحالي")) {
                             ToolTip toolTip = new ToolTip()
-                                    .withText("خسارة الدهون والمحافظة على العضلات")
+                                    .withText(userinfo.getUserGoal())
                                     .withColor(Color.GRAY) //or whatever you want
                                     .withAnimationType(ToolTip.AnimationType.FROM_MASTER_VIEW)
                                     .withTextColor(Color.WHITE)
                                     .withPosition(ToolTip.Position.LEFT)
                                     .withShadow();
                             tooltips.showToolTip(toolTip, spSelectUser);
-                            return true;
                         }
-                    });
-                }
+                        return true;
+                    }
+                });
             }
 
             @Override
