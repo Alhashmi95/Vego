@@ -101,7 +101,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                     .centerCrop()
                     .into(holder.muImage);
         }
-        if(mu.equals("قدم")){
+        if(mu.equals("افخاذ")){
             Picasso.get()
                     .load(R.drawable.mu_quadriceps)
                     //.placeholder(R.drawable.ic_loading)

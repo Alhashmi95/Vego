@@ -156,7 +156,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
         rvHistory = findViewById(R.id.rv_history);
         rvHistory2 = findViewById(R.id.rv_history2);
 
-        videoView = findViewById(R.id.video);
+//        videoView = findViewById(R.id.video);
 
         cUsual = findViewById(R.id.relativeLayout4);
         cFree = findViewById(R.id.relativeLayout4Free);
@@ -362,7 +362,7 @@ public class ActivityInsideExercise extends AppCompatActivity {
 //                .centerCrop()
 //                .into(imageViewEx);
         if (!exImage.isEmpty()) {
-            videoView.setVisibility(View.GONE);
+            //videoView.setVisibility(View.GONE);
             Ion.with(this)
                     .load(exImage)
                     .progressBar(progressBar)
@@ -384,13 +384,13 @@ public class ActivityInsideExercise extends AppCompatActivity {
 //            //small window video
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
-            android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
-            params.width = (int) (300 * metrics.density);
-            params.height = (int) (250 * metrics.density);
-            params.leftMargin = 200;
-            params.rightMargin = 200;
-            params.bottomMargin = 1500;
-            params.topMargin = 100;
+//            android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
+//            params.width = (int) (300 * metrics.density);
+//            params.height = (int) (250 * metrics.density);
+//            params.leftMargin = 200;
+//            params.rightMargin = 200;
+//            params.bottomMargin = 1500;
+//            params.topMargin = 100;
 
             //media player
             getWindow().setFormat(PixelFormat.TRANSLUCENT);
@@ -401,18 +401,18 @@ public class ActivityInsideExercise extends AppCompatActivity {
             bar.show();
             if (bar.isShowing()) {
                 Uri uri = Uri.parse(path);
-                videoView.setVideoURI(uri);
-                videoView.start();
+              //  videoView.setVideoURI(uri);
+              //  videoView.start();
                 ctlr = new MediaController(this);
                 ctlr.setMediaPlayer(videoView);
-                videoView.setMediaController(ctlr);
-                videoView.requestFocus();
+              //  videoView.setMediaController(ctlr);
+              //  videoView.requestFocus();
             }
             bar.dismiss();
 
             //videoView.setLayoutParams(params);
 
-            videoViewEnlarge();
+         //   videoViewEnlarge();
         }
 
         for (int i = 0; i < setsList.size(); i++) {
@@ -434,8 +434,8 @@ public class ActivityInsideExercise extends AppCompatActivity {
                 getExerciseFree();
                 recyclerViewHistory.setVisibility(View.GONE);
                 historyText.setVisibility(View.GONE);
-                rvHistory.setVisibility(View.GONE);
-                rvHistory2.setVisibility(View.GONE);
+                rvHistory.setVisibility(View.INVISIBLE);
+                rvHistory2.setVisibility(View.INVISIBLE);
 
             } else {
                 addNewSetBtn.setVisibility(View.INVISIBLE);

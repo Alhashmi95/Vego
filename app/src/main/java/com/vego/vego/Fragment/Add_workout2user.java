@@ -1365,7 +1365,7 @@ public class Add_workout2user extends Fragment {
                 "سواعد",
                 "صدر",
                 "ظهر",
-                "قدم",
+                "افخاذ",
                 "عضلة السمانة",
                 "كارديو",
         };

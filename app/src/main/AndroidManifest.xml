@@ -21,7 +21,7 @@
         android:icon="@drawable/icon_home"
         android:label="SCIFIT"
         android:largeHeap="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_home_round"
         android:supportsRtl="true"
         android:theme="@style/MyActionBar"
         tools:replace="android:label">
@@ -68,8 +68,8 @@
             android:theme="@style/AppThemeNo" />
         <activity
             android:name=".Activity.LoginActivity"
-            android:theme="@style/AppThemeNo"
             android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNo"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".Activity.SignupActivity"
@@ -77,13 +77,13 @@
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".Activity.UserDetails"
-            android:theme="@style/AppThemeNo"
             android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNo"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".Activity.BottomNav"
-            android:theme="@style/AppThemeNo"
             android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNo"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".Activity.ProfileActivity"
@@ -103,18 +103,15 @@
             android:theme="@style/AppThemeNo" />
         <activity
             android:name=".Activity.UpdateProfileActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.AddNewMealActivity"
-            android:windowSoftInputMode="stateVisible|adjustPan"
             android:screenOrientation="portrait"
-            />
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".Activity.AddNewExerciseActivity"
-            android:windowSoftInputMode="stateVisible|adjustPan"
             android:screenOrientation="portrait"
-            />
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name=".Activity.ActivityWorkoutUser" />
         <activity
             android:name=".Activity.ActivityInsideExercise"
@@ -141,7 +138,8 @@
         </service>
 
         <activity android:name=".Activity.InsideChatActivity" />
-        <activity android:name=".Activity.SliderActivity"></activity>
+        <activity android:name=".Activity.SliderActivity" />
+        <activity android:name=".Activity.CopyExMeActivity"></activity>
     </application>
 
 </manifest>

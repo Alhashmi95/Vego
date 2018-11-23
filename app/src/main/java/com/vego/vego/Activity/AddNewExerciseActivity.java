@@ -228,7 +228,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
 
 
                     // here we upload meal pics
-                    exRef = storageReference.child("exercises/").child(String.valueOf(indexofImagesForAll));
+                    exRef = storageReference.child("exercisesForALL/").child(String.valueOf(indexofImagesForAll));
 
                     UploadTask uploadTask = (UploadTask) exRef.putFile(imagePath);
                     if (uploadTask != null && uploadTask.isInProgress()) {
@@ -484,7 +484,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                 "سواعد",
                 "صدر",
                 "ظهر",
-                "قدم",
+                "افخاذ",
                 "عضلة السمانة",
                 "كارديو",
         };

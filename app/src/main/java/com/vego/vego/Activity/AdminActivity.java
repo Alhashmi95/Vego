@@ -137,7 +137,8 @@ public class AdminActivity extends AppCompatActivity {
                 //if you want to update the items at a later time it is recommended to keep it in a variable
                 PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("الصفحة الرئيسية");
                 PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("الملف الشخصي");
-                PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("تسجيل الخروج");
+                PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("نسخ جدول الوجبات/التمارين");
+                PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName("تسجيل الخروج");
 
 
                 //     toolbar.setNavigationIcon(R.drawable.icons_calendar_px_);
@@ -151,7 +152,8 @@ public class AdminActivity extends AppCompatActivity {
                         .addDrawerItems(
                                 item1.withIcon(R.drawable.ic_home_black_24dp)
                                 ,item2.withIcon(R.drawable.profile_ic2)
-                                ,item3.withIcon(R.drawable.logout_ic)
+                                ,item3.withIcon(R.drawable.ic_copy)
+                                ,item4.withIcon(R.drawable.logout_ic)
                         )
                         .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                             @Override
@@ -165,6 +167,9 @@ public class AdminActivity extends AppCompatActivity {
                                         startActivity(new Intent(AdminActivity.this, UpdateProfileActivity.class));
                                         break;
                                     case 3:
+                                        startActivity(new Intent(AdminActivity.this, CopyExMeActivity.class));
+                                        break;
+                                    case 4:
                                         Logout();
                                         break;
                                 }

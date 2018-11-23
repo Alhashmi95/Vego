@@ -122,7 +122,7 @@ public class FragmentWallet extends Fragment {
                 MuList.add(new Mucsle("تراي",R.drawable.mu_triceps,ex2List));
                 MuList.add(new Mucsle("صدر",R.drawable.mu_chest,ex2List));
                 MuList.add(new Mucsle("ظهر",R.drawable.mu_bavk,ex2List));
-                MuList.add(new Mucsle("قدم",R.drawable.mu_quadriceps,ex2List));
+                MuList.add(new Mucsle("افخاذ",R.drawable.mu_quadriceps,ex2List));
                 MuList.add(new Mucsle("سواعد",R.drawable.mu_swa3d,ex2List));
                 MuList.add(new Mucsle("كارديو",R.drawable.ic_cardio,ex2List));
                 MuList.add(new Mucsle("عضلة السمانة",R.drawable.mu_gastrocnemius,ex2List));
